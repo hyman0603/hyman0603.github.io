@@ -2,12 +2,12 @@
 #   Main Configs   #
 # ---------------- #
 baseurl:
-url: http://beginman.cn
+url: https://github.com/hyman0603/hyman0603.github.io
 date_format: "ordinal"
-title: Beginman
+title: hyman
 subtitle: "😁虚心谦卑，永远做个小学生！"
-description: "beginman's blog"
-keywords: beginman, 博客, 学习, 总结
+description: "hyman's blog"
+keywords: hyman, 博客, 学习, 总结
 favicon: /favicon.ico
 timezone: Asia/Shanghai
 encoding: "utf-8"
@@ -16,10 +16,10 @@ side_bar_repo_limit: 5
 # ---------------- #
 #      Author      #
 # ---------------- #
-author: Beginman
+author: hyman
 organization: None, Inc.
 organization_url: https://www.google.com
-location: Beijing, China
+location: Guangdong, China
 email: pythonsuper@gmail.com
 
 # ---------------- #
@@ -38,9 +38,9 @@ navs:
     href: /wiki/
     label: 维基
 
-  -
-    href: /links/
-    label: 链接
+  #-
+  #  href: /links/
+  #  label: 链接
 
   -
     href: /about/
@@ -77,17 +77,16 @@ collections:
         output: true
         permalink: /wiki/:path/
 
-repository: beginman/beginman.github.io
+repository: hyman0603/hyman0603.github.io
 
 # ---------------- #
 #      Socials     #
 # ---------------- #
-github_username: beginman
-douban_username: beginman
-facebook_username: beginman
-weibo_username: beginman
-zhihu_username: beginman
-twitter_username: fpsir
+github_username: hyman
+
+
+#weibo_username: hyman
+
 
 # ---------------- #
 #      Comments    #
@@ -96,8 +95,8 @@ twitter_username: fpsir
 comments_provider: disqus
 # !!!重要!!! 请修改下面两个用户名为你自己申请的
 # !!!Important!!! Please modify usernames below to yours
-duoshuo_username: beginman
-disqus_username: beginman
+duoshuo_username: hyman
+disqus_username: hyman
 # 在使用 disqus 的时候可点击显示多说评论框
 lazy_load_duoshuo: true
 
