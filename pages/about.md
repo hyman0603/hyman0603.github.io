@@ -8,13 +8,15 @@ menu: 关于
 permalink: /about/
 ---
 
-beginman(方朋)
+hyman
+
+
+
 
 ## 联系
 
 * 博客：[{{ site.title }}]({{ site.url }})
-* 微博: [@beginman](http://weibo.com/beginman)
-* 知乎: [@beginman](http://www.zhihu.com/people/beginman)
-* 豆瓣: [@beginman](http://www.douban.com/people/beginman)
+* 微博: [@hyman](http://weibo.com/hyman)
+
 
 
