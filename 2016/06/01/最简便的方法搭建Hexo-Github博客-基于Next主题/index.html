@@ -1,0 +1,1420 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="google-site-verification" content="slU7WGdqyQLWmN4bhJfTVu74kyLWVfgWyN2B6pTvgWg" />
+<meta name="baidu-site-verification" content="uqWfhy4ysi" />
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Hexo,Next,github," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="朝夕" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="http://ww4.sinaimg.cn/square/937882b5jw1f4db4lroy9j20hs0npmy6.jpg?v=5.0.1" />
+
+
+
+
+
+
+<meta name="description" content="前言Hexo，反正我第一眼看到就喜欢上了它的简约，感受一下吧。如果你喜欢写作，我觉得你可以试试gitbook或者跟着本文搭建一个属于自己的博客空间（即使你不是IT行业的一员），不再受限于第三方博客地址，当然Hexo搭建的博客也是基于github托管的，但是并不需要你购买域名。经过两天的探索加爬坑，终于把博客在git上安家了，感谢开源的大哥大姐们，由于并非js开发，所以遇到了很多坑，于是也想整理一篇">
+<meta property="og:type" content="article">
+<meta property="og:title" content="最简便的方法搭建Hexo+Github博客,基于Next主题">
+<meta property="og:url" content="chaserr.github.io/2016/06/01/最简便的方法搭建Hexo-Github博客-基于Next主题/index.html">
+<meta property="og:site_name" content="朝夕">
+<meta property="og:description" content="前言Hexo，反正我第一眼看到就喜欢上了它的简约，感受一下吧。如果你喜欢写作，我觉得你可以试试gitbook或者跟着本文搭建一个属于自己的博客空间（即使你不是IT行业的一员），不再受限于第三方博客地址，当然Hexo搭建的博客也是基于github托管的，但是并不需要你购买域名。经过两天的探索加爬坑，终于把博客在git上安家了，感谢开源的大哥大姐们，由于并非js开发，所以遇到了很多坑，于是也想整理一篇">
+<meta property="og:image" content="http://7xuupy.com1.z0.glb.clouddn.com/Snip20160531_1.png">
+<meta property="og:image" content="http://7xuupy.com1.z0.glb.clouddn.com/Snip20160531_3.png">
+<meta property="og:image" content="http://7xuupy.com1.z0.glb.clouddn.com/Snip20160531_5.png">
+<meta property="og:image" content="http://7xuupy.com1.z0.glb.clouddn.com/Snip20160531_4.png">
+<meta property="og:image" content="http://7xuupy.com1.z0.glb.clouddn.com/Snip20160531_6.png">
+<meta property="og:image" content="http://7xuupy.com1.z0.glb.clouddn.com/Snip20160531_7.png">
+<meta property="og:image" content="http://7xuupy.com1.z0.glb.clouddn.com/Snip20160531_8.png">
+<meta property="og:image" content="http://7xuupy.com1.z0.glb.clouddn.com/Snip20160531_9.png">
+<meta property="og:image" content="http://7xuupy.com1.z0.glb.clouddn.com/Snip20160531_10.png">
+<meta property="og:image" content="http://7xuupy.com1.z0.glb.clouddn.com/Snip20160601_11.png">
+<meta property="og:image" content="http://7xuupy.com1.z0.glb.clouddn.com/Snip20160601_11.png">
+<meta property="og:image" content="http://7xuupy.com1.z0.glb.clouddn.com/Snip20160601_11.png">
+<meta property="og:image" content="http://7xuupy.com1.z0.glb.clouddn.com/Snip20160601_12.png">
+<meta property="og:image" content="http://7xuupy.com1.z0.glb.clouddn.com/Snip20160601_13.png">
+<meta property="og:image" content="http://7xuupy.com1.z0.glb.clouddn.com/Snip20160601_14.png">
+<meta property="og:image" content="http://7xuupy.com1.z0.glb.clouddn.com/Snip20160601_15.png">
+<meta property="og:image" content="http://7xuupy.com1.z0.glb.clouddn.com/Snip20160601_18.png">
+<meta property="og:updated_time" content="2016-06-14T09:11:17.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="最简便的方法搭建Hexo+Github博客,基于Next主题">
+<meta name="twitter:description" content="前言Hexo，反正我第一眼看到就喜欢上了它的简约，感受一下吧。如果你喜欢写作，我觉得你可以试试gitbook或者跟着本文搭建一个属于自己的博客空间（即使你不是IT行业的一员），不再受限于第三方博客地址，当然Hexo搭建的博客也是基于github托管的，但是并不需要你购买域名。经过两天的探索加爬坑，终于把博客在git上安家了，感谢开源的大哥大姐们，由于并非js开发，所以遇到了很多坑，于是也想整理一篇">
+<meta name="twitter:image" content="http://7xuupy.com1.z0.glb.clouddn.com/Snip20160531_1.png">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 0,
+      author: '博主'
+    }
+  };
+</script>
+
+  <title> 最简便的方法搭建Hexo+Github博客,基于Next主题 | 朝夕 </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+          m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+  ga('create', '[object Object]', 'auto');
+  ga('send', 'pageview');
+</script>
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?01f37b7967c15247cc1d78ab19cee4f4";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta custom-logo">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">朝夕</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle">朝闻道，夕死可矣。</p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about.html" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-commonweal">
+          <a href="/404.html" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-heartbeat"></i> <br />
+            
+            公益404
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="#" class="st-search-show-outputs">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <form class="site-search-form">
+  <input type="text" id="st-search-input" class="st-search-input st-default-search-input" />
+</form>
+
+<script type="text/javascript">
+  (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+    (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+    e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+  })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+
+  _st('install', '7Qoo1zkKbfSsp5bzUjQu','2.0.0');
+</script>
+
+
+
+    </div>
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                最简便的方法搭建Hexo+Github博客,基于Next主题
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-06-01T12:08:29+08:00" content="2016-06-01">
+              2016-06-01
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/Hexo博客教程/" itemprop="url" rel="index">
+                    <span itemprop="name">Hexo博客教程</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/06/01/最简便的方法搭建Hexo-Github博客-基于Next主题/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/06/01/最简便的方法搭建Hexo-Github博客-基于Next主题/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+             <span id="/2016/06/01/最简便的方法搭建Hexo-Github博客-基于Next主题/" class="leancloud_visitors" data-flag-title="最简便的方法搭建Hexo+Github博客,基于Next主题">
+               &nbsp; | &nbsp;
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               <span class="post-meta-item-text">阅读次数 </span>
+               <span class="leancloud-visitors-count"></span>
+              </span>
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>Hexo，反正我第一眼看到就喜欢上了它的简约，<a href="http://chaserr.github.io/">感受一下吧</a>。<br>如果你喜欢写作，我觉得你可以试试gitbook或者跟着本文搭建一个属于自己的博客空间（即使你不是IT行业的一员），不再受限于第三方博客地址，当然Hexo搭建的博客也是基于github托管的，但是并不需要你购买域名。<br>经过两天的探索加爬坑，终于把博客在git上安家了，感谢开源的大哥大姐们，由于并非js开发，所以遇到了很多坑，于是也想整理一篇比较完整的博客。这篇博客分为三部分：</p>
+<p><strong>1.搭建you_site服务器环境</strong></p>
+<a id="more"></a>
+<p><strong>2.部署到github上</strong></p>
+<p><strong>3.优化博客的主题</strong> </p>
+<blockquote>
+<p>ps:我选择的主题是Next</p>
+</blockquote>
+<h2 id="Hexo的安装"><a href="#Hexo的安装" class="headerlink" title="Hexo的安装"></a>Hexo的安装</h2><h3 id="Hexo简介"><a href="#Hexo简介" class="headerlink" title="Hexo简介"></a>Hexo简介</h3><p>在搭服务器环境之前，先简单介绍一下Hexo。Hexo 是一个简单地、轻量地、基于Node.js的一个静态博客框架。通过Hexo我们可以快速创建自己的博客，仅需要几条命令就可以完成。<br>Hexo特性：</p>
+<ul>
+<li>Hexo基于Node.js，支持多进程，几百篇文章也可以秒生成。</li>
+<li>支持GitHub Flavored Markdown和所有Octopress的插件。</li>
+<li>Hexo支持EJS、Swig和Stylus。通过插件支持Haml、Jade和Less.</li>
+</ul>
+<p><a href="http://brew.sh/index_zh-cn.html" target="_blank" rel="external">Hexo的官方网站</a>，也是基于Github构建的网站。</p>
+<h3 id="Hexo环境配置"><a href="#Hexo环境配置" class="headerlink" title="Hexo环境配置"></a>Hexo环境配置</h3><p>在安装Hexo之前需要先安装一些它所依赖的环境配置<br>这里说一下，mac上安装一些软件的时候，我个人建议先安装一下Homebrew — <a href="https://github.com/mxcl/homebrew" target="_blank" rel="external">Github传送门</a>，它相当于一个软件管理工具，不管是安装还是卸载都比较方便。<br>不多说，安装Homebrew也很简单，利用mac自带的ruby脚本功能，打开终端输入：</p>
+<figure class="highlight gradle"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="regexp">/usr/</span>bin<span class="regexp">/ruby -e "$(curl -fsSL https:/</span><span class="regexp">/raw.githubusercontent.com/</span>Homebrew<span class="regexp">/install/m</span>aster<span class="regexp">/install)"</span></span><br></pre></td></tr></table></figure>
+<p>安装完成后，Homebrew 的主程序安装在 /usr/local/bin/brew。<br>接下来安装git和node.js就简单多了。</p>
+<h4 id="Git安装"><a href="#Git安装" class="headerlink" title="Git安装"></a>Git安装</h4><ul>
+<li><strong>安装过Xcode可以直接跳过这步，因为Xcode自带Git</strong></li>
+</ul>
+<p>个人建议使用这种方式安装，不要使用网上的安装包进行安装，安装node.js也是。因为有些博客里的安装包有些过时。<br>打开终端输入：</p>
+<pre><code>$ brew install git 
+</code></pre><p>使用 Homebrew 方式安装，Git 被安装在 /usr/local/Cellar/git/ 中</p>
+<h4 id="Node-js安装"><a href="#Node-js安装" class="headerlink" title="Node.js安装"></a>Node.js安装</h4><pre><code>$ brew install node 
+</code></pre><p>使用 Homebrew 方式安装，node 被安装在 /usr/local/Cellar/node/ 中，自带安装好npm组件<br>想测试自己是否安装成功了，可以新建一个简单的hello.js文件:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> http = <span class="built_in">require</span>(<span class="string">'http'</span>);</span><br><span class="line">http.createServer(<span class="function"><span class="keyword">function</span>(<span class="params">req, res</span>)</span>&#123;</span><br><span class="line">    res.writeHead(<span class="number">200</span>, &#123;<span class="string">'Content-Type'</span>: <span class="string">'text/plain'</span>&#125;);</span><br><span class="line">    res.end(<span class="string">'Hello World\n'</span>);</span><br><span class="line">&#125;).listen(<span class="number">8808</span>, <span class="string">'127.0.0.1'</span>);</span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">'Server running at http://127.0.0.1:8808'</span>);</span><br></pre></td></tr></table></figure>
+<p>放到根目录下，然后在终端输入：</p>
+<pre><code>node hello_node.js
+Server running at http://127.0.0.1:8124/
+</code></pre><p>然后用浏览器打开用浏览器打开 <a href="http://127.0.0.1:8124/就可以看到Hello" target="_blank" rel="external">http://127.0.0.1:8124/就可以看到Hello</a> World 字样了。</p>
+<p>当然安装node.js还可以手动安装或者利用nvm安装，这里就不介绍了。<br>接下来就可以安装Hexo了</p>
+<h4 id="Hexo安装"><a href="#Hexo安装" class="headerlink" title="Hexo安装"></a>Hexo安装</h4><p>在终端输入：</p>
+<pre><code>npm install hexo -g
+</code></pre><p>这样，就把 Hexo 本体和其相依套件安装完毕了，很简单吧。<br>以后更新Hexo到最新版直接在终端输入：</p>
+<pre><code>npm update hexo -g
+</code></pre><p>接下来，就可以初始化一个放置你以后写文章的专属文件夹：</p>
+<pre><code>hexo init &lt;folder&gt;
+</code></pre><p>这里的<code>folder</code>参数如果指定，便会在终端当前的资料夹建立一个名为 <code>folder</code> 的新资料夹；否则会在当前资料夹初始化。所以建议都指定。因为初始化之后会有很多的文件夹出现。就像我刚开始接触电脑解压一个文件里面会有很多东西直接出现在我的桌面一样，那种感觉，好恶心。<br>初始化之后会稍等一会，然后终端会出现</p>
+<pre><code>INFO  Start blogging with Hexo!
+</code></pre><p>这样的字样就成功了，去目录查看，可以看见生成了<br><img src="http://7xuupy.com1.z0.glb.clouddn.com/Snip20160531_1.png" alt="Snip20160531_1"><br>这几个文件夹，以后我们的操作基本都是在这里面了。</p>
+<p>终端输入：</p>
+<pre><code>pwd
+</code></pre><p>   显示当前路径，如果不是在我们刚才init的文件夹里，那么就切换进取。<br>接下来，我们终端cd进入刚刚init的文件夹，我的文件夹是TongXingBlog<br><img src="http://7xuupy.com1.z0.glb.clouddn.com/Snip20160531_3.png" alt="Snip20160531_3"></p>
+<p>进入我们的Blog文件夹后，在终端输入：</p>
+<pre><code>hexo s
+</code></pre><p><code>s</code>是简写：<code>hexo server</code></p>
+<p>终端结果显示：<br><img src="http://7xuupy.com1.z0.glb.clouddn.com/Snip20160531_5.png" alt="Snip20160531_5"><br>复制地址，在浏览器打开，结果显示：<br><img src="http://7xuupy.com1.z0.glb.clouddn.com/Snip20160531_4.png" alt="Snip20160531_4"><br>说明Hexo在你的电脑已经安装成功了，里面出现的是默认的一篇文章，当然你也可以自己新建一篇文章:<br>Ctrl+C停止服务器，在终端输入：</p>
+<pre><code>hexo new &quot;Hello Hexo&quot;
+</code></pre><p>新建的文章，可以在根目录的source/_posts目录下找到，并且可以使用支持Markdown语法的编辑器来对它进行编辑。<br>再次启动服务器，复制地址打开浏览器，发现刚刚新建的文章已经出现了。<br>这样第一部分就完成了，吐呀吐个槽，但是有没有发现，系统默认的样式很丑，反正我觉得很丑…….，还有怎么让别人看见你发表的文章呢，你现在只能在自己的电脑上看到，那么接下来就要借助github来实现对我们文章的托管。</p>
+<hr>
+<h2 id="将文章部署到github"><a href="#将文章部署到github" class="headerlink" title="将文章部署到github"></a>将文章部署到github</h2><h3 id="创建github仓库"><a href="#创建github仓库" class="headerlink" title="创建github仓库"></a>创建github仓库</h3><p>首先，你得有一个github账号，没有的话去申请一个吧,</p>
+<blockquote>
+<p><strong>没有github账号的童鞋申请的时候用户名想好了哦，因为你的博客域名将会以它为基础。</strong></p>
+<ul>
+<li>这里推荐一个翻墙软件，Lantern，我手上有解版永久有效，之前传到CSDN上不知道为什么一直没通过。</li>
+</ul>
+<p><strong>注:</strong> 已经有github账号的跳过这节</p>
+</blockquote>
+<p>登录github账号后，点击右上角的+号创建一个新的创库：<img src="http://7xuupy.com1.z0.glb.clouddn.com/Snip20160531_6.png" alt="Snip20160531_6"></p>
+<p>进入创建创库界面：<br><img src="http://7xuupy.com1.z0.glb.clouddn.com/Snip20160531_7.png" alt="Snip20160531_7"></p>
+<p>一切填完之后，就可以点击Create按钮了。<br>这里，切记切记：</p>
+<blockquote>
+<p>Repository name 不可以乱写，是固定的写法<br>也就是<code>必须是</code>你的<code>用户名+github.io</code>这种格式，它也将是你个人博客的域名。也就是别人输入这个网址来访问你的博客。</p>
+</blockquote>
+<p>到这里创库就创建完成了，它将会与你本地init的那个文件夹相关联，大致就是将你本地的文件夹上传到服务器，供别人访问你的博客内容。</p>
+<h3 id="配置本地文件"><a href="#配置本地文件" class="headerlink" title="配置本地文件"></a>配置本地文件</h3><p>打开我们init好的那个文件夹，找到_config.yml文件，这就是全局配置文件，通过配置里面的参数，来与我们的github上得仓库进行关联。<br>打开这个文件，找到最下面：</p>
+<figure class="highlight dts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta"># Deployment</span></span><br><span class="line"><span class="meta">## Docs: https:<span class="comment">//hexo.io/docs/deployment.html</span></span></span><br><span class="line"><span class="symbol">deploy:</span></span><br><span class="line"><span class="symbol">  type:</span></span><br></pre></td></tr></table></figure>
+<p>这段代码，然后修改成，我这样</p>
+<figure class="highlight dts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="symbol">deploy:</span></span><br><span class="line"><span class="symbol">	type:</span> git <span class="meta">#部署类型，使用github</span></span><br><span class="line"><span class="symbol">	repository:</span> https:<span class="comment">//github.com/chaserr/chaserr.github.io.git #部署的仓库的SSH</span></span><br><span class="line"><span class="symbol">	branch:</span> master <span class="meta">#部署分支， 一般使用master主分支</span></span><br><span class="line"><span class="symbol">	message:</span> update <span class="meta">#默认类型</span></span><br></pre></td></tr></table></figure>
+<p>这里有两个重要的参数：（其他两个参数可以参照着写）</p>
+<ol>
+<li><code>type</code>：Hexo之前的版本好像是填github，但是Hexo3.0之后，必须填git，我的Hexo是最新的3.2.0，填写git。</li>
+<li><code>repository</code>这个参数，很重要，它就是用来链接我们在github上创建的创库。看网上有的人使用SSH，但是SSH配置起来相对有些复杂，我这里用的是HTTPS方式，也是可以成功的。</li>
+</ol>
+<p>打开github的Repositories，找到我们创建的仓库，点进去<br><img src="http://7xuupy.com1.z0.glb.clouddn.com/Snip20160531_8.png" alt="Snip20160531_88"></p>
+<p><img src="http://7xuupy.com1.z0.glb.clouddn.com/Snip20160531_9.png" alt="Snip20160531_9"><br>点击Use HTTPS,然后复制文本框里的网址，填到上面的<code>repository</code>参数后面即可，</p>
+<blockquote>
+<p><strong>注意</strong>每个参数<code>：</code>后面必须留有一个空格，否则会出现语法错误。</p>
+</blockquote>
+<p>然后在终端输入：</p>
+<pre><code>npm install hexo-deployer-git --save
+</code></pre><p>会出现信息：</p>
+<pre><code>└── hexo-deployer-git@0.1.0 
+</code></pre><p>接下来就可以把你的文章部署到github上去了。<br>在终端输入命令</p>
+<pre><code>hexo d
+</code></pre><p><code>d</code>是 <code>hexo deployer</code>的缩写，</p>
+<p>待终端出现</p>
+<pre><code>INFO  Deploy done: git
+</code></pre><p>就表示成功啦。<br>现在你可以在浏览器输入<a href="http://your_username.github.io" target="_blank" rel="external">http://your_username.github.io</a><br>这里的<code>your_username</code>就是你的github账号昵称</p>
+<p>以后每次新建文章后，待你完成编辑。即可以此执行下面几个命令来把新的文章部署到服务器上:</p>
+<ul>
+<li>hexo clean</li>
+<li>hexo g</li>
+<li>hexo d</li>
+</ul>
+<p>附：</p>
+<blockquote>
+<p>Hexo部署常见问题解决方案 – <a href="http://wp.huangshiyang.com/hexo%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88" target="_blank" rel="external">传送门</a></p>
+</blockquote>
+<p>至此，Hexo的部署算是完成了。接下来就是优化你的主题了。<br>我使用的是Next主题，如果喜欢其他主题的童鞋，可以跳走了。</p>
+<h2 id="优化主题"><a href="#优化主题" class="headerlink" title="优化主题"></a>优化主题</h2><p><a href="http://chaserr.github.io/">样式预览</a></p>
+<h3 id="Next主题的安装使用"><a href="#Next主题的安装使用" class="headerlink" title="Next主题的安装使用"></a>Next主题的安装使用</h3><p>首先从github上clone到本地，在终端cd / 切换到你通过Hexo init生成的根目录，<br>然后在终端输入命令：</p>
+<pre><code>$ git clone https://github.com/iissnan/hexo-theme-next themes/next
+</code></pre><p>进入站点的全局配置文件：_config.yml<br>找到theme字段：设置为</p>
+<pre><code>theme: next
+</code></pre><p>到这里可以验证一下主题是否被启用。终端输入：</p>
+<pre><code>hexo s -- debug
+</code></pre><p>然后本地访问<a href="http://localhost:4000，看看效果，在没有部署到github上之前，一般都可以这样在本地进行预览。" target="_blank" rel="external">http://localhost:4000，看看效果，在没有部署到github上之前，一般都可以这样在本地进行预览。</a></p>
+<p>关于站点全局_config.yml配置文件的其他一些参数：</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Site</span></span><br><span class="line"><span class="attr">title:</span> 朝夕 <span class="comment">#博客名</span></span><br><span class="line"><span class="attr">subtitle:</span> 朝闻道，夕死可以。 <span class="comment">#博客副标题</span></span><br><span class="line"><span class="attr">description:</span> <span class="comment">#给搜索引擎看的，对站点的描述，可以自定义</span></span><br><span class="line"><span class="attr">author:</span> 童星 <span class="comment">#作者名称，显示在网站最底部</span></span><br><span class="line"><span class="attr">language:</span> zh-Hans <span class="comment">#语言选择，这里表示中文</span></span><br><span class="line"><span class="attr">email:</span> <span class="comment">#你的联系邮箱</span></span><br><span class="line"><span class="attr">timezone:</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># URL</span></span><br><span class="line"><span class="comment">## If your site is put in a subdirectory, set url as 'http://yoursite.com/child' and root as '/child/'</span></span><br><span class="line"><span class="attr">url:</span> chaserr.github.io  <span class="comment">#可以填写你的站点域名</span></span><br><span class="line"><span class="attr">root:</span> /</span><br><span class="line"><span class="attr">permalink:</span> :year/:month/:day/:title/</span><br><span class="line"><span class="attr">permalink_defaults:</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Directory</span></span><br><span class="line"><span class="attr">source_dir:</span> source</span><br><span class="line"><span class="attr">public_dir:</span> public</span><br><span class="line"><span class="attr">tag_dir:</span> tags</span><br><span class="line"><span class="attr">archive_dir:</span> archives</span><br><span class="line"><span class="attr">category_dir:</span> categories</span><br><span class="line"><span class="attr">code_dir:</span> downloads/code</span><br><span class="line"><span class="attr">i18n_dir:</span> :lang</span><br><span class="line"><span class="attr">skip_render:</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Writing , 设置生成博文的默认格式</span></span><br><span class="line"><span class="attr">new_post_name:</span> :title.md <span class="comment"># File name of new posts</span></span><br><span class="line"><span class="attr">default_layout:</span> post <span class="comment">#默认布局</span></span><br><span class="line"><span class="attr">titlecase:</span> <span class="literal">false</span> <span class="comment"># Transform title into titlecase</span></span><br><span class="line"><span class="attr">external_link:</span> <span class="literal">true</span> <span class="comment"># Open external links in new tab</span></span><br><span class="line"><span class="attr">filename_case:</span> <span class="number">0</span> <span class="comment">#把文件名称转换为（1）小写或者大写</span></span><br><span class="line"><span class="attr">render_drafts:</span> <span class="comment">#显示草稿</span></span><br><span class="line"><span class="attr">post_asset_folder:</span> <span class="literal">false</span>  <span class="comment">#启动Asset文件夹</span></span><br><span class="line"><span class="attr">relative_link:</span> <span class="literal">false</span> <span class="comment">#把链接改为与根目录相对位置</span></span><br><span class="line"><span class="attr">future:</span> <span class="literal">true</span> <span class="comment">#显示未来的文章</span></span><br><span class="line"><span class="attr">highlight:</span> <span class="comment">#代码块的设置</span></span><br><span class="line"><span class="attr">  enable:</span> <span class="literal">true</span></span><br><span class="line"><span class="attr">  line_number:</span> <span class="literal">true</span></span><br><span class="line"><span class="attr">  auto_detect:</span> <span class="literal">false</span></span><br><span class="line"><span class="attr">  tab_replace:</span></span><br></pre></td></tr></table></figure>
+<p>默认的大致就这些，另外给主题添加相关功能的时候后面会慢慢加上其他一些参数。</p>
+<h4 id="给站点添加rss和sitemap功能"><a href="#给站点添加rss和sitemap功能" class="headerlink" title="给站点添加rss和sitemap功能"></a>给站点添加rss和sitemap功能</h4><p>打开终端，切换到站点根目录，输入：</p>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ npm install hexo-generator-feed</span><br><span class="line">$ npm install hexo-generator-sitemap</span><br></pre></td></tr></table></figure>
+<p>在全局配置文件_config.yml进行插件配置：（为防止好找，在最下面进行配置）</p>
+<figure class="highlight dts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#插件配置</span></span><br><span class="line"><span class="symbol">plugins:</span> hexo-generator-feed </span><br><span class="line"><span class="meta">#- hexo-generator-sitemap </span></span><br><span class="line"><span class="symbol"></span><br><span class="line">feed:</span></span><br><span class="line"><span class="symbol">  type:</span> atom <span class="meta">##feed类型 atom或者rss2</span></span><br><span class="line"><span class="symbol">  path:</span> atom.xml <span class="meta">##feed路径</span></span><br><span class="line"><span class="symbol">  limit:</span> <span class="number">20</span>  <span class="meta">##feed文章最小数量</span></span><br></pre></td></tr></table></figure>
+<h4 id="给站点添加本地搜索功能"><a href="#给站点添加本地搜索功能" class="headerlink" title="给站点添加本地搜索功能"></a>给站点添加本地搜索功能</h4><ul>
+<li>使用swiftype添加站内搜索</li>
+</ul>
+<p>去swiftype官网注册一个账号，按照步骤选择自己喜欢的搜索样式，配置完成后，选择install，然后会出现<img src="http://7xuupy.com1.z0.glb.clouddn.com/Snip20160531_10.png" alt="Snip20160531_10"><br>如图所示，我不知道为什么，这个代码框无法滚动，所以我们必须将它全部复制出来</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">"text/javascript"</span>&gt;</span><span class="javascript"></span><br><span class="line">  (<span class="function"><span class="keyword">function</span>(<span class="params">w,d,t,u,n,s,e</span>)</span>&#123;w[<span class="string">'SwiftypeObject'</span>]=n;w[n]=w[n]||<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">  (w[n].q=w[n].q||[]).push(<span class="built_in">arguments</span>);&#125;;s=d.createElement(t);</span><br><span class="line">  e=d.getElementsByTagName(t)[<span class="number">0</span>];s.async=<span class="number">1</span>;s.src=u;e.parentNode.insertBefore(s,e);</span><br><span class="line">  &#125;)(<span class="built_in">window</span>,<span class="built_in">document</span>,<span class="string">'script'</span>,<span class="string">'//s.swiftypecdn.com/install/v2/st.js'</span>,<span class="string">'_st'</span>);</span><br><span class="line">  </span><br><span class="line">  _st(<span class="string">'install'</span>,<span class="string">'7Qoo1zkKbfSsp5bzUjQu'</span>,<span class="string">'2.0.0'</span>);</span><br><span class="line"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>然后复制install —-2.0.0之间的一段代码，添加到全局配置文件里：</p>
+<figure class="highlight avrasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta"># 搜索插件 hexo-generator-sitemap</span></span><br><span class="line"><span class="symbol">swiftype_key:</span> <span class="number">7</span>Qoo1zkKbfSsp5bzUjQu</span><br></pre></td></tr></table></figure>
+<ul>
+<li>添加本地搜索</li>
+</ul>
+<p>直接在全局配置文件添加参数：</p>
+<figure class="highlight crmsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">search:</span><br><span class="line">  path: search.<span class="keyword">xml</span></span><br><span class="line">  <span class="title">field</span>: post</span><br></pre></td></tr></table></figure>
+<p>search.xml这些都是默认带有的</p>
+<h4 id="给站点添加友情链接功能"><a href="#给站点添加友情链接功能" class="headerlink" title="给站点添加友情链接功能"></a>给站点添加友情链接功能</h4><p>直接在全局配置文件添加参数：</p>
+<figure class="highlight dts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="symbol">links_title:</span> 友情链接</span><br><span class="line"><span class="symbol">links:</span></span><br><span class="line">	<span class="meta">#百度: http:<span class="comment">//www.baidu.com/</span></span></span><br><span class="line">	<span class="meta">#新浪: http:<span class="comment">//example.com/</span></span></span><br></pre></td></tr></table></figure>
+<p>其实也可以新建一个文件专门放置这些需要链接的网站，这样方便管理，不必每次都对全局配置文件进行更改</p>
+<blockquote>
+<p>如果没有链接，那么友情链接不会显示，为了测试，可以随便写一个</p>
+</blockquote>
+<h4 id="给站点添加多说评论、热评、分享功能"><a href="#给站点添加多说评论、热评、分享功能" class="headerlink" title="给站点添加多说评论、热评、分享功能"></a>给站点添加多说评论、热评、分享功能</h4><p>直接在全局配置文件添加参数：</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Disqus  disqus评论,  与多说类似, 国内一般使用多说</span></span><br><span class="line"><span class="comment">#disqus_shortname: </span></span><br><span class="line"><span class="attr">duoshuo_shortname:</span> chaser</span><br><span class="line"></span><br><span class="line"><span class="comment"># 多说热评文章 true 或者 false</span></span><br><span class="line"><span class="attr">duoshuo_hotartical:</span> <span class="literal">true</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 多说分享服务</span></span><br><span class="line"><span class="attr">duoshuo_share:</span> <span class="literal">true</span></span><br><span class="line"><span class="attr">duoshuo_info:</span></span><br><span class="line"><span class="attr">  ua_enable:</span> <span class="literal">true</span></span><br><span class="line"><span class="attr">  admin_enable:</span> <span class="literal">false</span></span><br><span class="line"><span class="attr">  user_id:</span></span><br><span class="line">	  admin_nickname:</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p><strong>注意：</strong>这里的<code>duoshuo_shortname</code>是需要你去多说主页 – <a href="http://duoshuo.com/" target="_blank" rel="external">传送门</a> 注册一个账号，然后填写你的多说域名，这里填写的就是你在多说填写的域名<br>例如：我的是：<code>http://chaser.duoshuo.com/</code>，那么我填写的就是<code>chaser</code></p>
+<ul>
+<li>这里配置的是所有页面都支持评论，但是后面有的页面不需要，比如标签页，分类页，关于等等，那么就单独设置。</li>
+</ul>
+</blockquote>
+<h3 id="Next主题的优化"><a href="#Next主题的优化" class="headerlink" title="Next主题的优化"></a>Next主题的优化</h3><p>这之前，先对主题配置文件进行一些配置，打开博客根目录/themes/next，这个路径，然后打开，主题配置文件_config.yml：</p>
+<h4 id="配置个人头像"><a href="#配置个人头像" class="headerlink" title="配置个人头像"></a>配置个人头像</h4><p>在主题配置文件里找到avatar字段，(如果没有就添加)</p>
+<figure class="highlight vala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta"># Sidebar Avatar</span></span><br><span class="line"><span class="meta"># in theme directory(source/images): /images/avatar.jpg</span></span><br><span class="line"><span class="meta"># in site  directory(source/uploads): /uploads/avatar.jpg</span></span><br><span class="line">avatar: http:<span class="comment">//ww4.sinaimg.cn/small/937882b5jw1f4db4lroy9j20hs0npmy6.jpg</span></span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>我采用的是地址，并没有将图片放在本地（采用新浪博客相册）</p>
+</blockquote>
+<h4 id="Next主题选择"><a href="#Next主题选择" class="headerlink" title="Next主题选择"></a>Next主题选择</h4><p>在主题配置文件_config.yml里，找到scheme字段</p>
+<figure class="highlight vala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta"># ---------------------------------------------------------------</span></span><br><span class="line"><span class="meta"># Scheme Settings</span></span><br><span class="line"><span class="meta"># ---------------------------------------------------------------</span></span><br><span class="line"></span><br><span class="line"><span class="meta"># Schemes</span></span><br><span class="line"><span class="meta">#scheme: Muse</span></span><br><span class="line"><span class="meta">#scheme: Mist</span></span><br><span class="line">scheme: Pisces</span><br></pre></td></tr></table></figure>
+<ul>
+<li>Muse - 默认 Scheme，这是 NexT 最初的版本，黑白主调，大量留白</li>
+<li>Mist - Muse 的紧凑版本，整洁有序的单栏外观</li>
+<li>Pisces - 双栏 Scheme，小家碧玉似的清新<br>我选择的是第三种，去掉<code>#</code>，然后把第一个前面加上<code>#</code><blockquote>
+<p>每进行一步都可以自己去进行预览：</p>
+<p>  hexo s –debug</p>
+</blockquote>
+</li>
+</ul>
+<h4 id="Next主题菜单配置"><a href="#Next主题菜单配置" class="headerlink" title="Next主题菜单配置"></a>Next主题菜单配置</h4><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># ---------------------------------------------------------------</span></span><br><span class="line"><span class="comment"># Menu Settings</span></span><br><span class="line"><span class="comment"># ---------------------------------------------------------------</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># When running the site in a subdirectory (e.g. domain.tld/blog), remove the leading slash (/archives -&gt; archives)</span></span><br><span class="line"><span class="attr">menu:</span></span><br><span class="line"><span class="attr">  home:</span> / <span class="comment">#主页</span></span><br><span class="line"><span class="attr">  categories:</span> /categories <span class="comment">#分类页面</span></span><br><span class="line"><span class="attr">  about:</span> /about <span class="comment">#关于</span></span><br><span class="line"><span class="attr">  archives:</span> /archives <span class="comment">#归档</span></span><br><span class="line"><span class="attr">  tags:</span> /tags <span class="comment">#标签</span></span><br><span class="line"><span class="attr">  commonweal:</span> /<span class="number">404.</span>html  <span class="comment">#公益404</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># Enable/Disable menu icons.</span></span><br><span class="line"><span class="comment"># Icon Mapping:</span></span><br><span class="line"><span class="comment">#   Map a menu item to a specific FontAwesome icon name.</span></span><br><span class="line"><span class="comment">#   Key is the name of menu item and value is the name of FontAwsome icon. Key is case-senstive.</span></span><br><span class="line"><span class="comment">#   When an question mask icon presenting up means that the item has no mapping icon.</span></span><br><span class="line"><span class="attr">menu_icons:</span></span><br><span class="line"><span class="attr">  enable:</span> <span class="literal">true</span> <span class="comment">#是否显示图标</span></span><br><span class="line">  <span class="comment">#KeyMapsToMenuItemKey: NameOfTheIconFromFontAwesome</span></span><br><span class="line"><span class="attr">  home:</span> home</span><br><span class="line"><span class="attr">  about:</span> user</span><br><span class="line"><span class="attr">  categories:</span> th</span><br><span class="line"><span class="attr">  tags:</span> tags</span><br><span class="line"><span class="attr">  archives:</span> archive</span><br><span class="line"><span class="attr">  commonweal:</span> heartbeat</span><br></pre></td></tr></table></figure>
+<blockquote>
+<ol>
+<li><p>如果需要添加你自己自定义的菜单，那么就只需要在menu下添加相关的菜单项，然后新建页面与之匹配，然后去next主题目录的<code>languages</code>目录下找到我们之前配置的主题所使用的语言，（我们用的是<code>zh-Hans</code>）对其进行国际化。</p>
+</li>
+<li><p>menu_icon的设置采用<code>key-value</code>。key对应上面的menu里面的菜单项，大小写一致，value就是对应<a href="http://www.bootcss.com/p/font-awesome/#icons-web-app" target="_blank" rel="external">FontAwsome icon</a>这个网站的图标的名字，去掉前缀icon</p>
+</li>
+</ol>
+<p>关于这里的所有的图标都支持从<code>FontAwsome icon</code>这个网站获取，当然也可以自己放在资源文件夹里（一般比如个人头像(<code>avatar</code>)，网站图标(<code>favicon</code>)等)。<br>当然也支持从网址获取，推荐使用<code>七牛</code>云存储。当然也可以使用新浪博客的相册，谷歌相册，甚至QQ空间，都可以，只要能获取到图片网址，并且你不会轻易删掉。</p>
+</blockquote>
+<h5 id="添加关于，标签，分类，公益404页面"><a href="#添加关于，标签，分类，公益404页面" class="headerlink" title="添加关于，标签，分类，公益404页面"></a>添加关于，标签，分类，公益404页面</h5><p>菜单配置好了，但是我们还得新建一些页面与之相匹配，否则点击进去找不到。这里说一下，对于<code>标签页</code>和<code>分类页</code>，我们需要在新建一篇文章的时候指定它的标签和分类。对于刚开始建立的博客，点进去可能是空的，所以等会新建一篇文章试试，这之前，先建立相关页面。</p>
+<h6 id="添加标签页"><a href="#添加标签页" class="headerlink" title="添加标签页"></a>添加标签页</h6><p>打开终端，进入博客根站点，输入：</p>
+<pre><code>hexo new page tags
+</code></pre><p>进入博客根目录/source路径，找到tags文件夹，可以看到生成了index.md文件。可以使用编辑器打开<br>在里面添加<code>tags</code>和<code>comments</code><br><img src="http://7xuupy.com1.z0.glb.clouddn.com/Snip20160601_11.png" alt="Snip20160531_11"></p>
+<blockquote>
+<ol>
+<li><code>tags</code>设置页面的类型</li>
+<li><code>comments</code>用来控制是否显示评论。</li>
+</ol>
+</blockquote>
+<h6 id="添加分类页"><a href="#添加分类页" class="headerlink" title="添加分类页"></a>添加分类页</h6><pre><code>hexo new page categories
+</code></pre><p>进入博客根目录/source路径，找到categories文件夹，可以看到生成了index.md文件。可以使用编辑器打开<br>在里面添加<code>tags</code>和<code>comments</code><br><img src="http://7xuupy.com1.z0.glb.clouddn.com/Snip20160601_11.png" alt="Snip20160531_11"></p>
+<blockquote>
+<ol>
+<li><code>tags</code>设置页面的类型</li>
+<li><code>comments</code>用来控制是否显示评论。</li>
+</ol>
+</blockquote>
+<h6 id="添加关于页"><a href="#添加关于页" class="headerlink" title="添加关于页"></a>添加关于页</h6><pre><code>hexo new page about
+</code></pre><p>进入博客根目录/source路径，找到categories文件夹，可以看到生成了index.md文件。可以使用编辑器打开<br>在里面添加<code>tags</code>和<code>comments</code><br><img src="http://7xuupy.com1.z0.glb.clouddn.com/Snip20160601_11.png" alt="Snip20160531_11"></p>
+<blockquote>
+<ol>
+<li><code>tags</code>设置页面的类型</li>
+<li><code>comments</code>用来控制是否显示评论。</li>
+</ol>
+</blockquote>
+<p>about这个页面一般都是填写一些你的个人信息，要不要无所谓，我这里给about页面添加了一个背景音乐盒.去网易云音乐，创建一个自己的歌单，然后分享，然后找到自己分享的动态，点击链接，<img src="http://7xuupy.com1.z0.glb.clouddn.com/Snip20160601_12.png" alt="Snip20160531_12"><br>出现如图的页面，然后点击生成’’外链播放器’’字样。将出现的代码复制，粘贴到你的about页面<br><img src="http://7xuupy.com1.z0.glb.clouddn.com/Snip20160601_13.png" alt="Snip20160531_13"></p>
+<p>新建一篇文章给它添加分类和标签试试吧：</p>
+<pre><code>hexo new &quot;Hexo教程&quot;
+</code></pre><p>通过mou编辑器打开：添加<code>tags</code>和<code>categories</code></p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">---</span></span><br><span class="line"><span class="attr">title:</span> title <span class="comment">#文章標題</span></span><br><span class="line"><span class="attr">date:</span> <span class="number">2016</span><span class="bullet">-06</span><span class="bullet">-01</span> <span class="number">23</span>:<span class="number">47</span>:<span class="number">44</span> <span class="comment">#文章生成時間</span></span><br><span class="line"><span class="attr">categories:</span> <span class="string">"Hexo教程"</span> <span class="comment">#文章分類目錄 可以省略</span></span><br><span class="line"><span class="attr">tags:</span> <span class="comment">#文章標籤 可以省略</span></span><br><span class="line">	 - 标签<span class="number">1</span></span><br><span class="line">	 - 标签<span class="number">2</span></span><br><span class="line"><span class="attr"> description:</span> <span class="comment">#你對本頁的描述 可以省略</span></span><br><span class="line"><span class="meta">---</span></span><br></pre></td></tr></table></figure>
+<h6 id="添加公益404页面"><a href="#添加公益404页面" class="headerlink" title="添加公益404页面"></a>添加公益404页面</h6><p>直接在根目录的source路径下，新建一个404.html文件，就可以了<br>附：404.html</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE HTML&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">meta</span> <span class="attr">http-equiv</span>=<span class="string">"content-type"</span> <span class="attr">content</span>=<span class="string">"text/html;charset=utf-8;"</span>/&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">meta</span> <span class="attr">http-equiv</span>=<span class="string">"X-UA-Compatible"</span> <span class="attr">content</span>=<span class="string">"IE=edge,chrome=1"</span> /&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">"robots"</span> <span class="attr">content</span>=<span class="string">"all"</span> /&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">"robots"</span> <span class="attr">content</span>=<span class="string">"index,follow"</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">"text/javascript"</span> <span class="attr">src</span>=<span class="string">"http://www.qq.com/404/search_children.js"</span></span><br><span class="line">        <span class="attr">charset</span>=<span class="string">"utf-8"</span> <span class="attr">homePageUrl</span>=<span class="string">"your site url "</span></span><br><span class="line">        <span class="attr">homePageName</span>=<span class="string">"回到我的主页"</span>&gt;</span><span class="undefined"></span><br><span class="line"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>提示：<code>homePageUrl</code>记得修改成你的博客域名</p>
+</blockquote>
+<h3 id="Next主题侧边栏社交链接"><a href="#Next主题侧边栏社交链接" class="headerlink" title="Next主题侧边栏社交链接"></a>Next主题侧边栏社交链接</h3><p>打开主题配置文件_config.yml：</p>
+<figure class="highlight dts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta"># ---------------------------------------------------------------</span></span><br><span class="line"><span class="meta"># Sidebar Settings</span></span><br><span class="line"><span class="meta"># ---------------------------------------------------------------</span></span><br><span class="line"><span class="meta"># Social Links</span></span><br><span class="line"><span class="symbol">social:</span></span><br><span class="line"><span class="symbol">	GitHub:</span> https:<span class="comment">//github.com/chaserr</span></span><br><span class="line">	新浪微博: http:<span class="comment">//weibo.com/lovaxiang</span></span><br><span class="line"><span class="symbol">	FaceBook:</span> https:<span class="comment">//www.facebook.com/x.tongxing</span></span><br><span class="line">	GooglePlus : https:<span class="comment">//plus.google.com/u/0/117848542581702766384</span></span><br><span class="line">	豆瓣: https:<span class="comment">//www.douban.com/people/lovax/</span></span><br><span class="line"></span><br><span class="line"><span class="meta"># Social Links Icons</span></span><br><span class="line"><span class="symbol">social_icons:</span></span><br><span class="line"><span class="symbol"> enable:</span> true <span class="meta">#控制是否显示图标</span></span><br><span class="line">  <span class="meta"># Icon Mappings.</span></span><br><span class="line">  <span class="meta"># KeyMapsToSocalItemKey: NameOfTheIconFromFontAwesome</span></span><br><span class="line"><span class="symbol">  GitHub:</span> github</span><br><span class="line">  新浪微博: weibo</span><br><span class="line"><span class="symbol">  FaceBook:</span> facebook</span><br><span class="line"><span class="symbol">  GooglePlus:</span> google-plus</span><br><span class="line">  豆瓣: globe  <span class="meta">#douban</span></span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>这里的配置和Menu里一样，</p>
+<ol>
+<li><code>social</code>后面跟着的是你的社交网站的主页地址</li>
+<li><code>social_icons</code>是FontAwesome网站的图标名称</li>
+</ol>
+<p>不过豆瓣icon好像是没有的，我在github上issue过，他们给我的解决方案就是去官网找到图标，放到本地资源、。、<br>所以亲们也不用去issue了。直接用别的代替吧，如果真想显示你的豆瓣的话。</p>
+</blockquote>
+<h3 id="开启打赏功能"><a href="#开启打赏功能" class="headerlink" title="开启打赏功能"></a>开启打赏功能</h3><p>很简单，打开主题配置文件_config.yml<br>添加字段：</p>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">reward_comment:</span> 坚持原创技术分享，您的支持将鼓励我继续创作！</span><br><span class="line"><span class="string">alipay:</span> <span class="string">http:</span><span class="comment">//ww3.sinaimg.cn/small/937882b5jw1f4dalzfc5nj20p00vu0um.jpg</span></span><br></pre></td></tr></table></figure>
+<blockquote>
+<p><code>alipay:</code> 填写的是支付宝或者微信的收款二维码图片地址。</p>
+</blockquote>
+<h3 id="给文章添加阅读量"><a href="#给文章添加阅读量" class="headerlink" title="给文章添加阅读量"></a>给文章添加阅读量</h3><h4 id="配置LeanCloud"><a href="#配置LeanCloud" class="headerlink" title="配置LeanCloud"></a>配置LeanCloud</h4><p>打开<a href="https://leancloud.cn/login.html#/signin" target="_blank" rel="external">LeanCloud</a>官网，注册一个账号，完成激活<br><img src="http://7xuupy.com1.z0.glb.clouddn.com/Snip20160601_14.png" alt="Snip20160531_14"><br>点击创建新应用之后，进入新创建的应用<br><img src="http://7xuupy.com1.z0.glb.clouddn.com/Snip20160601_15.png" alt="Snip20160531_15"><br>点击创建Class，类名叫做<code>Counter</code>。</p>
+<h4 id="修改主题配置文件-config-yml"><a href="#修改主题配置文件-config-yml" class="headerlink" title="修改主题配置文件_config.yml"></a>修改主题配置文件_config.yml</h4><p>打开主题配置文件，找到<code>leancloud_visitors</code>字段或者创建</p>
+<figure class="highlight dts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta"># Show number of visitors to each article.</span></span><br><span class="line"><span class="meta"># You can visit https:<span class="comment">//leancloud.cn get AppID and AppKey.</span></span></span><br><span class="line"><span class="symbol">leancloud_visitors:</span></span><br><span class="line"><span class="symbol">  enable:</span> true</span><br><span class="line"><span class="symbol">  app_id:</span> ytnok33cvEchgidigtb0WumC-gzGzoHsz <span class="meta">#&lt;AppID&gt;</span></span><br><span class="line"><span class="symbol">  app_key:</span> SrcG8cy1VhONurWBoEBGGHML <span class="meta">#&lt;AppKEY&gt;</span></span><br></pre></td></tr></table></figure>
+<blockquote>
+<ol>
+<li><code>app_id</code></li>
+<li><code>app_key</code><br><img src="http://7xuupy.com1.z0.glb.clouddn.com/Snip20160601_18.png" alt="Snip20160531_18"></li>
+</ol>
+<p>将对应key的value复制填写即可。</p>
+</blockquote>
+<h4 id="添加lean-analytics-swing"><a href="#添加lean-analytics-swing" class="headerlink" title="添加lean-analytics.swing"></a>添加lean-analytics.swing</h4><p>在主题目录下的\layout_scripts路径下，新建名为：<code>lean-analytics.swing</code>的文件，<br>这里贴上<code>lean-analytics.swing</code>代码</p>
+<figure class="highlight django"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br></pre></td><td class="code"><pre><span class="line"><span class="xml"></span><span class="template-tag">&#123;% <span class="name"><span class="name">if</span></span> theme.leancloud_visitors.enable %&#125;</span><span class="xml"></span><br><span class="line"></span><br><span class="line">  </span><span class="comment">&#123;# custom analytics part create by xiamo #&#125;</span><span class="xml"></span><br><span class="line">  <span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">"https://cdn1.lncld.net/static/js/av-core-mini-0.6.1.js"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="undefined">AV.initialize("</span></span><span class="template-variable">&#123;&#123;theme.leancloud_visitors.app_id&#125;&#125;</span><span class="xml"><span class="actionscript"><span class="string">", "</span></span></span><span class="template-variable">&#123;&#123;theme.leancloud_visitors.app_key&#125;&#125;</span><span class="xml"><span class="undefined">");</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="javascript"></span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">showTime</span>(<span class="params">Counter</span>) </span>&#123;</span><br><span class="line">      <span class="keyword">var</span> query = <span class="keyword">new</span> AV.Query(Counter);</span><br><span class="line">      <span class="keyword">var</span> entries = [];</span><br><span class="line">      <span class="keyword">var</span> $visitors = $(<span class="string">".leancloud_visitors"</span>);</span><br><span class="line"></span><br><span class="line">      $visitors.each(<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">        entries.push( $(<span class="keyword">this</span>).attr(<span class="string">"id"</span>).trim() );</span><br><span class="line">      &#125;);</span><br><span class="line"></span><br><span class="line">      query.containedIn(<span class="string">'url'</span>, entries);</span><br><span class="line">      query.find()</span><br><span class="line">        .done(<span class="function"><span class="keyword">function</span> (<span class="params">results</span>) </span>&#123;</span><br><span class="line">          <span class="keyword">var</span> COUNT_CONTAINER_REF = <span class="string">'.leancloud-visitors-count'</span>;</span><br><span class="line"></span><br><span class="line">          <span class="keyword">if</span> (results.length === <span class="number">0</span>) &#123;</span><br><span class="line">            $visitors.find(COUNT_CONTAINER_REF).text(<span class="number">0</span>);</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">          &#125;</span><br><span class="line"></span><br><span class="line">          <span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">0</span>; i &lt; results.length; i++) &#123;</span><br><span class="line">            <span class="keyword">var</span> item = results[i];</span><br><span class="line">            <span class="keyword">var</span> url = item.get(<span class="string">'url'</span>);</span><br><span class="line">            <span class="keyword">var</span> time = item.get(<span class="string">'time'</span>);</span><br><span class="line">            <span class="keyword">var</span> element = <span class="built_in">document</span>.getElementById(url);</span><br><span class="line"></span><br><span class="line">            $(element).find(COUNT_CONTAINER_REF).text(time);</span><br><span class="line">          &#125;</span><br><span class="line">        &#125;)</span><br><span class="line">        .fail(<span class="function"><span class="keyword">function</span> (<span class="params">object, error</span>) </span>&#123;</span><br><span class="line">          <span class="built_in">console</span>.log(<span class="string">"Error: "</span> + error.code + <span class="string">" "</span> + error.message);</span><br><span class="line">        &#125;);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">addCount</span>(<span class="params">Counter</span>) </span>&#123;</span><br><span class="line">      <span class="keyword">var</span> $visitors = $(<span class="string">".leancloud_visitors"</span>);</span><br><span class="line">      <span class="keyword">var</span> url = $visitors.attr(<span class="string">'id'</span>).trim();</span><br><span class="line">      <span class="keyword">var</span> title = $visitors.attr(<span class="string">'data-flag-title'</span>).trim();</span><br><span class="line">      <span class="keyword">var</span> query = <span class="keyword">new</span> AV.Query(Counter);</span><br><span class="line"></span><br><span class="line">      query.equalTo(<span class="string">"url"</span>, url);</span><br><span class="line">      query.find(&#123;</span><br><span class="line">        success: <span class="function"><span class="keyword">function</span>(<span class="params">results</span>) </span>&#123;</span><br><span class="line">          <span class="keyword">if</span> (results.length &gt; <span class="number">0</span>) &#123;</span><br><span class="line">            <span class="keyword">var</span> counter = results[<span class="number">0</span>];</span><br><span class="line">            counter.fetchWhenSave(<span class="literal">true</span>);</span><br><span class="line">            counter.increment(<span class="string">"time"</span>);</span><br><span class="line">            counter.save(<span class="literal">null</span>, &#123;</span><br><span class="line">              success: <span class="function"><span class="keyword">function</span>(<span class="params">counter</span>) </span>&#123;</span><br><span class="line">                <span class="keyword">var</span> $element = $(<span class="built_in">document</span>.getElementById(url));</span><br><span class="line">                $element.find(<span class="string">'.leancloud-visitors-count'</span>).text(counter.get(<span class="string">'time'</span>));</span><br><span class="line">              &#125;,</span><br><span class="line">              error: <span class="function"><span class="keyword">function</span>(<span class="params">counter, error</span>) </span>&#123;</span><br><span class="line">                <span class="built_in">console</span>.log(<span class="string">'Failed to save Visitor num, with error message: '</span> + error.message);</span><br><span class="line">              &#125;</span><br><span class="line">            &#125;);</span><br><span class="line">          &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="keyword">var</span> newcounter = <span class="keyword">new</span> Counter();</span><br><span class="line">            <span class="comment">/* Set ACL */</span></span><br><span class="line">            <span class="keyword">var</span> acl = <span class="keyword">new</span> AV.ACL();</span><br><span class="line">            acl.setPublicReadAccess(<span class="literal">true</span>);</span><br><span class="line">            acl.setPublicWriteAccess(<span class="literal">true</span>);</span><br><span class="line">            newcounter.setACL(acl);</span><br><span class="line">            <span class="comment">/* End Set ACL */</span></span><br><span class="line">            newcounter.set(<span class="string">"title"</span>, title);</span><br><span class="line">            newcounter.set(<span class="string">"url"</span>, url);</span><br><span class="line">            newcounter.set(<span class="string">"time"</span>, <span class="number">1</span>);</span><br><span class="line">            newcounter.save(<span class="literal">null</span>, &#123;</span><br><span class="line">              success: <span class="function"><span class="keyword">function</span>(<span class="params">newcounter</span>) </span>&#123;</span><br><span class="line">                <span class="keyword">var</span> $element = $(<span class="built_in">document</span>.getElementById(url));</span><br><span class="line">                $element.find(<span class="string">'.leancloud-visitors-count'</span>).text(newcounter.get(<span class="string">'time'</span>));</span><br><span class="line">              &#125;,</span><br><span class="line">              error: <span class="function"><span class="keyword">function</span>(<span class="params">newcounter, error</span>) </span>&#123;</span><br><span class="line">                <span class="built_in">console</span>.log(<span class="string">'Failed to create'</span>);</span><br><span class="line">              &#125;</span><br><span class="line">            &#125;);</span><br><span class="line">          &#125;</span><br><span class="line">        &#125;,</span><br><span class="line">        error: <span class="function"><span class="keyword">function</span>(<span class="params">error</span>) </span>&#123;</span><br><span class="line">          <span class="built_in">console</span>.log(<span class="string">'Error:'</span> + error.code + <span class="string">" "</span> + error.message);</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    $(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">      <span class="keyword">var</span> Counter = AV.Object.extend(<span class="string">"Counter"</span>);</span><br><span class="line">      <span class="keyword">if</span> ($(<span class="string">'.leancloud_visitors'</span>).length == <span class="number">1</span>) &#123;</span><br><span class="line">        addCount(Counter);</span><br><span class="line">      &#125; <span class="keyword">else</span> <span class="keyword">if</span> ($(<span class="string">'.post-title-link'</span>).length &gt; <span class="number">1</span>) &#123;</span><br><span class="line">        showTime(Counter);</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;);</span><br><span class="line">  </span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"></span><br><span class="line"></span><span class="template-tag">&#123;% <span class="name"><span class="name">endif</span></span> %&#125;</span><span class="xml"></span></span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>网上也有人贴出来这部分代码，但是会出现阅读量出现重复情况，这里的代码是经过测试后出现的，准确无误。</p>
+</blockquote>
+<h4 id="修改post-swing文件"><a href="#修改post-swing文件" class="headerlink" title="修改post.swing文件"></a>修改post.swing文件</h4><p>打开主题目录\layout_macro路径,找到post.swig文件，找到<code>LeanCould PageView #</code>字样,去掉 其中一个<code>&amp;nbsp; | &amp;nbsp</code>，否则部署之后会出现双<code>||</code>。</p>
+<h4 id="修改layout-swing文件"><a href="#修改layout-swing文件" class="headerlink" title="修改layout.swing文件"></a>修改layout.swing文件</h4><p>打开主题目录\layout路径，找到_layout.swing<br>搜索<code>&lt;/body&gt;</code>标签，在其上方添加代码：</p>
+<figure class="highlight django"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="xml"></span><span class="template-tag">&#123;% <span class="name"><span class="name">if</span></span> theme.leancloud_visitors.enable %&#125;</span><span class="xml"></span><br><span class="line"></span><span class="template-tag">&#123;% <span class="name"><span class="name">include</span></span> '_scripts/lean-analytics.swig' %&#125;</span><span class="xml"></span><br><span class="line"></span><span class="template-tag">&#123;% <span class="name"><span class="name">endif</span></span> %&#125;</span><span class="xml"></span></span><br></pre></td></tr></table></figure>
+<h3 id="给页面添加High一下"><a href="#给页面添加High一下" class="headerlink" title="给页面添加High一下"></a>给页面添加High一下</h3><p>打开<code>博客根目录\themes\next\layout_partials\header.swig</code>，在<code>&lt;ul&gt; ... /ul&gt;</code>标签之间加入以下代码：</p>
+<figure class="highlight golo"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br></pre></td><td class="code"><pre><span class="line">&lt;li&gt; &lt;a title=<span class="string">"把这个链接拖到你的Chrome收藏夹工具栏中"</span> href='javascript:(<span class="keyword">function</span>() &#123;</span><br><span class="line">    <span class="keyword">function</span> c() &#123;</span><br><span class="line">        <span class="keyword">var</span> e = document.createElement(<span class="string">"link"</span>);</span><br><span class="line">        e.setAttribute(<span class="string">"type"</span>, <span class="string">"text/css"</span>);</span><br><span class="line">        e.setAttribute(<span class="string">"rel"</span>, <span class="string">"stylesheet"</span>);</span><br><span class="line">        e.setAttribute(<span class="string">"href"</span>, f);</span><br><span class="line">        e.setAttribute(<span class="string">"class"</span>, l);</span><br><span class="line">        document.body.appendChild(e)</span><br><span class="line">    &#125;</span><br><span class="line"> </span><br><span class="line">    <span class="keyword">function</span> h() &#123;</span><br><span class="line">        <span class="keyword">var</span> e = document.getElementsByClassName(l);</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">var</span> t = <span class="number">0</span>; t &lt; e.length; t++) &#123;</span><br><span class="line">            document.body.removeChild(e[t])</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"> </span><br><span class="line">    <span class="keyword">function</span> p() &#123;</span><br><span class="line">        <span class="keyword">var</span> e = document.createElement(<span class="string">"div"</span>);</span><br><span class="line">        e.setAttribute(<span class="string">"class"</span>, a);</span><br><span class="line">        document.body.appendChild(e);</span><br><span class="line">        setTimeout(<span class="keyword">function</span>() &#123;</span><br><span class="line">            document.body.removeChild(e)</span><br><span class="line">        &#125;, <span class="number">100</span>)</span><br><span class="line">    &#125;</span><br><span class="line"> </span><br><span class="line">    <span class="keyword">function</span> d(e) &#123;</span><br><span class="line">        <span class="keyword">return</span> &#123;</span><br><span class="line">            height : e.offsetHeight,</span><br><span class="line">            width : e.offsetWidth</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"> </span><br><span class="line">    <span class="keyword">function</span> v(i) &#123;</span><br><span class="line">        <span class="keyword">var</span> s = d(i);</span><br><span class="line">        <span class="keyword">return</span> s.height &gt; e &amp;&amp; s.height &lt; n &amp;&amp; s.width &gt; t &amp;&amp; s.width &lt; r</span><br><span class="line">    &#125;</span><br><span class="line"> </span><br><span class="line">    <span class="keyword">function</span> m(e) &#123;</span><br><span class="line">        <span class="keyword">var</span> t = e;</span><br><span class="line">        <span class="keyword">var</span> n = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">while</span> (!!t) &#123;</span><br><span class="line">            n += t.offsetTop;</span><br><span class="line">            t = t.offsetParent</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> n</span><br><span class="line">    &#125;</span><br><span class="line"> </span><br><span class="line">    <span class="keyword">function</span> g() &#123;</span><br><span class="line">        <span class="keyword">var</span> e = document.documentElement;</span><br><span class="line">        <span class="keyword">if</span> (!!window.innerWidth) &#123;</span><br><span class="line">            <span class="keyword">return</span> window.innerHeight</span><br><span class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span> (e &amp;&amp; !isNaN(e.clientHeight)) &#123;</span><br><span class="line">            <span class="keyword">return</span> e.clientHeight</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span></span><br><span class="line">    &#125;</span><br><span class="line"> </span><br><span class="line">    <span class="keyword">function</span> y() &#123;</span><br><span class="line">        <span class="keyword">if</span> (window.pageYOffset) &#123;</span><br><span class="line">            <span class="keyword">return</span> window.pageYOffset</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> Math.max(document.documentElement.scrollTop, document.body.scrollTop)</span><br><span class="line">    &#125;</span><br><span class="line"> </span><br><span class="line">    <span class="keyword">function</span> E(e) &#123;</span><br><span class="line">        <span class="keyword">var</span> t = m(e);</span><br><span class="line">        <span class="keyword">return</span> t &gt;= w &amp;&amp; t &lt;= b + w</span><br><span class="line">    &#125;</span><br><span class="line"> </span><br><span class="line">    <span class="keyword">function</span> S() &#123;</span><br><span class="line">        <span class="keyword">var</span> e = document.createElement(<span class="string">"audio"</span>);</span><br><span class="line">        e.setAttribute(<span class="string">"class"</span>, l);</span><br><span class="line">        e.src = i;</span><br><span class="line">        e.loop = <span class="literal">false</span>;</span><br><span class="line">        e.addEventListener(<span class="string">"canplay"</span>, <span class="keyword">function</span>() &#123;</span><br><span class="line">            setTimeout(<span class="keyword">function</span>() &#123;</span><br><span class="line">                x(k)</span><br><span class="line">            &#125;, <span class="number">500</span>);</span><br><span class="line">            setTimeout(<span class="keyword">function</span>() &#123;</span><br><span class="line">                N();</span><br><span class="line">                p();</span><br><span class="line">                <span class="keyword">for</span> (<span class="keyword">var</span> e = <span class="number">0</span>; e &lt; O.length; e++) &#123;</span><br><span class="line">                    T(O[e])</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;, <span class="number">15500</span>)</span><br><span class="line">        &#125;, <span class="literal">true</span>);</span><br><span class="line">        e.addEventListener(<span class="string">"ended"</span>, <span class="keyword">function</span>() &#123;</span><br><span class="line">            N();</span><br><span class="line">            h()</span><br><span class="line">        &#125;, <span class="literal">true</span>);</span><br><span class="line">        e.innerHTML = <span class="string">" &lt;p&gt;If you are reading this, it is because your browser does not support the audio element. We recommend that you get a new browser.&lt;/p&gt; &lt;p&gt;"</span>;</span><br><span class="line">        document.body.appendChild(e);</span><br><span class="line">        e.play()</span><br><span class="line">    &#125;</span><br><span class="line"> </span><br><span class="line">    <span class="keyword">function</span> x(e) &#123;</span><br><span class="line">        e.className += <span class="string">" "</span> + s + <span class="string">" "</span> + o</span><br><span class="line">    &#125;</span><br><span class="line"> </span><br><span class="line">    <span class="keyword">function</span> T(e) &#123;</span><br><span class="line">        e.className += <span class="string">" "</span> + s + <span class="string">" "</span> + u[Math.floor(Math.random() * u.length)]</span><br><span class="line">    &#125;</span><br><span class="line"> </span><br><span class="line">    <span class="keyword">function</span> N() &#123;</span><br><span class="line">        <span class="keyword">var</span> e = document.getElementsByClassName(s);</span><br><span class="line">        <span class="keyword">var</span> t = new RegExp(<span class="string">"\\b"</span> + s + <span class="string">"\\b"</span>);</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">var</span> n = <span class="number">0</span>; n &lt; e.length; ) &#123;</span><br><span class="line">            e[n].className = e[n].className.replace(t, <span class="string">""</span>)</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"> </span><br><span class="line">    <span class="keyword">var</span> e = <span class="number">30</span>;</span><br><span class="line">    <span class="keyword">var</span> t = <span class="number">30</span>;</span><br><span class="line">    <span class="keyword">var</span> n = <span class="number">350</span>;</span><br><span class="line">    <span class="keyword">var</span> r = <span class="number">350</span>;</span><br><span class="line">    <span class="keyword">var</span> i = <span class="string">"//7xuupy.com1.z0.glb.clouddn.com/tongxingSibel%20-%20Im%20Sorry.mp3"</span>;</span><br><span class="line">    <span class="keyword">var</span> s = <span class="string">"mw-harlem_shake_me"</span>;</span><br><span class="line">    <span class="keyword">var</span> o = <span class="string">"im_first"</span>;</span><br><span class="line">    <span class="keyword">var</span> u = [<span class="string">"im_drunk"</span>, <span class="string">"im_baked"</span>, <span class="string">"im_trippin"</span>, <span class="string">"im_blown"</span>];</span><br><span class="line">    <span class="keyword">var</span> a = <span class="string">"mw-strobe_light"</span>;</span><br><span class="line">    <span class="keyword">var</span> f = <span class="string">"//s3.amazonaws.com/moovweb-marketing/playground/harlem-shake-style.css"</span>;</span><br><span class="line">    <span class="keyword">var</span> l = <span class="string">"mw_added_css"</span>;</span><br><span class="line">    <span class="keyword">var</span> b = g();</span><br><span class="line">    <span class="keyword">var</span> w = y();</span><br><span class="line">    <span class="keyword">var</span> C = document.getElementsByTagName(<span class="string">"*"</span>);</span><br><span class="line">    <span class="keyword">var</span> k = <span class="literal">null</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">var</span> L = <span class="number">0</span>; L &lt; C.length; L++) &#123;</span><br><span class="line">        <span class="keyword">var</span> A = C[L];</span><br><span class="line">        <span class="keyword">if</span> (v(A)) &#123;</span><br><span class="line">            <span class="keyword">if</span> (E(A)) &#123;</span><br><span class="line">                k = A;</span><br><span class="line">                <span class="keyword">break</span></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (A === <span class="literal">null</span>) &#123;</span><br><span class="line">        console.warn(<span class="string">"Could not find a node of the right size. Please try a different page."</span>);</span><br><span class="line">        <span class="keyword">return</span></span><br><span class="line">    &#125;</span><br><span class="line">    c();</span><br><span class="line">    S();</span><br><span class="line">    <span class="keyword">var</span> O = [];</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">var</span> L = <span class="number">0</span>; L &lt; C.length; L++) &#123;</span><br><span class="line">        <span class="keyword">var</span> A = C[L];</span><br><span class="line">        <span class="keyword">if</span> (v(A)) &#123;</span><br><span class="line">            O.push(A)</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">	&#125;)()    '&gt;High一下&lt;/a&gt; &lt;/li&gt;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p><code>//7xuupy.com1.z0.glb.clouddn.com/tongxingSibel%20-%20Im%20Sorry.mp3&quot;</code>可以替换成任意你想要的音乐地址</p>
+</blockquote>
+<h3 id="设置网站的图标Favicon"><a href="#设置网站的图标Favicon" class="headerlink" title="设置网站的图标Favicon"></a>设置网站的图标Favicon</h3><p>favicon图标也就是我们打开一个网页，出现在最浅的图标样式，可以自定义，首先我们需要一个favicon.ico的图标，可以去<a href="http://www.bitbug.net/" target="_blank" rel="external">比特虫</a>网站制作，网上的做法是将其放在根目录的source文件夹里。然后在主题目录的layout_partials路径下，修改header.swig的meta标签，我实验了一下，并不能配置成功呢，所以代码就不贴了，这里介绍我的做法:<br>图表制作好后，上传到云存储空间，获取图片的网址，然后打开主题配置文件_config.yml，找到favicon字段，将图片网址粘贴在后面，即可。</p>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">favicon:</span> <span class="string">http:</span><span class="comment">//ww4.sinaimg.cn/square/937882b5jw1f4db4lroy9j20hs0npmy6.jpg #网站图标</span></span><br></pre></td></tr></table></figure>
+<p>到此，Next的主题算是简单的美化了一下，你现在可以在本地预览，也可以将其部署到github上去哦。<br>三部曲：<br>终端执行</p>
+<figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">hexo</span> clean <span class="comment">#清空缓存</span></span><br><span class="line">hexo g <span class="comment">#生成静态网页</span></span><br><span class="line">hexo d <span class="comment">#部署到github</span></span><br></pre></td></tr></table></figure>
+<p>关于博客的迁移，文章标题的搜索优化等，这里就不说了。网上也有很多大神写过这方面的文章。再次感谢开源大帝。<br>不说了，我也得考虑做迁移了。</p>
+
+      
+    </div>
+
+    <div>
+      
+        
+      
+    </div>
+
+    <div>
+      
+        
+  <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+    <div>坚持原创技术分享，您的支持将鼓励我继续创作！</div>
+    <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+      <span>赏</span>
+    </button>
+    <div id="QR" style="display: none;">
+      
+      
+        <div id="alipay" style="display: inline-block">
+          <img id="alipay_qr" src="http://ww3.sinaimg.cn/small/937882b5jw1f4dalzfc5nj20p00vu0um.jpg" alt="童星 Alipay"/>
+          <p>支付宝打赏</p>
+        </div>
+      
+    </div>
+  </div>
+
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Hexo/" rel="tag">#Hexo</a>
+          
+            <a href="/tags/Next/" rel="tag">#Next</a>
+          
+            <a href="/tags/github/" rel="tag">#github</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/05/31/Hello-Hexo/" rel="next" title="Hello Hexo">
+                <i class="fa fa-chevron-left"></i> Hello Hexo
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/06/14/使用插件记录/" rel="prev" title="Xcode插件使用记录">
+                Xcode插件使用记录 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        <div class="ds-share flat" data-thread-key="2016/06/01/最简便的方法搭建Hexo-Github博客-基于Next主题/"
+     data-title="最简便的方法搭建Hexo+Github博客,基于Next主题"
+     data-content=""
+     data-url="chaserr.github.io/2016/06/01/最简便的方法搭建Hexo-Github博客-基于Next主题/">
+  <div class="ds-share-inline">
+    <ul  class="ds-share-icons-16">
+
+      <li data-toggle="ds-share-icons-more"><a class="ds-more" href="javascript:void(0);">分享到：</a></li>
+      <li><a class="ds-weibo" href="javascript:void(0);" data-service="weibo">微博</a></li>
+      <li><a class="ds-qzone" href="javascript:void(0);" data-service="qzone">QQ空间</a></li>
+      <li><a class="ds-qqt" href="javascript:void(0);" data-service="qqt">腾讯微博</a></li>
+      <li><a class="ds-wechat" href="javascript:void(0);" data-service="wechat">微信</a></li>
+
+    </ul>
+    <div class="ds-share-icons-more">
+    </div>
+  </div>
+</div>
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+  <p>热评文章</p>
+  <div class="ds-top-threads" data-range="weekly" data-num-items="4"></div>
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2016/06/01/最简便的方法搭建Hexo-Github博客-基于Next主题/"
+           data-title="最简便的方法搭建Hexo+Github博客,基于Next主题" data-url="chaserr.github.io/2016/06/01/最简便的方法搭建Hexo-Github博客-基于Next主题/">
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="http://ww4.sinaimg.cn/small/937882b5jw1f4db4lroy9j20hs0npmy6.jpg"
+               alt="童星" />
+          <p class="site-author-name" itemprop="name">童星</p>
+          <p class="site-description motion-element" itemprop="description"></p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">7</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">3</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">12</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/chaserr" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://weibo.com/lovaxiang" target="_blank" title="新浪微博">
+                  
+                    <i class="fa fa-fw fa-weibo"></i>
+                  
+                  新浪微博
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://www.facebook.com/x.tongxing" target="_blank" title="FaceBook">
+                  
+                    <i class="fa fa-fw fa-facebook"></i>
+                  
+                  FaceBook
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://plus.google.com/u/0/117848542581702766384" target="_blank" title="GooglePlus">
+                  
+                    <i class="fa fa-fw fa-google-plus"></i>
+                  
+                  GooglePlus
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://www.jianshu.com/users/f007f8773ef2/latest_articles" target="_blank" title="简书">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  简书
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Hexo的安装"><span class="nav-number">2.</span> <span class="nav-text">Hexo的安装</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Hexo简介"><span class="nav-number">2.1.</span> <span class="nav-text">Hexo简介</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Hexo环境配置"><span class="nav-number">2.2.</span> <span class="nav-text">Hexo环境配置</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Git安装"><span class="nav-number">2.2.1.</span> <span class="nav-text">Git安装</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Node-js安装"><span class="nav-number">2.2.2.</span> <span class="nav-text">Node.js安装</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Hexo安装"><span class="nav-number">2.2.3.</span> <span class="nav-text">Hexo安装</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#将文章部署到github"><span class="nav-number">3.</span> <span class="nav-text">将文章部署到github</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#创建github仓库"><span class="nav-number">3.1.</span> <span class="nav-text">创建github仓库</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#配置本地文件"><span class="nav-number">3.2.</span> <span class="nav-text">配置本地文件</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#优化主题"><span class="nav-number">4.</span> <span class="nav-text">优化主题</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Next主题的安装使用"><span class="nav-number">4.1.</span> <span class="nav-text">Next主题的安装使用</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#给站点添加rss和sitemap功能"><span class="nav-number">4.1.1.</span> <span class="nav-text">给站点添加rss和sitemap功能</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#给站点添加本地搜索功能"><span class="nav-number">4.1.2.</span> <span class="nav-text">给站点添加本地搜索功能</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#给站点添加友情链接功能"><span class="nav-number">4.1.3.</span> <span class="nav-text">给站点添加友情链接功能</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#给站点添加多说评论、热评、分享功能"><span class="nav-number">4.1.4.</span> <span class="nav-text">给站点添加多说评论、热评、分享功能</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Next主题的优化"><span class="nav-number">4.2.</span> <span class="nav-text">Next主题的优化</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#配置个人头像"><span class="nav-number">4.2.1.</span> <span class="nav-text">配置个人头像</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Next主题选择"><span class="nav-number">4.2.2.</span> <span class="nav-text">Next主题选择</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Next主题菜单配置"><span class="nav-number">4.2.3.</span> <span class="nav-text">Next主题菜单配置</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#添加关于，标签，分类，公益404页面"><span class="nav-number">4.2.3.1.</span> <span class="nav-text">添加关于，标签，分类，公益404页面</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#添加标签页"><span class="nav-number">4.2.3.1.1.</span> <span class="nav-text">添加标签页</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#添加分类页"><span class="nav-number">4.2.3.1.2.</span> <span class="nav-text">添加分类页</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#添加关于页"><span class="nav-number">4.2.3.1.3.</span> <span class="nav-text">添加关于页</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#添加公益404页面"><span class="nav-number">4.2.3.1.4.</span> <span class="nav-text">添加公益404页面</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Next主题侧边栏社交链接"><span class="nav-number">4.3.</span> <span class="nav-text">Next主题侧边栏社交链接</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#开启打赏功能"><span class="nav-number">4.4.</span> <span class="nav-text">开启打赏功能</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#给文章添加阅读量"><span class="nav-number">4.5.</span> <span class="nav-text">给文章添加阅读量</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#配置LeanCloud"><span class="nav-number">4.5.1.</span> <span class="nav-text">配置LeanCloud</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#修改主题配置文件-config-yml"><span class="nav-number">4.5.2.</span> <span class="nav-text">修改主题配置文件_config.yml</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#添加lean-analytics-swing"><span class="nav-number">4.5.3.</span> <span class="nav-text">添加lean-analytics.swing</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#修改post-swing文件"><span class="nav-number">4.5.4.</span> <span class="nav-text">修改post.swing文件</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#修改layout-swing文件"><span class="nav-number">4.5.5.</span> <span class="nav-text">修改layout.swing文件</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#给页面添加High一下"><span class="nav-number">4.6.</span> <span class="nav-text">给页面添加High一下</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#设置网站的图标Favicon"><span class="nav-number">4.7.</span> <span class="nav-text">设置网站的图标Favicon</span></a></li></ol></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2016</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">童星</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="http://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.1"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.0.1"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.1"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"chaser"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+  
+
+
+
+
+
+
+  
+  
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length == 0) {
+       search_path = "search.xml";
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    function proceedsearch() {
+      $("body").append('<div class="popoverlay">').css('overflow', 'hidden');
+      $('.popup').toggle();
+
+    }
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+    'use strict';
+    $.ajax({
+        url: path,
+        dataType: "xml",
+        async: true,
+        success: function( xmlResponse ) {
+            // get the contents from search data
+            isfetched = true;
+            $('.popup').detach().appendTo('.header-inner');
+            var datas = $( "entry", xmlResponse ).map(function() {
+                return {
+                    title: $( "title", this ).text(),
+                    content: $("content",this).text(),
+                    url: $( "url" , this).text()
+                };
+            }).get();
+            var $input = document.getElementById(search_id);
+            var $resultContent = document.getElementById(content_id);
+            $input.addEventListener('input', function(){
+                var matchcounts = 0;
+                var str='<ul class=\"search-result-list\">';                
+                var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+                $resultContent.innerHTML = "";
+                if (this.value.trim().length > 1) {
+                // perform local searching
+                datas.forEach(function(data) {
+                    var isMatch = true;
+                    var content_index = [];
+                    var data_title = data.title.trim().toLowerCase();
+                    var data_content = data.content.trim().replace(/<[^>]+>/g,"").toLowerCase();
+                    var data_url = data.url;
+                    var index_title = -1;
+                    var index_content = -1;
+                    var first_occur = -1;
+                    // only match artiles with not empty titles and contents
+                    if(data_title != '' && data_content != '') {
+                        keywords.forEach(function(keyword, i) {
+                            index_title = data_title.indexOf(keyword);
+                            index_content = data_content.indexOf(keyword);
+                            if( index_title < 0 && index_content < 0 ){
+                                isMatch = false;
+                            } else {
+                                if (index_content < 0) {
+                                    index_content = 0;
+                                }
+                                if (i == 0) {
+                                    first_occur = index_content;
+                                }
+                            }
+                        });
+                    }
+                    // show search results
+                    if (isMatch) {
+                        matchcounts += 1;
+                        str += "<li><a href='"+ data_url +"' class='search-result-title'>"+ data_title +"</a>";
+                        var content = data.content.trim().replace(/<[^>]+>/g,"");
+                        if (first_occur >= 0) {
+                            // cut out 100 characters
+                            var start = first_occur - 20;
+                            var end = first_occur + 80;
+                            if(start < 0){
+                                start = 0;
+                            }
+                            if(start == 0){
+                                end = 50;
+                            }
+                            if(end > content.length){
+                                end = content.length;
+                            }
+                            var match_content = content.substring(start, end);
+                            // highlight all keywords
+                            keywords.forEach(function(keyword){
+                                var regS = new RegExp(keyword, "gi");
+                                match_content = match_content.replace(regS, "<b class=\"search-keyword\">"+keyword+"</b>");
+                            });
+                            
+                            str += "<p class=\"search-result\">" + match_content +"...</p>"
+                        }
+                        str += "</li>";
+                    }
+                })};
+                str += "</ul>";
+                if (matchcounts == 0) { str = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>' }
+                if (keywords == "") { str = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>' }
+                $resultContent.innerHTML = str;
+            });
+            proceedsearch();
+        }
+    });}
+
+    // handle and trigger popup window;
+    $('.popup-trigger').mousedown(function(e) {
+      e.stopPropagation();
+      if (isfetched == false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+
+    });
+
+    $('.popup-btn-close').click(function(e){
+      $('.popup').hide();
+      $(".popoverlay").remove();
+      $('body').css('overflow', '');
+    });
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+  </script>
+
+  
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.1.js"></script>
+  <script>AV.initialize("KOB3OHOGcDxEOf3I4hkTmnTh-gzGzoHsz", "tNkUIUWo8CnqY1JIJ9QQbE06");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+<script type="text/javascript" async src="//push.zhanzhang.baidu.com/push.js">
+</script>
+
+
+  
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.1.js"></script>
+  <script>AV.initialize("KOB3OHOGcDxEOf3I4hkTmnTh-gzGzoHsz", "tNkUIUWo8CnqY1JIJ9QQbE06");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+  
+  
+
+  <a href="https://github.com/chaserr"><img style="position: absolute; top: 0; left: 0; border: 0;" src="https://camo.githubusercontent.com/567c3a48d796e2fc06ea80409cc9dd82bf714434/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f6c6566745f6461726b626c75655f3132313632312e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_left_darkblue_121621.png"></a>
+  
+</body>
+</html>
