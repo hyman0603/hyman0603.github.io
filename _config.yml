@@ -83,11 +83,11 @@ repository: beginman/beginman.github.io
 #      Socials     #
 # ---------------- #
 github_username: beginman
-douban_username: beginman
-facebook_username: beginman
-weibo_username: beginman
-zhihu_username: beginman
-twitter_username: fpsir
+#douban_username: beginman
+#facebook_username: beginman
+#weibo_username: beginman
+#zhihu_username: beginman
+#twitter_username: fpsir
 
 # ---------------- #
 #      Comments    #
