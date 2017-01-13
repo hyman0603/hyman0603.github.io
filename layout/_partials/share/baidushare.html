@@ -1,0 +1,41 @@
+{% if theme.baidushare.type === "button" %}
+     href="#" class="bds_tsina" data-cmd="tsina" title="分享到新浪微�?></a>
+     href="#" class="bds_weixin" data-cmd="weixin" title="分享到微�?></a>
+     href="#" class="bds_tieba" data-cmd="tieba" title="分享到百度贴�?></a>
+    window._bd_share_config = {
+      "common": {
+        "bdText": "",
+        "bdMini": "2",
+        "bdMiniList": false,
+        "bdPic": ""
+      },
+      "share": {
+        "bdSize": "16",
+        "bdStyle": "0"
+      },
+      "image": {
+        "viewList": ["tsina", "douban", "sqq", "qzone", "weixin", "twi", "fbook"],
+        "viewText": "分享到：",
+        "viewSize": "16"
+      }
+    }
+{% elseif theme.baidushare.type === "slide" %}
+    window._bd_share_config = {
+      "common": {
+        "bdText": "",
+        "bdMini": "1",
+        "bdMiniList": false,
+        "bdPic": ""
+      },
+      "image": {
+        "viewList": ["tsina", "douban", "sqq", "qzone", "weixin", "twi", "fbook"],
+        "viewText": "分享到：",
+        "viewSize": "16"
+      },
+      "slide": {
+        "bdImg": "5",
+        "bdPos": "left",
+        "bdTop": "100"
+      }
+    }
+{% endif %}

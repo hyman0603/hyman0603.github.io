@@ -1,0 +1,36 @@
+{% extends '_layout.html' %}
+{% import '_macro/post-collapse.html' as post_template %}
+{% import '_macro/sidebar.html' as sidebar_template %}
+{% block page_class %} page-archive {% endblock %}
+{% block content %}
+      {% set cheers %}
+      {% set posts_length = site.posts.length %}
+      {% if posts_length  %} {% set cheers = 'excellent' %}
+        {% elif posts_length  %} {% set cheers = 'great' %}
+        {% elif posts_length  %} {% set cheers = 'good' %}
+        {% elif posts_length  %} {% set cheers = 'nice' %}
+        {% elif posts_length  %} {% set cheers = 'ok' %}
+      {% else %}
+        {% set cheers = 'um' %}
+      {% endif %}
+      {{ __('cheers.' + cheers) }}! {{ _p("counter.archive_posts", site.posts.length) }} {{ __('keep_on') }}
+    {% for post in page.posts %}
+      {# Show year #}
+      {% set year %}
+      {% set post.year = date(post.date, 'YYYY') %}
+      {% if post.year !== year %}
+        {% set year = post.year %}
+      {% endif %}
+      {# endshow #}
+      {{ post_template.render(post) }}
+    {% endfor %}
+  {% include '_partials/pagination.html' %}
+{% endblock %}
+{% block sidebar %}
+  {{ sidebar_template.render(false) }}
+{% endblock %}
+{% block script_extra %}
+  {% if theme.use_motion %}
+      $('.archive-year').velocity('transition.slideLeftIn');
+  {% endif %}
+{% endblock %}

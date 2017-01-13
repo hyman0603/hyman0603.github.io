@@ -1,0 +1,57 @@
+{# #238, Disable Baidu tranformation #}
+{% if theme.google_site_verification %}
+{% endif %}
+{% if theme.baidu_site_verification %}
+{% endif %}
+{% if theme.qihu_site_verification %}
+{% endif %}
+{% if theme.fancybox %}
+  {% set fancybox_css_uri = url_for(theme.vendors._internal + '/fancybox/source/jquery.fancybox.css?v=2.1.5') %}
+  {% if theme.vendors.fancybox_css %}
+    {% set fancybox_css_uri = theme.vendors.fancybox_css %}
+  {% endif %}
+{% endif %}
+{% include "./head/external-fonts.html" %}
+{% set font_awesome_uri = url_for(theme.vendors._internal + '/font-awesome/css/font-awesome.min.css?v=4.6.2') %}
+{% if theme.vendors.fontawesome %}
+  {% set font_awesome_uri = theme.vendors.fontawesome %}
+{% endif %}
+{% if page.keywords %}
+{% elif page.tags and page.tags.length %}
+{% elif theme.keywords %}
+{% endif %}
+{% if theme.rss === '' and config.feed and config.feed.path %}
+  {% set theme.rss = config.feed.path %}
+{% endif %}
+{% if theme.rss %}
+{% endif %}
+{% if theme.favicon %}
+{% endif %}
+{% if theme.facebook_sdk.enable and theme.facebook_sdk.webmaster %}
+{% endif %}
+{{
+  open_graph({
+    twitter_id: theme.twitter,
+    google_plus: theme.google_plus,
+    fb_admins: theme.fb_admins,
+    fb_app_id: theme.fb_app_id
+  })
+}}
+{# Export some HEXO Configurations to Front-End #}
+  var CONFIG = {
+    root: '{{ theme.root }}',
+    scheme: '{{ theme.scheme }}',
+    fancybox: {{ theme.fancybox }},
+    motion: {{ theme.use_motion }},
+    duoshuo: {
+    },
+    algolia: {
+      applicationID: '{{ theme.algolia.applicationID }}',
+      apiKey: '{{ theme.algolia.apiKey }}',
+      indexName: '{{ theme.algolia.indexName }}',
+    }
+  };
+{# Canonical, good for google search engine (SEO) : https://support.google.com/webmasters/answer/139066 #}
+{% if theme.canonical %}
+{% endif %}
+{% include 'head/custom-head.html' %}

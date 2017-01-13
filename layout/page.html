@@ -1,0 +1,27 @@
+{% extends '_layout.html' %}
+{% import '_macro/sidebar.html' as sidebar_template %}
+{% block title %}
+  {% if page.type === "categories" and not page.title  %}
+    {{ __('title.category') + page_title_suffix }}
+  {% elif page.type === "tags" and not page.title  %}
+    {{ __('title.tag') + page_title_suffix }}
+  {% else %}
+    {{ page.title + page_title_suffix }}
+  {% endif %}
+{% endblock %}
+{% block content %}
+  {% include '_partials/page-header.html' %}
+    {# tagcloud page support #}
+    {% if page.type === "tags" %}
+            {{ _p('counter.tag_cloud', site.tags.length) }}
+          {{ tagcloud({min_font: 12, max_font: 30, amount: 200, color: true, start_color: '#ccc', end_color: '#111'}) }}
+    {% elif page.type === 'categories' %}
+            {{ _p('counter.categories', site.categories.length) }}
+          {{ list_categories() }}
+    {% else %}
+      {{ page.content }}
+    {% endif %}
+{% endblock %}
+{% block sidebar %}
+  {{ sidebar_template.render(false) }}
+{% endblock %}

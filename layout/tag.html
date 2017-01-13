@@ -1,0 +1,13 @@
+{% extends '_layout.html' %}
+{% import '_macro/post-collapse.html' as post_template %}
+{% import '_macro/sidebar.html' as sidebar_template %}
+{% block content %}
+        {{ page.tag }}
+    {% for post in page.posts %}
+      {{ post_template.render(post) }}
+    {% endfor %}
+  {% include '_partials/pagination.html' %}
+{% endblock %}
+{% block sidebar %}
+  {{ sidebar_template.render(false) }}
+{% endblock %}

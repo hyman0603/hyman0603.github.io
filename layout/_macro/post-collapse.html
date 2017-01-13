@@ -1,0 +1,13 @@
+{% macro render(post) %}
+        {% if post.link %}{# Link posts #}
+            {{ post.title or post.link }}
+        {% else %}
+              {% if post.type === 'picture' %}
+                {{ post.content }}
+              {% else %}
+              {% endif %}
+        {% endif %}
+         class="post-time" itemprop="dateCreated"
+              datetime="{{ moment(post.date).format() }}"
+          {{ date(post.date, 'MM-DD') }}
+{% endmacro %}
