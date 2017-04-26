@@ -86,26 +86,26 @@
 
 <meta name="description" content="CentOS 7之后的版本yum的默认源中使用MariaDB替代原先MySQL，因此安装方式较为以往有一些改变：
 卸载原来的MariaDB
-1yum remove mariadb-config-3:10.1.17-1.el7.x86_64
+1yum remove -y mariadb-config-3:10.1.17-1.el7.x86_64
 下载mysql的源
-1wget http://dev.mysql.com/get/mysql57-community-release-el7-7.noarch.">
+1wget http://dev.mysql.com/get/mysql57-community-release-el7-7.noar">
 <meta property="og:type" content="article">
 <meta property="og:title" content="CentOS7通过yum安装最新版本MySQL">
 <meta property="og:url" content="http://www.hyman.shop/2017/04/26/CentOS7 yum安装MySQL/index.html">
-<meta property="og:site_name" content="一些记录">
+<meta property="og:site_name" content="hyman">
 <meta property="og:description" content="CentOS 7之后的版本yum的默认源中使用MariaDB替代原先MySQL，因此安装方式较为以往有一些改变：
 卸载原来的MariaDB
-1yum remove mariadb-config-3:10.1.17-1.el7.x86_64
+1yum remove -y mariadb-config-3:10.1.17-1.el7.x86_64
 下载mysql的源
-1wget http://dev.mysql.com/get/mysql57-community-release-el7-7.noarch.">
-<meta property="og:updated_time" content="2017-04-26T03:05:22.147Z">
+1wget http://dev.mysql.com/get/mysql57-community-release-el7-7.noar">
+<meta property="og:updated_time" content="2017-04-26T03:31:59.471Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="CentOS7通过yum安装最新版本MySQL">
 <meta name="twitter:description" content="CentOS 7之后的版本yum的默认源中使用MariaDB替代原先MySQL，因此安装方式较为以往有一些改变：
 卸载原来的MariaDB
-1yum remove mariadb-config-3:10.1.17-1.el7.x86_64
+1yum remove -y mariadb-config-3:10.1.17-1.el7.x86_64
 下载mysql的源
-1wget http://dev.mysql.com/get/mysql57-community-release-el7-7.noarch.">
+1wget http://dev.mysql.com/get/mysql57-community-release-el7-7.noar">
 
 
 
@@ -139,7 +139,7 @@
 
 
 
-  <title> CentOS7通过yum安装最新版本MySQL | 一些记录 </title>
+  <title> CentOS7通过yum安装最新版本MySQL | hyman </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -180,7 +180,7 @@
   <div class="custom-logo-site-title">
     <a href="/"  class="brand" rel="start">
       <span class="logo-line-before"><i></i></span>
-      <span class="site-title">一些记录</span>
+      <span class="site-title">hyman</span>
       <span class="logo-line-after"><i></i></span>
     </a>
   </div>
@@ -304,9 +304,9 @@
   </span>
 
   <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-    <meta itemprop="name" content="一些记录">
+    <meta itemprop="name" content="hyman">
     <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
-      <img style="display:none;" itemprop="url image" alt="一些记录" src="">
+      <img style="display:none;" itemprop="url image" alt="hyman" src="">
     </span>
   </span>
 
@@ -404,7 +404,7 @@
       
         <p>CentOS 7之后的版本yum的默认源中使用MariaDB替代原先MySQL，因此安装方式较为以往有一些改变：</p>
 <p>卸载原来的MariaDB</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">yum remove mariadb-config-3:10.1.17-1.el7.x86_64</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">yum remove -y mariadb-config-3:10.1.17-1.el7.x86_64</div></pre></td></tr></table></figure>
 <p>下载mysql的源</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">wget http://dev.mysql.com/get/mysql57-community-release-el7-7.noarch.rpm</div></pre></td></tr></table></figure>
 <p>安装yum库</p>
@@ -420,6 +420,7 @@
 <p>然后退出后即可用新密码登录。</p>
 <p>远程连接授权：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">GRANT ALL PRIVILEGES ON *.* TO &apos;root&apos;@&apos;%&apos; IDENTIFIED BY &apos;your password&apos; WITH GRANT OPTION;</div></pre></td></tr></table></figure>
+
       
     </div>
 
@@ -478,8 +479,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2017/04/26/yum安装MySQL/" rel="next" title="yum安装MySQL">
-                <i class="fa fa-chevron-left"></i> yum安装MySQL
+              <a href="/2017/01/13/Hexo-github-next搭建的blog/" rel="next" title="Hexo+github+next搭建的blog">
+                <i class="fa fa-chevron-left"></i> Hexo+github+next搭建的blog
               </a>
             
           </div>
@@ -487,6 +488,10 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/04/26/MySQL自带压力测试工具mysqlslap的使用方法/" rel="prev" title="MySQL自带压力测试工具mysqlslap的使用方法">
+                MySQL自带压力测试工具mysqlslap的使用方法 <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -554,7 +559,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/">
-                <span class="site-state-item-count">3</span>
+                <span class="site-state-item-count">4</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -563,7 +568,7 @@
           
             <div class="site-state-item site-state-categories">
               <a href="/categories">
-                <span class="site-state-item-count">2</span>
+                <span class="site-state-item-count">1</span>
                 <span class="site-state-item-name">分类</span>
               </a>
             </div>
@@ -572,7 +577,7 @@
           
             <div class="site-state-item site-state-tags">
               <a href="/tags">
-                <span class="site-state-item-count">3</span>
+                <span class="site-state-item-count">1</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>

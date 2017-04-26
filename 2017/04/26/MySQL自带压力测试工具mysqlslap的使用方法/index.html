@@ -1,0 +1,869 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Mysql," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.0" />
+
+
+
+
+
+
+<meta name="description" content="mysqlslap是从5.1.4版开始的一个MySQL官方提供的压力测试工具。通过模拟多个并发客户端访问MySQL来执行压力测试，并输出计时信息。并且能很好的对比多个存储引擎在相同环境下的并发压力性能差别。可以指定SQL语句。如果没有指定SQL语句，mysqlslap会自动生成查询schema的SELECT语句。
+1、查看帮助信息
+123456789101112131415161718192021">
+<meta property="og:type" content="article">
+<meta property="og:title" content="MySQL自带压力测试工具mysqlslap的使用方法">
+<meta property="og:url" content="http://www.hyman.shop/2017/04/26/MySQL自带压力测试工具mysqlslap的使用方法/index.html">
+<meta property="og:site_name" content="hyman">
+<meta property="og:description" content="mysqlslap是从5.1.4版开始的一个MySQL官方提供的压力测试工具。通过模拟多个并发客户端访问MySQL来执行压力测试，并输出计时信息。并且能很好的对比多个存储引擎在相同环境下的并发压力性能差别。可以指定SQL语句。如果没有指定SQL语句，mysqlslap会自动生成查询schema的SELECT语句。
+1、查看帮助信息
+123456789101112131415161718192021">
+<meta property="og:updated_time" content="2017-04-26T04:05:09.678Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="MySQL自带压力测试工具mysqlslap的使用方法">
+<meta name="twitter:description" content="mysqlslap是从5.1.4版开始的一个MySQL官方提供的压力测试工具。通过模拟多个并发客户端访问MySQL来执行压力测试，并输出计时信息。并且能很好的对比多个存储引擎在相同环境下的并发压力性能差别。可以指定SQL语句。如果没有指定SQL语句，mysqlslap会自动生成查询schema的SELECT语句。
+1、查看帮助信息
+123456789101112131415161718192021">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '6374924747829937000',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://www.hyman.shop/2017/04/26/MySQL自带压力测试工具mysqlslap的使用方法/"/>
+
+
+
+
+
+  <title> MySQL自带压力测试工具mysqlslap的使用方法 | hyman </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?a4370b4db3660f924a5e78aa2491204f";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">hyman</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+    
+      <p class="site-subtitle">一些简单的记录</p>
+    
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-guestbook">
+          <a href="/guestbook" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-edit"></i> <br />
+            
+            留言
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup">
+ <span class="search-icon fa fa-search"></span>
+ <input type="text" id="local-search-input">
+ <div id="local-search-result"></div>
+ <span class="popup-btn-close">close</span>
+</div>
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+  <link itemprop="mainEntityOfPage" href="http://www.hyman.shop/2017/04/26/MySQL自带压力测试工具mysqlslap的使用方法/">
+
+  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <meta itemprop="name" content="hyman">
+    <meta itemprop="description" content="">
+    <meta itemprop="image" content="/uploads/avatar.jpg">
+  </span>
+
+  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="hyman">
+    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
+      <img style="display:none;" itemprop="url image" alt="hyman" src="">
+    </span>
+  </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                MySQL自带压力测试工具mysqlslap的使用方法
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-04-26T11:33:19+08:00">
+                2017-04-26
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2017/04/26/MySQL自带压力测试工具mysqlslap的使用方法/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2017/04/26/MySQL自带压力测试工具mysqlslap的使用方法/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>mysqlslap是从5.1.4版开始的一个MySQL官方提供的压力测试工具。通过模拟多个并发客户端访问MySQL来执行压力测试，并输出计时信息。并且能很好的对比多个存储引擎在相同环境下的并发压力性能差别。可以指定SQL语句。如果没有指定SQL语句，mysqlslap会自动生成查询schema的SELECT语句。</p>
+<p>1、查看帮助信息</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div><div class="line">92</div><div class="line">93</div><div class="line">94</div><div class="line">95</div><div class="line">96</div><div class="line">97</div><div class="line">98</div><div class="line">99</div><div class="line">100</div><div class="line">101</div><div class="line">102</div><div class="line">103</div><div class="line">104</div><div class="line">105</div><div class="line">106</div><div class="line">107</div><div class="line">108</div><div class="line">109</div><div class="line">110</div><div class="line">111</div><div class="line">112</div><div class="line">113</div><div class="line">114</div><div class="line">115</div><div class="line">116</div><div class="line">117</div><div class="line">118</div><div class="line">119</div><div class="line">120</div><div class="line">121</div><div class="line">122</div><div class="line">123</div><div class="line">124</div><div class="line">125</div><div class="line">126</div></pre></td><td class="code"><pre><div class="line">[root@object1 local]# mysqlslap --help</div><div class="line">mysqlslap  Ver 1.0 Distrib 5.7.18, for Linux (x86_64)</div><div class="line">Copyright (c) 2005, 2017, Oracle and/or its affiliates. All rights reserved.</div><div class="line"></div><div class="line">Oracle is a registered trademark of Oracle Corporation and/or its</div><div class="line">affiliates. Other names may be trademarks of their respective</div><div class="line">owners.</div><div class="line"></div><div class="line">Run a query multiple times against the server.</div><div class="line"></div><div class="line">Usage: mysqlslap [OPTIONS]</div><div class="line"></div><div class="line">Default options are read from the following files in the given order:</div><div class="line">/etc/my.cnf /etc/mysql/my.cnf /usr/etc/my.cnf ~/.my.cnf </div><div class="line">The following groups are read: mysqlslap client</div><div class="line">The following options may be given as the first argument:</div><div class="line">--print-defaults        Print the program argument list and exit.</div><div class="line">--no-defaults           Don&apos;t read default options from any option file,</div><div class="line">                        except for login file.</div><div class="line">--defaults-file=#       Only read default options from the given file #.</div><div class="line">--defaults-extra-file=# Read this file after the global files are read.</div><div class="line">--defaults-group-suffix=#</div><div class="line">                        Also read groups with concat(group, suffix)</div><div class="line">--login-path=#          Read this path from the login file.</div><div class="line">  -?, --help          Display this help and exit.</div><div class="line">  -a, --auto-generate-sql 自动生成测试表和数据</div><div class="line">                      Generate SQL where not supplied by file or command line.</div><div class="line">  --auto-generate-sql-add-autoincrement 增加auto_increment一列</div><div class="line">                      Add an AUTO_INCREMENT column to auto-generated tables.</div><div class="line">  --auto-generate-sql-execute-number=# 自动生成的查询的个数</div><div class="line">                      Set this number to generate a set number of queries to</div><div class="line">                      run.</div><div class="line">  --auto-generate-sql-guid-primary 增加基于GUID的主键</div><div class="line">                      Add GUID based primary keys to auto-generated tables.</div><div class="line">  --auto-generate-sql-load-type=name 测试语句的类型。取值包括：read，key，write，update和mixed(默认)</div><div class="line">                      Specify test load type: mixed, update, write, key, or</div><div class="line">                      read; default is mixed.</div><div class="line">  --auto-generate-sql-secondary-indexes=# 增加二级索引的个数，默认是0</div><div class="line">                      Number of secondary indexes to add to auto-generated</div><div class="line">                      tables.</div><div class="line">  --auto-generate-sql-unique-query-number=# 不同查询的数量，默认值是10</div><div class="line">                      Number of unique queries to generate for automatic tests.</div><div class="line">  --auto-generate-sql-unique-write-number=# 不同插入的数量，默认是100</div><div class="line">                      Number of unique queries to generate for</div><div class="line">                      auto-generate-sql-write-number.</div><div class="line">  --auto-generate-sql-write-number=# </div><div class="line">                      Number of row inserts to perform for each thread (default</div><div class="line">                      is 100).</div><div class="line">  --commit=#          多少条DML后提交一次</div><div class="line">					  Commit records every X number of statements.</div><div class="line">  -C, --compress      如果服务器和客户端支持都压缩，则压缩信息传递</div><div class="line">					  Use compression in server/client protocol.</div><div class="line">  -c, --concurrency=name 模拟N个客户端并发执行select。可指定多个值，以逗号或者 --delimiter 参数指定的值做为分隔符</div><div class="line">                      Number of clients to simulate for query to run.</div><div class="line">  --create=name       指定用于创建表的.sql文件或者字串</div><div class="line">					  File or string to use create tables.</div><div class="line">  --create-schema=name 指定待测试的数据库名，MySQL中schema也就是database，默认是mysqlslap</div><div class="line">                      Schema to run tests in.</div><div class="line">  --csv[=name]        Generate CSV output to named file or to stdout if no file</div><div class="line">                      is named.</div><div class="line">  -#, --debug[=#]     This is a non-debug version. Catch this and exit.</div><div class="line">  --debug-check       This is a non-debug version. Catch this and exit.</div><div class="line">  -T, --debug-info    打印内存和CPU的信息</div><div class="line">					  This is a non-debug version. Catch this and exit.</div><div class="line">  --default-auth=name Default authentication client-side plugin to use.</div><div class="line">  -F, --delimiter=name 文件中的SQL语句使用分割符号</div><div class="line">                      Delimiter to use in SQL statements supplied in file or</div><div class="line">                      command line.</div><div class="line">  --detach=#           每执行完N个语句，先断开再重新打开连接</div><div class="line">					  Detach (close and reopen) connections after X number of</div><div class="line">                      requests.</div><div class="line">  --enable-cleartext-plugin </div><div class="line">                      Enable/disable the clear text authentication plugin.</div><div class="line">  -e, --engine=name   创建测试表所使用的存储引擎，可指定多个</div><div class="line">			          Storage engine to use for creating the table.</div><div class="line">  -h, --host=name     Connect to host.</div><div class="line">  -i, --iterations=#  迭代执行的次数</div><div class="line">					  Number of times to run the tests.</div><div class="line">  --no-drop           Do not drop the schema after the test.</div><div class="line">  -x, --number-char-cols=name 自动生成的测试表中包含多少个字符类型的列，默认1</div><div class="line">                      Number of VARCHAR columns to create in table if</div><div class="line">                      specifying --auto-generate-sql.</div><div class="line">  -y, --number-int-cols=name 自动生成的测试表中包含多少个数字类型的列，默认1</div><div class="line">                      Number of INT columns to create in table if specifying</div><div class="line">                      --auto-generate-sql.</div><div class="line">  --number-of-queries=# 总的测试查询次数(并发客户数×每客户查询次数)</div><div class="line">                      Limit each client to this number of queries (this is not</div><div class="line">                      exact).</div><div class="line">  --only-print        只输出模拟执行的结果，不实际执行Do not connect to the databases, but instead print out</div><div class="line">                      what would have been done.</div><div class="line">  -p, --password[=name] </div><div class="line">                      Password to use when connecting to server. If password is</div><div class="line">                      not given it&apos;s asked from the tty.</div><div class="line">  --plugin-dir=name   Directory for client-side plugins.</div><div class="line">  -P, --port=#        Port number to use for connection.</div><div class="line">  --post-query=name   测试完成以后执行的SQL语句的文件或者字符串 这个过程不影响时间计算Query to run or file containing query to execute after</div><div class="line">                      tests have completed.</div><div class="line">  --post-system=name  测试完成以后执行的系统语句 这个过程不影响时间计算system() string to execute after tests have completed.</div><div class="line">  --pre-query=name    测试执行之前执行的SQL语句的文件或者字符串 这个过程不影响时间计算Query to run or file containing query to execute before</div><div class="line">                      running tests.</div><div class="line">  --pre-system=name   测试执行之前执行的系统语句 这个过程不影响时间计算system() string to execute before running tests.</div><div class="line">  --protocol=name     The protocol to use for connection (tcp, socket, pipe,</div><div class="line">                      memory).</div><div class="line">  -q, --query=name    指定自定义.sql脚本执行测试。例如可以调用自定义的一个存储过程或者sql语句来执行测试Query to run or file containing query to run.</div><div class="line">  --secure-auth       Refuse client connecting to server if it uses old</div><div class="line">                      (pre-4.1.1) protocol. Deprecated. Always TRUE</div><div class="line">  -s, --silent        不输出Run program in silent mode - no output.</div><div class="line">  -S, --socket=name   The socket file to use for connection.</div><div class="line">  --sql-mode=name     Specify sql-mode to run mysqlslap tool.</div><div class="line">  --ssl-mode=name     SSL connection mode.</div><div class="line">  --ssl               Deprecated. Use --ssl-mode instead.</div><div class="line">                      (Defaults to on; use --skip-ssl to disable.)</div><div class="line">  --ssl-verify-server-cert </div><div class="line">                      Deprecated. Use --ssl-mode=VERIFY_IDENTITY instead.</div><div class="line">  --ssl-ca=name       CA file in PEM format.</div><div class="line">  --ssl-capath=name   CA directory.</div><div class="line">  --ssl-cert=name     X509 cert in PEM format.</div><div class="line">  --ssl-cipher=name   SSL cipher to use.</div><div class="line">  --ssl-key=name      X509 key in PEM format.</div><div class="line">  --ssl-crl=name      Certificate revocation list.</div><div class="line">  --ssl-crlpath=name  Certificate revocation list path.</div><div class="line">  --tls-version=name  TLS version to use, permitted values are: TLSv1, TLSv1.1</div><div class="line">  -u, --user=name     User for login if not current user.</div><div class="line">  -v, --verbose       输出更多的信息More verbose output; you can use this multiple times to</div><div class="line">                      get even more verbose output.</div><div class="line">  -V, --version       Output version information and exit.</div></pre></td></tr></table></figure>
+<p>2、以自动生成测试表和数据的形式，分别模拟 50 和 100 个客户端并发连接处理 1000 个 query 的情况。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">[root@object1 local]# mysqlslap -uroot -p&apos;CAOcao123~!@&apos; -a --concurrency=50,100 --number-of-queries=1000 </div><div class="line">mysqlslap: [Warning] Using a password on the command line interface can be insecure.</div><div class="line">Benchmark</div><div class="line">	Average number of seconds to run all queries: 0.605 seconds</div><div class="line">	Minimum number of seconds to run all queries: 0.605 seconds</div><div class="line">	Maximum number of seconds to run all queries: 0.605 seconds</div><div class="line">	Number of clients running queries: 50</div><div class="line">	Average number of queries per client: 20</div><div class="line"></div><div class="line">Benchmark</div><div class="line">	Average number of seconds to run all queries: 0.534 seconds</div><div class="line">	Minimum number of seconds to run all queries: 0.534 seconds</div><div class="line">	Maximum number of seconds to run all queries: 0.534 seconds</div><div class="line">	Number of clients running queries: 100</div><div class="line">	Average number of queries per client: 10</div></pre></td></tr></table></figure>
+<p>3、增加 –debug-info 选项，可以输出内存和CPU信息。 </p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+  <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+    <div>如果对您有帮助，可以给我们打赏鼓励！</div>
+    <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+      <span>赏</span>
+    </button>
+    <div id="QR" style="display: none;">
+      
+      
+        <div id="alipay" style="display: inline-block">
+          <img id="alipay_qr" src="/pay/ali.jpg" alt="hyman Alipay"/>
+          <p>支付宝打赏</p>
+        </div>
+      
+    </div>
+  </div>
+
+
+      
+    </div>
+
+
+    <footer class="post-footer">
+
+	
+		<! -- 添加微信图标 -->
+		
+ 
+
+	
+	
+	
+	
+	
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Mysql/" rel="tag"># Mysql</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/04/26/CentOS7 yum安装MySQL/" rel="next" title="CentOS7通过yum安装最新版本MySQL">
+                <i class="fa fa-chevron-left"></i> CentOS7通过yum安装最新版本MySQL
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/04/26/Zookeeper、Dubbo-Admin管理平台的搭建/" rel="prev" title="Zookeeper、Dubbo-Admin管理平台的搭建">
+                Zookeeper、Dubbo-Admin管理平台的搭建 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+          
+          </div>
+          
+
+  <p>热评文章</p>
+  <div class="ds-top-threads" data-range="weekly" data-num-items="4"></div>
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2017/04/26/MySQL自带压力测试工具mysqlslap的使用方法/"
+           data-title="MySQL自带压力测试工具mysqlslap的使用方法" data-url="http://www.hyman.shop/2017/04/26/MySQL自带压力测试工具mysqlslap的使用方法/">
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+
+      <section class="site-overview sidebar-panel sidebar-panel-active">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/uploads/avatar.jpg"
+               alt="hyman" />
+          <p class="site-author-name" itemprop="name">hyman</p>
+          <p class="site-description motion-element" itemprop="description"></p>
+        </div>
+        <nav class="site-state motion-element">
+        
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/">
+                <span class="site-state-item-count">4</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">1</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">1</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">hyman</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.0"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.0"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"hyman0603"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+      
+      <script src="/lib/ua-parser-js/dist/ua-parser.min.js?v=0.7.9"></script>
+      <script src="/js/src/hook-duoshuo.js?v=5.1.0"></script>
+    
+    
+    <script src="/lib/ua-parser-js/dist/ua-parser.min.js?v=0.7.9"></script>
+    <script src="/js/src/hook-duoshuo.js"></script>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length == 0) {
+      search_path = "search.xml";
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    function proceedsearch() {
+      $("body").append('<div class="popoverlay">').css('overflow', 'hidden');
+      $('.popup').toggle();
+    }
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+      $.ajax({
+        url: path,
+        dataType: "xml",
+        async: true,
+        success: function( xmlResponse ) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = $( "entry", xmlResponse ).map(function() {
+            return {
+              title: $( "title", this ).text(),
+              content: $("content",this).text(),
+              url: $( "url" , this).text()
+            };
+          }).get();
+          var $input = document.getElementById(search_id);
+          var $resultContent = document.getElementById(content_id);
+          $input.addEventListener('input', function(){
+            var matchcounts = 0;
+            var str='<ul class=\"search-result-list\">';
+            var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+            $resultContent.innerHTML = "";
+            if (this.value.trim().length > 1) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var content_index = [];
+                var data_title = data.title.trim().toLowerCase();
+                var data_content = data.content.trim().replace(/<[^>]+>/g,"").toLowerCase();
+                var data_url = decodeURIComponent(data.url);
+                var index_title = -1;
+                var index_content = -1;
+                var first_occur = -1;
+                // only match artiles with not empty titles and contents
+                if(data_title != '') {
+                  keywords.forEach(function(keyword, i) {
+                    index_title = data_title.indexOf(keyword);
+                    index_content = data_content.indexOf(keyword);
+                    if( index_title >= 0 || index_content >= 0 ){
+                      isMatch = true;
+                      if (i == 0) {
+                        first_occur = index_content;
+                      }
+                    }
+
+                  });
+                }
+                // show search results
+                if (isMatch) {
+                  matchcounts += 1;
+                  str += "<li><a href='"+ data_url +"' class='search-result-title'>"+ data_title +"</a>";
+                  var content = data.content.trim().replace(/<[^>]+>/g,"");
+                  if (first_occur >= 0) {
+                    // cut out 100 characters
+                    var start = first_occur - 20;
+                    var end = first_occur + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if(start == 0){
+                      end = 50;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    var match_content = content.substring(start, end);
+                    // highlight all keywords
+                    keywords.forEach(function(keyword){
+                      var regS = new RegExp(keyword, "gi");
+                      match_content = match_content.replace(regS, "<b class=\"search-keyword\">"+keyword+"</b>");
+                    });
+
+                    str += "<p class=\"search-result\">" + match_content +"...</p>"
+                  }
+                  str += "</li>";
+                }
+              })};
+            str += "</ul>";
+            if (matchcounts == 0) { str = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>' }
+            if (keywords == "") { str = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>' }
+            $resultContent.innerHTML = str;
+          });
+          proceedsearch();
+        }
+      });}
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched == false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(function(e){
+      $('.popup').hide();
+      $(".popoverlay").remove();
+      $('body').css('overflow', '');
+    });
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+  </script>
+
+
+  
+
+  
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+
+
+</body>
+</html>
