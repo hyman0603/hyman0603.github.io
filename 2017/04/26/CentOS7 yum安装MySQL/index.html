@@ -98,7 +98,7 @@
 1yum remove mariadb-config-3:10.1.17-1.el7.x86_64
 下载mysql的源
 1wget http://dev.mysql.com/get/mysql57-community-release-el7-7.noarch.">
-<meta property="og:updated_time" content="2017-04-26T02:56:13.865Z">
+<meta property="og:updated_time" content="2017-04-26T03:05:22.147Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="CentOS7通过yum安装最新版本MySQL">
 <meta name="twitter:description" content="CentOS 7之后的版本yum的默认源中使用MariaDB替代原先MySQL，因此安装方式较为以往有一些改变：
@@ -412,12 +412,14 @@
 <p>安装MySQL</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">yum install -y mysql-community-server</div></pre></td></tr></table></figure>
 <p>启动MySQL服务</p>
-<figure class="highlight plain"><figcaption><span>start mysqld.service```</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">MySQL5.7加强了root用户的安全性，因此在第一次安装后会初始化一个随机密码，以下为查看初始随机密码的方式</div></pre></td></tr></table></figure>
-<p>grep ‘temporary password’ /var/log/mysqld.log<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">使用初始随机密码登录后MySQL会强制要求修改密码，否则无法正常使用，（密码必须包含小写、大写字母及特殊字符，当然也有其他方法不受此限制，再次不多做描述），修改方法如下：</div><div class="line"></div><div class="line">```SET PASSWORD = PASSWORD(&apos;your new password&apos;);</div><div class="line">ALTER USER &apos;root&apos;@&apos;localhost&apos; PASSWORD EXPIRE NEVER;</div><div class="line">flush privileges;</div></pre></td></tr></table></figure></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">systemctl start mysqld.service</div></pre></td></tr></table></figure>
+<p>MySQL5.7加强了root用户的安全性，因此在第一次安装后会初始化一个随机密码，以下为查看初始随机密码的方式</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">grep &apos;temporary password&apos; /var/log/mysqld.log</div></pre></td></tr></table></figure>
+<p>使用初始随机密码登录后MySQL会强制要求修改密码，否则无法正常使用，（密码必须包含小写、大写字母及特殊字符，当然也有其他方法不受此限制，再次不多做描述），修改方法如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">SET PASSWORD = PASSWORD(&apos;your new password&apos;);</div><div class="line">ALTER USER &apos;root&apos;@&apos;localhost&apos; PASSWORD EXPIRE NEVER;</div><div class="line">flush privileges;</div></pre></td></tr></table></figure>
 <p>然后退出后即可用新密码登录。</p>
 <p>远程连接授权：</p>
-<p><code>GRANT ALL PRIVILEGES ON *.* TO &#39;root&#39;@&#39;%&#39; IDENTIFIED BY &#39;your password&#39; WITH GRANT OPTION;</code></p>
-
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">GRANT ALL PRIVILEGES ON *.* TO &apos;root&apos;@&apos;%&apos; IDENTIFIED BY &apos;your password&apos; WITH GRANT OPTION;</div></pre></td></tr></table></figure>
       
     </div>
 
