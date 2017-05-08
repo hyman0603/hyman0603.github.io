@@ -371,10 +371,8 @@
       
         
           
-          Redis提供的持久化机制
-RDB持久化：该机制是指在指定的时间间隔内将内存中的数据集快照写入磁盘。  
-
-AOF持久化:该机制将以日志的形式记录服务器所处理的每一个写操作，在Redis服务器启动之初
+          Redis是个支持持久化的内存数据库，redis需要经常将内存中的数据同步到磁盘来保证持久化。
+快照（Snapshotting）默认持久化方式配置1234snapshotting：       sav
           ...
           <!--noindex-->
           <div class="post-button text-center">
