@@ -93,7 +93,7 @@
 <meta property="og:image" content="http://imglf1.nosdn.127.net/img/R3hDdlA4YitONFpPSXdaUEVIeXNxd20wOGd2UFBkR0NIRGkwTzN3RjlOcklzS3NzTzlFY0pRPT0.gif">
 <meta property="og:image" content="http://imglf.nosdn.127.net/img/R3hDdlA4YitONFpPSXdaUEVIeXNxNjRjV2FWQjZZMHovREprSGx6ZnBNSmFoUXp3WDdVZ0p3PT0.gif">
 <meta property="og:image" content="http://imglf2.nosdn.127.net/img/R3hDdlA4YitONFpPSXdaUEVIeXNxekFWSXFDQW5HOHFTUklySk5adlNHbVJZRDVMMEpkMDBnPT0.gif">
-<meta property="og:updated_time" content="2017-05-03T09:09:08.705Z">
+<meta property="og:updated_time" content="2017-05-04T01:26:31.643Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="搭建FastDFS分布式文件系统">
 <meta name="twitter:description" content="FastDFS介绍FastDFS是一款类Google FS的开源分布式文件系统，它用纯C语言实现，支持Linux、FreeBSD、AIX等UNIX系统。它只能通过专有API对文件进行存取访问，不支持POSIX接口方式，不能mount使用。准确地讲，Google FS以及FastDFS、mogileFS、HDFS、TFS等类Google FS都不是系统级的分布式文件系统，而是应用级的分布式文件存储服">
@@ -390,7 +390,7 @@
 <h3 id="默认脚本目录"><a href="#默认脚本目录" class="headerlink" title="默认脚本目录"></a>默认脚本目录</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">[root@object1 ~]# ll /etc/init.d/ | grep fdfs</div></pre></td></tr></table></figure>
 <h3 id="样例配置文件"><a href="#样例配置文件" class="headerlink" title="样例配置文件"></a>样例配置文件</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">[root@object1 ~]# ll /etc/fdfs/</div></pre></td></tr></table></figure>
 <p><strong>注意：虽然FastDFS区分tracker和storage服务器，但是安装的软件及步骤均相同，只是不同的配置文件而已，因此以上安装适用tracker server和storage server</strong></p>
-<h3 id="配置跟踪服务器（tracker-server）"><a href="#配置跟踪服务器（tracker-server）" class="headerlink" title="配置跟踪服务器（tracker server）"></a>配置跟踪服务器（tracker server）</h3><h4 id="拷贝tracker-server和client端样例配置文件并重命名"><a href="#拷贝tracker-server和client端样例配置文件并重命名" class="headerlink" title="拷贝tracker server和client端样例配置文件并重命名"></a>拷贝tracker server和client端样例配置文件并重命名</h4><p>[root@object1 ~]# cp /etc/fdfs/tracker.conf.sample /etc/fdfs/tracker.conf<br>[root@object1 ~]# cp /etc/fdfs/client.conf.sample /etc/fdfs/client.conf</p>
+<h3 id="配置跟踪服务器（tracker-server）"><a href="#配置跟踪服务器（tracker-server）" class="headerlink" title="配置跟踪服务器（tracker server）"></a>配置跟踪服务器（tracker server）</h3><h4 id="拷贝tracker-server和client端样例配置文件并重命名"><a href="#拷贝tracker-server和client端样例配置文件并重命名" class="headerlink" title="拷贝tracker server和client端样例配置文件并重命名"></a>拷贝tracker server和client端样例配置文件并重命名</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">[root@object1 ~]# cp /etc/fdfs/tracker.conf.sample /etc/fdfs/tracker.conf</div><div class="line">[root@object1 ~]# cp /etc/fdfs/client.conf.sample /etc/fdfs/client.conf</div></pre></td></tr></table></figure>
 <h4 id="修改client-conf"><a href="#修改client-conf" class="headerlink" title="修改client.conf"></a>修改client.conf</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">第14行</div><div class="line"> tracker_server=192.168.1.226:22122</div></pre></td></tr></table></figure>
 <h4 id="启动tracker-server"><a href="#启动tracker-server" class="headerlink" title="启动tracker server"></a>启动tracker server</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">[root@object1 ~]# /etc/init.d/fdfs_trackerd start</div><div class="line">[root@object1 ~]# ss -tunlp | grep 22122</div></pre></td></tr></table></figure>
 <h3 id="配置存储服务器（storage-server）"><a href="#配置存储服务器（storage-server）" class="headerlink" title="配置存储服务器（storage server）"></a>配置存储服务器（storage server）</h3><h4 id="拷贝storage-server样例配置文件并重命名"><a href="#拷贝storage-server样例配置文件并重命名" class="headerlink" title="拷贝storage server样例配置文件并重命名"></a>拷贝storage server样例配置文件并重命名</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">[root@object1 ~]# cp /etc/fdfs/storage.conf.sample /etc/fdfs/storage.conf</div></pre></td></tr></table></figure>
@@ -474,6 +474,10 @@
 
           <div class="post-nav-prev post-nav-item">
             
+              <a href="/2017/05/04/CentOS-7-安装KVM虚拟机/" rel="prev" title="CentOS 7 安装KVM虚拟机">
+                CentOS 7 安装KVM虚拟机 <i class="fa fa-chevron-right"></i>
+              </a>
+            
           </div>
         </div>
       
@@ -549,7 +553,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/">
-                <span class="site-state-item-count">8</span>
+                <span class="site-state-item-count">11</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -567,7 +571,7 @@
           
             <div class="site-state-item site-state-tags">
               <a href="/tags">
-                <span class="site-state-item-count">5</span>
+                <span class="site-state-item-count">6</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>

@@ -68,7 +68,7 @@
 <link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="LDAP," />
+  <meta name="keywords" content="Hexo, NexT" />
 
 
 
@@ -84,19 +84,22 @@
 
 
 
-<meta name="description" content="LDAP介绍LDAP是轻量目录访问协议，英文全称是Lightweight Directory Access Protocol，简称为LDAP。它是基于X.500标准的，但是简单多了并且可以根据需要定制。与X.500不同，LDAP支持TCP/IP。LDAP的核心规范在RFC中都有定义，所有与LDAP相关的RFC都可以在LDAPman RFC网页中找到。
-使用目的使用LDAP对运维相关用户名密码做统一">
+<meta name="description" content="准备阶段OpenStack源码1https://github.com/openstack
+DevStack源码1https://git.openstack.org/cgit/openstack-dev/devstack
+设置aliyun的base源12[root@compute ~]# wget -O /etc/yum.repos.d/CentOS-Base.repo http://mirrors">
 <meta property="og:type" content="article">
-<meta property="og:title" content="CentOS7 LDAP统一认证部署">
-<meta property="og:url" content="http://www.hyman.shop/2017/05/02/CentOS7-LDAP统一认证部署/index.html">
+<meta property="og:title" content="CentOS 7用DevStack安装OpenStack">
+<meta property="og:url" content="http://www.hyman.shop/2017/05/05/CentOS-7用DevStack安装OpenStack/index.html">
 <meta property="og:site_name" content="hyman">
-<meta property="og:description" content="LDAP介绍LDAP是轻量目录访问协议，英文全称是Lightweight Directory Access Protocol，简称为LDAP。它是基于X.500标准的，但是简单多了并且可以根据需要定制。与X.500不同，LDAP支持TCP/IP。LDAP的核心规范在RFC中都有定义，所有与LDAP相关的RFC都可以在LDAPman RFC网页中找到。
-使用目的使用LDAP对运维相关用户名密码做统一">
-<meta property="og:updated_time" content="2017-05-02T08:46:46.665Z">
+<meta property="og:description" content="准备阶段OpenStack源码1https://github.com/openstack
+DevStack源码1https://git.openstack.org/cgit/openstack-dev/devstack
+设置aliyun的base源12[root@compute ~]# wget -O /etc/yum.repos.d/CentOS-Base.repo http://mirrors">
+<meta property="og:updated_time" content="2017-05-05T08:06:03.652Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="CentOS7 LDAP统一认证部署">
-<meta name="twitter:description" content="LDAP介绍LDAP是轻量目录访问协议，英文全称是Lightweight Directory Access Protocol，简称为LDAP。它是基于X.500标准的，但是简单多了并且可以根据需要定制。与X.500不同，LDAP支持TCP/IP。LDAP的核心规范在RFC中都有定义，所有与LDAP相关的RFC都可以在LDAPman RFC网页中找到。
-使用目的使用LDAP对运维相关用户名密码做统一">
+<meta name="twitter:title" content="CentOS 7用DevStack安装OpenStack">
+<meta name="twitter:description" content="准备阶段OpenStack源码1https://github.com/openstack
+DevStack源码1https://git.openstack.org/cgit/openstack-dev/devstack
+设置aliyun的base源12[root@compute ~]# wget -O /etc/yum.repos.d/CentOS-Base.repo http://mirrors">
 
 
 
@@ -124,13 +127,13 @@
 
 
 
-  <link rel="canonical" href="http://www.hyman.shop/2017/05/02/CentOS7-LDAP统一认证部署/"/>
+  <link rel="canonical" href="http://www.hyman.shop/2017/05/05/CentOS-7用DevStack安装OpenStack/"/>
 
 
 
 
 
-  <title> CentOS7 LDAP统一认证部署 | hyman </title>
+  <title> CentOS 7用DevStack安装OpenStack | hyman </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -286,7 +289,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-  <link itemprop="mainEntityOfPage" href="http://www.hyman.shop/2017/05/02/CentOS7-LDAP统一认证部署/">
+  <link itemprop="mainEntityOfPage" href="http://www.hyman.shop/2017/05/05/CentOS-7用DevStack安装OpenStack/">
 
   <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
     <meta itemprop="name" content="hyman">
@@ -310,7 +313,7 @@
             
             
               
-                CentOS7 LDAP统一认证部署
+                CentOS 7用DevStack安装OpenStack
               
             
           </h1>
@@ -325,8 +328,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-05-02T14:17:51+08:00">
-                2017-05-02
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-05-05T15:41:14+08:00">
+                2017-05-05
               </time>
             
 
@@ -344,8 +347,8 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2017/05/02/CentOS7-LDAP统一认证部署/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2017/05/02/CentOS7-LDAP统一认证部署/" itemprop="commentCount"></span>
+                <a href="/2017/05/05/CentOS-7用DevStack安装OpenStack/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2017/05/05/CentOS-7用DevStack安装OpenStack/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -371,11 +374,16 @@
       
 
       
-        <h2 id="LDAP介绍"><a href="#LDAP介绍" class="headerlink" title="LDAP介绍"></a>LDAP介绍</h2><p>LDAP是轻量目录访问协议，英文全称是Lightweight Directory Access Protocol，简称为LDAP。它是基于X.500标准的，但是简单多了并且可以根据需要定制。与X.500不同，LDAP支持TCP/IP。LDAP的核心规范在RFC中都有定义，所有与LDAP相关的RFC都可以在LDAPman RFC网页中找到。</p>
-<h2 id="使用目的"><a href="#使用目的" class="headerlink" title="使用目的"></a>使用目的</h2><p>使用LDAP对运维相关用户名密码做统一管理。可以实现一个帐号登录多个不同系统。</p>
-<h2 id="LDAP部署"><a href="#LDAP部署" class="headerlink" title="LDAP部署"></a>LDAP部署</h2><h3 id="LDAP-Server端安装"><a href="#LDAP-Server端安装" class="headerlink" title="LDAP Server端安装"></a>LDAP Server端安装</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">[root@object1 ~]# yum install -y openldap openldap-clients openldap-servers migrationtools</div></pre></td></tr></table></figure>
-<h3 id="LDAP-配置"><a href="#LDAP-配置" class="headerlink" title="LDAP 配置"></a>LDAP 配置</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div><div class="line">92</div><div class="line">93</div><div class="line">94</div></pre></td><td class="code"><pre><div class="line">#配置 OpenLDAP Server</div><div class="line">[root@object1 ~]# vim /etc/openldap/slapd.d/cn\=config/olcDatabase\=\&#123;2\&#125;hdb.ldif </div><div class="line">dn: olcDatabase=&#123;2&#125;hdb</div><div class="line"></div><div class="line">修改两行</div><div class="line">olcSuffix: dc=hyman,dc=com</div><div class="line">olcRootDN: cn=Manager,dc=hyman,dc=com</div><div class="line">新增一行</div><div class="line">olcRootPW: 123456</div><div class="line"></div><div class="line">#配置 Monitoring Database</div><div class="line">[root@object1 ~]# vim /etc/openldap/slapd.d/cn\=config/olcDatabase\=\&#123;1\&#125;monitor.ldif</div><div class="line">dn: olcDatabase=&#123;1&#125;monitor</div><div class="line"></div><div class="line">修改一行</div><div class="line">olcAccess: &#123;0&#125;to * by dn.base=&quot;gidNumber=0+uidNumber=0,cn=peercred,cn=extern</div><div class="line"> al,cn=auth&quot; read by dn.base=&quot;cn=Manager,dc=hyman,dc=com&quot; read by * none</div><div class="line"></div><div class="line">#初始化 LDAP database</div><div class="line">[root@object1 ~]# cp /usr/share/openldap-servers/DB_CONFIG.example /var/lib/ldap/DB_CONFIG</div><div class="line">[root@object1 ~]# chown -R ldap.ldap /var/lib/ldap/</div><div class="line"></div><div class="line">#测试 configuration</div><div class="line">[root@object1 ~]# slaptest -u</div><div class="line"></div><div class="line">#启动服务并开机自启</div><div class="line">[root@object1 ~]# systemctl start slapd</div><div class="line">[root@object1 ~]# systemctl enable slapd</div><div class="line"></div><div class="line">#查看状态</div><div class="line">[root@object1 ~]# netstat -lt | grep ldap</div><div class="line"></div><div class="line">#将所有的配置LDAP server, 添加到LDAP schemas中</div><div class="line">[root@object1 ~]# cd /etc/openldap/schema/</div><div class="line"> ldapadd -Y EXTERNAL -H ldapi:/// -D &quot;cn=config&quot; -f cosine.ldif</div><div class="line">[root@object1 schema]# ldapadd -Y EXTERNAL -H ldapi:/// -D &quot;cn=config&quot; -f nis.ldif</div><div class="line">[root@object1 schema]# ldapadd -Y EXTERNAL -H ldapi:/// -D &quot;cn=config&quot; -f collective.ldif</div><div class="line">[root@object1 schema]# ldapadd -Y EXTERNAL -H ldapi:/// -D &quot;cn=config&quot; -f corba.ldif</div><div class="line">[root@object1 schema]# ldapadd -Y EXTERNAL -H ldapi:/// -D &quot;cn=config&quot; -f core.ldif</div><div class="line">[root@object1 schema]# ldapadd -Y EXTERNAL -H ldapi:/// -D &quot;cn=config&quot; -f duaconf.ldif</div><div class="line">[root@object1 schema]# ldapadd -Y EXTERNAL -H ldapi:/// -D &quot;cn=config&quot; -f dyngroup.ldif</div><div class="line">[root@object1 schema]# ldapadd -Y EXTERNAL -H ldapi:/// -D &quot;cn=config&quot; -f inetorgperson.ldif</div><div class="line">[root@object1 schema]# ldapadd -Y EXTERNAL -H ldapi:/// -D &quot;cn=config&quot; -f java.ldif</div><div class="line">[root@object1 schema]# ldapadd -Y EXTERNAL -H ldapi:/// -D &quot;cn=config&quot; -f ppolicy.ldif</div><div class="line">[root@object1 schema]# ldapadd -Y EXTERNAL -H ldapi:/// -D &quot;cn=config&quot; -f pmi.ldif</div><div class="line">[root@object1 schema]# ldapadd -Y EXTERNAL -H ldapi:/// -D &quot;cn=config&quot; -f openldap.ldif</div><div class="line">[root@object1 schema]# ldapadd -Y EXTERNAL -H ldapi:/// -D &quot;cn=config&quot; -f misc.ldif</div><div class="line"></div><div class="line">#使用Migration Tools 创建 LDAP DIT</div><div class="line">[root@object1 schema]# cd /usr/share/migrationtools/</div><div class="line">[root@object1 migrationtools]# vim migrate_common.ph</div><div class="line">修改61行</div><div class="line">$NAMINGCONTEXT&#123;&apos;group&apos;&#125;             = &quot;ou=Groups&quot;;</div><div class="line">修改71行</div><div class="line">$DEFAULT_MAIL_DOMAIN = &quot;hyman.com&quot;;</div><div class="line">修改74行</div><div class="line">$DEFAULT_BASE = &quot;dc=hyman,dc=com&quot;;</div><div class="line">修改90行</div><div class="line">$EXTENDED_SCHEMA = 1;</div><div class="line"></div><div class="line">#创建 base.ldif</div><div class="line">[root@object1 migrationtools]# ./migrate_base.pl &gt; /root/base.ldif</div><div class="line"></div><div class="line">#导入LDAP database</div><div class="line">[root@object1 migrationtools]# ldapadd -x -W -D &quot;cn=Manager,dc=hyman,dc=com&quot; -f /root/base.ldif</div><div class="line"></div><div class="line">#创建用户和用户组，并将其从本地数据库迁移到LDAP数据库</div><div class="line">[root@object1 migrationtools]# mkdir /home/guests</div><div class="line">[root@object1 migrationtools]# useradd -d /home/guests/ldapuser1 ldapuser1</div><div class="line">[root@object1 migrationtools]# useradd -d /home/guests/ldapuser2 ldapuser2</div><div class="line">[root@object1 migrationtools]# echo &quot;password&quot; | passwd --stdin ldapuser1</div><div class="line">[root@object1 migrationtools]# echo &quot;password&quot; | passwd --stdin ldapuser2</div><div class="line"></div><div class="line">#过滤掉这些用户和组和密码从/etc/shadow到不同的文件</div><div class="line">[root@object1 ~]# getent passwd | tail -n 5 &gt; /root/users</div><div class="line">[root@object1 ~]# getent shadow | tail -n 5 &gt; /root/shadow</div><div class="line">[root@object1 ~]# getent group | tail -n 5 &gt; /root/groups</div><div class="line"></div><div class="line">#创建这些用户使用migrationtools</div><div class="line">[root@object1 ~]# cd /usr/share/migrationtools/</div><div class="line">[root@object1 migrationtools]# vim migrate_passwd.pl </div><div class="line">修改188行</div><div class="line">把 /etc/shadow 替换为 /root/shadow</div><div class="line"></div><div class="line">[root@object1 migrationtools]# ./migrate_passwd.pl /root/users &gt; users.ldif</div><div class="line">[root@object1 migrationtools]# ./migrate_passwd.pl /root/groups &gt; groups.ldif</div><div class="line"></div><div class="line"></div><div class="line">#上传这些用户和组LDAP数据库</div><div class="line">[root@object1 ~]# ldapadd -x -W -D &quot;cn=Manager,dc=hyman,dc=com&quot; -f users.ldif</div><div class="line">[root@object1 ~]# ldapadd -x -W -D &quot;cn=Manager,dc=hyman,dc=com&quot; -f groups.ldif</div><div class="line"></div><div class="line">#所有记录搜索LDAP DIT</div><div class="line">[root@object1 ~]# ldapsearch -x -b &quot;dc=hyman,dc=com&quot; -H ldap://127.0.0.1</div></pre></td></tr></table></figure>
-<h2 id="LDAP-客户端验证"><a href="#LDAP-客户端验证" class="headerlink" title="LDAP 客户端验证"></a>LDAP 客户端验证</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">[root@block1 ~]# yum install -y nss-pam*</div><div class="line">[root@block1 ~]# authconfig-tui </div><div class="line">选择第二个Use LDAP</div><div class="line">[root@block1 ~]# su ldaduser1</div></pre></td></tr></table></figure>
+        <h2 id="准备阶段"><a href="#准备阶段" class="headerlink" title="准备阶段"></a>准备阶段</h2><h3 id="OpenStack源码"><a href="#OpenStack源码" class="headerlink" title="OpenStack源码"></a>OpenStack源码</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">https://github.com/openstack</div></pre></td></tr></table></figure>
+<h3 id="DevStack源码"><a href="#DevStack源码" class="headerlink" title="DevStack源码"></a>DevStack源码</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">https://git.openstack.org/cgit/openstack-dev/devstack</div></pre></td></tr></table></figure>
+<h3 id="设置aliyun的base源"><a href="#设置aliyun的base源" class="headerlink" title="设置aliyun的base源"></a>设置aliyun的base源</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">[root@compute ~]# wget -O /etc/yum.repos.d/CentOS-Base.repo http://mirrors.aliyun.com/repo/Centos-7.repo</div><div class="line">[root@compute ~]# yum makecache</div></pre></td></tr></table></figure>
+<h3 id="DevStack和OpenStack源码可以替换为TryStack镜像"><a href="#DevStack和OpenStack源码可以替换为TryStack镜像" class="headerlink" title="DevStack和OpenStack源码可以替换为TryStack镜像"></a>DevStack和OpenStack源码可以替换为TryStack镜像</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"># use TryStack git mirror</div><div class="line">GIT_BASE=http://git.trystack.cn</div><div class="line">NOVNC_REPO=http://git.trystack.cn/kanaka/noVNC.git</div><div class="line">SPICE_REPO=http://git.trystack.cn/git/spice/spice-html5.git</div></pre></td></tr></table></figure>
+<h3 id="pip源地址可以换为国内的豆瓣源"><a href="#pip源地址可以换为国内的豆瓣源" class="headerlink" title="pip源地址可以换为国内的豆瓣源"></a>pip源地址可以换为国内的豆瓣源</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">[root@compute ~]# mkdir /root/.pip</div><div class="line">[root@compute ~]# cat /root/.pip/pip.conf</div><div class="line">[global]</div><div class="line">index-url = http://pypi.douban.com/simple/</div><div class="line">trusted-host = pypi.douban.com</div></pre></td></tr></table></figure>
+<h2 id="安装阶段"><a href="#安装阶段" class="headerlink" title="安装阶段"></a>安装阶段</h2><h3 id="下载DevStack"><a href="#下载DevStack" class="headerlink" title="下载DevStack"></a>下载DevStack</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">git clone http://git.trystack.cn/openstack-dev/devstack.git -b stable/ocata</div></pre></td></tr></table></figure>
+<h3 id="创建stack用户"><a href="#创建stack用户" class="headerlink" title="创建stack用户"></a>创建stack用户</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">[root@controller home]# mkdir -p /home/stack/logs</div><div class="line">[root@controller home]# cd devstack/tools/</div><div class="line">[root@controller home]# sudo ./create-stack-user.sh</div><div class="line">[root@controller home]# sudo passwd stack</div><div class="line">[root@controller home]# sudo chown –R stack:stack /home/devstack</div><div class="line">[root@controller home]# sudo chown –R stack:stack /home/stack</div></pre></td></tr></table></figure>
+<h3 id="授权stack用户"><a href="#授权stack用户" class="headerlink" title="授权stack用户"></a>授权stack用户</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">[root@controller ~]# vim /etc/sudoers</div><div class="line">第98行，添加1行</div><div class="line">stack ALL=(ALL:ALL) ALL</div></pre></td></tr></table></figure>
+<h3 id="创建local-conf文件"><a href="#创建local-conf文件" class="headerlink" title="创建local.conf文件"></a>创建local.conf文件</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div></pre></td><td class="code"><pre><div class="line">[root@controller ~]# cat /home/devstack/local.conf </div><div class="line">[[local|localrc]]</div><div class="line"></div><div class="line"># use TryStack git mirror</div><div class="line">GIT_BASE=http://git.trystack.cn</div><div class="line">NOVNC_REPO=http://git.trystack.cn/kanaka/noVNC.git</div><div class="line">SPICE_REPO=http://git.trystack.cn/git/spice/spice-html5.git</div><div class="line"></div><div class="line">#OFFLINE=True</div><div class="line">RECLONE=True</div><div class="line"></div><div class="line"># Define images to be automatically downloaded during the DevStack built process.</div><div class="line">DOWNLOAD_DEFAULT_IMAGES=False</div><div class="line">IMAGE_URLS=&quot;http://images.trystack.cn/cirros/cirros-0.3.4-x86_64-disk.img&quot;</div><div class="line"></div><div class="line">HOST_IP=192.168.1.225</div><div class="line"></div><div class="line"># Credentials</div><div class="line">DATABASE_PASSWORD=pass</div><div class="line">ADMIN_PASSWORD=pass</div><div class="line">SERVICE_PASSWORD=pass</div><div class="line">SERVICE_TOKEN=pass</div><div class="line">RABBIT_PASSWORD=pass</div><div class="line"></div><div class="line">HORIZON_BRANCH=stable/ocata</div><div class="line">KEYSTONE_BRANCH=stable/ocata</div><div class="line">NOVA_BRANCH=stable/ocata</div><div class="line">NEUTRON_BRANCH=stable/ocata</div><div class="line">GLANCE_BRANCH=stable/ocata</div><div class="line">CINDER_BRANCH=stable/ocata</div><div class="line"></div><div class="line">#keystone</div><div class="line">KEYSTONE_TOKEN_FORMAT=UUID</div><div class="line"></div><div class="line">##Heat</div><div class="line">HEAT_BRANCH=stable/ocata</div><div class="line">enable_service h-eng h-api h-api-cfn h-api-cw</div><div class="line"></div><div class="line">## Swift</div><div class="line">SWIFT_BRANCH=stable/ocata</div><div class="line">ENABLED_SERVICES+=,s-proxy,s-object,s-container,s-account</div><div class="line">SWIFT_REPLICAS=1</div><div class="line">SWIFT_HASH=011688b44136573e209e</div><div class="line"></div><div class="line"># Enabling Neutron (network) Service</div><div class="line">disable_service n-net</div><div class="line">enable_service q-svc</div><div class="line">enable_service q-agt</div><div class="line">enable_service q-dhcp</div><div class="line">enable_service q-l3</div><div class="line">enable_service q-meta</div><div class="line">enable_service q-metering</div><div class="line">enable_service neutron</div><div class="line"></div><div class="line">## Neutron options</div><div class="line">Q_USE_SECGROUP=True</div><div class="line">FLOATING_RANGE=&quot;192.168.1.0/24&quot;</div><div class="line">FIXED_RANGE=&quot;10.0.0.0/24&quot;</div><div class="line">NETWORK_GATEWAY=&quot;10.0.0.2&quot;</div><div class="line">Q_FLOATING_ALLOCATION_POOL=start=192.168.1.150,end=192.168.1.180</div><div class="line">PUBLIC_NETWORK_GATEWAY=&quot;192.168.1.200&quot;</div><div class="line">Q_L3_ENABLED=True</div><div class="line">PUBLIC_INTERFACE=eth0</div><div class="line">Q_USE_PROVIDERNET_FOR_PUBLIC=True</div><div class="line">OVS_PHYSICAL_BRIDGE=br-ex</div><div class="line">PUBLIC_BRIDGE=br-ex</div><div class="line">OVS_BRIDGE_MAPPINGS=public:br-ex</div><div class="line"></div><div class="line"># #VLAN configuration.</div><div class="line">Q_PLUGIN=ml2</div><div class="line">ENABLE_TENANT_VLANS=True</div><div class="line"></div><div class="line"># Logging</div><div class="line">LOGFILE=/home/stack/logs/stack.sh.log</div><div class="line">VERBOSE=True</div><div class="line">LOG_COLOR=True</div><div class="line">SCREEN_LOGDIR=/home/stack/logs</div></pre></td></tr></table></figure>
+<h3 id="以stack用户身份运行脚本安装"><a href="#以stack用户身份运行脚本安装" class="headerlink" title="以stack用户身份运行脚本安装"></a>以stack用户身份运行脚本安装</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">[root@controller ~]# su stack</div><div class="line">[root@controller ~]# cd /home/devstack/</div><div class="line">[root@controller devstack]# ./stack.sh</div></pre></td></tr></table></figure>
 
       
     </div>
@@ -424,19 +432,13 @@
 	
 	
       
-        <div class="post-tags">
-          
-            <a href="/tags/LDAP/" rel="tag"># LDAP</a>
-          
-        </div>
-      
 
       
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2017/04/27/CentOS-7通过yum安装ansible/" rel="next" title="CentOS 7通过yum安装ansible">
-                <i class="fa fa-chevron-left"></i> CentOS 7通过yum安装ansible
+              <a href="/2017/05/04/CentOS-7-安装KVM虚拟机/" rel="next" title="CentOS 7 安装KVM虚拟机">
+                <i class="fa fa-chevron-left"></i> CentOS 7 安装KVM虚拟机
               </a>
             
           </div>
@@ -445,8 +447,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2017/05/03/记录MongoDB3.4分片的一些配置/" rel="prev" title="记录MongoDB3.4分片的一些配置">
-                记录MongoDB3.4分片的一些配置 <i class="fa fa-chevron-right"></i>
+              <a href="/2017/05/08/记录redis的RDB、AOF持久化/" rel="prev" title="记录redis的RDB、AOF持久化">
+                记录redis的RDB、AOF持久化 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -476,8 +478,8 @@
           
   <div class="comments" id="comments">
     
-      <div class="ds-thread" data-thread-key="2017/05/02/CentOS7-LDAP统一认证部署/"
-           data-title="CentOS7 LDAP统一认证部署" data-url="http://www.hyman.shop/2017/05/02/CentOS7-LDAP统一认证部署/">
+      <div class="ds-thread" data-thread-key="2017/05/05/CentOS-7用DevStack安装OpenStack/"
+           data-title="CentOS 7用DevStack安装OpenStack" data-url="http://www.hyman.shop/2017/05/05/CentOS-7用DevStack安装OpenStack/">
       </div>
     
   </div>
@@ -577,7 +579,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#LDAP介绍"><span class="nav-number">1.</span> <span class="nav-text">LDAP介绍</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#使用目的"><span class="nav-number">2.</span> <span class="nav-text">使用目的</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#LDAP部署"><span class="nav-number">3.</span> <span class="nav-text">LDAP部署</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#LDAP-Server端安装"><span class="nav-number">3.1.</span> <span class="nav-text">LDAP Server端安装</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#LDAP-配置"><span class="nav-number">3.2.</span> <span class="nav-text">LDAP 配置</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#LDAP-客户端验证"><span class="nav-number">4.</span> <span class="nav-text">LDAP 客户端验证</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#准备阶段"><span class="nav-number">1.</span> <span class="nav-text">准备阶段</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#OpenStack源码"><span class="nav-number">1.1.</span> <span class="nav-text">OpenStack源码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#DevStack源码"><span class="nav-number">1.2.</span> <span class="nav-text">DevStack源码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#设置aliyun的base源"><span class="nav-number">1.3.</span> <span class="nav-text">设置aliyun的base源</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#DevStack和OpenStack源码可以替换为TryStack镜像"><span class="nav-number">1.4.</span> <span class="nav-text">DevStack和OpenStack源码可以替换为TryStack镜像</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#pip源地址可以换为国内的豆瓣源"><span class="nav-number">1.5.</span> <span class="nav-text">pip源地址可以换为国内的豆瓣源</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#安装阶段"><span class="nav-number">2.</span> <span class="nav-text">安装阶段</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#下载DevStack"><span class="nav-number">2.1.</span> <span class="nav-text">下载DevStack</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#创建stack用户"><span class="nav-number">2.2.</span> <span class="nav-text">创建stack用户</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#授权stack用户"><span class="nav-number">2.3.</span> <span class="nav-text">授权stack用户</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#创建local-conf文件"><span class="nav-number">2.4.</span> <span class="nav-text">创建local.conf文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#以stack用户身份运行脚本安装"><span class="nav-number">2.5.</span> <span class="nav-text">以stack用户身份运行脚本安装</span></a></li></ol></li></ol></div>
             
 
           </div>

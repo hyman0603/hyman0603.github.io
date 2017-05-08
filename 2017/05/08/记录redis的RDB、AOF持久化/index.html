@@ -68,7 +68,7 @@
 <link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="LDAP," />
+  <meta name="keywords" content="redis," />
 
 
 
@@ -84,19 +84,40 @@
 
 
 
-<meta name="description" content="LDAP介绍LDAP是轻量目录访问协议，英文全称是Lightweight Directory Access Protocol，简称为LDAP。它是基于X.500标准的，但是简单多了并且可以根据需要定制。与X.500不同，LDAP支持TCP/IP。LDAP的核心规范在RFC中都有定义，所有与LDAP相关的RFC都可以在LDAPman RFC网页中找到。
-使用目的使用LDAP对运维相关用户名密码做统一">
+<meta name="description" content="Redis提供的持久化机制
+RDB持久化：该机制是指在指定的时间间隔内将内存中的数据集快照写入磁盘。  
+
+AOF持久化:该机制将以日志的形式记录服务器所处理的每一个写操作，在Redis服务器启动之初会读取该文件来重新构建数据库，以保证启动后数据库中的数据是完整的。 
+
+无持久化：我们可以通过配置的方式禁用Redis服务器的持久化功能。
+
+
+快照（RDB）默认持久化方式将内存中数据以快照的方式写入">
 <meta property="og:type" content="article">
-<meta property="og:title" content="CentOS7 LDAP统一认证部署">
-<meta property="og:url" content="http://www.hyman.shop/2017/05/02/CentOS7-LDAP统一认证部署/index.html">
+<meta property="og:title" content="记录redis的RDB、AOF持久化">
+<meta property="og:url" content="http://www.hyman.shop/2017/05/08/记录redis的RDB、AOF持久化/index.html">
 <meta property="og:site_name" content="hyman">
-<meta property="og:description" content="LDAP介绍LDAP是轻量目录访问协议，英文全称是Lightweight Directory Access Protocol，简称为LDAP。它是基于X.500标准的，但是简单多了并且可以根据需要定制。与X.500不同，LDAP支持TCP/IP。LDAP的核心规范在RFC中都有定义，所有与LDAP相关的RFC都可以在LDAPman RFC网页中找到。
-使用目的使用LDAP对运维相关用户名密码做统一">
-<meta property="og:updated_time" content="2017-05-02T08:46:46.665Z">
+<meta property="og:description" content="Redis提供的持久化机制
+RDB持久化：该机制是指在指定的时间间隔内将内存中的数据集快照写入磁盘。  
+
+AOF持久化:该机制将以日志的形式记录服务器所处理的每一个写操作，在Redis服务器启动之初会读取该文件来重新构建数据库，以保证启动后数据库中的数据是完整的。 
+
+无持久化：我们可以通过配置的方式禁用Redis服务器的持久化功能。
+
+
+快照（RDB）默认持久化方式将内存中数据以快照的方式写入">
+<meta property="og:updated_time" content="2017-05-08T08:55:14.349Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="CentOS7 LDAP统一认证部署">
-<meta name="twitter:description" content="LDAP介绍LDAP是轻量目录访问协议，英文全称是Lightweight Directory Access Protocol，简称为LDAP。它是基于X.500标准的，但是简单多了并且可以根据需要定制。与X.500不同，LDAP支持TCP/IP。LDAP的核心规范在RFC中都有定义，所有与LDAP相关的RFC都可以在LDAPman RFC网页中找到。
-使用目的使用LDAP对运维相关用户名密码做统一">
+<meta name="twitter:title" content="记录redis的RDB、AOF持久化">
+<meta name="twitter:description" content="Redis提供的持久化机制
+RDB持久化：该机制是指在指定的时间间隔内将内存中的数据集快照写入磁盘。  
+
+AOF持久化:该机制将以日志的形式记录服务器所处理的每一个写操作，在Redis服务器启动之初会读取该文件来重新构建数据库，以保证启动后数据库中的数据是完整的。 
+
+无持久化：我们可以通过配置的方式禁用Redis服务器的持久化功能。
+
+
+快照（RDB）默认持久化方式将内存中数据以快照的方式写入">
 
 
 
@@ -124,13 +145,13 @@
 
 
 
-  <link rel="canonical" href="http://www.hyman.shop/2017/05/02/CentOS7-LDAP统一认证部署/"/>
+  <link rel="canonical" href="http://www.hyman.shop/2017/05/08/记录redis的RDB、AOF持久化/"/>
 
 
 
 
 
-  <title> CentOS7 LDAP统一认证部署 | hyman </title>
+  <title> 记录redis的RDB、AOF持久化 | hyman </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -286,7 +307,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-  <link itemprop="mainEntityOfPage" href="http://www.hyman.shop/2017/05/02/CentOS7-LDAP统一认证部署/">
+  <link itemprop="mainEntityOfPage" href="http://www.hyman.shop/2017/05/08/记录redis的RDB、AOF持久化/">
 
   <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
     <meta itemprop="name" content="hyman">
@@ -310,7 +331,7 @@
             
             
               
-                CentOS7 LDAP统一认证部署
+                记录redis的RDB、AOF持久化
               
             
           </h1>
@@ -325,8 +346,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-05-02T14:17:51+08:00">
-                2017-05-02
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-05-08T16:48:39+08:00">
+                2017-05-08
               </time>
             
 
@@ -344,8 +365,8 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2017/05/02/CentOS7-LDAP统一认证部署/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2017/05/02/CentOS7-LDAP统一认证部署/" itemprop="commentCount"></span>
+                <a href="/2017/05/08/记录redis的RDB、AOF持久化/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2017/05/08/记录redis的RDB、AOF持久化/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -371,11 +392,22 @@
       
 
       
-        <h2 id="LDAP介绍"><a href="#LDAP介绍" class="headerlink" title="LDAP介绍"></a>LDAP介绍</h2><p>LDAP是轻量目录访问协议，英文全称是Lightweight Directory Access Protocol，简称为LDAP。它是基于X.500标准的，但是简单多了并且可以根据需要定制。与X.500不同，LDAP支持TCP/IP。LDAP的核心规范在RFC中都有定义，所有与LDAP相关的RFC都可以在LDAPman RFC网页中找到。</p>
-<h2 id="使用目的"><a href="#使用目的" class="headerlink" title="使用目的"></a>使用目的</h2><p>使用LDAP对运维相关用户名密码做统一管理。可以实现一个帐号登录多个不同系统。</p>
-<h2 id="LDAP部署"><a href="#LDAP部署" class="headerlink" title="LDAP部署"></a>LDAP部署</h2><h3 id="LDAP-Server端安装"><a href="#LDAP-Server端安装" class="headerlink" title="LDAP Server端安装"></a>LDAP Server端安装</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">[root@object1 ~]# yum install -y openldap openldap-clients openldap-servers migrationtools</div></pre></td></tr></table></figure>
-<h3 id="LDAP-配置"><a href="#LDAP-配置" class="headerlink" title="LDAP 配置"></a>LDAP 配置</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div><div class="line">92</div><div class="line">93</div><div class="line">94</div></pre></td><td class="code"><pre><div class="line">#配置 OpenLDAP Server</div><div class="line">[root@object1 ~]# vim /etc/openldap/slapd.d/cn\=config/olcDatabase\=\&#123;2\&#125;hdb.ldif </div><div class="line">dn: olcDatabase=&#123;2&#125;hdb</div><div class="line"></div><div class="line">修改两行</div><div class="line">olcSuffix: dc=hyman,dc=com</div><div class="line">olcRootDN: cn=Manager,dc=hyman,dc=com</div><div class="line">新增一行</div><div class="line">olcRootPW: 123456</div><div class="line"></div><div class="line">#配置 Monitoring Database</div><div class="line">[root@object1 ~]# vim /etc/openldap/slapd.d/cn\=config/olcDatabase\=\&#123;1\&#125;monitor.ldif</div><div class="line">dn: olcDatabase=&#123;1&#125;monitor</div><div class="line"></div><div class="line">修改一行</div><div class="line">olcAccess: &#123;0&#125;to * by dn.base=&quot;gidNumber=0+uidNumber=0,cn=peercred,cn=extern</div><div class="line"> al,cn=auth&quot; read by dn.base=&quot;cn=Manager,dc=hyman,dc=com&quot; read by * none</div><div class="line"></div><div class="line">#初始化 LDAP database</div><div class="line">[root@object1 ~]# cp /usr/share/openldap-servers/DB_CONFIG.example /var/lib/ldap/DB_CONFIG</div><div class="line">[root@object1 ~]# chown -R ldap.ldap /var/lib/ldap/</div><div class="line"></div><div class="line">#测试 configuration</div><div class="line">[root@object1 ~]# slaptest -u</div><div class="line"></div><div class="line">#启动服务并开机自启</div><div class="line">[root@object1 ~]# systemctl start slapd</div><div class="line">[root@object1 ~]# systemctl enable slapd</div><div class="line"></div><div class="line">#查看状态</div><div class="line">[root@object1 ~]# netstat -lt | grep ldap</div><div class="line"></div><div class="line">#将所有的配置LDAP server, 添加到LDAP schemas中</div><div class="line">[root@object1 ~]# cd /etc/openldap/schema/</div><div class="line"> ldapadd -Y EXTERNAL -H ldapi:/// -D &quot;cn=config&quot; -f cosine.ldif</div><div class="line">[root@object1 schema]# ldapadd -Y EXTERNAL -H ldapi:/// -D &quot;cn=config&quot; -f nis.ldif</div><div class="line">[root@object1 schema]# ldapadd -Y EXTERNAL -H ldapi:/// -D &quot;cn=config&quot; -f collective.ldif</div><div class="line">[root@object1 schema]# ldapadd -Y EXTERNAL -H ldapi:/// -D &quot;cn=config&quot; -f corba.ldif</div><div class="line">[root@object1 schema]# ldapadd -Y EXTERNAL -H ldapi:/// -D &quot;cn=config&quot; -f core.ldif</div><div class="line">[root@object1 schema]# ldapadd -Y EXTERNAL -H ldapi:/// -D &quot;cn=config&quot; -f duaconf.ldif</div><div class="line">[root@object1 schema]# ldapadd -Y EXTERNAL -H ldapi:/// -D &quot;cn=config&quot; -f dyngroup.ldif</div><div class="line">[root@object1 schema]# ldapadd -Y EXTERNAL -H ldapi:/// -D &quot;cn=config&quot; -f inetorgperson.ldif</div><div class="line">[root@object1 schema]# ldapadd -Y EXTERNAL -H ldapi:/// -D &quot;cn=config&quot; -f java.ldif</div><div class="line">[root@object1 schema]# ldapadd -Y EXTERNAL -H ldapi:/// -D &quot;cn=config&quot; -f ppolicy.ldif</div><div class="line">[root@object1 schema]# ldapadd -Y EXTERNAL -H ldapi:/// -D &quot;cn=config&quot; -f pmi.ldif</div><div class="line">[root@object1 schema]# ldapadd -Y EXTERNAL -H ldapi:/// -D &quot;cn=config&quot; -f openldap.ldif</div><div class="line">[root@object1 schema]# ldapadd -Y EXTERNAL -H ldapi:/// -D &quot;cn=config&quot; -f misc.ldif</div><div class="line"></div><div class="line">#使用Migration Tools 创建 LDAP DIT</div><div class="line">[root@object1 schema]# cd /usr/share/migrationtools/</div><div class="line">[root@object1 migrationtools]# vim migrate_common.ph</div><div class="line">修改61行</div><div class="line">$NAMINGCONTEXT&#123;&apos;group&apos;&#125;             = &quot;ou=Groups&quot;;</div><div class="line">修改71行</div><div class="line">$DEFAULT_MAIL_DOMAIN = &quot;hyman.com&quot;;</div><div class="line">修改74行</div><div class="line">$DEFAULT_BASE = &quot;dc=hyman,dc=com&quot;;</div><div class="line">修改90行</div><div class="line">$EXTENDED_SCHEMA = 1;</div><div class="line"></div><div class="line">#创建 base.ldif</div><div class="line">[root@object1 migrationtools]# ./migrate_base.pl &gt; /root/base.ldif</div><div class="line"></div><div class="line">#导入LDAP database</div><div class="line">[root@object1 migrationtools]# ldapadd -x -W -D &quot;cn=Manager,dc=hyman,dc=com&quot; -f /root/base.ldif</div><div class="line"></div><div class="line">#创建用户和用户组，并将其从本地数据库迁移到LDAP数据库</div><div class="line">[root@object1 migrationtools]# mkdir /home/guests</div><div class="line">[root@object1 migrationtools]# useradd -d /home/guests/ldapuser1 ldapuser1</div><div class="line">[root@object1 migrationtools]# useradd -d /home/guests/ldapuser2 ldapuser2</div><div class="line">[root@object1 migrationtools]# echo &quot;password&quot; | passwd --stdin ldapuser1</div><div class="line">[root@object1 migrationtools]# echo &quot;password&quot; | passwd --stdin ldapuser2</div><div class="line"></div><div class="line">#过滤掉这些用户和组和密码从/etc/shadow到不同的文件</div><div class="line">[root@object1 ~]# getent passwd | tail -n 5 &gt; /root/users</div><div class="line">[root@object1 ~]# getent shadow | tail -n 5 &gt; /root/shadow</div><div class="line">[root@object1 ~]# getent group | tail -n 5 &gt; /root/groups</div><div class="line"></div><div class="line">#创建这些用户使用migrationtools</div><div class="line">[root@object1 ~]# cd /usr/share/migrationtools/</div><div class="line">[root@object1 migrationtools]# vim migrate_passwd.pl </div><div class="line">修改188行</div><div class="line">把 /etc/shadow 替换为 /root/shadow</div><div class="line"></div><div class="line">[root@object1 migrationtools]# ./migrate_passwd.pl /root/users &gt; users.ldif</div><div class="line">[root@object1 migrationtools]# ./migrate_passwd.pl /root/groups &gt; groups.ldif</div><div class="line"></div><div class="line"></div><div class="line">#上传这些用户和组LDAP数据库</div><div class="line">[root@object1 ~]# ldapadd -x -W -D &quot;cn=Manager,dc=hyman,dc=com&quot; -f users.ldif</div><div class="line">[root@object1 ~]# ldapadd -x -W -D &quot;cn=Manager,dc=hyman,dc=com&quot; -f groups.ldif</div><div class="line"></div><div class="line">#所有记录搜索LDAP DIT</div><div class="line">[root@object1 ~]# ldapsearch -x -b &quot;dc=hyman,dc=com&quot; -H ldap://127.0.0.1</div></pre></td></tr></table></figure>
-<h2 id="LDAP-客户端验证"><a href="#LDAP-客户端验证" class="headerlink" title="LDAP 客户端验证"></a>LDAP 客户端验证</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">[root@block1 ~]# yum install -y nss-pam*</div><div class="line">[root@block1 ~]# authconfig-tui </div><div class="line">选择第二个Use LDAP</div><div class="line">[root@block1 ~]# su ldaduser1</div></pre></td></tr></table></figure>
+        <h3 id="Redis提供的持久化机制"><a href="#Redis提供的持久化机制" class="headerlink" title="Redis提供的持久化机制"></a>Redis提供的持久化机制</h3><ul>
+<li><p>RDB持久化：该机制是指在指定的时间间隔内将内存中的数据集快照写入磁盘。  </p>
+</li>
+<li><p>AOF持久化:该机制将以日志的形式记录服务器所处理的每一个写操作，在Redis服务器启动之初会读取该文件来重新构建数据库，以保证启动后数据库中的数据是完整的。 </p>
+</li>
+<li><p>无持久化：我们可以通过配置的方式禁用Redis服务器的持久化功能。</p>
+</li>
+</ul>
+<h3 id="快照（RDB）默认持久化方式"><a href="#快照（RDB）默认持久化方式" class="headerlink" title="快照（RDB）默认持久化方式"></a>快照（RDB）默认持久化方式</h3><p>将内存中数据以快照的方式写入二进制文件中，默认文件名为dump.rdb。可以通过配置设置redis服务器自动做快照持久化的方式。我们可以配置redis在n秒内如果超过了m个修改就自动做快照。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">snapshotting：       #默认设置</div><div class="line">save 900 1          #900秒内如果超过1个key被修改，则发起快照保存</div><div class="line">save 300 10         #300秒内如果超过10个key被修改，则发起快照保存</div><div class="line">save 60 10000</div></pre></td></tr></table></figure></p>
+<p>  对于Redis的服务进程而言，在开始持久化时，它唯一需要做的只是fork出子进程，子进程将快照数据写入到临时RDB文件中,当子进程完成数据写入操作后，再用临时文件替换老的文件，这样就可以极大的避免服务进程执行IO操作了。每次快照持久化都是将内存数据完整写入到磁盘一次，并不是增量的只同步增量数据。所以如果数据量大的话，写操作会比较多，必然会引起大量的磁盘IO操作，可能会严重影响性能。<br>　　<br> <strong> 注意：快照方式是在一定间隔时间做一次，如果redis意外宕机，就会丢失最后一次快照后的所有数据的修改</strong>。</p>
+<p>  对于灾难恢复而言，我们可以非常轻松的将一个单独的文件压缩后再转移到其它存储介质上。由于RDB是通过fork子进程来协助完成数据持久化工作的，如果当数据集较大时，可能会导致整个服务器停止服务几百毫秒，甚至是1秒钟。</p>
+<h3 id="日志追加方式（append-only-file）方式"><a href="#日志追加方式（append-only-file）方式" class="headerlink" title="日志追加方式（append-only file）方式"></a>日志追加方式（append-only file）方式</h3><p>redis会将每一个收到的命令都通过write函数追加到命令中，当redis重新启动时会重新执行文件中保存的写命令来在内存中重建这个数据库的内容，这个文件在bin目录下:appendonly.aof。当然由于操作系统会在内核中缓存write做的修改，所以可能不是立即写到磁盘上，这样的持久化还是有可能丢失部分修改。但是可以通过配置文件告诉redis通过fsync函数强制操作系统写入到磁盘的时机。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">aof：</div><div class="line">appendonly yes         #启动aof持久化方式有三种修改方式</div><div class="line">#appendfsync always    #收到写命令就立即写入到硬盘，效率最慢，但是保证完全持久化</div><div class="line">#appendfsync everysec  #每秒种就写入一次硬盘，在性能和持久化方面做了折中</div><div class="line">#appendfsync no        #完全依赖操作系统，性能最好，但是持久化没保证，不知道何时持久化</div></pre></td></tr></table></figure></p>
+<p>  事实上，每秒同步也是异步完成的，其效率也是非常高的，所差的是一旦系统出现宕机现象，那么这一秒钟之 内修改的数据将会丢失。而每修改同步，我们可以将其视为同步持久化，即每次发生的数据变化都会被立即记录到磁盘中。可以预见，这种方式在效率上是最低的。</p>
+<p>  由于该机制对日志文件的写入操作采用的是append模式，因此在写入过程中即使出现宕机现象，也不会破坏日志文件中已经存在的内容。然而如果我们本次操作只是写入了一半数据就出现了系统崩溃问题，不用担心，在Redis下一次启动之前，我们可以通过redis-check-</p>
+<p>  如果日志过大，Redis可以自动启用rewrite机制。即Redis以append模式不断的将修改数据写入到老的磁盘文件中，同时Redis还会创建一个新的文件用于记录此期间有哪些修改命令被执行。因此在进行rewrite切换时可以更好的保证数据安全性。<br>　　<br>  对于相同数量的数据集而言，AOF文件通常要大于RDB文件。日志追加的方式导致持久化文件会变得越来越大。例如调用incr intsmaze命令100次，文件中就保存了100条命令，其实有99条都是多余的。因为要恢复数据库状态其实文件中保存一条set intsmaze 100就可以了。为了压缩这种持久化方式的日志文件，redis提供了bgrewriteaof命令。收到此命令redis将使用与快照类似的方式将内存中的数据以命令的方式保存到临时文件中，最后替换原来的持久化日志文件。<br>　　<br>  实际中使用always方式,开启了always方式，redis的并发量就会下去。实际生产中都不会用快照的方式。</p>
+<h3 id="Redis的数据备份"><a href="#Redis的数据备份" class="headerlink" title="Redis的数据备份"></a>Redis的数据备份</h3><p>在Redis中我们可以通过copy的方式在线备份正在运行的Redis数据文件。这是因为RDB文件一旦被生成之后就不会再被修改。Redis每次都是将最新的数据dump到一个临时文件中，之后在利用rename函数原子性的将临时文件改名为原有的数据文件名。因此我们可以说，在任意时刻copy数据文件都是安全的和一致的。鉴于此，我们就可以通过创建cron job的方式定时备份Redis的数据文件，并将备份文件copy到安全的磁盘介质中。</p>
 
       
     </div>
@@ -426,7 +458,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/LDAP/" rel="tag"># LDAP</a>
+            <a href="/tags/redis/" rel="tag"># redis</a>
           
         </div>
       
@@ -435,8 +467,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2017/04/27/CentOS-7通过yum安装ansible/" rel="next" title="CentOS 7通过yum安装ansible">
-                <i class="fa fa-chevron-left"></i> CentOS 7通过yum安装ansible
+              <a href="/2017/05/05/CentOS-7用DevStack安装OpenStack/" rel="next" title="CentOS 7用DevStack安装OpenStack">
+                <i class="fa fa-chevron-left"></i> CentOS 7用DevStack安装OpenStack
               </a>
             
           </div>
@@ -444,10 +476,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2017/05/03/记录MongoDB3.4分片的一些配置/" rel="prev" title="记录MongoDB3.4分片的一些配置">
-                记录MongoDB3.4分片的一些配置 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -476,8 +504,8 @@
           
   <div class="comments" id="comments">
     
-      <div class="ds-thread" data-thread-key="2017/05/02/CentOS7-LDAP统一认证部署/"
-           data-title="CentOS7 LDAP统一认证部署" data-url="http://www.hyman.shop/2017/05/02/CentOS7-LDAP统一认证部署/">
+      <div class="ds-thread" data-thread-key="2017/05/08/记录redis的RDB、AOF持久化/"
+           data-title="记录redis的RDB、AOF持久化" data-url="http://www.hyman.shop/2017/05/08/记录redis的RDB、AOF持久化/">
       </div>
     
   </div>
@@ -577,7 +605,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#LDAP介绍"><span class="nav-number">1.</span> <span class="nav-text">LDAP介绍</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#使用目的"><span class="nav-number">2.</span> <span class="nav-text">使用目的</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#LDAP部署"><span class="nav-number">3.</span> <span class="nav-text">LDAP部署</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#LDAP-Server端安装"><span class="nav-number">3.1.</span> <span class="nav-text">LDAP Server端安装</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#LDAP-配置"><span class="nav-number">3.2.</span> <span class="nav-text">LDAP 配置</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#LDAP-客户端验证"><span class="nav-number">4.</span> <span class="nav-text">LDAP 客户端验证</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Redis提供的持久化机制"><span class="nav-number">1.</span> <span class="nav-text">Redis提供的持久化机制</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#快照（RDB）默认持久化方式"><span class="nav-number">2.</span> <span class="nav-text">快照（RDB）默认持久化方式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#日志追加方式（append-only-file）方式"><span class="nav-number">3.</span> <span class="nav-text">日志追加方式（append-only file）方式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Redis的数据备份"><span class="nav-number">4.</span> <span class="nav-text">Redis的数据备份</span></a></li></ol></div>
             
 
           </div>
