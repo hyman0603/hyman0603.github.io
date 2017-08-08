@@ -77,7 +77,7 @@
 <link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content="mysql,xtrabackup," />
 
 
 
@@ -93,16 +93,22 @@
 
 
 
-<meta name="description" content="kvm相关安装包及其作用qemu-kvm    主要的KVM程序包python-virtinst    创建虚拟机所需要的命令行工具和程序库virt-manager    GUI虚拟机管理工具virt-top    虚拟机统计命令virt-viewer    GUI连接程序，连接到已配置好的虚拟机libvirt    C语言工具包，提供libvirt服务libvirt-client    为虚拟客">
+<meta name="description" content="Xtrabackup介绍Xtrabackup是由percona提供的mysql数据库备份工具，据官方介绍，这也是世界上惟一一款开源的能够对innodb和xtradb数据库进行热备的工具。特点：
+备份过程快速、可靠；备份过程不会打断正在执行的事务；能够基于压缩等功能节约磁盘空间和流量；自动实现备份检验；还原速度快；
+下载安装xtrabackup1234https://www.percona.com/">
 <meta property="og:type" content="article">
-<meta property="og:title" content="CentOS 7 安装KVM虚拟机">
-<meta property="og:url" content="http://www.hyman.shop/2017/05/04/CentOS-7-安装KVM虚拟机/index.html">
+<meta property="og:title" content="使用Xtrabackup进行MySQL备份">
+<meta property="og:url" content="http://www.hyman.shop/2017/08/08/使用Xtrabackup进行MySQL备份/index.html">
 <meta property="og:site_name" content="hyman">
-<meta property="og:description" content="kvm相关安装包及其作用qemu-kvm    主要的KVM程序包python-virtinst    创建虚拟机所需要的命令行工具和程序库virt-manager    GUI虚拟机管理工具virt-top    虚拟机统计命令virt-viewer    GUI连接程序，连接到已配置好的虚拟机libvirt    C语言工具包，提供libvirt服务libvirt-client    为虚拟客">
-<meta property="og:updated_time" content="2017-05-05T02:19:32.299Z">
+<meta property="og:description" content="Xtrabackup介绍Xtrabackup是由percona提供的mysql数据库备份工具，据官方介绍，这也是世界上惟一一款开源的能够对innodb和xtradb数据库进行热备的工具。特点：
+备份过程快速、可靠；备份过程不会打断正在执行的事务；能够基于压缩等功能节约磁盘空间和流量；自动实现备份检验；还原速度快；
+下载安装xtrabackup1234https://www.percona.com/">
+<meta property="og:updated_time" content="2017-08-08T08:32:29.445Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="CentOS 7 安装KVM虚拟机">
-<meta name="twitter:description" content="kvm相关安装包及其作用qemu-kvm    主要的KVM程序包python-virtinst    创建虚拟机所需要的命令行工具和程序库virt-manager    GUI虚拟机管理工具virt-top    虚拟机统计命令virt-viewer    GUI连接程序，连接到已配置好的虚拟机libvirt    C语言工具包，提供libvirt服务libvirt-client    为虚拟客">
+<meta name="twitter:title" content="使用Xtrabackup进行MySQL备份">
+<meta name="twitter:description" content="Xtrabackup介绍Xtrabackup是由percona提供的mysql数据库备份工具，据官方介绍，这也是世界上惟一一款开源的能够对innodb和xtradb数据库进行热备的工具。特点：
+备份过程快速、可靠；备份过程不会打断正在执行的事务；能够基于压缩等功能节约磁盘空间和流量；自动实现备份检验；还原速度快；
+下载安装xtrabackup1234https://www.percona.com/">
 
 
 
@@ -130,13 +136,13 @@
 
 
 
-  <link rel="canonical" href="http://www.hyman.shop/2017/05/04/CentOS-7-安装KVM虚拟机/"/>
+  <link rel="canonical" href="http://www.hyman.shop/2017/08/08/使用Xtrabackup进行MySQL备份/"/>
 
 
 
 
 
-  <title>CentOS 7 安装KVM虚拟机 | hyman</title>
+  <title>使用Xtrabackup进行MySQL备份 | hyman</title>
   
 
 
@@ -299,7 +305,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://www.hyman.shop/2017/05/04/CentOS-7-安装KVM虚拟机/">
+    <link itemprop="mainEntityOfPage" href="http://www.hyman.shop/2017/08/08/使用Xtrabackup进行MySQL备份/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="hyman">
@@ -316,7 +322,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">CentOS 7 安装KVM虚拟机</h1>
+          <h1 class="post-title" itemprop="name headline">使用Xtrabackup进行MySQL备份</h1>
         
 
         <div class="post-meta">
@@ -328,8 +334,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-05-04T15:56:12+08:00">
-                2017-05-04
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-08-08T15:34:01+08:00">
+                2017-08-08
               </time>
             
 
@@ -339,6 +345,28 @@
           </span>
 
           
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/mysql/" itemprop="url" rel="index">
+                    <span itemprop="name">mysql</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
 
           
             
@@ -346,7 +374,7 @@
 
           
           
-             <span id="/2017/05/04/CentOS-7-安装KVM虚拟机/" class="leancloud_visitors" data-flag-title="CentOS 7 安装KVM虚拟机">
+             <span id="/2017/08/08/使用Xtrabackup进行MySQL备份/" class="leancloud_visitors" data-flag-title="使用Xtrabackup进行MySQL备份">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -374,19 +402,48 @@
       
 
       
-        <p>kvm相关安装包及其作用<br>qemu-kvm    主要的KVM程序包<br>python-virtinst    创建虚拟机所需要的命令行工具和程序库<br>virt-manager    GUI虚拟机管理工具<br>virt-top    虚拟机统计命令<br>virt-viewer    GUI连接程序，连接到已配置好的虚拟机<br>libvirt    C语言工具包，提供libvirt服务<br>libvirt-client    为虚拟客户机提供的C语言工具包<br>virt-install    基于libvirt服务的虚拟机创建命令<br>bridge-utils    创建和管理桥接设备的工具</p>
-<h2 id="验证CPU是否支持KVM；如果结果中有vmx（Intel）或svm-AMD-字样，就说明CPU的支持的。"><a href="#验证CPU是否支持KVM；如果结果中有vmx（Intel）或svm-AMD-字样，就说明CPU的支持的。" class="headerlink" title="验证CPU是否支持KVM；如果结果中有vmx（Intel）或svm(AMD)字样，就说明CPU的支持的。"></a>验证CPU是否支持KVM；如果结果中有vmx（Intel）或svm(AMD)字样，就说明CPU的支持的。</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">[root@object1 ~]# egrep &apos;(vmx|svm)&apos; /proc/cpuinfo</div></pre></td></tr></table></figure>
-<h2 id="安装KVM及其依赖项"><a href="#安装KVM及其依赖项" class="headerlink" title="安装KVM及其依赖项"></a>安装KVM及其依赖项</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">[root@object1 ~]# yum install qemu-kvm virt-install bridge-utils libvirt virt-install virt-manager -y</div></pre></td></tr></table></figure>
-<h2 id="验证安装结果"><a href="#验证安装结果" class="headerlink" title="验证安装结果"></a>验证安装结果</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">[root@object1 ~]# lsmod | grep kvm</div><div class="line">kvm_intel             162153  0 </div><div class="line">kvm                   525409  1 kvm_intel</div></pre></td></tr></table></figure>
-<h2 id="开启kvm服务，并且设置其开机自动启动"><a href="#开启kvm服务，并且设置其开机自动启动" class="headerlink" title="开启kvm服务，并且设置其开机自动启动"></a>开启kvm服务，并且设置其开机自动启动</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">[root@object1 ~]# systemctl start libvirtd</div><div class="line">[root@object1 ~]# systemctl enable libvirtd</div></pre></td></tr></table></figure>
-<h2 id="配置网桥模式"><a href="#配置网桥模式" class="headerlink" title="配置网桥模式"></a>配置网桥模式</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div></pre></td><td class="code"><pre><div class="line">//创建 ifcfg-br0 文件</div><div class="line">[root@object1 ~]# cat /etc/sysconfig/network-scripts/ifcfg-br0 </div><div class="line">BOOTPROTO=&quot;static&quot;</div><div class="line">DEVICE=&quot;br0&quot;</div><div class="line">NAME=&quot;br0&quot;</div><div class="line">TYPE=&quot;Bridge&quot;</div><div class="line">ONBOOT=&quot;yes&quot;</div><div class="line">IPADDR=&quot;192.168.1.226&quot;</div><div class="line">NETMASK=&quot;255.255.255.0&quot;</div><div class="line">GATEWAY=&quot;192.168.1.200&quot;</div><div class="line">DNS1=&quot;114.114.114.114&quot;</div><div class="line">DNS2=&quot;8.8.8.8&quot;</div><div class="line"></div><div class="line">//修改ifcfg-eno16777736 文件</div><div class="line">[root@object1 ~]# cat /etc/sysconfig/network-scripts/ifcfg-eno16777736 </div><div class="line">#TYPE=&quot;Ethernet&quot;</div><div class="line">#BOOTPROTO=&quot;static&quot;</div><div class="line">#DEFROUTE=&quot;yes&quot;</div><div class="line">#PEERDNS=&quot;yes&quot;</div><div class="line">#PEERROUTES=&quot;yes&quot;</div><div class="line">#IPV4_FAILURE_FATAL=&quot;no&quot;</div><div class="line">#IPV6INIT=&quot;yes&quot;</div><div class="line">#IPV6_AUTOCONF=&quot;yes&quot;</div><div class="line">#IPV6_DEFROUTE=&quot;yes&quot;</div><div class="line">#IPV6_PEERDNS=&quot;yes&quot;</div><div class="line">#IPV6_PEERROUTES=&quot;yes&quot;</div><div class="line">#IPV6_FAILURE_FATAL=&quot;no&quot;</div><div class="line">#NAME=&quot;eno16777736&quot;</div><div class="line">#UUID=&quot;f3f3b4f8-02ad-44f4-83f7-3639f4df3bff&quot;</div><div class="line">#DEVICE=&quot;eno16777736&quot;</div><div class="line">#ONBOOT=&quot;yes&quot;</div><div class="line">#IPADDR=192.168.1.226</div><div class="line">#NETMASK=255.255.255.0</div><div class="line">#GATEWAY=192.168.1.200</div><div class="line">#PEERDNS=&quot;yes&quot;</div><div class="line">#DNS1=8.8.8.8</div><div class="line">NAME=&quot;eno16777736&quot;</div><div class="line">UUID=&quot;f3f3b4f8-02ad-44f4-83f7-3639f4df3bff&quot;</div><div class="line">DEVICE=&quot;eno16777736&quot;</div><div class="line">BRIDGE=&quot;br0&quot;</div><div class="line">ONBOOT=&quot;yes&quot;</div></pre></td></tr></table></figure>
-<h2 id="重启网络服务"><a href="#重启网络服务" class="headerlink" title="重启网络服务"></a>重启网络服务</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">[root@object1 ~]# systemctl restart network</div><div class="line">[root@object1 ~]# brctl show</div><div class="line">bridge name	bridge id		STP enabled	interfaces</div><div class="line">br0		8000.000c29e16c76	no		eno16777736</div><div class="line">virbr0		8000.000000000000	yes</div></pre></td></tr></table></figure>
-<h2 id="安装虚拟机"><a href="#安装虚拟机" class="headerlink" title="安装虚拟机"></a>安装虚拟机</h2><p>//下载cirros linux，下载地址：<a href="http://download.cirros-cloud.net/" target="_blank" rel="external">http://download.cirros-cloud.net/</a><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">[root@object1 ~]# virt-install -n test001 -r 2048 --disk /home/test.img,format=qcow2,size=1 --network bridge=br0 --os-type=linux --os-variant=rhel7.2 --cdrom /root/cirros-0.3.5-x86_64-disk.img --vnc --vncport=5900 --vnclisten=0.0.0.0</div></pre></td></tr></table></figure></p>
-<h2 id="使用VNC-Viewer连接该虚拟机"><a href="#使用VNC-Viewer连接该虚拟机" class="headerlink" title="使用VNC Viewer连接该虚拟机"></a>使用VNC Viewer连接该虚拟机</h2><p>官网下载：<a href="https://www.realvnc.com/download/vnc/" target="_blank" rel="external">https://www.realvnc.com/download/vnc/</a></p>
-<p>//通过图形界面操作</p>
-<h2 id="安装X-X-Window-System"><a href="#安装X-X-Window-System" class="headerlink" title="安装X(X Window System)"></a>安装X(X Window System)</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">[root@object1 ~]# yum groupinstall &quot;X Window System&quot; -y</div></pre></td></tr></table></figure>
-<h2 id="安装GNOME-GNOME-Desktop"><a href="#安装GNOME-GNOME-Desktop" class="headerlink" title="安装GNOME(GNOME Desktop)"></a>安装GNOME(GNOME Desktop)</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">[root@object1 ~]# yum groupinstall &quot;GNOME Desktop&quot; -y</div></pre></td></tr></table></figure>
-<h2 id="使用virt-manager管理kvm"><a href="#使用virt-manager管理kvm" class="headerlink" title="使用virt-manager管理kvm"></a>使用virt-manager管理kvm</h2><p>//本地需要安装xmanager和xshell工具 ，并使用xshell建立连接时勾选x11转移。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">[root@object1 ~]# virt-manager</div></pre></td></tr></table></figure></p>
+        <h2 id="Xtrabackup介绍"><a href="#Xtrabackup介绍" class="headerlink" title="Xtrabackup介绍"></a>Xtrabackup介绍</h2><p>Xtrabackup是由percona提供的mysql数据库备份工具，据官方介绍，这也是世界上惟一一款开源的能够对innodb和xtradb数据库进行热备的工具。特点：</p>
+<p>备份过程快速、可靠；<br>备份过程不会打断正在执行的事务；<br>能够基于压缩等功能节约磁盘空间和流量；<br>自动实现备份检验；<br>还原速度快；</p>
+<h2 id="下载安装xtrabackup"><a href="#下载安装xtrabackup" class="headerlink" title="下载安装xtrabackup"></a>下载安装xtrabackup</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">https://www.percona.com/downloads/XtraBackup/LATEST/</div><div class="line"></div><div class="line">[root@node1 ~]# yum localinstall percona-xtrabackup-24-2.4.8-1.el6.x86_64.rpm</div><div class="line">[root@node1 ~]# yum install http://mirrors.sohu.com/fedora-epel/6/x86_64/epel-release-6-8.noarch.rpm</div></pre></td></tr></table></figure>
+<h2 id="备份"><a href="#备份" class="headerlink" title="备份"></a>备份</h2><h3 id="完全备份"><a href="#完全备份" class="headerlink" title="完全备份"></a>完全备份</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">[root@localhost ~]# innobackupex --defaults-file=/usr/local/mysql-test3/my.cnf --user=root --password=123456 --port=3312 --host=127.0.0.1 /home/backup/</div></pre></td></tr></table></figure>
+<p>使用innobakupex备份时，其会调用xtrabackup备份所有的InnoDB表，复制所有关于表结构定义的相关文件(.frm)、以及MyISAM、MERGE、CSV和ARCHIVE表的相关文件，同时还会备份触发器和数据库配置信息相关的文件。这些文件会被保存至一个以时间命令的目录中。</p>
+<p>在备份的同时，innobackupex还会在备份目录中创建如下文件：<br>(1)xtrabackup_checkpoints – 备份类型（如完全或增量）、备份状态（如是否已经为prepared状态）和LSN(日志序列号)范围信息；每个InnoDB页(通常为16k大小)都会包含一个日志序列号，即LSN。LSN是整个数据库系统的系统版本号，每个页面相关的LSN能够表明此页面最近是如何发生改变的。</p>
+<p>(2)xtrabackup_binlog_info – mysql服务器当前正在使用的二进制日志文件及至备份这一刻为止二进制日志事件的位置。</p>
+<p>(3)xtrabackup_binlog_pos_innodb – 二进制日志文件及用于InnoDB或XtraDB表的二进制日志文件的当前position。</p>
+<p>(4)xtrabackup_binary – 备份中用到的xtrabackup的可执行文件；</p>
+<p>(5)backup-my.cnf – 备份命令用到的配置选项信息；</p>
+<p>在使用innobackupex进行备份时，还可以使用–no-timestamp选项来阻止命令自动创建一个以时间命名的目录；如此一来，innobackupex命令将会创建一个BACKUP-DIR目录来存储备份数据。</p>
+<h4 id="准备-prepare-一个完全备份"><a href="#准备-prepare-一个完全备份" class="headerlink" title="准备(prepare)一个完全备份"></a>准备(prepare)一个完全备份</h4><p>一般情况下，在备份完成后，数据尚且不能用于恢复操作，因为备份的数据中可能会包含尚未提交的事务或已经提交但尚未同步至数据文件中的事务。因此，此时数据文件仍处理不一致状态。“准备”的主要作用正是通过回滚未提交的事务及同步已经提交的事务至数据文件也使得数据文件处于一致性状态。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">[root@localhost ~]# innobackupex --defaults-file=/usr/local/mysql-test3/my.cnf --user=root --password=123456 --port=3312 --host=127.0.0.1 --apply-log /home/backup/2017-08-08_15-28-09/</div></pre></td></tr></table></figure>
+<p>在实现“准备”的过程中，innobackupex通常还可以使用–use-memory选项来指定其可以使用的内存的大小，默认通常为100M。如果有足够的内存可用，可以多划分一些内存给prepare的过程，以提高其完成速度。</p>
+<h4 id="从一个完全备份中恢复数据"><a href="#从一个完全备份中恢复数据" class="headerlink" title="从一个完全备份中恢复数据"></a>从一个完全备份中恢复数据</h4><p>innobackupex命令的–copy-back选项用于执行恢复操作，其通过复制所有数据相关的文件至mysql服务器DATADIR目录中来执行恢复过程。innobackupex通过backup-my.cnf来获取DATADIR目录的相关信息。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">[root@localhost ~]# rm -rf data/*</div><div class="line"></div><div class="line">[root@localhost ~]# innobackupex --defaults-file=/usr/local/mysql-test3/my.cnf  --copy-back /home/backup/2017-08-08_15-28-09/</div><div class="line"></div><div class="line">[root@localhost ~]# chown -R mysql:mysql data</div><div class="line"></div><div class="line">[root@localhost ~]# killall mysqld</div><div class="line"></div><div class="line">#####可以不用启动mysql恢复数据#####</div></pre></td></tr></table></figure></p>
+<h3 id="增量备份"><a href="#增量备份" class="headerlink" title="增量备份"></a>增量备份</h3><p>每个InnoDB的页面都会包含一个LSN信息，每当相关的数据发生改变，相关的页面的LSN就会自动增长。这正是InnoDB表可以进行增量备份的基础，即innobackupex通过备份上次完全备份之后发生改变的页面来实现。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">[root@localhost ~]# innobackupex --defaults-file=/usr/local/mysql-test3/my.cnf --user=root --password=123456 --port=3312 --host=127.0.0.1 --incremental /home/backup/ --incremental-basedir=/home/backup/2017-08-08_15-28-09/</div></pre></td></tr></table></figure></p>
+<p>此命令执行结束后，innobackupex命令会在/backup目录中创建一个新的以时间命名的目录以存放所有的增量备份数据。另外，在执行过增量备份之后再一次进行增量备份时，其–incremental-basedir应该指向上一次的增量备份所在的目录。</p>
+<p>需要注意的是，增量备份仅能应用于InnoDB或XtraDB表，对于MyISAM表而言，执行增量备份时其实进行的是完全备份。</p>
+<p>“准备”(prepare)增量备份与整理完全备份有着一些不同，尤其要注意的是：<br>(1)需要在每个备份(包括完全和各个增量备份)上，将已经提交的事务进行“重放”。“重放”之后，所有的备份数据将合并到完全备份上。<br>(2)基于所有的备份将未提交的事务进行“回滚”。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">[root@localhost ~]# innobackupex --defaults-file=/usr/local/mysql-test3/my.cnf --user=root --password=123456 --port=3312 --host=127.0.0.1 --apply-log --redo-only /home/backup/2017-08-08_15-28-09/</div><div class="line"></div><div class="line">[root@localhost ~]# innobackupex --defaults-file=/usr/local/mysql-test3/my.cnf --user=root --password=123456 --port=3312 --host=127.0.0.1 --apply-log --redo-only /home/backup/2017-08-08_15-28-09/ --incremental-dir=/home/backup/2017-08-08_16-10-12/</div></pre></td></tr></table></figure></p>
+<h3 id="Xtrabackup的“流”及“备份压缩”功能"><a href="#Xtrabackup的“流”及“备份压缩”功能" class="headerlink" title="Xtrabackup的“流”及“备份压缩”功能"></a>Xtrabackup的“流”及“备份压缩”功能</h3><p>Xtrabackup对备份的数据文件支持“流”功能，即可以将备份的数据通过STDOUT传输给tar程序进行归档，而不是默认的直接保存至某备份目录中。要使用此功能，仅需要使用–stream选项即可。如：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">innobackupex --stream=tar  /backup | gzip &gt; /backup/`date +%F_%H-%M-%S`.tar.gz</div></pre></td></tr></table></figure>
+<p>甚至也可以使用类似如下命令将数据备份至其它服务器：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">innobackupex --stream=tar  /backup | ssh   &quot;cat -  &gt; /backups/`date +%F_%H-%M-%S`.tar&quot;</div></pre></td></tr></table></figure></p>
+<p>此外，在执行本地备份时，还可以使用–parallel选项对多个文件进行并行复制。此选项用于指定在复制时启动的线程数目。当然，在实际进行备份时要利用此功能的便利性，也需要启用innodb_file_per_table选项或共享的表空间通过innodb_data_file_path选项存储在多个ibdata文件中。对某一数据库的多个文件的复制无法利用到此功能。其简单使用方法如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">innobackupex --parallel  /path/to/backup</div></pre></td></tr></table></figure></p>
+<p>同时，innobackupex备份的数据文件也可以存储至远程主机，这可以使用–remote-host选项来实现：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">innobackupex --remote-host=root@ww agedu.com /path/IN/REMOTE/HOST/to/backup</div></pre></td></tr></table></figure></p>
+<h3 id="导入或导出单张表"><a href="#导入或导出单张表" class="headerlink" title="导入或导出单张表"></a>导入或导出单张表</h3><p>默认情况下，InnoDB表不能通过直接复制表文件的方式在mysql服务器之间进行移植，即便使用了innodb_file_per_table选项。而使用Xtrabackup工具可以实现此种功能，不过，此时需要“导出”表的mysql服务器启用了innodb_file_per_table选项（严格来说，是要“导出”的表在其创建之前，mysql服务器就启用了innodb_file_per_table选项），并且“导入”表的服务器同时启用了innodb_file_per_table和innodb_expand_import选项。</p>
+<p>(1)“导出”表<br>导出表是在备份的prepare阶段进行的，因此，一旦完全备份完成，就可以在preparef过程中通过–export选项将某表导出了：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">innobackupex --apply-log --export /path/to/backup</div></pre></td></tr></table></figure></p>
+<p>此命令会为每个innodb表的表空间创建一个以.exp结尾的文件，这些以.exp结尾的文件则可以用于导入至其它服务器。</p>
+<p>(2)“导入”表<br>要在mysql服务器上导入来自于其它服务器的某innodb表，需要先在当前服务器上创建一个跟原表表结构一致的表，而后才能实现将表导入：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">mysql&gt; CREATE TABLE mytable (...)  ENGINE=InnoDB;</div></pre></td></tr></table></figure></p>
+<p>然后将此表的表空间删除：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">mysql&gt; ALTER TABLE mydatabase.mytable  DISCARD TABLESPACE;</div></pre></td></tr></table></figure></p>
+<p>接下来，将来自于“导出”表的服务器的mytable表的mytable.ibd和mytable.exp文件复制到当前服务器的数据目录，然后使用如下命令将其“导入”：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">mysql&gt; ALTER TABLE mydatabase.mytable  IMPORT TABLESPACE;</div></pre></td></tr></table></figure></p>
+<h3 id="使用Xtrabackup对数据库进行部分备份"><a href="#使用Xtrabackup对数据库进行部分备份" class="headerlink" title="使用Xtrabackup对数据库进行部分备份"></a>使用Xtrabackup对数据库进行部分备份</h3><p>Xtrabackup也可以实现部分备份，即只备份某个或某些指定的数据库或某数据库中的某个或某些表。但要使用此功能，必须启用innodb_file_per_table选项，即每张表保存为一个独立的文件。同时，其也不支持–stream选项，即不支持将数据通过管道传输给其它程序进行处理。</p>
+<p>此外，还原部分备份跟还原全部数据的备份也有所不同，即你不能通过简单地将prepared的部分备份使用–copy-back选项直接复制回数据目录，而是要通过导入表的方向来实现还原。当然，有些情况下，部分备份也可以直接通过–copy-back进行还原，但这种方式还原而来的数据多数会产生数据不一致的问题，因此，无论如何不推荐使用这种方式。</p>
+<p>(1)创建部分备份</p>
+<p>创建部分备份的方式有三种：正则表达式(–include), 枚举表文件(–tables-file)和列出要备份的数据库(–databases)。</p>
+<p>(a)使用–include<br>使用–include时，要求为其指定要备份的表的完整名称，即形如databasename.tablename，如：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">innobackupex --include=&apos;^mageedu[.]tb1&apos;  /path/to/backup</div></pre></td></tr></table></figure></p>
+<p>(b)使用–tables-file<br>此选项的参数需要是一个文件名，此文件中每行包含一个要备份的表的完整名称；如：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">echo -e &apos;mageedu.tb1\nmageedu.tb2&apos; &gt; /tmp/tables.txt</div><div class="line">innobackupex --tables-file=/tmp/tables.txt  /path/to/backup</div></pre></td></tr></table></figure></p>
+<p>(c)使用–databases<br>此选项接受的参数为数据名，如果要指定多个数据库，彼此间需要以空格隔开；同时，在指定某数据库时，也可以只指定其中的某张表。此外，此选项也可以接受一个文件为参数，文件中每一行为一个要备份的对象。如：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">innobackupex --databases=&apos;mageedu.tb1 testdb&quot;  /path/to/backup</div></pre></td></tr></table></figure></p>
+<p>(2)整理(preparing)部分备份</p>
+<p>prepare部分备份的过程类似于导出表的过程，要使用–export选项进行：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">innobackupex --apply-log --export  /pat/to/partial/backup</div></pre></td></tr></table></figure></p>
+<p>此命令执行过程中，innobackupex会调用xtrabackup命令从数据字典中移除缺失的表，因此，会显示出许多关于“表不存在”类的警告信息。同时，也会显示出为备份文件中存在的表创建.exp文件的相关信息。</p>
+<p>(3)还原部分备份</p>
+<p>还原部分备份的过程跟导入表的过程相同。当然，也可以通过直接复制prepared状态的备份直接至数据目录中实现还原，不要此时要求数据目录处于一致状态。</p>
 
       
     </div>
@@ -430,6 +487,14 @@
 
     <footer class="post-footer">
       
+        <div class="post-tags">
+          
+            <a href="/tags/mysql/" rel="tag"># mysql</a>
+          
+            <a href="/tags/xtrabackup/" rel="tag"># xtrabackup</a>
+          
+        </div>
+      
 
       
       
@@ -439,8 +504,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2017/05/03/搭建FastDFS分布式文件系统/" rel="next" title="搭建FastDFS分布式文件系统">
-                <i class="fa fa-chevron-left"></i> 搭建FastDFS分布式文件系统
+              <a href="/2017/08/01/redis4-0配置文件介绍/" rel="next" title="redis4.0配置文件介绍">
+                <i class="fa fa-chevron-left"></i> redis4.0配置文件介绍
               </a>
             
           </div>
@@ -448,10 +513,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2017/05/05/CentOS-7用DevStack安装OpenStack/" rel="prev" title="CentOS 7用DevStack安装OpenStack">
-                CentOS 7用DevStack安装OpenStack <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -589,7 +650,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#验证CPU是否支持KVM；如果结果中有vmx（Intel）或svm-AMD-字样，就说明CPU的支持的。"><span class="nav-number">1.</span> <span class="nav-text">验证CPU是否支持KVM；如果结果中有vmx（Intel）或svm(AMD)字样，就说明CPU的支持的。</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#安装KVM及其依赖项"><span class="nav-number">2.</span> <span class="nav-text">安装KVM及其依赖项</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#验证安装结果"><span class="nav-number">3.</span> <span class="nav-text">验证安装结果</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#开启kvm服务，并且设置其开机自动启动"><span class="nav-number">4.</span> <span class="nav-text">开启kvm服务，并且设置其开机自动启动</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#配置网桥模式"><span class="nav-number">5.</span> <span class="nav-text">配置网桥模式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#重启网络服务"><span class="nav-number">6.</span> <span class="nav-text">重启网络服务</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#安装虚拟机"><span class="nav-number">7.</span> <span class="nav-text">安装虚拟机</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#使用VNC-Viewer连接该虚拟机"><span class="nav-number">8.</span> <span class="nav-text">使用VNC Viewer连接该虚拟机</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#安装X-X-Window-System"><span class="nav-number">9.</span> <span class="nav-text">安装X(X Window System)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#安装GNOME-GNOME-Desktop"><span class="nav-number">10.</span> <span class="nav-text">安装GNOME(GNOME Desktop)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#使用virt-manager管理kvm"><span class="nav-number">11.</span> <span class="nav-text">使用virt-manager管理kvm</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Xtrabackup介绍"><span class="nav-number">1.</span> <span class="nav-text">Xtrabackup介绍</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#下载安装xtrabackup"><span class="nav-number">2.</span> <span class="nav-text">下载安装xtrabackup</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#备份"><span class="nav-number">3.</span> <span class="nav-text">备份</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#完全备份"><span class="nav-number">3.1.</span> <span class="nav-text">完全备份</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#准备-prepare-一个完全备份"><span class="nav-number">3.1.1.</span> <span class="nav-text">准备(prepare)一个完全备份</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#从一个完全备份中恢复数据"><span class="nav-number">3.1.2.</span> <span class="nav-text">从一个完全备份中恢复数据</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#增量备份"><span class="nav-number">3.2.</span> <span class="nav-text">增量备份</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Xtrabackup的“流”及“备份压缩”功能"><span class="nav-number">3.3.</span> <span class="nav-text">Xtrabackup的“流”及“备份压缩”功能</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#导入或导出单张表"><span class="nav-number">3.4.</span> <span class="nav-text">导入或导出单张表</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用Xtrabackup对数据库进行部分备份"><span class="nav-number">3.5.</span> <span class="nav-text">使用Xtrabackup对数据库进行部分备份</span></a></li></ol></li></ol></div>
             
 
           </div>
