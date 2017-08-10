@@ -77,7 +77,7 @@
 <link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="redis," />
+  <meta name="keywords" content="grep,sed," />
 
 
 
@@ -93,22 +93,16 @@
 
 
 
-<meta name="description" content="Redis默认不是以守护进程的方式运行，可以通过该配置项修改，使用yes启用守护进程1daemonize no
-当Redis以守护进程方式运行时，Redis默认会把pid写入/var/run/redis.pid文件，可以通过pidfile指定1pidfile /var/run/redis.pid
-指定Redis监听端口，默认端口为6379，作者在自己的一篇博文中解释了为什么选用6379作为默认端口">
+<meta name="description" content="grep命令文本查找命令, 能够使用正则表达式的方式搜索文本，其搜索对象可以是单个或则多个文件1234567891011121314基本格式 grep [option] [regex] [path]-o 只按行显示匹配的字符-c 只输出匹配行的数目-n 显示匹配行的行号-v 显示不包含匹配文本的行-i 不区分大小写 (grep是大小写敏感的)-R 文件夹下递归搜索-l 只显示匹配的文件名 -H 显">
 <meta property="og:type" content="article">
-<meta property="og:title" content="redis4.0配置文件介绍">
-<meta property="og:url" content="http://www.hyman.shop/2017/08/01/redis4-0配置文件介绍/index.html">
+<meta property="og:title" content="Linux几个常用命令使用介绍">
+<meta property="og:url" content="http://www.hyman.shop/2017/08/10/Linux几个常用命令使用介绍/index.html">
 <meta property="og:site_name" content="hyman">
-<meta property="og:description" content="Redis默认不是以守护进程的方式运行，可以通过该配置项修改，使用yes启用守护进程1daemonize no
-当Redis以守护进程方式运行时，Redis默认会把pid写入/var/run/redis.pid文件，可以通过pidfile指定1pidfile /var/run/redis.pid
-指定Redis监听端口，默认端口为6379，作者在自己的一篇博文中解释了为什么选用6379作为默认端口">
-<meta property="og:updated_time" content="2017-08-01T06:30:53.180Z">
+<meta property="og:description" content="grep命令文本查找命令, 能够使用正则表达式的方式搜索文本，其搜索对象可以是单个或则多个文件1234567891011121314基本格式 grep [option] [regex] [path]-o 只按行显示匹配的字符-c 只输出匹配行的数目-n 显示匹配行的行号-v 显示不包含匹配文本的行-i 不区分大小写 (grep是大小写敏感的)-R 文件夹下递归搜索-l 只显示匹配的文件名 -H 显">
+<meta property="og:updated_time" content="2017-08-10T01:43:16.248Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="redis4.0配置文件介绍">
-<meta name="twitter:description" content="Redis默认不是以守护进程的方式运行，可以通过该配置项修改，使用yes启用守护进程1daemonize no
-当Redis以守护进程方式运行时，Redis默认会把pid写入/var/run/redis.pid文件，可以通过pidfile指定1pidfile /var/run/redis.pid
-指定Redis监听端口，默认端口为6379，作者在自己的一篇博文中解释了为什么选用6379作为默认端口">
+<meta name="twitter:title" content="Linux几个常用命令使用介绍">
+<meta name="twitter:description" content="grep命令文本查找命令, 能够使用正则表达式的方式搜索文本，其搜索对象可以是单个或则多个文件1234567891011121314基本格式 grep [option] [regex] [path]-o 只按行显示匹配的字符-c 只输出匹配行的数目-n 显示匹配行的行号-v 显示不包含匹配文本的行-i 不区分大小写 (grep是大小写敏感的)-R 文件夹下递归搜索-l 只显示匹配的文件名 -H 显">
 
 
 
@@ -136,13 +130,13 @@
 
 
 
-  <link rel="canonical" href="http://www.hyman.shop/2017/08/01/redis4-0配置文件介绍/"/>
+  <link rel="canonical" href="http://www.hyman.shop/2017/08/10/Linux几个常用命令使用介绍/"/>
 
 
 
 
 
-  <title>redis4.0配置文件介绍 | hyman</title>
+  <title>Linux几个常用命令使用介绍 | hyman</title>
   
 
 
@@ -305,7 +299,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://www.hyman.shop/2017/08/01/redis4-0配置文件介绍/">
+    <link itemprop="mainEntityOfPage" href="http://www.hyman.shop/2017/08/10/Linux几个常用命令使用介绍/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="hyman">
@@ -322,7 +316,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">redis4.0配置文件介绍</h1>
+          <h1 class="post-title" itemprop="name headline">Linux几个常用命令使用介绍</h1>
         
 
         <div class="post-meta">
@@ -334,8 +328,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-08-01T14:20:40+08:00">
-                2017-08-01
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-08-10T09:19:39+08:00">
+                2017-08-10
               </time>
             
 
@@ -357,8 +351,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/redis/" itemprop="url" rel="index">
-                    <span itemprop="name">redis</span>
+                  <a href="/categories/linux/" itemprop="url" rel="index">
+                    <span itemprop="name">linux</span>
                   </a>
                 </span>
 
@@ -374,7 +368,7 @@
 
           
           
-             <span id="/2017/08/01/redis4-0配置文件介绍/" class="leancloud_visitors" data-flag-title="redis4.0配置文件介绍">
+             <span id="/2017/08/10/Linux几个常用命令使用介绍/" class="leancloud_visitors" data-flag-title="Linux几个常用命令使用介绍">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -402,39 +396,21 @@
       
 
       
-        <p>Redis默认不是以守护进程的方式运行，可以通过该配置项修改，使用yes启用守护进程<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">daemonize no</div></pre></td></tr></table></figure></p>
-<p>当Redis以守护进程方式运行时，Redis默认会把pid写入/var/run/redis.pid文件，可以通过pidfile指定<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">pidfile /var/run/redis.pid</div></pre></td></tr></table></figure></p>
-<p>指定Redis监听端口，默认端口为6379，作者在自己的一篇博文中解释了为什么选用6379作为默认端口，因为6379在手机按键上MERZ对应的号码，而MERZ取自意大利歌女Alessia Merz的名字<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">port 6379</div></pre></td></tr></table></figure></p>
-<p>绑定的主机地址<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">bind 127.0.0.1</div></pre></td></tr></table></figure></p>
-<p>当 客户端闲置多长时间后关闭连接，如果指定为0，表示关闭该功能<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">timeout 300</div></pre></td></tr></table></figure></p>
-<p>指定日志记录级别，Redis总共支持四个级别：debug、verbose、notice、warning，默认为verbose<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">loglevel verbose</div></pre></td></tr></table></figure></p>
-<p>日志记录方式，默认为标准输出，如果配置Redis为守护进程方式运行，而这里又配置为日志记录方式为标准输出，则日志将会发送给/dev/null<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">logfile stdout</div></pre></td></tr></table></figure></p>
-<p>设置数据库的数量，默认数据库为0，可以使用SELECT <dbid>命令在连接上指定数据库id<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">databases 16</div></pre></td></tr></table></figure></dbid></p>
-<p>指定在多长时间内，有多少次更新操作，就将数据同步到数据文件，可以多个条件配合</p>
-<p>save <seconds> <changes><br>Redis默认配置文件中提供了三个条件：</changes></seconds></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">save 900 1</div><div class="line">save 300 10</div><div class="line">save 60 10000</div></pre></td></tr></table></figure>
-<p>分别表示900秒（15分钟）内有1个更改，300秒（5分钟）内有10个更改以及60秒内有10000个更改。</p>
-<p>指定存储至本地数据库时是否压缩数据，默认为yes，Redis采用LZF压缩，如果为了节省CPU时间，可以关闭该选项，但会导致数据库文件变的巨大<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">rdbcompression yes</div></pre></td></tr></table></figure></p>
-<p>指定本地数据库文件名，默认值为dump.rdb<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">dbfilename dump.rdb</div></pre></td></tr></table></figure></p>
-<p>指定本地数据库存放目录<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">dir ./</div></pre></td></tr></table></figure></p>
-<p>设置当本机为slave服务时，设置master服务的IP地址及端口，在Redis启动时，它会自动从master进行数据同步<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">slaveof &lt;masterip&gt; &lt;masterport&gt;</div></pre></td></tr></table></figure></p>
-<p>当master服务设置了密码保护时，slave服务连接master的密码<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">masterauth &lt;master-password&gt;</div></pre></td></tr></table></figure></p>
-<p>设置Redis连接密码，如果配置了连接密码，客户端在连接Redis时需要通过AUTH <password>命令提供密码，默认关闭<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">requirepass foobared</div></pre></td></tr></table></figure></password></p>
-<p>设置同一时间最大客户端连接数，默认无限制，Redis可以同时打开的客户端连接数为Redis进程可以打开的最大文件描述符数，如果设置 maxclients 0，表示不作限制。当客户端连接数到达限制时，Redis会关闭新的连接并向客户端返回max number of clients reached错误信息<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">maxclients 128</div></pre></td></tr></table></figure></p>
-<p>指定Redis最大内存限制，Redis在启动时会把数据加载到内存中，达到最大内存后，Redis会先尝试清除已到期或即将到期的Key，当此方法处理 后，仍然到达最大内存设置，将无法再进行写入操作，但仍然可以进行读取操作。Redis新的vm机制，会把Key存放内存，Value会存放在swap区<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">maxmemory &lt;bytes&gt;</div></pre></td></tr></table></figure></p>
-<p>指定是否在每次更新操作后进行日志记录，Redis在默认情况下是异步的把数据写入磁盘，如果不开启，可能会在断电时导致一段时间内的数据丢失。因为 redis本身同步数据文件是按上面save条件来同步的，所以有的数据会在一段时间内只存在于内存中。默认为no<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">appendonly no</div></pre></td></tr></table></figure></p>
-<p>指定更新日志文件名，默认为appendonly.aof<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">appendfilename appendonly.aof</div></pre></td></tr></table></figure></p>
-<p>指定更新日志条件，共有3个可选值：<br>no：表示等操作系统进行数据缓存同步到磁盘（快）<br>always：表示每次更新操作后手动调用fsync()将数据写到磁盘（慢，安全）<br>everysec：表示每秒同步一次（折衷，默认值）<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">appendfsync everysec</div></pre></td></tr></table></figure></p>
-<p>指定是否启用虚拟内存机制，默认值为no，简单的介绍一下，VM机制将数据分页存放，由Redis将访问量较少的页即冷数据swap到磁盘上，访问多的页面由磁盘自动换出到内存中<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">vm-enabled no</div></pre></td></tr></table></figure></p>
-<p>虚拟内存文件路径，默认值为/tmp/redis.swap，不可多个Redis实例共享<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">vm-swap-file /tmp/redis.swap</div></pre></td></tr></table></figure></p>
-<p>将所有大于vm-max-memory的数据存入虚拟内存,无论vm-max-memory设置多小,所有索引数据都是内存存储的(Redis的索引数据 就是keys),也就是说,当vm-max-memory设置为0的时候,其实是所有value都存在于磁盘。默认值为0<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">vm-max-memory 0</div></pre></td></tr></table></figure></p>
-<p>Redis swap文件分成了很多的page，一个对象可以保存在多个page上面，但一个page上不能被多个对象共享，vm-page-size是要根据存储的 数据大小来设定的，建议如果存储很多小对象，page大小最好设置为32或者64bytes；如果存储很大大对象，则可以使用更大的page，如果不 确定，就使用默认值<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">vm-page-size 32</div></pre></td></tr></table></figure></p>
-<p>设置swap文件中的page数量，由于页表（一种表示页面空闲或使用的bitmap）是在放在内存中的，在磁盘上每8个pages将消耗1byte的内存。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">vm-pages 134217728</div></pre></td></tr></table></figure></p>
-<p>设置访问swap文件的线程数,最好不要超过机器的核数,如果设置为0,那么所有对swap文件的操作都是串行的，可能会造成比较长时间的延迟。默认值为4<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">vm-max-threads 4</div></pre></td></tr></table></figure></p>
-<p>设置在向客户端应答时，是否把较小的包合并为一个包发送，默认为开启<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">glueoutputbuf yes</div></pre></td></tr></table></figure></p>
-<p>指定在超过一定的数量或者最大的元素超过某一临界值时，采用一种特殊的哈希算法<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">hash-max-zipmap-entries 64</div><div class="line">hash-max-zipmap-value 512</div></pre></td></tr></table></figure></p>
-<p>指定是否激活重置哈希，默认为开启（后面在介绍Redis的哈希算法时具体介绍）<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">activerehashing yes</div></pre></td></tr></table></figure></p>
-<p>指定包含其它的配置文件，可以在同一主机上多个Redis实例之间使用同一份配置文件，而同时各个实例又拥有自己的特定配置文件<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">include /path/to/local.conf</div></pre></td></tr></table></figure></p>
+        <h3 id="grep命令"><a href="#grep命令" class="headerlink" title="grep命令"></a>grep命令</h3><p>文本查找命令, 能够使用正则表达式的方式搜索文本，其搜索对象可以是单个或则多个文件<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">基本格式 grep [option] [regex] [path]</div><div class="line"></div><div class="line">-o 只按行显示匹配的字符</div><div class="line">-c 只输出匹配行的数目</div><div class="line">-n 显示匹配行的行号</div><div class="line">-v 显示不包含匹配文本的行</div><div class="line">-i 不区分大小写 (grep是大小写敏感的)</div><div class="line">-R 文件夹下递归搜索</div><div class="line">-l 只显示匹配的文件名 </div><div class="line">-H 显示文件名</div><div class="line">-A NUM(after)显示匹配的后几行</div><div class="line">-B NUM(before)显示匹配的前几行</div><div class="line">-C NUM显示匹配的前后几行 </div><div class="line">–color 标出颜色</div></pre></td></tr></table></figure></p>
+<h3 id="ls命令"><a href="#ls命令" class="headerlink" title="ls命令"></a>ls命令</h3><p>ls是命令行中用的最多的命令之一了，用于显示目录下的文件<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">基本格式 ls [option]</div><div class="line"></div><div class="line">-a 列出所有文件，包括’.’开头的隐藏文件</div><div class="line">-h 使打印结果易于使用者查看(human readable)</div><div class="line">-l 列出文件的详细信息：创建者，创建时间，读写权限等</div><div class="line">-s 显示文件大小</div><div class="line">-t 按时间进行文件的排序</div><div class="line">-S 以大小进行排序</div><div class="line">-r 当前条件逆序</div><div class="line">-L 显示文件链接名</div><div class="line">-R 将目录中所有文件都递归显示出来</div></pre></td></tr></table></figure></p>
+<h3 id="find命令"><a href="#find命令" class="headerlink" title="find命令"></a>find命令</h3><p>文件查找命令,find命令将递归的搜索目录下符合要求的所有文件<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">基本格式 find [path] [option] [expression]</div><div class="line"></div><div class="line">-name 查找名为filename的文件</div><div class="line">-perm 查找符合执行权限 -user 按照文件的所属主查找</div><div class="line">-mtime -n +n 按照文件的更改时间查找文件，n代表天数</div><div class="line">-ctime -n +n 按照创建时间查找</div><div class="line">-newer f1 !f2 查更改时间在f1和f2之间的文件 </div><div class="line">-size n 查找长度为n块的文件，一块为512 bytes</div><div class="line">-depth 使得查找在进入子目录前先行查找完本目录</div><div class="line">-prune 查找时忽略某个目录 -type 按文件类型查找，b为块设备，d为目录，f为普通文档</div></pre></td></tr></table></figure></p>
+<h3 id="wc命令"><a href="#wc命令" class="headerlink" title="wc命令"></a>wc命令</h3><p>用于统计输入中的字节数，字数，行数并输出<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">基本格式 wc [option] [filename]</div><div class="line"></div><div class="line">-c 统计字节数</div><div class="line">-l 统计行数</div><div class="line">-m 统计字符数</div><div class="line">-w 统计字数，一个字为由空白，跳格或换行字符分隔的字符串</div></pre></td></tr></table></figure></p>
+<h3 id="cat命令"><a href="#cat命令" class="headerlink" title="cat命令"></a>cat命令</h3><p>连结命令(Concatenation)，连结多个文本，或者以标准输出形式打印文件的内容<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">基本格式 cat [option] [filename]</div><div class="line"></div><div class="line">-n 队输出的所有行编号</div><div class="line">-b 与-n类似，但空行不编号</div></pre></td></tr></table></figure></p>
+<h3 id="tail命令"><a href="#tail命令" class="headerlink" title="tail命令"></a>tail命令</h3><p>文本查看命令，可以看文本的最后几行。tail命令的优点在于其内容能够与输入同步更新，非常适用于查看实时日志。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">基本格式 tail [option] [filename]</div><div class="line"></div><div class="line">-n number 定位参数，+5表示从第五行开始显示，10或-10表示显示最后10行</div><div class="line"></div><div class="line">-f 监控文本变化，更新内容</div><div class="line"></div><div class="line">-k number 从number所指的KB处开始读取</div></pre></td></tr></table></figure></p>
+<h3 id="head命令"><a href="#head命令" class="headerlink" title="head命令"></a>head命令</h3><p>该命令与tail命令类似，默认显示文件前两行的内容<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">基本格式 head [option] [filename]</div><div class="line"></div><div class="line">-n number 显示前几行,-5表示文件中除了最后5行之外的所有内容</div><div class="line"></div><div class="line">-c number 显示前几个字节</div></pre></td></tr></table></figure></p>
+<h3 id="du命令"><a href="#du命令" class="headerlink" title="du命令"></a>du命令</h3><p>该命令用于查看系统中文件和目录所占用的空间<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">基本格式 du [option] [name]</div><div class="line"></div><div class="line">-h 用human readable的方式显示</div><div class="line"></div><div class="line">--max-depth=number 最大的查询层次</div><div class="line"></div><div class="line">-a 显示所有文件的大小，默认只显示目录的大小</div></pre></td></tr></table></figure></p>
+<h3 id="which和whereis"><a href="#which和whereis" class="headerlink" title="which和whereis"></a>which和whereis</h3><p>which命令的作用是在PATH变量制定的路径中，查找系统命令的位置。<br>whereis命令用于程序名的搜索，且只能搜索｛二进制文件，man说明文件，源代码文件｝。whereis的查询时通过查询系统的数据库文件记录，所以速度比find更快，但由于数据库的更新频率较为缓慢，其结果与实际状况并不一定一致。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">-m 只查找说明文件</div><div class="line"></div><div class="line">-b 只查找二进制文件</div></pre></td></tr></table></figure></p>
+<h3 id="sort命令"><a href="#sort命令" class="headerlink" title="sort命令"></a>sort命令</h3><p>sort命令用于对文本进行排序，并将结果输出。其以文本的每一行为单位，从首字符向后，依次按照ascii码值进行比较，最后升序排列。（默认是忽略每行前面空格的）<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">基本格式 sort [option] [filename]</div><div class="line"></div><div class="line">-u 忽略重复行</div><div class="line"></div><div class="line">-n 按照数字大小排序</div><div class="line"></div><div class="line">-r 逆序</div><div class="line"></div><div class="line">-k start,endstart为比较的起始位置，end为结束位置</div></pre></td></tr></table></figure></p>
+<h3 id="netstat命令"><a href="#netstat命令" class="headerlink" title="netstat命令"></a>netstat命令</h3><p>netstat用于输出linux系统的网络情况信息，以前面试的时候还被问过：“如何查看占用某个端口的程序的pid?”，这个问题实际用netstat -anp输出，然后再grep一下即可。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line">基本格式 netstat [option]</div><div class="line"></div><div class="line">-a 显示所有socket连接</div><div class="line"></div><div class="line">-l 显示监控中(listening)的socket连接</div><div class="line"></div><div class="line">-n 直接使用ip地址，而不使用域名服务器</div><div class="line"></div><div class="line">-p 显示正在使用socket的程序的pid和名称</div><div class="line"></div><div class="line">-r 打印路由表</div><div class="line"></div><div class="line">-t 显示TCP传输协议的连线状况</div><div class="line"></div><div class="line">-u 显示UDP传输协议的连线状况</div><div class="line"></div><div class="line">-s 显示网络工作信息统计表</div></pre></td></tr></table></figure></p>
+<h3 id="more命令"><a href="#more命令" class="headerlink" title="more命令"></a>more命令</h3><p>more命令用于显示文件的内容，与cat和tail等命令不同的是，more命令是按页显示文件内容，同时具有搜寻字符串的功能。（由于more具有向前翻页功能，因此该命令会加载整个文件）<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div></pre></td><td class="code"><pre><div class="line">基本格式 more [option] [filename]</div><div class="line"></div><div class="line">+n 从第n行开始显示</div><div class="line"></div><div class="line">-n 定义屏幕大小为n行</div><div class="line"></div><div class="line">+/pattern 再显示前按pattern匹配子串并显示</div><div class="line"></div><div class="line">-s 把连续的多个空行显示为一行</div><div class="line"></div><div class="line">常用操作命令：</div><div class="line"></div><div class="line">Enter 向下n行，默认为1行</div><div class="line"></div><div class="line">Ctrl+F 跳过一屏</div><div class="line"></div><div class="line">Ctrl+B 返回上一屏</div><div class="line"></div><div class="line">空格键 向下滚动一屏</div><div class="line"></div><div class="line">= 输出当前行的行号</div><div class="line"></div><div class="line">在more模式中回车，输入/pattern可以持续向下搜索</div></pre></td></tr></table></figure></p>
+<h3 id="less命令"><a href="#less命令" class="headerlink" title="less命令"></a>less命令</h3><p>less命令与more命令对应，既可以前后翻看文件，同时还有前后搜索功能，除此之外，less在查看前不会加载整个文件。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div></pre></td><td class="code"><pre><div class="line">基本格式 less [option] [filename]</div><div class="line"></div><div class="line">－N 显示每行的行号</div><div class="line"></div><div class="line">-i 忽略搜索时的大小写</div><div class="line"></div><div class="line">-s 将连续空行显示为一行</div><div class="line"></div><div class="line">-m 显示百分比</div><div class="line"></div><div class="line">常用操作命令：</div><div class="line"></div><div class="line">/字符串 向下搜索“字符串”功能</div><div class="line"></div><div class="line">?字符串 向上搜索“字符串”功能</div><div class="line"></div><div class="line">n 重复前一个搜索</div><div class="line"></div><div class="line">空格键 滚动一页</div><div class="line"></div><div class="line">d 滚动半页</div><div class="line"></div><div class="line">b 回溯一页</div><div class="line"></div><div class="line">y 回溯一行</div><div class="line"></div><div class="line">q 退出less命令</div></pre></td></tr></table></figure></p>
+<h3 id="ps命令"><a href="#ps命令" class="headerlink" title="ps命令"></a>ps命令</h3><p>ps命令用来在Linux系统中显示进程的状态快照，其参数选项可谓非常之多。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">基本格式 ps [option]</div><div class="line"></div><div class="line">-a 显示所有用户的进程</div><div class="line"></div><div class="line">-x 显示没有控制终端的进程</div><div class="line"></div><div class="line">-u 按照用户名称查询进程</div><div class="line"></div><div class="line">-f 列出全部信息，常和其它选项联用</div><div class="line"></div><div class="line">-j 用任务格式来显示进程</div><div class="line"></div><div class="line">-e 显示所有进程</div></pre></td></tr></table></figure></p>
+<h3 id="kill命令"><a href="#kill命令" class="headerlink" title="kill命令"></a>kill命令</h3><p>kill命令用于终止指定的进程，其工作原理是通过向进程发送指定的信号。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line">基本格式 kill [params] [pid]</div><div class="line"></div><div class="line">常用的是：</div><div class="line"></div><div class="line">kill -9 pid //强制终止</div><div class="line"></div><div class="line">-1 Hup 终端断线</div><div class="line"></div><div class="line">-2 INT 中断（同Ctrl+c）</div><div class="line"></div><div class="line">-3 QUIT 退出(同Ctrl+\)</div><div class="line"></div><div class="line">-15 TERM 终止，是默认的信号，如果应用本身会捕获该信号，则不能终止</div><div class="line"></div><div class="line">-9 KILL 强制终止</div><div class="line"></div><div class="line">-18 CONT 继续</div><div class="line"></div><div class="line">-19 STOP 暂停(同Ctrl+z)</div></pre></td></tr></table></figure></p>
 
       
     </div>
@@ -480,7 +456,9 @@
       
         <div class="post-tags">
           
-            <a href="/tags/redis/" rel="tag"># redis</a>
+            <a href="/tags/grep/" rel="tag"># grep</a>
+          
+            <a href="/tags/sed/" rel="tag"># sed</a>
           
         </div>
       
@@ -493,8 +471,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2017/05/09/SaltStack学习记录/" rel="next" title="SaltStack学习记录">
-                <i class="fa fa-chevron-left"></i> SaltStack学习记录
+              <a href="/2017/08/09/备份数据库脚本并将备份数据库同步到又拍云存储空间/" rel="next" title="备份数据库脚本并将备份数据库同步到又拍云存储空间">
+                <i class="fa fa-chevron-left"></i> 备份数据库脚本并将备份数据库同步到又拍云存储空间
               </a>
             
           </div>
@@ -502,10 +480,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2017/08/08/使用Xtrabackup进行MySQL备份/" rel="prev" title="使用Xtrabackup进行MySQL备份">
-                使用Xtrabackup进行MySQL备份 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -561,8 +535,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview sidebar-panel sidebar-panel-active">
+      <section class="site-overview sidebar-panel">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="/uploads/avatar.jpg"
@@ -624,6 +607,22 @@
 
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#grep命令"><span class="nav-number">1.</span> <span class="nav-text">grep命令</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ls命令"><span class="nav-number">2.</span> <span class="nav-text">ls命令</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#find命令"><span class="nav-number">3.</span> <span class="nav-text">find命令</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#wc命令"><span class="nav-number">4.</span> <span class="nav-text">wc命令</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#cat命令"><span class="nav-number">5.</span> <span class="nav-text">cat命令</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#tail命令"><span class="nav-number">6.</span> <span class="nav-text">tail命令</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#head命令"><span class="nav-number">7.</span> <span class="nav-text">head命令</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#du命令"><span class="nav-number">8.</span> <span class="nav-text">du命令</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#which和whereis"><span class="nav-number">9.</span> <span class="nav-text">which和whereis</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#sort命令"><span class="nav-number">10.</span> <span class="nav-text">sort命令</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#netstat命令"><span class="nav-number">11.</span> <span class="nav-text">netstat命令</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#more命令"><span class="nav-number">12.</span> <span class="nav-text">more命令</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#less命令"><span class="nav-number">13.</span> <span class="nav-text">less命令</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ps命令"><span class="nav-number">14.</span> <span class="nav-text">ps命令</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#kill命令"><span class="nav-number">15.</span> <span class="nav-text">kill命令</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       

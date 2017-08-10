@@ -1,1 +1,1 @@
-http://www.hyman.shop/2017/08/09/备份数据库脚本并将备份数据库同步到又拍云存储空间/
+http://www.hyman.shop/2017/08/10/Linux几个常用命令使用介绍/
