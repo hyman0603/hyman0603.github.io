@@ -1,1 +1,1 @@
-http://www.hyman.shop/2017/10/23/MySQL备份说明/
+http://www.hyman.shop/2017/11/06/Haproxy配置支持https协议转发/
