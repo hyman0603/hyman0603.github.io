@@ -101,7 +101,7 @@
 <meta property="og:site_name" content="hyman">
 <meta property="og:description" content="第一部分：Linux基础题目1：有一百个图片文件，它们的地址都是http://down.xiaomi.com/img/1.pnghttp://down.xiaomi.com/img/2.png…一直到http://down.xiaomi.com/img/100.png批量下载这100个图片文件，并找出其中大于500KB的文件。
 12345678910111213同相册的图片地址会有一定的规律，可以">
-<meta property="og:updated_time" content="2017-11-16T07:20:52.678Z">
+<meta property="og:updated_time" content="2017-11-16T07:26:22.218Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="据说是小米招聘运维工程师的题目">
 <meta name="twitter:description" content="第一部分：Linux基础题目1：有一百个图片文件，它们的地址都是http://down.xiaomi.com/img/1.pnghttp://down.xiaomi.com/img/2.png…一直到http://down.xiaomi.com/img/100.png批量下载这100个图片文件，并找出其中大于500KB的文件。
@@ -426,7 +426,7 @@
 <h2 id="题目8："><a href="#题目8：" class="headerlink" title="题目8："></a>题目8：</h2><p>执行 $ time sleep 2，输出如下：</p>
 <p>real    0m2.003s<br>user   0m0.004s<br>sys    0m0.000s</p>
 <p>请说明 real、user、sys三者具体代表的意思和区别。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">当测试一个程序或比较不同算法时，执行时间是非常重要的，一个好的算法应该是用时最短的。所有类UNIX系统都包含time命令，使用这个命令可以统计时间消耗。</div><div class="line"></div><div class="line">real时间是指挂钟时间，也就是命令开始执行到结束的时间。这个短时间包括其他进程所占用的时间片，和进程被阻塞时所花费的时间。 user时间是指进程花费在用户模式中的CPU时间，这是唯一真正用于执行进程所花费的时间，其他进程和花费阻塞状态中的时间没有计算在内。 sys时间是指花费在内核模式中的CPU时间，代表在内核中执系统调用所花费的时间，这也是真正由进程使用的CPU时间。</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">当测试一个程序或比较不同算法时，执行时间是非常重要的，一个好的算法应该是用时最短的。所有类UNIX系统都包含time命令，使用这个命令可以统计时间消耗。</div><div class="line"></div><div class="line">real时间是指挂钟时间，也就是命令开始执行到结束的时间。这个短时间包括其他进程所占用的时间片，和进程被阻塞时所花费的时间。</div><div class="line">user时间是指进程花费在用户模式中的CPU时间，这是唯一真正用于执行进程所花费的时间，其他进程和花费阻塞状态中的时间没有计算在内。 </div><div class="line">sys时间是指花费在内核模式中的CPU时间，代表在内核中执系统调用所花费的时间，这也是真正由进程使用的CPU时间。</div></pre></td></tr></table></figure>
 <h2 id="题目9："><a href="#题目9：" class="headerlink" title="题目9："></a>题目9：</h2><p>nginx rewrite 规则中 last、break、redirect、permanent 的含义。</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div></pre></td><td class="code"><pre><div class="line">rewite</div><div class="line"></div><div class="line">在server块下，会优先执行rewrite部分，然后才会去匹配location块 </div><div class="line">server中的rewrite break和last没什么区别，都会去匹配location，所以没必要用last再发起新的请求，可以留空</div><div class="line"></div><div class="line">location中的rewirte：</div><div class="line"></div><div class="line">不写last和break - 那么流程就是依次执行这些rewrite </div><div class="line">1. rewrite break - url重写后，直接使用当前资源，不再执行location里余下的语句，完成本次请求，地址栏url不变 </div><div class="line">2. rewrite last - url重写后，马上发起一个新的请求，再次进入server块，重试location匹配，超过10次匹配不到报500错误，地址栏url不变 </div><div class="line">3. rewrite redirect – 返回302临时重定向，地址栏显示重定向后的url，爬虫不会更新url（因为是临时） </div><div class="line">4. rewrite permanent – 返回301永久重定向, 地址栏显示重定向后的url，爬虫更新url</div><div class="line"></div><div class="line">使用last会对server标签重新发起请求</div><div class="line"></div><div class="line">如果location中rewrite后是对静态资源的请求，不需要再进行其他匹配，一般要使用break或不写，直接使用当前location中的数据源，完成本次请求 </div><div class="line">如果location中rewrite后，还需要进行其他处理，如动态fastcgi请求(.php,.jsp)等，要用last继续发起新的请求 </div><div class="line">(根的location使用last比较好, 因为如果有.php等fastcgi请求还要继续处理)</div><div class="line"></div><div class="line">使用alias指定源：必须使用last</div><div class="line"></div><div class="line">if语句主要用来判断一些在rewrite语句中无法直接匹配的条件,比如检测文件存在与否,http header,cookie等</div><div class="line"></div><div class="line">location匹配规则及优先级</div><div class="line"></div><div class="line">= 严格匹配这个查询。如果找到，停止搜索。</div><div class="line">^~ 匹配路径的前缀，如果找到，停止搜索。</div><div class="line">~ 为区分大小写的正则匹配</div><div class="line">~* 为不区分大小写匹配 </div><div class="line">优先级： =, ^~, ~/~*, 无</div><div class="line">break语句</div><div class="line"></div><div class="line">放在server块rewrite语句前面 </div><div class="line">如果是直接请求某个真实存在的文件,则用break语句停止rewrite检查 </div><div class="line">if (-f $request_filename) &#123; </div><div class="line">break; </div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <h2 id="题目10："><a href="#题目10：" class="headerlink" title="题目10："></a>题目10：</h2><p>WEB 服务 cookies 和 session 的区别。</p>
@@ -516,6 +516,10 @@
 
           <div class="post-nav-prev post-nav-item">
             
+              <a href="/2017/11/30/ELK5-x安装过程中所遇到的问题/" rel="prev" title="ELK5.x安装过程中所遇到的问题">
+                ELK5.x安装过程中所遇到的问题 <i class="fa fa-chevron-right"></i>
+              </a>
+            
           </div>
         </div>
       
@@ -595,7 +599,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/">
-                <span class="site-state-item-count">20</span>
+                <span class="site-state-item-count">21</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -617,7 +621,7 @@
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">17</span>
+                <span class="site-state-item-count">18</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
