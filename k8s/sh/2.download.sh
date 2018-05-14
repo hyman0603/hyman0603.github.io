@@ -15,7 +15,7 @@ docker images &>/dev/null
 curl -s http://hyman.shop/k8s/sh/kube.sh |bash
 
 echo 'ÏÂÔØK8SÏà¹Ø¾µÏñ'
-MyUrl=registry.cn-shenzhen.aliyuncs.com/hyman0603
+MyUrl=registry.cn-shenzhen.aliyuncs.com/hyman0603/hyman0603
 images=(kube-proxy-amd64:v1.10.2 kube-controller-manager-amd64:v1.10.2 kube-scheduler-amd64:v1.10.2 kube-apiserver-amd64:v1.10.2 etcd-amd64:3.2.18 kubernetes-dashboard-amd64:v1.8.3 heapster-grafana-amd64:v4.4.3 heapster-influxdb-amd64:v1.3.3 heapster-amd64:v1.4.2 k8s-dns-dnsmasq-nanny-amd64:1.14.10 k8s-dns-sidecar-amd64:1.14.10 k8s-dns-kube-dns-amd64:1.14.10 pause-amd64:3.1)
 #
 for imageName in ${images[@]} ; do
