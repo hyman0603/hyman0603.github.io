@@ -7,7 +7,7 @@
 
 #CentOS / RHEL / Fedora
 if [[ -f /etc/redhat-release ]];then
-  curl -s http://hyman.shop/sh/docker-centos.sh |bash
+  curl -s http://hyman.shop/k8s/sh/docker-centos.sh |bash
 
 else
   echo "I don't know the OS"

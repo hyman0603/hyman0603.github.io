@@ -7,12 +7,12 @@
 
 #docker check 
 docker images &>/dev/null
-[[ $? = 0 ]] || { curl -s http://hyman.shop/sh/docker.sh |bash ; }
+[[ $? = 0 ]] || { curl -s http://hyman.shop/k8s/sh/docker.sh |bash ; }
 docker images &>/dev/null
 [[ $? = 0 ]] && { echo "docker ok"; } || { echo "docker error";exit; }
 
 #安装kubelet kubeadm 
-curl -s http://hyman.shop/sh/kube.sh |bash
+curl -s http://hyman.shop/k8s/sh/kube.sh |bash
 
 echo '下载K8S相关镜像'
 MyUrl=registry.cn-shenzhen.aliyuncs.com/hyman0603
