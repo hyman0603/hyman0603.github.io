@@ -24,7 +24,7 @@ for imageName in ${images[@]} ; do
   docker rmi $MyUrl/$imageName
 done
 #
-docker pull $MyUrl/flannel:v0.10.0-amd64
+docker pull $MyUrl/flannel-amd64:v0.10.0-amd64
 docker tag $MyUrl/flannel:v0.10.0-amd64  quay.io/coreos/flannel:v0.10.0-amd64
 docker rmi $MyUrl/flannel:v0.10.0-amd64
 
