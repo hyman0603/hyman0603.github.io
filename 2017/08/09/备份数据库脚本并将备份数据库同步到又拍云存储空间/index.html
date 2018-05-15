@@ -2,6 +2,15 @@
 
 
 
+
+
+
+
+
+
+
+
+
   
 
 
@@ -9,7 +18,11 @@
 <head>
   <meta charset="UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2"/>
+<meta name="theme-color" content="#222">
+
+
+
 
 
 
@@ -36,9 +49,6 @@
 
 
 
-  
-  
-  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
 
 
 
@@ -74,44 +84,25 @@
 
 <link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
 
-<link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
+<link href="/css/main.css?v=6.2.0" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="mysql,redis,xtrabackup,mongodb," />
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=6.2.0">
 
 
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=6.2.0">
 
 
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=6.2.0">
 
 
-
-
-  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.1" />
-
-
-
+  <link rel="mask-icon" href="/images/logo.svg?v=6.2.0" color="#222">
 
 
 
-<meta name="description" content="经历过一次意外，可能某拥有服务器权限的同事将测试器将全部数据给删除了，导致服务器数据库全部丢失，服务器崩溃，只能重装。特弄了一个简单的数据库脚本备份并将数据库同步到又拍云存储空间。
-123##又拍云UPX工具https://github.com/polym/upx
-同步脚本
-123456789101112[root@localhost backup]# cat backup.sh #!/bin/b">
-<meta property="og:type" content="article">
-<meta property="og:title" content="备份数据库脚本并将备份数据库同步到又拍云存储空间">
-<meta property="og:url" content="http://www.hyman.shop/2017/08/09/备份数据库脚本并将备份数据库同步到又拍云存储空间/index.html">
-<meta property="og:site_name" content="hyman">
-<meta property="og:description" content="经历过一次意外，可能某拥有服务器权限的同事将测试器将全部数据给删除了，导致服务器数据库全部丢失，服务器崩溃，只能重装。特弄了一个简单的数据库脚本备份并将数据库同步到又拍云存储空间。
-123##又拍云UPX工具https://github.com/polym/upx
-同步脚本
-123456789101112[root@localhost backup]# cat backup.sh #!/bin/b">
-<meta property="og:updated_time" content="2017-08-09T06:01:02.932Z">
-<meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="备份数据库脚本并将备份数据库同步到又拍云存储空间">
-<meta name="twitter:description" content="经历过一次意外，可能某拥有服务器权限的同事将测试器将全部数据给删除了，导致服务器数据库全部丢失，服务器崩溃，只能重装。特弄了一个简单的数据库脚本备份并将数据库同步到又拍云存储空间。
-123##又拍云UPX工具https://github.com/polym/upx
-同步脚本
-123456789101112[root@localhost backup]# cat backup.sh #!/bin/b">
+
+
+
 
 
 
@@ -120,13 +111,13 @@
   var CONFIG = {
     root: '/',
     scheme: 'Mist',
-    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false,"onmobile":false},
-    fancybox: true,
-    motion: true,
-    duoshuo: {
-      userId: '0',
-      author: '博主'
-    },
+    version: '6.2.0',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
     algolia: {
       applicationID: '',
       apiKey: '',
@@ -138,15 +129,42 @@
 </script>
 
 
+  
+
+
+
+
+  <meta name="description" content="经历过一次意外，可能某拥有服务器权限的同事将测试器将全部数据给删除了，导致服务器数据库全部丢失，服务器崩溃，只能重装。特弄了一个简单的数据库脚本备份并将数据库同步到又拍云存储空间。 123##又拍云UPX工具https://github.com/polym/upx 同步脚本 123456789101112[root@localhost backup]# cat backup.sh #!/bin/b">
+<meta name="keywords" content="mysql,redis,xtrabackup,mongodb">
+<meta property="og:type" content="article">
+<meta property="og:title" content="备份数据库脚本并将备份数据库同步到又拍云存储空间">
+<meta property="og:url" content="http://www.hyman.shop/2017/08/09/备份数据库脚本并将备份数据库同步到又拍云存储空间/index.html">
+<meta property="og:site_name" content="hyman">
+<meta property="og:description" content="经历过一次意外，可能某拥有服务器权限的同事将测试器将全部数据给删除了，导致服务器数据库全部丢失，服务器崩溃，只能重装。特弄了一个简单的数据库脚本备份并将数据库同步到又拍云存储空间。 123##又拍云UPX工具https://github.com/polym/upx 同步脚本 123456789101112[root@localhost backup]# cat backup.sh #!/bin/b">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2017-08-09T06:01:02.933Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="备份数据库脚本并将备份数据库同步到又拍云存储空间">
+<meta name="twitter:description" content="经历过一次意外，可能某拥有服务器权限的同事将测试器将全部数据给删除了，导致服务器数据库全部丢失，服务器崩溃，只能重装。特弄了一个简单的数据库脚本备份并将数据库同步到又拍云存储空间。 123##又拍云UPX工具https://github.com/polym/upx 同步脚本 123456789101112[root@localhost backup]# cat backup.sh #!/bin/b">
+
+
+
+
+
 
   <link rel="canonical" href="http://www.hyman.shop/2017/08/09/备份数据库脚本并将备份数据库同步到又拍云存储空间/"/>
 
 
 
-
+<script type="text/javascript" id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
 
   <title>备份数据库脚本并将备份数据库同步到又拍云存储空间 | hyman</title>
   
+
 
 
 
@@ -165,11 +183,32 @@
 
 
 
+  <noscript>
+  <style type="text/css">
+    .use-motion .motion-element,
+    .use-motion .brand,
+    .use-motion .menu-item,
+    .sidebar-inner,
+    .use-motion .post-block,
+    .use-motion .pagination,
+    .use-motion .comments,
+    .use-motion .post-header,
+    .use-motion .post-body,
+    .use-motion .collection-title { opacity: initial; }
 
+    .use-motion .logo,
+    .use-motion .site-title,
+    .use-motion .site-subtitle {
+      opacity: initial;
+      top: initial;
+    }
 
-
-
-
+    .use-motion {
+      .logo-line-before i { left: initial; }
+      .logo-line-after i { right: initial; }
+    }
+  </style>
+</noscript>
 
 </head>
 
@@ -180,7 +219,7 @@
     
   
 
-  <div class="container sidebar-position-left page-post-detail ">
+  <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -189,19 +228,21 @@
     
 
     <div class="custom-logo-site-title">
-      <a href="/"  class="brand" rel="start">
+      <a href="/" class="brand" rel="start">
         <span class="logo-line-before"><i></i></span>
         <span class="site-title">hyman</span>
         <span class="logo-line-after"><i></i></span>
       </a>
     </div>
+    
       
-        <p class="site-subtitle">一些简单的记录</p>
+        <p class="site-subtitle">һЩ�򵥵ļ�¼</p>
       
+    
   </div>
 
   <div class="site-nav-toggle">
-    <button>
+    <button aria-label="Toggle navigation bar">
       <span class="btn-bar"></span>
       <span class="btn-bar"></span>
       <span class="btn-bar"></span>
@@ -209,56 +250,61 @@
   </div>
 </div>
 
-<nav class="site-nav">
-  
 
+
+<nav class="site-nav">
   
     <ul id="menu" class="menu">
       
         
-        <li class="menu-item menu-item-home">
-          <a href="/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
-            
-            首页
-          </a>
-        </li>
-      
         
-        <li class="menu-item menu-item-categories">
-          <a href="/categories/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
-            
-            分类
-          </a>
-        </li>
-      
         
-        <li class="menu-item menu-item-tags">
-          <a href="/tags/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
-            
-            标签
-          </a>
-        </li>
-      
+          
+          <li class="menu-item menu-item-home">
+    <a href="/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-home"></i> <br />Startseite</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+    <a href="/tags/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />Tags</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+    <a href="/categories/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-th"></i> <br />Kategorien</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+    <a href="/archives/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />Archiv</a>
+  </li>
 
+      
       
         <li class="menu-item menu-item-search">
           
             <a href="javascript:;" class="popup-trigger">
           
             
-              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
-            
-            搜索
-          </a>
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />Suche</a>
         </li>
       
     </ul>
+  
+
+  
+    
+
   
 
   
@@ -274,7 +320,7 @@
     </span>
     <div class="local-search-input-wrapper">
       <input autocomplete="off"
-             placeholder="搜索..." spellcheck="false"
+             placeholder="Searching..." spellcheck="false"
              type="text" id="local-search-input">
     </div>
   </div>
@@ -289,12 +335,20 @@
 
 
 
- </div>
+  
+
+
+
+</div>
     </header>
+
+    
+
 
     <main id="main" class="main">
       <div class="main-inner">
         <div class="content-wrap">
+          
           <div id="content" class="content">
             
 
@@ -307,13 +361,19 @@
   
   
 
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://www.hyman.shop/2017/08/09/备份数据库脚本并将备份数据库同步到又拍云存储空间/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="hyman">
       <meta itemprop="description" content="">
-      <meta itemprop="image" content="/uploads/avatar.jpg">
+      <meta itemprop="image" content="/images/avatar.gif">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
@@ -325,25 +385,38 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">备份数据库脚本并将备份数据库同步到又拍云存储空间</h1>
+          <h1 class="post-title" itemprop="name headline">备份数据库脚本并将备份数据库同步到又拍云存储空间
+              
+            
+          </h1>
         
 
         <div class="post-meta">
           <span class="post-time">
+
+            
+            
+            
+
             
               <span class="post-meta-item-icon">
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">发表于</span>
+                <span class="post-meta-item-text">Veröffentlicht am</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-08-09T12:04:57+08:00">
-                2017-08-09
-              </time>
+
+              
+                
+              
+
+              <time title="Post created: 2017-08-09 12:04:57 / Updated at: 14:01:02" itemprop="dateCreated datePublished" datetime="2017-08-09T12:04:57+08:00">2017-08-09</time>
             
 
             
+              
 
+              
             
           </span>
 
@@ -356,14 +429,10 @@
                 <i class="fa fa-folder-o"></i>
               </span>
               
-                <span class="post-meta-item-text">分类于</span>
+                <span class="post-meta-item-text">in</span>
               
               
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/备份/" itemprop="url" rel="index">
-                    <span itemprop="name">备份</span>
-                  </a>
-                </span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/备份/" itemprop="url" rel="index"><span itemprop="name">备份</span></a></span>
 
                 
                 
@@ -383,7 +452,7 @@
                  <i class="fa fa-eye"></i>
                </span>
                
-                 <span class="post-meta-item-text">阅读次数 </span>
+                 <span class="post-meta-item-text">Views: </span>
                
                  <span class="leancloud-visitors-count"></span>
              </span>
@@ -399,6 +468,9 @@
       </header>
     
 
+    
+    
+    
     <div class="post-body" itemprop="articleBody">
 
       
@@ -406,52 +478,51 @@
 
       
         <p>经历过一次意外，可能某拥有服务器权限的同事将测试器将全部数据给删除了，导致服务器数据库全部丢失，服务器崩溃，只能重装。特弄了一个简单的数据库脚本备份并将数据库同步到又拍云存储空间。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">##又拍云UPX工具</div><div class="line"></div><div class="line">https://github.com/polym/upx</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">##又拍云UPX工具</span><br><span class="line"></span><br><span class="line">https://github.com/polym/upx</span><br></pre></td></tr></table></figure>
 <p>同步脚本</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">[root@localhost backup]# cat backup.sh </div><div class="line">#!/bin/bash</div><div class="line"></div><div class="line">##用于本地目录中的所有文件同步上传到又拍云存储，用时监控目录变化</div><div class="line"></div><div class="line">service_name=&quot;testbackup&quot;</div><div class="line">username=&quot;******&quot;</div><div class="line">password=&quot;******&quot;</div><div class="line"></div><div class="line">/home/backup/upx login testbackup ****** ******</div><div class="line"></div><div class="line">/home/backup/upx sync /home/backup</div></pre></td></tr></table></figure>
-<p>mysql备份脚本<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div></pre></td><td class="code"><pre><div class="line">[root@localhost backup]# cat xtrabackup-full.sh </div><div class="line">#!/bin/bash  </div><div class="line"> </div><div class="line">user=&apos;root&apos; </div><div class="line">passwd=&apos;123456&apos;</div><div class="line">host=&apos;127.0.0.1&apos;</div><div class="line">port=&apos;3307&apos;</div><div class="line">database=&apos;cloud_yssj&apos; </div><div class="line">my_config=&apos;/usr/local/mysql-test1/my.cnf&apos; </div><div class="line">log=$database-$(date +%Y%m%d%H%M).log  </div><div class="line">str=$database-$(date +%Y%m%d%H%M).tar.gz  </div><div class="line">backup_dir=&apos;/home/backup/mysql&apos;</div><div class="line"></div><div class="line">echo &quot;Start to backup at $(date +%Y%m%d%H%M)&quot;  </div><div class="line">if [ ! -d &quot;$backup_dir&quot; ];then  </div><div class="line">    mkdir -p $backup_dir  </div><div class="line">fi  </div><div class="line"></div><div class="line">/usr/bin/innobackupex --defaults-file=$my_config --user=$user --password=$passwd --port=$port --host=$host --database=$database --stream=tar $backup_dir 2&gt;$backup_dir/$log | gzip 1&gt;$backup_dir/$str  </div><div class="line"> </div><div class="line">if [ $? -eq 0 ];then  </div><div class="line">    echo &quot;Backup is finish! at $(date +%Y%m%d%H%M)&quot;  </div><div class="line">    exit 0  </div><div class="line">else  </div><div class="line">    echo &quot;Backup is Fail! at $(date +%Y%m%d%H%M)&quot;  </div><div class="line">    exit 1  </div><div class="line">fi  </div><div class="line">echo &quot;Backup Process Done&quot;</div></pre></td></tr></table></figure></p>
-<p>mongodb、redis备份脚本<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div></pre></td><td class="code"><pre><div class="line">[root@localhost backup]# cat mongodb.sh </div><div class="line">#!/bin/bash  </div><div class="line"></div><div class="line">host=&apos;127.0.0.1:37018&apos;</div><div class="line">database=&apos;cloud_yssj&apos; </div><div class="line"> </div><div class="line">backup_dir1=&apos;/home/backup/mongodb&apos;</div><div class="line">backup_dir2=&apos;/home/backup/redis&apos;</div><div class="line"> </div><div class="line">if [ ! -d &quot;$backup_dir1&quot; ];then  </div><div class="line">    mkdir -p $backup_dir1  </div><div class="line">fi  </div><div class="line"></div><div class="line">if [ ! -d &quot;$backup_dir2&quot; ];then  </div><div class="line">    mkdir -p $backup_dir2  </div><div class="line">fi  </div><div class="line"></div><div class="line">/home/mongodb/bin/mongodump -h $host -d $database -o $backup_dir1  </div><div class="line"> </div><div class="line">tar zcvf $backup_dir1/mongodb-$(date +%Y%m%d%H%M).tar.gz $backup_dir1/$database</div><div class="line"></div><div class="line">rm -rf /home/backup/mongodb/cloud_yssj</div><div class="line"></div><div class="line">tar zcvf $backup_dir2/redis-$(date +%Y%m%d%H%M).tar.gz /home/redis/data/dump8000.rdb</div></pre></td></tr></table></figure></p>
-<p>增加定时任务<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">[root@localhost backup]# crontab -l</div><div class="line">30 1 * * * /home/backup/mongodb.sh</div><div class="line">20 2 * * * /home/backup/xtrabackup-full.sh</div><div class="line">40 3 * * * /home/backup/backup.sh</div></pre></td></tr></table></figure></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost backup]# cat backup.sh </span><br><span class="line">#!/bin/bash</span><br><span class="line"></span><br><span class="line">##用于本地目录中的所有文件同步上传到又拍云存储，用时监控目录变化</span><br><span class="line"></span><br><span class="line">service_name=&quot;testbackup&quot;</span><br><span class="line">username=&quot;******&quot;</span><br><span class="line">password=&quot;******&quot;</span><br><span class="line"></span><br><span class="line">/home/backup/upx login testbackup ****** ******</span><br><span class="line"></span><br><span class="line">/home/backup/upx sync /home/backup</span><br></pre></td></tr></table></figure>
+<p>mysql备份脚本<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost backup]# cat xtrabackup-full.sh </span><br><span class="line">#!/bin/bash  </span><br><span class="line"> </span><br><span class="line">user=&apos;root&apos; </span><br><span class="line">passwd=&apos;123456&apos;</span><br><span class="line">host=&apos;127.0.0.1&apos;</span><br><span class="line">port=&apos;3307&apos;</span><br><span class="line">database=&apos;cloud_yssj&apos; </span><br><span class="line">my_config=&apos;/usr/local/mysql-test1/my.cnf&apos; </span><br><span class="line">log=$database-$(date +%Y%m%d%H%M).log  </span><br><span class="line">str=$database-$(date +%Y%m%d%H%M).tar.gz  </span><br><span class="line">backup_dir=&apos;/home/backup/mysql&apos;</span><br><span class="line"></span><br><span class="line">echo &quot;Start to backup at $(date +%Y%m%d%H%M)&quot;  </span><br><span class="line">if [ ! -d &quot;$backup_dir&quot; ];then  </span><br><span class="line">    mkdir -p $backup_dir  </span><br><span class="line">fi  </span><br><span class="line"></span><br><span class="line">/usr/bin/innobackupex --defaults-file=$my_config --user=$user --password=$passwd --port=$port --host=$host --database=$database --stream=tar $backup_dir 2&gt;$backup_dir/$log | gzip 1&gt;$backup_dir/$str  </span><br><span class="line"> </span><br><span class="line">if [ $? -eq 0 ];then  </span><br><span class="line">    echo &quot;Backup is finish! at $(date +%Y%m%d%H%M)&quot;  </span><br><span class="line">    exit 0  </span><br><span class="line">else  </span><br><span class="line">    echo &quot;Backup is Fail! at $(date +%Y%m%d%H%M)&quot;  </span><br><span class="line">    exit 1  </span><br><span class="line">fi  </span><br><span class="line">echo &quot;Backup Process Done&quot;</span><br></pre></td></tr></table></figure></p>
+<p>mongodb、redis备份脚本<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost backup]# cat mongodb.sh </span><br><span class="line">#!/bin/bash  </span><br><span class="line"></span><br><span class="line">host=&apos;127.0.0.1:37018&apos;</span><br><span class="line">database=&apos;cloud_yssj&apos; </span><br><span class="line"> </span><br><span class="line">backup_dir1=&apos;/home/backup/mongodb&apos;</span><br><span class="line">backup_dir2=&apos;/home/backup/redis&apos;</span><br><span class="line"> </span><br><span class="line">if [ ! -d &quot;$backup_dir1&quot; ];then  </span><br><span class="line">    mkdir -p $backup_dir1  </span><br><span class="line">fi  </span><br><span class="line"></span><br><span class="line">if [ ! -d &quot;$backup_dir2&quot; ];then  </span><br><span class="line">    mkdir -p $backup_dir2  </span><br><span class="line">fi  </span><br><span class="line"></span><br><span class="line">/home/mongodb/bin/mongodump -h $host -d $database -o $backup_dir1  </span><br><span class="line"> </span><br><span class="line">tar zcvf $backup_dir1/mongodb-$(date +%Y%m%d%H%M).tar.gz $backup_dir1/$database</span><br><span class="line"></span><br><span class="line">rm -rf /home/backup/mongodb/cloud_yssj</span><br><span class="line"></span><br><span class="line">tar zcvf $backup_dir2/redis-$(date +%Y%m%d%H%M).tar.gz /home/redis/data/dump8000.rdb</span><br></pre></td></tr></table></figure></p>
+<p>增加定时任务<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost backup]# crontab -l</span><br><span class="line">30 1 * * * /home/backup/mongodb.sh</span><br><span class="line">20 2 * * * /home/backup/xtrabackup-full.sh</span><br><span class="line">40 3 * * * /home/backup/backup.sh</span><br></pre></td></tr></table></figure></p>
 
       
     </div>
 
-    <div>
-      
-        
+    
 
-      
-    </div>
+    
+    
+    
 
-    <div>
-      
-        
-  <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
-    <div>如果对您有帮助，可以给我们打赏鼓励！</div>
-    <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
-      <span>赏</span>
-    </button>
-    <div id="QR" style="display: none;">
-      
-      
-        <div id="alipay" style="display: inline-block">
-          <img id="alipay_qr" src="/pay/ali.jpg" alt="hyman Alipay"/>
-          <p>支付宝打赏</p>
-        </div>
-      
-    </div>
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>��������а��������Ը����Ǵ��͹�����</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>Donate</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/pay/ali.jpg" alt="hyman Alipay"/>
+        <p>Alipay</p>
+      </div>
+    
+
+    
+
   </div>
+</div>
 
+      </div>
+    
 
-      
-    </div>
-
-    <div>
-      
-        
-
-      
-    </div>
+    
 
     <footer class="post-footer">
       
@@ -497,6 +568,10 @@
       
       
     </footer>
+  </div>
+  
+  
+  
   </article>
 
 
@@ -516,13 +591,13 @@
           </div>
           
 
-
-          
-  <div class="comments" id="comments">
-    
+  
+    <div class="comments" id="comments">
       <div id="lv-container" data-id="city" data-uid="MTAyMC8yOTg5MS82NDU2"></div>
-    
-  </div>
+    </div>
+
+  
+
 
 
         </div>
@@ -545,66 +620,133 @@
 
       
 
-      <section class="site-overview sidebar-panel sidebar-panel-active">
-        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
-          <img class="site-author-image" itemprop="image"
-               src="/uploads/avatar.jpg"
-               alt="hyman" />
-          <p class="site-author-name" itemprop="name">hyman</p>
-           
+      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/avatar.gif"
+                alt="hyman" />
+            
+              <p class="site-author-name" itemprop="name">hyman</p>
               <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
           
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">22</span>
+                    <span class="site-state-item-name">Artikel</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  <a href="/categories/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">10</span>
+                    <span class="site-state-item-name">Kategorien</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  <a href="/tags/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">19</span>
+                    <span class="site-state-item-name">Tags</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+            
+          
+          
+
         </div>
-        <nav class="site-state motion-element">
-
-          
-            <div class="site-state-item site-state-posts">
-              <a href="/">
-                <span class="site-state-item-count">21</span>
-                <span class="site-state-item-name">日志</span>
-              </a>
-            </div>
-          
-
-          
-            
-            
-            <div class="site-state-item site-state-categories">
-              <a href="/categories/index.html">
-                <span class="site-state-item-count">9</span>
-                <span class="site-state-item-name">分类</span>
-              </a>
-            </div>
-          
-
-          
-            
-            
-            <div class="site-state-item site-state-tags">
-              <a href="/tags/index.html">
-                <span class="site-state-item-count">18</span>
-                <span class="site-state-item-name">标签</span>
-              </a>
-            </div>
-          
-
-        </nav>
-
-        
-
-        <div class="links-of-author motion-element">
-          
-        </div>
-
-        
-        
-
-        
-        
-
-        
-
-
       </section>
 
       
@@ -621,30 +763,41 @@
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright" >
-  
-  &copy; 
-  <span itemprop="copyrightYear">2017</span>
-  <span class="with-love">
-    <i class="fa fa-heart"></i>
+        <div class="copyright">&copy; 2017 &mdash; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
   </span>
   <span class="author" itemprop="copyrightHolder">hyman</span>
+
+  
+
+  
 </div>
 
 
-<div class="powered-by">
-  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
-</div>
 
-<div class="theme-info">
-  主题 -
-  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
-    NexT.Mist
-  </a>
-</div>
+
+  <div class="powered-by">Erstellt mit  <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> v3.7.1</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/theme-next/hexo-theme-next">NexT.Mist</a> v6.2.0</div>
+
+
 
 
         
+
+
+
+
+
+
+
 
         
       </div>
@@ -655,6 +808,8 @@
         <i class="fa fa-arrow-up"></i>
         
       </div>
+    
+
     
 
   </div>
@@ -675,7 +830,6 @@
 
 
 
-  
 
 
 
@@ -688,55 +842,53 @@
 
 
 
-  
-  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
-
-  
-  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
-
-  
-  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
-
-  
-  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
-
-  
-  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
-
-  
-  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
 
 
-  
-
-
-  <script type="text/javascript" src="/js/src/utils.js?v=5.1.1"></script>
-
-  <script type="text/javascript" src="/js/src/motion.js?v=5.1.1"></script>
 
 
 
   
   
-
-  
-  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.1"></script>
-<script type="text/javascript" src="/js/src/post-details.js?v=5.1.1"></script>
-
-
-
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
   
 
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
 
-  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.1"></script>
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=6.2.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=6.2.0"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=6.2.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=6.2.0"></script>
 
 
 
   
 
 
-  
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=6.2.0"></script>
 
+
+
+  
 
 
 
@@ -770,6 +922,10 @@
 
 
 
+
+
+
+
   
 
   <script type="text/javascript">
@@ -777,7 +933,7 @@
     var isfetched = false;
     var isXml = true;
     // Search DB path;
-    var search_path = "search.xml";
+    var search_path = "";
     if (search_path.length === 0) {
       search_path = "search.xml";
     } else if (/json$/i.test(search_path)) {
@@ -821,6 +977,8 @@
         .css('overflow', 'hidden');
       $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
 
+      
+
       $.ajax({
         url: path,
         dataType: isXml ? "xml" : "json",
@@ -854,6 +1012,7 @@
                 var title = data.title.trim();
                 var titleInLowerCase = title.toLowerCase();
                 var content = data.content.trim().replace(/<[^>]+>/g,"");
+                
                 var contentInLowerCase = content.toLowerCase();
                 var articleUrl = decodeURIComponent(data.url);
                 var indexOfTitle = [];
@@ -1153,35 +1312,24 @@
             var counter = results[0];
             counter.fetchWhenSave(true);
             counter.increment("time");
+            
             counter.save(null, {
               success: function(counter) {
-                var $element = $(document.getElementById(url));
-                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+                
+                  var $element = $(document.getElementById(url));
+                  $element.find('.leancloud-visitors-count').text(counter.get('time'));
+                
               },
               error: function(counter, error) {
                 console.log('Failed to save Visitor num, with error message: ' + error.message);
               }
             });
           } else {
-            var newcounter = new Counter();
-            /* Set ACL */
-            var acl = new AV.ACL();
-            acl.setPublicReadAccess(true);
-            acl.setPublicWriteAccess(true);
-            newcounter.setACL(acl);
-            /* End Set ACL */
-            newcounter.set("title", title);
-            newcounter.set("url", url);
-            newcounter.set("time", 1);
-            newcounter.save(null, {
-              success: function(newcounter) {
-                var $element = $(document.getElementById(url));
-                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
-              },
-              error: function(newcounter, error) {
-                console.log('Failed to create');
-              }
-            });
+            
+              var $element = $(document.getElementById(url));
+              $element.find('.leancloud-visitors-count').text('Counter not initialized! See more at console err msg.');
+              console.error('ATTENTION! LeanCloud counter has security bug, see here how to solve it: https://github.com/theme-next/hexo-leancloud-counter-security. \n But you also can use LeanCloud without security, by set \'security\' option to \'false\'.');
+            
           }
         },
         error: function(error) {
@@ -1201,6 +1349,8 @@
   </script>
 
 
+
+  
 
   
 <script>
@@ -1223,27 +1373,12 @@
 
   
   
-    <script type="text/x-mathjax-config">
-      MathJax.Hub.Config({
-        tex2jax: {
-          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
-          processEscapes: true,
-          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
-        }
-      });
-    </script>
 
-    <script type="text/x-mathjax-config">
-      MathJax.Hub.Queue(function() {
-        var all = MathJax.Hub.getAllJax(), i;
-        for (i=0; i < all.length; i += 1) {
-          all[i].SourceElement().parentNode.className += ' has-jax';
-        }
-      });
-    </script>
-    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
   
 
+  
+
+  
 
   
 

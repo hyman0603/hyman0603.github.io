@@ -2,6 +2,15 @@
 
 
 
+
+
+
+
+
+
+
+
+
   
 
 
@@ -9,7 +18,11 @@
 <head>
   <meta charset="UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2"/>
+<meta name="theme-color" content="#222">
+
+
+
 
 
 
@@ -36,9 +49,6 @@
 
 
 
-  
-  
-  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
 
 
 
@@ -74,35 +84,25 @@
 
 <link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
 
-<link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
+<link href="/css/main.css?v=6.2.0" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="python,算法," />
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=6.2.0">
 
 
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=6.2.0">
 
 
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=6.2.0">
 
 
-
-
-  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.1" />
-
-
-
+  <link rel="mask-icon" href="/images/logo.svg?v=6.2.0" color="#222">
 
 
 
-<meta name="description" content="时间复杂度用来评估算法运行效率的一个东西12345678910111213141516171819def func():    print(&amp;quot;hello world&amp;quot;) def func1(n):    for i in range(n):        print(&amp;quot;hello world&amp;quot;) def func2(n):    for i in range">
-<meta property="og:type" content="article">
-<meta property="og:title" content="Python基本算法">
-<meta property="og:url" content="http://www.hyman.shop/2017/08/23/Python基本算法/index.html">
-<meta property="og:site_name" content="hyman">
-<meta property="og:description" content="时间复杂度用来评估算法运行效率的一个东西12345678910111213141516171819def func():    print(&amp;quot;hello world&amp;quot;) def func1(n):    for i in range(n):        print(&amp;quot;hello world&amp;quot;) def func2(n):    for i in range">
-<meta property="og:updated_time" content="2017-08-23T05:57:20.715Z">
-<meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Python基本算法">
-<meta name="twitter:description" content="时间复杂度用来评估算法运行效率的一个东西12345678910111213141516171819def func():    print(&amp;quot;hello world&amp;quot;) def func1(n):    for i in range(n):        print(&amp;quot;hello world&amp;quot;) def func2(n):    for i in range">
+
+
+
 
 
 
@@ -111,13 +111,13 @@
   var CONFIG = {
     root: '/',
     scheme: 'Mist',
-    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false,"onmobile":false},
-    fancybox: true,
-    motion: true,
-    duoshuo: {
-      userId: '0',
-      author: '博主'
-    },
+    version: '6.2.0',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
     algolia: {
       applicationID: '',
       apiKey: '',
@@ -129,15 +129,42 @@
 </script>
 
 
+  
+
+
+
+
+  <meta name="description" content="时间复杂度用来评估算法运行效率的一个东西12345678910111213141516171819def func():    print(&amp;quot;hello world&amp;quot;) def func1(n):    for i in range(n):        print(&amp;quot;hello world&amp;quot;) def func2(n):    for i in range">
+<meta name="keywords" content="python,算法">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Python基本算法">
+<meta property="og:url" content="http://www.hyman.shop/2017/08/23/Python基本算法/index.html">
+<meta property="og:site_name" content="hyman">
+<meta property="og:description" content="时间复杂度用来评估算法运行效率的一个东西12345678910111213141516171819def func():    print(&amp;quot;hello world&amp;quot;) def func1(n):    for i in range(n):        print(&amp;quot;hello world&amp;quot;) def func2(n):    for i in range">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2017-08-23T05:57:20.716Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Python基本算法">
+<meta name="twitter:description" content="时间复杂度用来评估算法运行效率的一个东西12345678910111213141516171819def func():    print(&amp;quot;hello world&amp;quot;) def func1(n):    for i in range(n):        print(&amp;quot;hello world&amp;quot;) def func2(n):    for i in range">
+
+
+
+
+
 
   <link rel="canonical" href="http://www.hyman.shop/2017/08/23/Python基本算法/"/>
 
 
 
-
+<script type="text/javascript" id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
 
   <title>Python基本算法 | hyman</title>
   
+
 
 
 
@@ -156,11 +183,32 @@
 
 
 
+  <noscript>
+  <style type="text/css">
+    .use-motion .motion-element,
+    .use-motion .brand,
+    .use-motion .menu-item,
+    .sidebar-inner,
+    .use-motion .post-block,
+    .use-motion .pagination,
+    .use-motion .comments,
+    .use-motion .post-header,
+    .use-motion .post-body,
+    .use-motion .collection-title { opacity: initial; }
 
+    .use-motion .logo,
+    .use-motion .site-title,
+    .use-motion .site-subtitle {
+      opacity: initial;
+      top: initial;
+    }
 
-
-
-
+    .use-motion {
+      .logo-line-before i { left: initial; }
+      .logo-line-after i { right: initial; }
+    }
+  </style>
+</noscript>
 
 </head>
 
@@ -171,7 +219,7 @@
     
   
 
-  <div class="container sidebar-position-left page-post-detail ">
+  <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -180,19 +228,21 @@
     
 
     <div class="custom-logo-site-title">
-      <a href="/"  class="brand" rel="start">
+      <a href="/" class="brand" rel="start">
         <span class="logo-line-before"><i></i></span>
         <span class="site-title">hyman</span>
         <span class="logo-line-after"><i></i></span>
       </a>
     </div>
+    
       
-        <p class="site-subtitle">一些简单的记录</p>
+        <p class="site-subtitle">һЩ�򵥵ļ�¼</p>
       
+    
   </div>
 
   <div class="site-nav-toggle">
-    <button>
+    <button aria-label="Toggle navigation bar">
       <span class="btn-bar"></span>
       <span class="btn-bar"></span>
       <span class="btn-bar"></span>
@@ -200,56 +250,61 @@
   </div>
 </div>
 
-<nav class="site-nav">
-  
 
+
+<nav class="site-nav">
   
     <ul id="menu" class="menu">
       
         
-        <li class="menu-item menu-item-home">
-          <a href="/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
-            
-            首页
-          </a>
-        </li>
-      
         
-        <li class="menu-item menu-item-categories">
-          <a href="/categories/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
-            
-            分类
-          </a>
-        </li>
-      
         
-        <li class="menu-item menu-item-tags">
-          <a href="/tags/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
-            
-            标签
-          </a>
-        </li>
-      
+          
+          <li class="menu-item menu-item-home">
+    <a href="/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-home"></i> <br />Startseite</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+    <a href="/tags/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />Tags</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+    <a href="/categories/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-th"></i> <br />Kategorien</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+    <a href="/archives/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />Archiv</a>
+  </li>
 
+      
       
         <li class="menu-item menu-item-search">
           
             <a href="javascript:;" class="popup-trigger">
           
             
-              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
-            
-            搜索
-          </a>
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />Suche</a>
         </li>
       
     </ul>
+  
+
+  
+    
+
   
 
   
@@ -265,7 +320,7 @@
     </span>
     <div class="local-search-input-wrapper">
       <input autocomplete="off"
-             placeholder="搜索..." spellcheck="false"
+             placeholder="Searching..." spellcheck="false"
              type="text" id="local-search-input">
     </div>
   </div>
@@ -280,12 +335,20 @@
 
 
 
- </div>
+  
+
+
+
+</div>
     </header>
+
+    
+
 
     <main id="main" class="main">
       <div class="main-inner">
         <div class="content-wrap">
+          
           <div id="content" class="content">
             
 
@@ -298,13 +361,19 @@
   
   
 
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://www.hyman.shop/2017/08/23/Python基本算法/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="hyman">
       <meta itemprop="description" content="">
-      <meta itemprop="image" content="/uploads/avatar.jpg">
+      <meta itemprop="image" content="/images/avatar.gif">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
@@ -316,25 +385,38 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">Python基本算法</h1>
+          <h1 class="post-title" itemprop="name headline">Python基本算法
+              
+            
+          </h1>
         
 
         <div class="post-meta">
           <span class="post-time">
+
+            
+            
+            
+
             
               <span class="post-meta-item-icon">
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">发表于</span>
+                <span class="post-meta-item-text">Veröffentlicht am</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-08-23T10:11:25+08:00">
-                2017-08-23
-              </time>
+
+              
+                
+              
+
+              <time title="Post created: 2017-08-23 10:11:25 / Updated at: 13:57:20" itemprop="dateCreated datePublished" datetime="2017-08-23T10:11:25+08:00">2017-08-23</time>
             
 
             
+              
 
+              
             
           </span>
 
@@ -347,14 +429,10 @@
                 <i class="fa fa-folder-o"></i>
               </span>
               
-                <span class="post-meta-item-text">分类于</span>
+                <span class="post-meta-item-text">in</span>
               
               
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/python/" itemprop="url" rel="index">
-                    <span itemprop="name">python</span>
-                  </a>
-                </span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/python/" itemprop="url" rel="index"><span itemprop="name">python</span></a></span>
 
                 
                 
@@ -374,7 +452,7 @@
                  <i class="fa fa-eye"></i>
                </span>
                
-                 <span class="post-meta-item-text">阅读次数 </span>
+                 <span class="post-meta-item-text">Views: </span>
                
                  <span class="leancloud-visitors-count"></span>
              </span>
@@ -390,14 +468,17 @@
       </header>
     
 
+    
+    
+    
     <div class="post-body" itemprop="articleBody">
 
       
       
 
       
-        <h2 id="时间复杂度"><a href="#时间复杂度" class="headerlink" title="时间复杂度"></a>时间复杂度</h2><p>用来评估算法运行效率的一个东西<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line">def func():</div><div class="line">    print(&quot;hello world&quot;)</div><div class="line"> </div><div class="line">def func1(n):</div><div class="line">    for i in range(n):</div><div class="line">        print(&quot;hello world&quot;)</div><div class="line"> </div><div class="line">def func2(n):</div><div class="line">    for i in range(n):</div><div class="line">        for j in range(n):</div><div class="line">            print(&quot;hello world&quot;)</div><div class="line"> </div><div class="line">def func3(n):</div><div class="line">    for i in range(n):</div><div class="line">        for j in range(n):</div><div class="line">            for k in range(n):</div><div class="line">                print(&quot;hello world&quot;)</div><div class="line"></div><div class="line">时间复杂度分别为：O(1),O(n),O(n^2),O(n^3)</div></pre></td></tr></table></figure></p>
-<p>特殊的时间复杂度<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">def func4(n):</div><div class="line">    while n &gt;1:</div><div class="line">        print(n)</div><div class="line">        n = n//2</div><div class="line"></div><div class="line">时间复杂度叫O(logn)</div></pre></td></tr></table></figure></p>
+        <h2 id="时间复杂度"><a href="#时间复杂度" class="headerlink" title="时间复杂度"></a>时间复杂度</h2><p>用来评估算法运行效率的一个东西<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">def func():</span><br><span class="line">    print(&quot;hello world&quot;)</span><br><span class="line"> </span><br><span class="line">def func1(n):</span><br><span class="line">    for i in range(n):</span><br><span class="line">        print(&quot;hello world&quot;)</span><br><span class="line"> </span><br><span class="line">def func2(n):</span><br><span class="line">    for i in range(n):</span><br><span class="line">        for j in range(n):</span><br><span class="line">            print(&quot;hello world&quot;)</span><br><span class="line"> </span><br><span class="line">def func3(n):</span><br><span class="line">    for i in range(n):</span><br><span class="line">        for j in range(n):</span><br><span class="line">            for k in range(n):</span><br><span class="line">                print(&quot;hello world&quot;)</span><br><span class="line"></span><br><span class="line">时间复杂度分别为：O(1),O(n),O(n^2),O(n^3)</span><br></pre></td></tr></table></figure></p>
+<p>特殊的时间复杂度<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">def func4(n):</span><br><span class="line">    while n &gt;1:</span><br><span class="line">        print(n)</span><br><span class="line">        n = n//2</span><br><span class="line"></span><br><span class="line">时间复杂度叫O(logn)</span><br></pre></td></tr></table></figure></p>
 <p>时间复杂度是用来估计算法运行时间的一个式子（单位）</p>
 <p>一般来说，时间复杂度高的算法比复杂度低的算法慢</p>
 <p>常见的时间复杂度（按效率排序）</p>
@@ -406,54 +487,53 @@
 <p>循环减半的过程——O(logn)</p>
 <p>基层循环就是n的几次方的复杂度</p>
 <h2 id="空间复杂度"><a href="#空间复杂度" class="headerlink" title="空间复杂度"></a>空间复杂度</h2><p>用来评估算法内存占用大小的一个式子</p>
-<h2 id="算法"><a href="#算法" class="headerlink" title="算法"></a>算法</h2><h3 id="二分查找"><a href="#二分查找" class="headerlink" title="二分查找"></a>二分查找</h3><p>二分查找又叫折半查找，二分查找应该属于减治技术的成功应用。所谓减治法，就是将原问题分解成若干个子问题后，利用了规模为n的原问题的解与较小规模（通常是n/2）的子问题的解之间的关系。<br>二分查找利用了记录按关键码有序的特点，其基本思想为：在有序表中，取中间记录作为比较对象，若给定值与中间记录的关键码相等，则查找成功；若给定值小于中间记录的关键码，则在中间记录的左半边继续查找；若给定值大于中间记录的关键码，则在中间记录右半边区继续查找。不断重复上述过程，直到查找成功，或所查找的区域无记录，查找失败。<br>二分查找的时间复杂度是O(log(n))，最坏情况下的时间复杂度是O(n)。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">在一个排序数组中找一个数，返回该数出现的任意位置，如果不存在，返回-1</div><div class="line">样例</div><div class="line">给出数组 [1, 2, 2, 4, 5, 5].</div><div class="line"></div><div class="line">对于 target = 2, 返回 1 或者 2.</div><div class="line">对于 target = 5, 返回 4 或者 5.</div><div class="line">对于 target = 6, 返回 -1.</div></pre></td></tr></table></figure></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div></pre></td><td class="code"><pre><div class="line">#!/usr/bin/python</div><div class="line">#coding=utf-8</div><div class="line"></div><div class="line">#自定义函数，实现二分查找，并返回查找结果</div><div class="line">def binary_search(find, list1) :</div><div class="line">  low = 0</div><div class="line">  high = len(list1)</div><div class="line">  while low &lt;= high :</div><div class="line">    mid = (low + high) / 2</div><div class="line">    if list1[mid] == find :</div><div class="line">      return mid</div><div class="line">    #左半边</div><div class="line">    elif list1[mid] &gt; find :</div><div class="line">      high = mid -1</div><div class="line">    #右半边</div><div class="line">    else :</div><div class="line">      low = mid + 1</div><div class="line">  #未找到返回-1</div><div class="line">  return -1</div><div class="line"></div><div class="line">list1 = [1,2,3,7,8,9,10,5]</div><div class="line">#进行二分查找算法前必须保证要查找的序列时有序的，这里假设是升序列表</div><div class="line">list1.sort()</div><div class="line"></div><div class="line">print &quot;原有序列表为:&quot;,list1</div><div class="line">try :</div><div class="line">  find = int(raw_input(&quot;请输入要查找的数：&quot;))</div><div class="line">except :</div><div class="line">  print &quot;请输入正整数！&quot;</div><div class="line">  exit()</div><div class="line"></div><div class="line">result = binary_search(find, list1)</div><div class="line">if result != -1 : </div><div class="line">  print &quot;要找的元素%d的序号为：%d&quot; %(find,result)</div><div class="line">else :</div><div class="line">  print &quot;未找到！&quot;</div></pre></td></tr></table></figure>
-<h3 id="排序"><a href="#排序" class="headerlink" title="排序"></a>排序</h3><h4 id="插入排序"><a href="#插入排序" class="headerlink" title="插入排序"></a>插入排序</h4><p>插入排序的基本操作就是将一个数据插入到已经排好序的有序数据中，从而得到一个新的、个数加一的有序数据，算法适用于少量数据的排序，时间复杂度为O(n^2)。是稳定的排序方法。插入算法把要排序的数组分成两部分：第一部分包含了这个数组的所有元素，但将最后一个元素除外（让数组多一个空间才有插入的位置），而第二部分就只包含这一个元素（即待插入元素）。在第一部分排序完成后，再将这个最后元素插入到已排好序的第一部分中。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line">list = [55,45,345,6,7,2,88,53,12,889,21]</div><div class="line">print list</div><div class="line"></div><div class="line">def insert_sort(list):</div><div class="line">        count = len(list)</div><div class="line">        for i in range(1,count):</div><div class="line">                k = list[i]</div><div class="line">                #print i</div><div class="line">                #print k</div><div class="line">                j = i -1</div><div class="line">                #print list[j]</div><div class="line">                while j &gt;= 0:</div><div class="line">                        if list[j] &gt;k:</div><div class="line">                                list[j+1]=list[j]</div><div class="line">                                list[j]=k</div><div class="line">                        j -=1</div><div class="line">                        #print list</div><div class="line">        return list</div><div class="line">print insert_sort(list)</div></pre></td></tr></table></figure></p>
-<h4 id="冒泡排序"><a href="#冒泡排序" class="headerlink" title="冒泡排序"></a>冒泡排序</h4><p>它重复地走访过要排序的数列，一次比较两个元素，如果他们的顺序错误就把他们交换过来。走访数列的工作是重复地进行直到没有再需要交换，也就是说该数列已经排序完成。<br>每一趟只能将一个数归位, 如果有n个数进行排序,只需将n-1个数归位, 也就是说要进行n-1趟操作(已经归位的数不用再比较)<br>缺点: 冒泡排序解决了桶排序浪费空间的问题, 但是冒泡排序的效率特别低<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">#!/usr/bin/env python</div><div class="line"># coding:utf-8</div><div class="line"></div><div class="line">def bubbleSort(nums):</div><div class="line">    for i in range(len(nums)-1):    # 这个循环负责设置冒泡排序进行的次数</div><div class="line">        for j in range(len(nums)-i-1):  # ｊ为列表下标</div><div class="line">            if nums[j] &gt; nums[j+1]:</div><div class="line">                nums[j], nums[j+1] = nums[j+1], nums[j]</div><div class="line">    return nums</div><div class="line"></div><div class="line">nums = [5,2,45,6,8,2,1]</div><div class="line"></div><div class="line">print bubbleSort(nums)</div></pre></td></tr></table></figure></p>
-<h4 id="选择排序"><a href="#选择排序" class="headerlink" title="选择排序"></a>选择排序</h4><p>基本思想：第1趟，在待排序记录r1 ~ r[n]中选出最小的记录，将它与r1交换；第2趟，在待排序记录r2 ~ r[n]中选出最小的记录，将它与r2交换；以此类推，第i趟在待排序记录r[i] ~ r[n]中选出最小的记录，将它与r[i]交换，使有序序列不断增长直到全部排序完毕。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">#!/usr/bin/env python</div><div class="line"># coding:utf-8</div><div class="line"></div><div class="line">def selectSort(nums):</div><div class="line">    for i in range(len(nums)):</div><div class="line">        max_index = 0</div><div class="line">        for j in range(len(nums)-i):</div><div class="line">            if nums[max_index] &lt; nums[j]:</div><div class="line">                max_index = j</div><div class="line">        nums[max_index], nums[len(nums)-i-1] = nums[len(nums)-i-1], nums[max_index]</div><div class="line">    return nums</div><div class="line"></div><div class="line">nums = [6,2,54435,3141]</div><div class="line">print selectSort(nums)</div></pre></td></tr></table></figure></p>
+<h2 id="算法"><a href="#算法" class="headerlink" title="算法"></a>算法</h2><h3 id="二分查找"><a href="#二分查找" class="headerlink" title="二分查找"></a>二分查找</h3><p>二分查找又叫折半查找，二分查找应该属于减治技术的成功应用。所谓减治法，就是将原问题分解成若干个子问题后，利用了规模为n的原问题的解与较小规模（通常是n/2）的子问题的解之间的关系。<br>二分查找利用了记录按关键码有序的特点，其基本思想为：在有序表中，取中间记录作为比较对象，若给定值与中间记录的关键码相等，则查找成功；若给定值小于中间记录的关键码，则在中间记录的左半边继续查找；若给定值大于中间记录的关键码，则在中间记录右半边区继续查找。不断重复上述过程，直到查找成功，或所查找的区域无记录，查找失败。<br>二分查找的时间复杂度是O(log(n))，最坏情况下的时间复杂度是O(n)。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">在一个排序数组中找一个数，返回该数出现的任意位置，如果不存在，返回-1</span><br><span class="line">样例</span><br><span class="line">给出数组 [1, 2, 2, 4, 5, 5].</span><br><span class="line"></span><br><span class="line">对于 target = 2, 返回 1 或者 2.</span><br><span class="line">对于 target = 5, 返回 4 或者 5.</span><br><span class="line">对于 target = 6, 返回 -1.</span><br></pre></td></tr></table></figure></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line">#!/usr/bin/python</span><br><span class="line">#coding=utf-8</span><br><span class="line"></span><br><span class="line">#自定义函数，实现二分查找，并返回查找结果</span><br><span class="line">def binary_search(find, list1) :</span><br><span class="line">  low = 0</span><br><span class="line">  high = len(list1)</span><br><span class="line">  while low &lt;= high :</span><br><span class="line">    mid = (low + high) / 2</span><br><span class="line">    if list1[mid] == find :</span><br><span class="line">      return mid</span><br><span class="line">    #左半边</span><br><span class="line">    elif list1[mid] &gt; find :</span><br><span class="line">      high = mid -1</span><br><span class="line">    #右半边</span><br><span class="line">    else :</span><br><span class="line">      low = mid + 1</span><br><span class="line">  #未找到返回-1</span><br><span class="line">  return -1</span><br><span class="line"></span><br><span class="line">list1 = [1,2,3,7,8,9,10,5]</span><br><span class="line">#进行二分查找算法前必须保证要查找的序列时有序的，这里假设是升序列表</span><br><span class="line">list1.sort()</span><br><span class="line"></span><br><span class="line">print &quot;原有序列表为:&quot;,list1</span><br><span class="line">try :</span><br><span class="line">  find = int(raw_input(&quot;请输入要查找的数：&quot;))</span><br><span class="line">except :</span><br><span class="line">  print &quot;请输入正整数！&quot;</span><br><span class="line">  exit()</span><br><span class="line"></span><br><span class="line">result = binary_search(find, list1)</span><br><span class="line">if result != -1 : </span><br><span class="line">  print &quot;要找的元素%d的序号为：%d&quot; %(find,result)</span><br><span class="line">else :</span><br><span class="line">  print &quot;未找到！&quot;</span><br></pre></td></tr></table></figure>
+<h3 id="排序"><a href="#排序" class="headerlink" title="排序"></a>排序</h3><h4 id="插入排序"><a href="#插入排序" class="headerlink" title="插入排序"></a>插入排序</h4><p>插入排序的基本操作就是将一个数据插入到已经排好序的有序数据中，从而得到一个新的、个数加一的有序数据，算法适用于少量数据的排序，时间复杂度为O(n^2)。是稳定的排序方法。插入算法把要排序的数组分成两部分：第一部分包含了这个数组的所有元素，但将最后一个元素除外（让数组多一个空间才有插入的位置），而第二部分就只包含这一个元素（即待插入元素）。在第一部分排序完成后，再将这个最后元素插入到已排好序的第一部分中。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">list = [55,45,345,6,7,2,88,53,12,889,21]</span><br><span class="line">print list</span><br><span class="line"></span><br><span class="line">def insert_sort(list):</span><br><span class="line">        count = len(list)</span><br><span class="line">        for i in range(1,count):</span><br><span class="line">                k = list[i]</span><br><span class="line">                #print i</span><br><span class="line">                #print k</span><br><span class="line">                j = i -1</span><br><span class="line">                #print list[j]</span><br><span class="line">                while j &gt;= 0:</span><br><span class="line">                        if list[j] &gt;k:</span><br><span class="line">                                list[j+1]=list[j]</span><br><span class="line">                                list[j]=k</span><br><span class="line">                        j -=1</span><br><span class="line">                        #print list</span><br><span class="line">        return list</span><br><span class="line">print insert_sort(list)</span><br></pre></td></tr></table></figure></p>
+<h4 id="冒泡排序"><a href="#冒泡排序" class="headerlink" title="冒泡排序"></a>冒泡排序</h4><p>它重复地走访过要排序的数列，一次比较两个元素，如果他们的顺序错误就把他们交换过来。走访数列的工作是重复地进行直到没有再需要交换，也就是说该数列已经排序完成。<br>每一趟只能将一个数归位, 如果有n个数进行排序,只需将n-1个数归位, 也就是说要进行n-1趟操作(已经归位的数不用再比较)<br>缺点: 冒泡排序解决了桶排序浪费空间的问题, 但是冒泡排序的效率特别低<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">#!/usr/bin/env python</span><br><span class="line"># coding:utf-8</span><br><span class="line"></span><br><span class="line">def bubbleSort(nums):</span><br><span class="line">    for i in range(len(nums)-1):    # 这个循环负责设置冒泡排序进行的次数</span><br><span class="line">        for j in range(len(nums)-i-1):  # ｊ为列表下标</span><br><span class="line">            if nums[j] &gt; nums[j+1]:</span><br><span class="line">                nums[j], nums[j+1] = nums[j+1], nums[j]</span><br><span class="line">    return nums</span><br><span class="line"></span><br><span class="line">nums = [5,2,45,6,8,2,1]</span><br><span class="line"></span><br><span class="line">print bubbleSort(nums)</span><br></pre></td></tr></table></figure></p>
+<h4 id="选择排序"><a href="#选择排序" class="headerlink" title="选择排序"></a>选择排序</h4><p>基本思想：第1趟，在待排序记录r1 ~ r[n]中选出最小的记录，将它与r1交换；第2趟，在待排序记录r2 ~ r[n]中选出最小的记录，将它与r2交换；以此类推，第i趟在待排序记录r[i] ~ r[n]中选出最小的记录，将它与r[i]交换，使有序序列不断增长直到全部排序完毕。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">#!/usr/bin/env python</span><br><span class="line"># coding:utf-8</span><br><span class="line"></span><br><span class="line">def selectSort(nums):</span><br><span class="line">    for i in range(len(nums)):</span><br><span class="line">        max_index = 0</span><br><span class="line">        for j in range(len(nums)-i):</span><br><span class="line">            if nums[max_index] &lt; nums[j]:</span><br><span class="line">                max_index = j</span><br><span class="line">        nums[max_index], nums[len(nums)-i-1] = nums[len(nums)-i-1], nums[max_index]</span><br><span class="line">    return nums</span><br><span class="line"></span><br><span class="line">nums = [6,2,54435,3141]</span><br><span class="line">print selectSort(nums)</span><br></pre></td></tr></table></figure></p>
 <h4 id="桶排序"><a href="#桶排序" class="headerlink" title="桶排序"></a>桶排序</h4><p>通排序非常浪费空间, 比如需要排序的范围在0~2000之间, 需要排序的数是[3,9,4,2000], 同样需要2001个空间</p>
-<p>注意: 通排序不能排序小数<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div></pre></td><td class="code"><pre><div class="line">#!/usr/bin/env python</div><div class="line"># coding:utf-8</div><div class="line"></div><div class="line">def bucketSort(nums):</div><div class="line">    # 选择一个最大的数</div><div class="line">    max_num = max(nums)</div><div class="line">    # 创建一个元素全是0的列表, 当做桶</div><div class="line">    bucket = [0]*(max_num+1)</div><div class="line">    # 把所有元素放入桶中, 即把对应元素个数加一</div><div class="line">    for i in nums:</div><div class="line">        bucket[i] += 1</div><div class="line"></div><div class="line">    # 存储排序好的元素</div><div class="line">    sort_nums = []</div><div class="line">    # 取出桶中的元素</div><div class="line">    for j in range(len(bucket)):</div><div class="line">        if bucket[j] != 0:</div><div class="line">            for y in range(bucket[j]):</div><div class="line">                sort_nums.append(j)</div><div class="line"></div><div class="line">    return sort_nums</div><div class="line"></div><div class="line">nums = [5,6,3,2,1,65,2,0,8,0]</div><div class="line">print bucketSort(nums)</div></pre></td></tr></table></figure></p>
-<h4 id="希尔排序"><a href="#希尔排序" class="headerlink" title="希尔排序"></a>希尔排序</h4><p>希尔排序的实质就是分组插入排序，该方法又称缩小增量排序，因DL．Shell于1959年提出而得名。<br>希尔排序，也称递减增量排序算法，是插入排序的一种更高效的改进版本。希尔排序是非稳定排序算法。<br>希尔排序是基于插入排序的以下两点性质而提出改进方法的：<br>插入排序在对几乎已经排好序的数据操作时，效率高，即可以达到线性排序的效率<br>但插入排序一般来说是低效的，因为插入排序每次只能将数据移动一位<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line">#!/usr/bin/env python</div><div class="line"># coding:utf-8</div><div class="line"></div><div class="line">def shellSort(nums):</div><div class="line">    # 设定步长</div><div class="line">    step = len(nums)/2</div><div class="line">    while step &gt; 0:</div><div class="line">        for i in range(step, len(nums)):</div><div class="line">            # 类似插入排序, 当前值与指定步长之前的值比较, 符合条件则交换位置</div><div class="line">            while i &gt;= step and nums[i-step] &gt; nums[i]:</div><div class="line">                nums[i], nums[i-step] = nums[i-step], nums[i]</div><div class="line">                i -= step</div><div class="line">        step = step/2</div><div class="line">    return nums</div><div class="line"></div><div class="line"></div><div class="line">if __name__ == &apos;__main__&apos;:</div><div class="line">    nums = [9,3,5,8,2,7,1]</div><div class="line">    print shellSort(nums)</div></pre></td></tr></table></figure></p>
+<p>注意: 通排序不能排序小数<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">#!/usr/bin/env python</span><br><span class="line"># coding:utf-8</span><br><span class="line"></span><br><span class="line">def bucketSort(nums):</span><br><span class="line">    # 选择一个最大的数</span><br><span class="line">    max_num = max(nums)</span><br><span class="line">    # 创建一个元素全是0的列表, 当做桶</span><br><span class="line">    bucket = [0]*(max_num+1)</span><br><span class="line">    # 把所有元素放入桶中, 即把对应元素个数加一</span><br><span class="line">    for i in nums:</span><br><span class="line">        bucket[i] += 1</span><br><span class="line"></span><br><span class="line">    # 存储排序好的元素</span><br><span class="line">    sort_nums = []</span><br><span class="line">    # 取出桶中的元素</span><br><span class="line">    for j in range(len(bucket)):</span><br><span class="line">        if bucket[j] != 0:</span><br><span class="line">            for y in range(bucket[j]):</span><br><span class="line">                sort_nums.append(j)</span><br><span class="line"></span><br><span class="line">    return sort_nums</span><br><span class="line"></span><br><span class="line">nums = [5,6,3,2,1,65,2,0,8,0]</span><br><span class="line">print bucketSort(nums)</span><br></pre></td></tr></table></figure></p>
+<h4 id="希尔排序"><a href="#希尔排序" class="headerlink" title="希尔排序"></a>希尔排序</h4><p>希尔排序的实质就是分组插入排序，该方法又称缩小增量排序，因DL．Shell于1959年提出而得名。<br>希尔排序，也称递减增量排序算法，是插入排序的一种更高效的改进版本。希尔排序是非稳定排序算法。<br>希尔排序是基于插入排序的以下两点性质而提出改进方法的：<br>插入排序在对几乎已经排好序的数据操作时，效率高，即可以达到线性排序的效率<br>但插入排序一般来说是低效的，因为插入排序每次只能将数据移动一位<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">#!/usr/bin/env python</span><br><span class="line"># coding:utf-8</span><br><span class="line"></span><br><span class="line">def shellSort(nums):</span><br><span class="line">    # 设定步长</span><br><span class="line">    step = len(nums)/2</span><br><span class="line">    while step &gt; 0:</span><br><span class="line">        for i in range(step, len(nums)):</span><br><span class="line">            # 类似插入排序, 当前值与指定步长之前的值比较, 符合条件则交换位置</span><br><span class="line">            while i &gt;= step and nums[i-step] &gt; nums[i]:</span><br><span class="line">                nums[i], nums[i-step] = nums[i-step], nums[i]</span><br><span class="line">                i -= step</span><br><span class="line">        step = step/2</span><br><span class="line">    return nums</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">if __name__ == &apos;__main__&apos;:</span><br><span class="line">    nums = [9,3,5,8,2,7,1]</span><br><span class="line">    print shellSort(nums)</span><br></pre></td></tr></table></figure></p>
 
       
     </div>
 
-    <div>
-      
-        
+    
 
-      
-    </div>
+    
+    
+    
 
-    <div>
-      
-        
-  <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
-    <div>如果对您有帮助，可以给我们打赏鼓励！</div>
-    <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
-      <span>赏</span>
-    </button>
-    <div id="QR" style="display: none;">
-      
-      
-        <div id="alipay" style="display: inline-block">
-          <img id="alipay_qr" src="/pay/ali.jpg" alt="hyman Alipay"/>
-          <p>支付宝打赏</p>
-        </div>
-      
-    </div>
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>��������а��������Ը����Ǵ��͹�����</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>Donate</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/pay/ali.jpg" alt="hyman Alipay"/>
+        <p>Alipay</p>
+      </div>
+    
+
+    
+
   </div>
+</div>
 
+      </div>
+    
 
-      
-    </div>
-
-    <div>
-      
-        
-
-      
-    </div>
+    
 
     <footer class="post-footer">
       
@@ -495,6 +575,10 @@
       
       
     </footer>
+  </div>
+  
+  
+  
   </article>
 
 
@@ -514,13 +598,13 @@
           </div>
           
 
-
-          
-  <div class="comments" id="comments">
-    
+  
+    <div class="comments" id="comments">
       <div id="lv-container" data-id="city" data-uid="MTAyMC8yOTg5MS82NDU2"></div>
-    
-  </div>
+    </div>
+
+  
+
 
 
         </div>
@@ -543,75 +627,142 @@
 
       
         <ul class="sidebar-nav motion-element">
-          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
-            文章目录
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Inhaltsverzeichnis
           </li>
-          <li class="sidebar-nav-overview" data-target="site-overview">
-            站点概览
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Übersicht
           </li>
         </ul>
       
 
-      <section class="site-overview sidebar-panel">
-        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
-          <img class="site-author-image" itemprop="image"
-               src="/uploads/avatar.jpg"
-               alt="hyman" />
-          <p class="site-author-name" itemprop="name">hyman</p>
-           
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/avatar.gif"
+                alt="hyman" />
+            
+              <p class="site-author-name" itemprop="name">hyman</p>
               <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
           
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">22</span>
+                    <span class="site-state-item-name">Artikel</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  <a href="/categories/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">10</span>
+                    <span class="site-state-item-name">Kategorien</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  <a href="/tags/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">19</span>
+                    <span class="site-state-item-name">Tags</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+            
+          
+          
+
         </div>
-        <nav class="site-state motion-element">
-
-          
-            <div class="site-state-item site-state-posts">
-              <a href="/">
-                <span class="site-state-item-count">21</span>
-                <span class="site-state-item-name">日志</span>
-              </a>
-            </div>
-          
-
-          
-            
-            
-            <div class="site-state-item site-state-categories">
-              <a href="/categories/index.html">
-                <span class="site-state-item-count">9</span>
-                <span class="site-state-item-name">分类</span>
-              </a>
-            </div>
-          
-
-          
-            
-            
-            <div class="site-state-item site-state-tags">
-              <a href="/tags/index.html">
-                <span class="site-state-item-count">18</span>
-                <span class="site-state-item-name">标签</span>
-              </a>
-            </div>
-          
-
-        </nav>
-
-        
-
-        <div class="links-of-author motion-element">
-          
-        </div>
-
-        
-        
-
-        
-        
-
-        
-
-
       </section>
 
       
@@ -644,30 +795,41 @@
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright" >
-  
-  &copy; 
-  <span itemprop="copyrightYear">2017</span>
-  <span class="with-love">
-    <i class="fa fa-heart"></i>
+        <div class="copyright">&copy; 2017 &mdash; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
   </span>
   <span class="author" itemprop="copyrightHolder">hyman</span>
+
+  
+
+  
 </div>
 
 
-<div class="powered-by">
-  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
-</div>
 
-<div class="theme-info">
-  主题 -
-  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
-    NexT.Mist
-  </a>
-</div>
+
+  <div class="powered-by">Erstellt mit  <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> v3.7.1</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/theme-next/hexo-theme-next">NexT.Mist</a> v6.2.0</div>
+
+
 
 
         
+
+
+
+
+
+
+
 
         
       </div>
@@ -678,6 +840,8 @@
         <i class="fa fa-arrow-up"></i>
         
       </div>
+    
+
     
 
   </div>
@@ -698,7 +862,6 @@
 
 
 
-  
 
 
 
@@ -711,55 +874,53 @@
 
 
 
-  
-  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
-
-  
-  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
-
-  
-  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
-
-  
-  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
-
-  
-  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
-
-  
-  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
 
 
-  
-
-
-  <script type="text/javascript" src="/js/src/utils.js?v=5.1.1"></script>
-
-  <script type="text/javascript" src="/js/src/motion.js?v=5.1.1"></script>
 
 
 
   
   
-
-  
-  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.1"></script>
-<script type="text/javascript" src="/js/src/post-details.js?v=5.1.1"></script>
-
-
-
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
   
 
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
 
-  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.1"></script>
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=6.2.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=6.2.0"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=6.2.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=6.2.0"></script>
 
 
 
   
 
 
-  
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=6.2.0"></script>
 
+
+
+  
 
 
 
@@ -793,6 +954,10 @@
 
 
 
+
+
+
+
   
 
   <script type="text/javascript">
@@ -800,7 +965,7 @@
     var isfetched = false;
     var isXml = true;
     // Search DB path;
-    var search_path = "search.xml";
+    var search_path = "";
     if (search_path.length === 0) {
       search_path = "search.xml";
     } else if (/json$/i.test(search_path)) {
@@ -844,6 +1009,8 @@
         .css('overflow', 'hidden');
       $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
 
+      
+
       $.ajax({
         url: path,
         dataType: isXml ? "xml" : "json",
@@ -877,6 +1044,7 @@
                 var title = data.title.trim();
                 var titleInLowerCase = title.toLowerCase();
                 var content = data.content.trim().replace(/<[^>]+>/g,"");
+                
                 var contentInLowerCase = content.toLowerCase();
                 var articleUrl = decodeURIComponent(data.url);
                 var indexOfTitle = [];
@@ -1176,35 +1344,24 @@
             var counter = results[0];
             counter.fetchWhenSave(true);
             counter.increment("time");
+            
             counter.save(null, {
               success: function(counter) {
-                var $element = $(document.getElementById(url));
-                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+                
+                  var $element = $(document.getElementById(url));
+                  $element.find('.leancloud-visitors-count').text(counter.get('time'));
+                
               },
               error: function(counter, error) {
                 console.log('Failed to save Visitor num, with error message: ' + error.message);
               }
             });
           } else {
-            var newcounter = new Counter();
-            /* Set ACL */
-            var acl = new AV.ACL();
-            acl.setPublicReadAccess(true);
-            acl.setPublicWriteAccess(true);
-            newcounter.setACL(acl);
-            /* End Set ACL */
-            newcounter.set("title", title);
-            newcounter.set("url", url);
-            newcounter.set("time", 1);
-            newcounter.save(null, {
-              success: function(newcounter) {
-                var $element = $(document.getElementById(url));
-                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
-              },
-              error: function(newcounter, error) {
-                console.log('Failed to create');
-              }
-            });
+            
+              var $element = $(document.getElementById(url));
+              $element.find('.leancloud-visitors-count').text('Counter not initialized! See more at console err msg.');
+              console.error('ATTENTION! LeanCloud counter has security bug, see here how to solve it: https://github.com/theme-next/hexo-leancloud-counter-security. \n But you also can use LeanCloud without security, by set \'security\' option to \'false\'.');
+            
           }
         },
         error: function(error) {
@@ -1224,6 +1381,8 @@
   </script>
 
 
+
+  
 
   
 <script>
@@ -1246,27 +1405,12 @@
 
   
   
-    <script type="text/x-mathjax-config">
-      MathJax.Hub.Config({
-        tex2jax: {
-          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
-          processEscapes: true,
-          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
-        }
-      });
-    </script>
 
-    <script type="text/x-mathjax-config">
-      MathJax.Hub.Queue(function() {
-        var all = MathJax.Hub.getAllJax(), i;
-        for (i=0; i < all.length; i += 1) {
-          all[i].SourceElement().parentNode.className += ' has-jax';
-        }
-      });
-    </script>
-    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
   
 
+  
+
+  
 
   
 

@@ -2,6 +2,15 @@
 
 
 
+
+
+
+
+
+
+
+
+
   
 
 
@@ -9,7 +18,11 @@
 <head>
   <meta charset="UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2"/>
+<meta name="theme-color" content="#222">
+
+
+
 
 
 
@@ -36,9 +49,6 @@
 
 
 
-  
-  
-  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
 
 
 
@@ -74,38 +84,25 @@
 
 <link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
 
-<link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
+<link href="/css/main.css?v=6.2.0" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="LDAP," />
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=6.2.0">
 
 
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=6.2.0">
 
 
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=6.2.0">
 
 
-
-
-  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.1" />
-
-
-
+  <link rel="mask-icon" href="/images/logo.svg?v=6.2.0" color="#222">
 
 
 
-<meta name="description" content="LDAP介绍LDAP是轻量目录访问协议，英文全称是Lightweight Directory Access Protocol，简称为LDAP。它是基于X.500标准的，但是简单多了并且可以根据需要定制。与X.500不同，LDAP支持TCP/IP。LDAP的核心规范在RFC中都有定义，所有与LDAP相关的RFC都可以在LDAPman RFC网页中找到。
-使用目的使用LDAP对运维相关用户名密码做统一">
-<meta property="og:type" content="article">
-<meta property="og:title" content="CentOS7 LDAP统一认证部署">
-<meta property="og:url" content="http://www.hyman.shop/2017/05/02/CentOS7-LDAP统一认证部署/index.html">
-<meta property="og:site_name" content="hyman">
-<meta property="og:description" content="LDAP介绍LDAP是轻量目录访问协议，英文全称是Lightweight Directory Access Protocol，简称为LDAP。它是基于X.500标准的，但是简单多了并且可以根据需要定制。与X.500不同，LDAP支持TCP/IP。LDAP的核心规范在RFC中都有定义，所有与LDAP相关的RFC都可以在LDAPman RFC网页中找到。
-使用目的使用LDAP对运维相关用户名密码做统一">
-<meta property="og:updated_time" content="2017-05-02T08:46:46.665Z">
-<meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="CentOS7 LDAP统一认证部署">
-<meta name="twitter:description" content="LDAP介绍LDAP是轻量目录访问协议，英文全称是Lightweight Directory Access Protocol，简称为LDAP。它是基于X.500标准的，但是简单多了并且可以根据需要定制。与X.500不同，LDAP支持TCP/IP。LDAP的核心规范在RFC中都有定义，所有与LDAP相关的RFC都可以在LDAPman RFC网页中找到。
-使用目的使用LDAP对运维相关用户名密码做统一">
+
+
+
 
 
 
@@ -114,13 +111,13 @@
   var CONFIG = {
     root: '/',
     scheme: 'Mist',
-    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false,"onmobile":false},
-    fancybox: true,
-    motion: true,
-    duoshuo: {
-      userId: '0',
-      author: '博主'
-    },
+    version: '6.2.0',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
     algolia: {
       applicationID: '',
       apiKey: '',
@@ -132,15 +129,42 @@
 </script>
 
 
+  
+
+
+
+
+  <meta name="description" content="LDAP介绍LDAP是轻量目录访问协议，英文全称是Lightweight Directory Access Protocol，简称为LDAP。它是基于X.500标准的，但是简单多了并且可以根据需要定制。与X.500不同，LDAP支持TCP/IP。LDAP的核心规范在RFC中都有定义，所有与LDAP相关的RFC都可以在LDAPman RFC网页中找到。 使用目的使用LDAP对运维相关用户名密码做统一">
+<meta name="keywords" content="LDAP">
+<meta property="og:type" content="article">
+<meta property="og:title" content="CentOS7 LDAP统一认证部署">
+<meta property="og:url" content="http://www.hyman.shop/2017/05/02/CentOS7-LDAP统一认证部署/index.html">
+<meta property="og:site_name" content="hyman">
+<meta property="og:description" content="LDAP介绍LDAP是轻量目录访问协议，英文全称是Lightweight Directory Access Protocol，简称为LDAP。它是基于X.500标准的，但是简单多了并且可以根据需要定制。与X.500不同，LDAP支持TCP/IP。LDAP的核心规范在RFC中都有定义，所有与LDAP相关的RFC都可以在LDAPman RFC网页中找到。 使用目的使用LDAP对运维相关用户名密码做统一">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2017-05-02T08:46:46.665Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="CentOS7 LDAP统一认证部署">
+<meta name="twitter:description" content="LDAP介绍LDAP是轻量目录访问协议，英文全称是Lightweight Directory Access Protocol，简称为LDAP。它是基于X.500标准的，但是简单多了并且可以根据需要定制。与X.500不同，LDAP支持TCP/IP。LDAP的核心规范在RFC中都有定义，所有与LDAP相关的RFC都可以在LDAPman RFC网页中找到。 使用目的使用LDAP对运维相关用户名密码做统一">
+
+
+
+
+
 
   <link rel="canonical" href="http://www.hyman.shop/2017/05/02/CentOS7-LDAP统一认证部署/"/>
 
 
 
-
+<script type="text/javascript" id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
 
   <title>CentOS7 LDAP统一认证部署 | hyman</title>
   
+
 
 
 
@@ -159,11 +183,32 @@
 
 
 
+  <noscript>
+  <style type="text/css">
+    .use-motion .motion-element,
+    .use-motion .brand,
+    .use-motion .menu-item,
+    .sidebar-inner,
+    .use-motion .post-block,
+    .use-motion .pagination,
+    .use-motion .comments,
+    .use-motion .post-header,
+    .use-motion .post-body,
+    .use-motion .collection-title { opacity: initial; }
 
+    .use-motion .logo,
+    .use-motion .site-title,
+    .use-motion .site-subtitle {
+      opacity: initial;
+      top: initial;
+    }
 
-
-
-
+    .use-motion {
+      .logo-line-before i { left: initial; }
+      .logo-line-after i { right: initial; }
+    }
+  </style>
+</noscript>
 
 </head>
 
@@ -174,7 +219,7 @@
     
   
 
-  <div class="container sidebar-position-left page-post-detail ">
+  <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -183,19 +228,21 @@
     
 
     <div class="custom-logo-site-title">
-      <a href="/"  class="brand" rel="start">
+      <a href="/" class="brand" rel="start">
         <span class="logo-line-before"><i></i></span>
         <span class="site-title">hyman</span>
         <span class="logo-line-after"><i></i></span>
       </a>
     </div>
+    
       
-        <p class="site-subtitle">一些简单的记录</p>
+        <p class="site-subtitle">һЩ�򵥵ļ�¼</p>
       
+    
   </div>
 
   <div class="site-nav-toggle">
-    <button>
+    <button aria-label="Toggle navigation bar">
       <span class="btn-bar"></span>
       <span class="btn-bar"></span>
       <span class="btn-bar"></span>
@@ -203,56 +250,61 @@
   </div>
 </div>
 
-<nav class="site-nav">
-  
 
+
+<nav class="site-nav">
   
     <ul id="menu" class="menu">
       
         
-        <li class="menu-item menu-item-home">
-          <a href="/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
-            
-            首页
-          </a>
-        </li>
-      
         
-        <li class="menu-item menu-item-categories">
-          <a href="/categories/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
-            
-            分类
-          </a>
-        </li>
-      
         
-        <li class="menu-item menu-item-tags">
-          <a href="/tags/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
-            
-            标签
-          </a>
-        </li>
-      
+          
+          <li class="menu-item menu-item-home">
+    <a href="/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-home"></i> <br />Startseite</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+    <a href="/tags/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />Tags</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+    <a href="/categories/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-th"></i> <br />Kategorien</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+    <a href="/archives/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />Archiv</a>
+  </li>
 
+      
       
         <li class="menu-item menu-item-search">
           
             <a href="javascript:;" class="popup-trigger">
           
             
-              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
-            
-            搜索
-          </a>
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />Suche</a>
         </li>
       
     </ul>
+  
+
+  
+    
+
   
 
   
@@ -268,7 +320,7 @@
     </span>
     <div class="local-search-input-wrapper">
       <input autocomplete="off"
-             placeholder="搜索..." spellcheck="false"
+             placeholder="Searching..." spellcheck="false"
              type="text" id="local-search-input">
     </div>
   </div>
@@ -283,12 +335,20 @@
 
 
 
- </div>
+  
+
+
+
+</div>
     </header>
+
+    
+
 
     <main id="main" class="main">
       <div class="main-inner">
         <div class="content-wrap">
+          
           <div id="content" class="content">
             
 
@@ -301,13 +361,19 @@
   
   
 
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://www.hyman.shop/2017/05/02/CentOS7-LDAP统一认证部署/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="hyman">
       <meta itemprop="description" content="">
-      <meta itemprop="image" content="/uploads/avatar.jpg">
+      <meta itemprop="image" content="/images/avatar.gif">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
@@ -319,25 +385,38 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">CentOS7 LDAP统一认证部署</h1>
+          <h1 class="post-title" itemprop="name headline">CentOS7 LDAP统一认证部署
+              
+            
+          </h1>
         
 
         <div class="post-meta">
           <span class="post-time">
+
+            
+            
+            
+
             
               <span class="post-meta-item-icon">
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">发表于</span>
+                <span class="post-meta-item-text">Veröffentlicht am</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-05-02T14:17:51+08:00">
-                2017-05-02
-              </time>
+
+              
+                
+              
+
+              <time title="Post created: 2017-05-02 14:17:51 / Updated at: 16:46:46" itemprop="dateCreated datePublished" datetime="2017-05-02T14:17:51+08:00">2017-05-02</time>
             
 
             
+              
 
+              
             
           </span>
 
@@ -355,7 +434,7 @@
                  <i class="fa fa-eye"></i>
                </span>
                
-                 <span class="post-meta-item-text">阅读次数 </span>
+                 <span class="post-meta-item-text">Views: </span>
                
                  <span class="leancloud-visitors-count"></span>
              </span>
@@ -371,6 +450,9 @@
       </header>
     
 
+    
+    
+    
     <div class="post-body" itemprop="articleBody">
 
       
@@ -379,49 +461,48 @@
       
         <h2 id="LDAP介绍"><a href="#LDAP介绍" class="headerlink" title="LDAP介绍"></a>LDAP介绍</h2><p>LDAP是轻量目录访问协议，英文全称是Lightweight Directory Access Protocol，简称为LDAP。它是基于X.500标准的，但是简单多了并且可以根据需要定制。与X.500不同，LDAP支持TCP/IP。LDAP的核心规范在RFC中都有定义，所有与LDAP相关的RFC都可以在LDAPman RFC网页中找到。</p>
 <h2 id="使用目的"><a href="#使用目的" class="headerlink" title="使用目的"></a>使用目的</h2><p>使用LDAP对运维相关用户名密码做统一管理。可以实现一个帐号登录多个不同系统。</p>
-<h2 id="LDAP部署"><a href="#LDAP部署" class="headerlink" title="LDAP部署"></a>LDAP部署</h2><h3 id="LDAP-Server端安装"><a href="#LDAP-Server端安装" class="headerlink" title="LDAP Server端安装"></a>LDAP Server端安装</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">[root@object1 ~]# yum install -y openldap openldap-clients openldap-servers migrationtools</div></pre></td></tr></table></figure>
-<h3 id="LDAP-配置"><a href="#LDAP-配置" class="headerlink" title="LDAP 配置"></a>LDAP 配置</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div><div class="line">92</div><div class="line">93</div><div class="line">94</div></pre></td><td class="code"><pre><div class="line">#配置 OpenLDAP Server</div><div class="line">[root@object1 ~]# vim /etc/openldap/slapd.d/cn\=config/olcDatabase\=\&#123;2\&#125;hdb.ldif </div><div class="line">dn: olcDatabase=&#123;2&#125;hdb</div><div class="line"></div><div class="line">修改两行</div><div class="line">olcSuffix: dc=hyman,dc=com</div><div class="line">olcRootDN: cn=Manager,dc=hyman,dc=com</div><div class="line">新增一行</div><div class="line">olcRootPW: 123456</div><div class="line"></div><div class="line">#配置 Monitoring Database</div><div class="line">[root@object1 ~]# vim /etc/openldap/slapd.d/cn\=config/olcDatabase\=\&#123;1\&#125;monitor.ldif</div><div class="line">dn: olcDatabase=&#123;1&#125;monitor</div><div class="line"></div><div class="line">修改一行</div><div class="line">olcAccess: &#123;0&#125;to * by dn.base=&quot;gidNumber=0+uidNumber=0,cn=peercred,cn=extern</div><div class="line"> al,cn=auth&quot; read by dn.base=&quot;cn=Manager,dc=hyman,dc=com&quot; read by * none</div><div class="line"></div><div class="line">#初始化 LDAP database</div><div class="line">[root@object1 ~]# cp /usr/share/openldap-servers/DB_CONFIG.example /var/lib/ldap/DB_CONFIG</div><div class="line">[root@object1 ~]# chown -R ldap.ldap /var/lib/ldap/</div><div class="line"></div><div class="line">#测试 configuration</div><div class="line">[root@object1 ~]# slaptest -u</div><div class="line"></div><div class="line">#启动服务并开机自启</div><div class="line">[root@object1 ~]# systemctl start slapd</div><div class="line">[root@object1 ~]# systemctl enable slapd</div><div class="line"></div><div class="line">#查看状态</div><div class="line">[root@object1 ~]# netstat -lt | grep ldap</div><div class="line"></div><div class="line">#将所有的配置LDAP server, 添加到LDAP schemas中</div><div class="line">[root@object1 ~]# cd /etc/openldap/schema/</div><div class="line"> ldapadd -Y EXTERNAL -H ldapi:/// -D &quot;cn=config&quot; -f cosine.ldif</div><div class="line">[root@object1 schema]# ldapadd -Y EXTERNAL -H ldapi:/// -D &quot;cn=config&quot; -f nis.ldif</div><div class="line">[root@object1 schema]# ldapadd -Y EXTERNAL -H ldapi:/// -D &quot;cn=config&quot; -f collective.ldif</div><div class="line">[root@object1 schema]# ldapadd -Y EXTERNAL -H ldapi:/// -D &quot;cn=config&quot; -f corba.ldif</div><div class="line">[root@object1 schema]# ldapadd -Y EXTERNAL -H ldapi:/// -D &quot;cn=config&quot; -f core.ldif</div><div class="line">[root@object1 schema]# ldapadd -Y EXTERNAL -H ldapi:/// -D &quot;cn=config&quot; -f duaconf.ldif</div><div class="line">[root@object1 schema]# ldapadd -Y EXTERNAL -H ldapi:/// -D &quot;cn=config&quot; -f dyngroup.ldif</div><div class="line">[root@object1 schema]# ldapadd -Y EXTERNAL -H ldapi:/// -D &quot;cn=config&quot; -f inetorgperson.ldif</div><div class="line">[root@object1 schema]# ldapadd -Y EXTERNAL -H ldapi:/// -D &quot;cn=config&quot; -f java.ldif</div><div class="line">[root@object1 schema]# ldapadd -Y EXTERNAL -H ldapi:/// -D &quot;cn=config&quot; -f ppolicy.ldif</div><div class="line">[root@object1 schema]# ldapadd -Y EXTERNAL -H ldapi:/// -D &quot;cn=config&quot; -f pmi.ldif</div><div class="line">[root@object1 schema]# ldapadd -Y EXTERNAL -H ldapi:/// -D &quot;cn=config&quot; -f openldap.ldif</div><div class="line">[root@object1 schema]# ldapadd -Y EXTERNAL -H ldapi:/// -D &quot;cn=config&quot; -f misc.ldif</div><div class="line"></div><div class="line">#使用Migration Tools 创建 LDAP DIT</div><div class="line">[root@object1 schema]# cd /usr/share/migrationtools/</div><div class="line">[root@object1 migrationtools]# vim migrate_common.ph</div><div class="line">修改61行</div><div class="line">$NAMINGCONTEXT&#123;&apos;group&apos;&#125;             = &quot;ou=Groups&quot;;</div><div class="line">修改71行</div><div class="line">$DEFAULT_MAIL_DOMAIN = &quot;hyman.com&quot;;</div><div class="line">修改74行</div><div class="line">$DEFAULT_BASE = &quot;dc=hyman,dc=com&quot;;</div><div class="line">修改90行</div><div class="line">$EXTENDED_SCHEMA = 1;</div><div class="line"></div><div class="line">#创建 base.ldif</div><div class="line">[root@object1 migrationtools]# ./migrate_base.pl &gt; /root/base.ldif</div><div class="line"></div><div class="line">#导入LDAP database</div><div class="line">[root@object1 migrationtools]# ldapadd -x -W -D &quot;cn=Manager,dc=hyman,dc=com&quot; -f /root/base.ldif</div><div class="line"></div><div class="line">#创建用户和用户组，并将其从本地数据库迁移到LDAP数据库</div><div class="line">[root@object1 migrationtools]# mkdir /home/guests</div><div class="line">[root@object1 migrationtools]# useradd -d /home/guests/ldapuser1 ldapuser1</div><div class="line">[root@object1 migrationtools]# useradd -d /home/guests/ldapuser2 ldapuser2</div><div class="line">[root@object1 migrationtools]# echo &quot;password&quot; | passwd --stdin ldapuser1</div><div class="line">[root@object1 migrationtools]# echo &quot;password&quot; | passwd --stdin ldapuser2</div><div class="line"></div><div class="line">#过滤掉这些用户和组和密码从/etc/shadow到不同的文件</div><div class="line">[root@object1 ~]# getent passwd | tail -n 5 &gt; /root/users</div><div class="line">[root@object1 ~]# getent shadow | tail -n 5 &gt; /root/shadow</div><div class="line">[root@object1 ~]# getent group | tail -n 5 &gt; /root/groups</div><div class="line"></div><div class="line">#创建这些用户使用migrationtools</div><div class="line">[root@object1 ~]# cd /usr/share/migrationtools/</div><div class="line">[root@object1 migrationtools]# vim migrate_passwd.pl </div><div class="line">修改188行</div><div class="line">把 /etc/shadow 替换为 /root/shadow</div><div class="line"></div><div class="line">[root@object1 migrationtools]# ./migrate_passwd.pl /root/users &gt; users.ldif</div><div class="line">[root@object1 migrationtools]# ./migrate_passwd.pl /root/groups &gt; groups.ldif</div><div class="line"></div><div class="line"></div><div class="line">#上传这些用户和组LDAP数据库</div><div class="line">[root@object1 ~]# ldapadd -x -W -D &quot;cn=Manager,dc=hyman,dc=com&quot; -f users.ldif</div><div class="line">[root@object1 ~]# ldapadd -x -W -D &quot;cn=Manager,dc=hyman,dc=com&quot; -f groups.ldif</div><div class="line"></div><div class="line">#所有记录搜索LDAP DIT</div><div class="line">[root@object1 ~]# ldapsearch -x -b &quot;dc=hyman,dc=com&quot; -H ldap://127.0.0.1</div></pre></td></tr></table></figure>
-<h2 id="LDAP-客户端验证"><a href="#LDAP-客户端验证" class="headerlink" title="LDAP 客户端验证"></a>LDAP 客户端验证</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">[root@block1 ~]# yum install -y nss-pam*</div><div class="line">[root@block1 ~]# authconfig-tui </div><div class="line">选择第二个Use LDAP</div><div class="line">[root@block1 ~]# su ldaduser1</div></pre></td></tr></table></figure>
+<h2 id="LDAP部署"><a href="#LDAP部署" class="headerlink" title="LDAP部署"></a>LDAP部署</h2><h3 id="LDAP-Server端安装"><a href="#LDAP-Server端安装" class="headerlink" title="LDAP Server端安装"></a>LDAP Server端安装</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@object1 ~]# yum install -y openldap openldap-clients openldap-servers migrationtools</span><br></pre></td></tr></table></figure>
+<h3 id="LDAP-配置"><a href="#LDAP-配置" class="headerlink" title="LDAP 配置"></a>LDAP 配置</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br></pre></td><td class="code"><pre><span class="line">#配置 OpenLDAP Server</span><br><span class="line">[root@object1 ~]# vim /etc/openldap/slapd.d/cn\=config/olcDatabase\=\&#123;2\&#125;hdb.ldif </span><br><span class="line">dn: olcDatabase=&#123;2&#125;hdb</span><br><span class="line"></span><br><span class="line">修改两行</span><br><span class="line">olcSuffix: dc=hyman,dc=com</span><br><span class="line">olcRootDN: cn=Manager,dc=hyman,dc=com</span><br><span class="line">新增一行</span><br><span class="line">olcRootPW: 123456</span><br><span class="line"></span><br><span class="line">#配置 Monitoring Database</span><br><span class="line">[root@object1 ~]# vim /etc/openldap/slapd.d/cn\=config/olcDatabase\=\&#123;1\&#125;monitor.ldif</span><br><span class="line">dn: olcDatabase=&#123;1&#125;monitor</span><br><span class="line"></span><br><span class="line">修改一行</span><br><span class="line">olcAccess: &#123;0&#125;to * by dn.base=&quot;gidNumber=0+uidNumber=0,cn=peercred,cn=extern</span><br><span class="line"> al,cn=auth&quot; read by dn.base=&quot;cn=Manager,dc=hyman,dc=com&quot; read by * none</span><br><span class="line"></span><br><span class="line">#初始化 LDAP database</span><br><span class="line">[root@object1 ~]# cp /usr/share/openldap-servers/DB_CONFIG.example /var/lib/ldap/DB_CONFIG</span><br><span class="line">[root@object1 ~]# chown -R ldap.ldap /var/lib/ldap/</span><br><span class="line"></span><br><span class="line">#测试 configuration</span><br><span class="line">[root@object1 ~]# slaptest -u</span><br><span class="line"></span><br><span class="line">#启动服务并开机自启</span><br><span class="line">[root@object1 ~]# systemctl start slapd</span><br><span class="line">[root@object1 ~]# systemctl enable slapd</span><br><span class="line"></span><br><span class="line">#查看状态</span><br><span class="line">[root@object1 ~]# netstat -lt | grep ldap</span><br><span class="line"></span><br><span class="line">#将所有的配置LDAP server, 添加到LDAP schemas中</span><br><span class="line">[root@object1 ~]# cd /etc/openldap/schema/</span><br><span class="line"> ldapadd -Y EXTERNAL -H ldapi:/// -D &quot;cn=config&quot; -f cosine.ldif</span><br><span class="line">[root@object1 schema]# ldapadd -Y EXTERNAL -H ldapi:/// -D &quot;cn=config&quot; -f nis.ldif</span><br><span class="line">[root@object1 schema]# ldapadd -Y EXTERNAL -H ldapi:/// -D &quot;cn=config&quot; -f collective.ldif</span><br><span class="line">[root@object1 schema]# ldapadd -Y EXTERNAL -H ldapi:/// -D &quot;cn=config&quot; -f corba.ldif</span><br><span class="line">[root@object1 schema]# ldapadd -Y EXTERNAL -H ldapi:/// -D &quot;cn=config&quot; -f core.ldif</span><br><span class="line">[root@object1 schema]# ldapadd -Y EXTERNAL -H ldapi:/// -D &quot;cn=config&quot; -f duaconf.ldif</span><br><span class="line">[root@object1 schema]# ldapadd -Y EXTERNAL -H ldapi:/// -D &quot;cn=config&quot; -f dyngroup.ldif</span><br><span class="line">[root@object1 schema]# ldapadd -Y EXTERNAL -H ldapi:/// -D &quot;cn=config&quot; -f inetorgperson.ldif</span><br><span class="line">[root@object1 schema]# ldapadd -Y EXTERNAL -H ldapi:/// -D &quot;cn=config&quot; -f java.ldif</span><br><span class="line">[root@object1 schema]# ldapadd -Y EXTERNAL -H ldapi:/// -D &quot;cn=config&quot; -f ppolicy.ldif</span><br><span class="line">[root@object1 schema]# ldapadd -Y EXTERNAL -H ldapi:/// -D &quot;cn=config&quot; -f pmi.ldif</span><br><span class="line">[root@object1 schema]# ldapadd -Y EXTERNAL -H ldapi:/// -D &quot;cn=config&quot; -f openldap.ldif</span><br><span class="line">[root@object1 schema]# ldapadd -Y EXTERNAL -H ldapi:/// -D &quot;cn=config&quot; -f misc.ldif</span><br><span class="line"></span><br><span class="line">#使用Migration Tools 创建 LDAP DIT</span><br><span class="line">[root@object1 schema]# cd /usr/share/migrationtools/</span><br><span class="line">[root@object1 migrationtools]# vim migrate_common.ph</span><br><span class="line">修改61行</span><br><span class="line">$NAMINGCONTEXT&#123;&apos;group&apos;&#125;             = &quot;ou=Groups&quot;;</span><br><span class="line">修改71行</span><br><span class="line">$DEFAULT_MAIL_DOMAIN = &quot;hyman.com&quot;;</span><br><span class="line">修改74行</span><br><span class="line">$DEFAULT_BASE = &quot;dc=hyman,dc=com&quot;;</span><br><span class="line">修改90行</span><br><span class="line">$EXTENDED_SCHEMA = 1;</span><br><span class="line"></span><br><span class="line">#创建 base.ldif</span><br><span class="line">[root@object1 migrationtools]# ./migrate_base.pl &gt; /root/base.ldif</span><br><span class="line"></span><br><span class="line">#导入LDAP database</span><br><span class="line">[root@object1 migrationtools]# ldapadd -x -W -D &quot;cn=Manager,dc=hyman,dc=com&quot; -f /root/base.ldif</span><br><span class="line"></span><br><span class="line">#创建用户和用户组，并将其从本地数据库迁移到LDAP数据库</span><br><span class="line">[root@object1 migrationtools]# mkdir /home/guests</span><br><span class="line">[root@object1 migrationtools]# useradd -d /home/guests/ldapuser1 ldapuser1</span><br><span class="line">[root@object1 migrationtools]# useradd -d /home/guests/ldapuser2 ldapuser2</span><br><span class="line">[root@object1 migrationtools]# echo &quot;password&quot; | passwd --stdin ldapuser1</span><br><span class="line">[root@object1 migrationtools]# echo &quot;password&quot; | passwd --stdin ldapuser2</span><br><span class="line"></span><br><span class="line">#过滤掉这些用户和组和密码从/etc/shadow到不同的文件</span><br><span class="line">[root@object1 ~]# getent passwd | tail -n 5 &gt; /root/users</span><br><span class="line">[root@object1 ~]# getent shadow | tail -n 5 &gt; /root/shadow</span><br><span class="line">[root@object1 ~]# getent group | tail -n 5 &gt; /root/groups</span><br><span class="line"></span><br><span class="line">#创建这些用户使用migrationtools</span><br><span class="line">[root@object1 ~]# cd /usr/share/migrationtools/</span><br><span class="line">[root@object1 migrationtools]# vim migrate_passwd.pl </span><br><span class="line">修改188行</span><br><span class="line">把 /etc/shadow 替换为 /root/shadow</span><br><span class="line"></span><br><span class="line">[root@object1 migrationtools]# ./migrate_passwd.pl /root/users &gt; users.ldif</span><br><span class="line">[root@object1 migrationtools]# ./migrate_passwd.pl /root/groups &gt; groups.ldif</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">#上传这些用户和组LDAP数据库</span><br><span class="line">[root@object1 ~]# ldapadd -x -W -D &quot;cn=Manager,dc=hyman,dc=com&quot; -f users.ldif</span><br><span class="line">[root@object1 ~]# ldapadd -x -W -D &quot;cn=Manager,dc=hyman,dc=com&quot; -f groups.ldif</span><br><span class="line"></span><br><span class="line">#所有记录搜索LDAP DIT</span><br><span class="line">[root@object1 ~]# ldapsearch -x -b &quot;dc=hyman,dc=com&quot; -H ldap://127.0.0.1</span><br></pre></td></tr></table></figure>
+<h2 id="LDAP-客户端验证"><a href="#LDAP-客户端验证" class="headerlink" title="LDAP 客户端验证"></a>LDAP 客户端验证</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[root@block1 ~]# yum install -y nss-pam*</span><br><span class="line">[root@block1 ~]# authconfig-tui </span><br><span class="line">选择第二个Use LDAP</span><br><span class="line">[root@block1 ~]# su ldaduser1</span><br></pre></td></tr></table></figure>
 
       
     </div>
 
-    <div>
-      
-        
+    
 
-      
-    </div>
+    
+    
+    
 
-    <div>
-      
-        
-  <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
-    <div>如果对您有帮助，可以给我们打赏鼓励！</div>
-    <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
-      <span>赏</span>
-    </button>
-    <div id="QR" style="display: none;">
-      
-      
-        <div id="alipay" style="display: inline-block">
-          <img id="alipay_qr" src="/pay/ali.jpg" alt="hyman Alipay"/>
-          <p>支付宝打赏</p>
-        </div>
-      
-    </div>
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>��������а��������Ը����Ǵ��͹�����</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>Donate</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/pay/ali.jpg" alt="hyman Alipay"/>
+        <p>Alipay</p>
+      </div>
+    
+
+    
+
   </div>
+</div>
 
+      </div>
+    
 
-      
-    </div>
-
-    <div>
-      
-        
-
-      
-    </div>
+    
 
     <footer class="post-footer">
       
@@ -461,6 +542,10 @@
       
       
     </footer>
+  </div>
+  
+  
+  
   </article>
 
 
@@ -480,13 +565,13 @@
           </div>
           
 
-
-          
-  <div class="comments" id="comments">
-    
+  
+    <div class="comments" id="comments">
       <div id="lv-container" data-id="city" data-uid="MTAyMC8yOTg5MS82NDU2"></div>
-    
-  </div>
+    </div>
+
+  
+
 
 
         </div>
@@ -509,75 +594,142 @@
 
       
         <ul class="sidebar-nav motion-element">
-          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
-            文章目录
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Inhaltsverzeichnis
           </li>
-          <li class="sidebar-nav-overview" data-target="site-overview">
-            站点概览
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Übersicht
           </li>
         </ul>
       
 
-      <section class="site-overview sidebar-panel">
-        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
-          <img class="site-author-image" itemprop="image"
-               src="/uploads/avatar.jpg"
-               alt="hyman" />
-          <p class="site-author-name" itemprop="name">hyman</p>
-           
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/avatar.gif"
+                alt="hyman" />
+            
+              <p class="site-author-name" itemprop="name">hyman</p>
               <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
           
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">22</span>
+                    <span class="site-state-item-name">Artikel</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  <a href="/categories/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">10</span>
+                    <span class="site-state-item-name">Kategorien</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  <a href="/tags/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">19</span>
+                    <span class="site-state-item-name">Tags</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+            
+          
+          
+
         </div>
-        <nav class="site-state motion-element">
-
-          
-            <div class="site-state-item site-state-posts">
-              <a href="/">
-                <span class="site-state-item-count">21</span>
-                <span class="site-state-item-name">日志</span>
-              </a>
-            </div>
-          
-
-          
-            
-            
-            <div class="site-state-item site-state-categories">
-              <a href="/categories/index.html">
-                <span class="site-state-item-count">9</span>
-                <span class="site-state-item-name">分类</span>
-              </a>
-            </div>
-          
-
-          
-            
-            
-            <div class="site-state-item site-state-tags">
-              <a href="/tags/index.html">
-                <span class="site-state-item-count">18</span>
-                <span class="site-state-item-name">标签</span>
-              </a>
-            </div>
-          
-
-        </nav>
-
-        
-
-        <div class="links-of-author motion-element">
-          
-        </div>
-
-        
-        
-
-        
-        
-
-        
-
-
       </section>
 
       
@@ -610,30 +762,41 @@
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright" >
-  
-  &copy; 
-  <span itemprop="copyrightYear">2017</span>
-  <span class="with-love">
-    <i class="fa fa-heart"></i>
+        <div class="copyright">&copy; 2017 &mdash; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
   </span>
   <span class="author" itemprop="copyrightHolder">hyman</span>
+
+  
+
+  
 </div>
 
 
-<div class="powered-by">
-  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
-</div>
 
-<div class="theme-info">
-  主题 -
-  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
-    NexT.Mist
-  </a>
-</div>
+
+  <div class="powered-by">Erstellt mit  <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> v3.7.1</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/theme-next/hexo-theme-next">NexT.Mist</a> v6.2.0</div>
+
+
 
 
         
+
+
+
+
+
+
+
 
         
       </div>
@@ -644,6 +807,8 @@
         <i class="fa fa-arrow-up"></i>
         
       </div>
+    
+
     
 
   </div>
@@ -664,7 +829,6 @@
 
 
 
-  
 
 
 
@@ -677,55 +841,53 @@
 
 
 
-  
-  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
-
-  
-  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
-
-  
-  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
-
-  
-  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
-
-  
-  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
-
-  
-  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
 
 
-  
-
-
-  <script type="text/javascript" src="/js/src/utils.js?v=5.1.1"></script>
-
-  <script type="text/javascript" src="/js/src/motion.js?v=5.1.1"></script>
 
 
 
   
   
-
-  
-  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.1"></script>
-<script type="text/javascript" src="/js/src/post-details.js?v=5.1.1"></script>
-
-
-
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
   
 
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
 
-  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.1"></script>
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=6.2.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=6.2.0"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=6.2.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=6.2.0"></script>
 
 
 
   
 
 
-  
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=6.2.0"></script>
 
+
+
+  
 
 
 
@@ -759,6 +921,10 @@
 
 
 
+
+
+
+
   
 
   <script type="text/javascript">
@@ -766,7 +932,7 @@
     var isfetched = false;
     var isXml = true;
     // Search DB path;
-    var search_path = "search.xml";
+    var search_path = "";
     if (search_path.length === 0) {
       search_path = "search.xml";
     } else if (/json$/i.test(search_path)) {
@@ -810,6 +976,8 @@
         .css('overflow', 'hidden');
       $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
 
+      
+
       $.ajax({
         url: path,
         dataType: isXml ? "xml" : "json",
@@ -843,6 +1011,7 @@
                 var title = data.title.trim();
                 var titleInLowerCase = title.toLowerCase();
                 var content = data.content.trim().replace(/<[^>]+>/g,"");
+                
                 var contentInLowerCase = content.toLowerCase();
                 var articleUrl = decodeURIComponent(data.url);
                 var indexOfTitle = [];
@@ -1142,35 +1311,24 @@
             var counter = results[0];
             counter.fetchWhenSave(true);
             counter.increment("time");
+            
             counter.save(null, {
               success: function(counter) {
-                var $element = $(document.getElementById(url));
-                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+                
+                  var $element = $(document.getElementById(url));
+                  $element.find('.leancloud-visitors-count').text(counter.get('time'));
+                
               },
               error: function(counter, error) {
                 console.log('Failed to save Visitor num, with error message: ' + error.message);
               }
             });
           } else {
-            var newcounter = new Counter();
-            /* Set ACL */
-            var acl = new AV.ACL();
-            acl.setPublicReadAccess(true);
-            acl.setPublicWriteAccess(true);
-            newcounter.setACL(acl);
-            /* End Set ACL */
-            newcounter.set("title", title);
-            newcounter.set("url", url);
-            newcounter.set("time", 1);
-            newcounter.save(null, {
-              success: function(newcounter) {
-                var $element = $(document.getElementById(url));
-                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
-              },
-              error: function(newcounter, error) {
-                console.log('Failed to create');
-              }
-            });
+            
+              var $element = $(document.getElementById(url));
+              $element.find('.leancloud-visitors-count').text('Counter not initialized! See more at console err msg.');
+              console.error('ATTENTION! LeanCloud counter has security bug, see here how to solve it: https://github.com/theme-next/hexo-leancloud-counter-security. \n But you also can use LeanCloud without security, by set \'security\' option to \'false\'.');
+            
           }
         },
         error: function(error) {
@@ -1190,6 +1348,8 @@
   </script>
 
 
+
+  
 
   
 <script>
@@ -1212,27 +1372,12 @@
 
   
   
-    <script type="text/x-mathjax-config">
-      MathJax.Hub.Config({
-        tex2jax: {
-          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
-          processEscapes: true,
-          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
-        }
-      });
-    </script>
 
-    <script type="text/x-mathjax-config">
-      MathJax.Hub.Queue(function() {
-        var all = MathJax.Hub.getAllJax(), i;
-        for (i=0; i < all.length; i += 1) {
-          all[i].SourceElement().parentNode.className += ' has-jax';
-        }
-      });
-    </script>
-    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
   
 
+  
+
+  
 
   
 
