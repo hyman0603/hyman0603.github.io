@@ -1,23 +1,26 @@
 #!/bin/bash
-
-# k8s安装Node节点
 # Blog http://hyman.shop
 
-echo '初始化环境'
-curl -s http://hyman.shop/k8s/sh/1.set.sh |bash
+echo "install kubelet kubeadm"
 
-#docker check 
-docker images &>/dev/null
-[[ $? = 0 ]] || { curl -s http://hyman.shop/k8s/sh/docker.sh |bash ; }
-docker images &>/dev/null
-[[ $? = 0 ]] && { echo "docker ok"; } || { echo "docker error";exit; }
+cat <<EOF > /etc/yum.repos.d/kubernetes.repo
+[kubernetes]
+name=Kubernetes
+baseurl=https://mirrors.aliyun.com/kubernetes/yum/repos/kubernetes-el7-x86_64
+enabled=1
+gpgcheck=0
+EOF
 
-#安装kubelet kubeadm 
-curl -s http://hyman.shop/k8s/sh/kube.sh |bash
+#install kubeadm、kubelet
+yum -y install kubelet kubeadm kubectl kubernetes-cni
+#配置kubelet
+sed -i 's/driver=systemd/driver=cgroupfs/' /etc/systemd/system/kubelet.service.d/10-kubeadm.conf
+systemctl daemon-reload
+systemctl enable kubelet
 
-echo '下载K8S相关镜像'
+echo "download k8s images"
 MyUrl=registry.cn-shenzhen.aliyuncs.com/hyman0603
-images=(kube-proxy-amd64:v1.10.2 pause-amd64:3.1)
+images=(kube-proxy-amd64:v1.10.3 pause-amd64:3.1)
 for imageName in ${images[@]} ; do
   docker pull $MyUrl/$imageName
   docker tag $MyUrl/$imageName k8s.gcr.io/$imageName

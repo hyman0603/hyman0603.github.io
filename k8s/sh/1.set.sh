@@ -5,30 +5,31 @@
 #check
 [[ $UID -ne 0 ]] && { echo "Must run in root user !";exit; }
 
-echo '# »ù´¡ÅäÖÃ#
-#¹Ø±Õ·À»ðÇ½
-#¹Ø±ÕSelinux
-#¹Ø±ÕSwap
-#ÄÚºËÅäÖÃ
-'
-#·À»ðÇ½#
+echo '#stop firewalld
+#stop Selinux
+#stop Swap
+#kelnel'
+
+#firewalld#
 systemctl stop firewalld &>/dev/null
 systemctl disable firewalld &>/dev/null
-[[ -f /etc/init.d/ufw ]] && { ufw disable;}
-[[ -f /etc/init.d/iptables ]] && { /etc/init.d/iptables stop; }
+#[[ -f /etc/init.d/ufw ]] && { ufw disable;}
+#[[ -f /etc/init.d/iptables ]] && { /etc/init.d/iptables stop; }
 
-#¹Ø±ÕSelinux
+#Selinux
 setenforce  0 &>/dev/null
-sed -i "s/^SELINUX=enforcing/SELINUX=disabled/g" /etc/sysconfig/selinux 
+#sed -i "s/^SELINUX=enforcing/SELINUX=disabled/g" /etc/sysconfig/selinux 
 sed -i "s/^SELINUX=enforcing/SELINUX=disabled/g" /etc/selinux/config 
-sed -i "s/^SELINUX=permissive/SELINUX=disabled/g" /etc/sysconfig/selinux 
-sed -i "s/^SELINUX=permissive/SELINUX=disabled/g" /etc/selinux/config 
+#sed -i "s/^SELINUX=permissive/SELINUX=disabled/g" /etc/sysconfig/selinux 
+#sed -i "s/^SELINUX=permissive/SELINUX=disabled/g" /etc/selinux/config 
 
-#¹Ø±ÕSwap
+#Swap
 swapoff -a 
+echo  "swapoff -a">> /etc/rc.d/rc.local 
+chmod +x /etc/rc.d/rc.local
 sed 's/.*swap.*/#&/' /etc/fstab &>/dev/null
 
-#ÄÚºË#
+#kelnet
 cat <<EOF > /etc/sysctl.d/k8s.conf
 net.ipv4.ip_forward = 1
 net.bridge.bridge-nf-call-ip6tables = 1

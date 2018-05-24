@@ -1,15 +1,14 @@
 #!/bin/bash
 # Blog http://hyman.shop
-#k8s v1.10.2 master 单节点安装
 
 #check
 [[ $UID -ne 0 ]] && { echo "Must run in root user !";exit; }
 
-#重置#
+#kubeadm reset#
 kubeadm reset &>/dev/null
 
-echo -e "\033[32m初始化安装K8S Master \033[0m" 
-kubeadm init --kubernetes-version=v1.10.2  --pod-network-cidr=10.244.0.0/16 |tee /tmp/install.log
+echo -e "\033[32m install K8S Master \033[0m" 
+kubeadm init --kubernetes-version=v1.10.3  --pod-network-cidr=10.244.0.0/16 |tee /tmp/install.log
 
 echo  
 echo -e "\033[32mk8s node节点代码保存到 $HOME/k8s.add.node.txt\033[0m" 
@@ -23,6 +22,7 @@ echo "export KUBECONFIG=/etc/kubernetes/admin.conf" >> ~/.bash_profile
 ##
 echo "# used for kubectl ,k8s" >/etc/profile
 echo "export KUBECONFIG=/etc/kubernetes/admin.conf" >>/etc/profile
+
 
 sleep 5
 echo -e "\033[32m查看K8S状态\033[0m" 
@@ -42,6 +42,7 @@ kubectl create -f k8s/kubernetes-dashboard.yaml
 sleep 5
 kubectl create -f k8s/heapster/
 kubectl create -f k8s/heapster-rbac.yaml
+
 sleep 10
 echo -e "\033[32m查看pod \033[0m" 
 kubectl get pods --all-namespaces
