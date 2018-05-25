@@ -90,7 +90,7 @@
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=6.2.0">
 
 
-  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=6.2.0">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.png?v=6.2.0">
 
 
   <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=6.2.0">
@@ -112,7 +112,7 @@
     root: '/',
     scheme: 'Mist',
     version: '6.2.0',
-    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    sidebar: {"position":"left","display":"post","offset":15,"b2t":false,"scrollpercent":false,"onmobile":false},
     fancybox: false,
     fastclick: false,
     lazyload: false,
@@ -157,7 +157,7 @@
   };
 </script>
 
-  <title>hyman</title>
+  <title>hyman &mdash; һЩ�򵥵ļ�¼</title>
   
 
 
@@ -232,7 +232,7 @@
     </div>
     
       
-        <p class="site-subtitle">һЩ�򵥵ļ�¼</p>
+        <h1 class="site-subtitle" itemprop="description">һЩ�򵥵ļ�¼</h1>
       
     
   </div>
@@ -284,6 +284,14 @@
     <a href="/archives/" rel="section">
       <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />归档</a>
   </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-sitemap">
+    <a href="/sitemap.xml" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-sitemap"></i> <br />站点地图</a>
+  </li>
 
       
       
@@ -306,22 +314,26 @@
   
     <div class="site-search">
       
-  <div class="popup search-popup local-search-popup">
-  <div class="local-search-header clearfix">
-    <span class="search-icon">
-      <i class="fa fa-search"></i>
-    </span>
+  
+  <div class="algolia-popup popup search-popup">
+    <div class="algolia-search">
+      <div class="algolia-search-input-icon">
+        <i class="fa fa-search"></i>
+      </div>
+      <div class="algolia-search-input" id="algolia-search-input"></div>
+    </div>
+
+    <div class="algolia-results">
+      <div id="algolia-stats"></div>
+      <div id="algolia-hits"></div>
+      <div id="algolia-pagination" class="algolia-pagination"></div>
+    </div>
+
     <span class="popup-btn-close">
       <i class="fa fa-times-circle"></i>
     </span>
-    <div class="local-search-input-wrapper">
-      <input autocomplete="off"
-             placeholder="搜索..." spellcheck="false"
-             type="text" id="local-search-input">
-    </div>
   </div>
-  <div id="local-search-result"></div>
-</div>
+
 
 
 
@@ -369,7 +381,7 @@
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="hyman">
       <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="image" content="/images/avatar.jpg">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
@@ -381,14 +393,14 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">
+          <h2 class="post-title" itemprop="name headline">
                 
                 <a class="post-title-link" href="/2017/08/09/备份数据库脚本并将备份数据库同步到又拍云存储空间/" itemprop="url">
                   备份数据库脚本并将备份数据库同步到又拍云存储空间
                 </a>
               
             
-          </h1>
+          </h2>
         
 
         <div class="post-meta">
@@ -446,17 +458,6 @@
 
           
           
-             <span id="/2017/08/09/备份数据库脚本并将备份数据库同步到又拍云存储空间/" class="leancloud_visitors" data-flag-title="备份数据库脚本并将备份数据库同步到又拍云存储空间">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">阅读次数：</span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
 
           
 
@@ -480,7 +481,9 @@
         
           
           经历过一次意外，可能某拥有服务器权限的同事将测试器将全部数据给删除了，导致服务器数据库全部丢失，服务器崩溃，只能重装。特弄了一个简单的数据库脚本备份并将数据库同步到又拍云存储空间。
-123##又拍云U
+123##又拍云UPX工具https://github.com/polym/upx
+同步脚本
+123456789101
           ...
           <!--noindex-->
           <div class="post-button text-center">
@@ -545,7 +548,7 @@
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="hyman">
       <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="image" content="/images/avatar.jpg">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
@@ -557,14 +560,14 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">
+          <h2 class="post-title" itemprop="name headline">
                 
                 <a class="post-title-link" href="/2017/08/08/使用Xtrabackup进行MySQL备份/" itemprop="url">
                   使用Xtrabackup进行MySQL备份
                 </a>
               
             
-          </h1>
+          </h2>
         
 
         <div class="post-meta">
@@ -622,17 +625,6 @@
 
           
           
-             <span id="/2017/08/08/使用Xtrabackup进行MySQL备份/" class="leancloud_visitors" data-flag-title="使用Xtrabackup进行MySQL备份">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">阅读次数：</span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
 
           
 
@@ -656,7 +648,7 @@
         
           
           Xtrabackup介绍Xtrabackup是由percona提供的mysql数据库备份工具，据官方介绍，这也是世界上惟一一款开源的能够对innodb和xtradb数据库进行热备的工具。特点：
-备份过
+备份过程快速、可靠；备份过程不会打断正在执行的事务；能够基于压缩等功能节约磁盘空间和流量；自动实现备份检验
           ...
           <!--noindex-->
           <div class="post-button text-center">
@@ -721,7 +713,7 @@
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="hyman">
       <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="image" content="/images/avatar.jpg">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
@@ -733,14 +725,14 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">
+          <h2 class="post-title" itemprop="name headline">
                 
                 <a class="post-title-link" href="/2017/08/01/redis4-0配置文件介绍/" itemprop="url">
                   redis4.0配置文件介绍
                 </a>
               
             
-          </h1>
+          </h2>
         
 
         <div class="post-meta">
@@ -798,17 +790,6 @@
 
           
           
-             <span id="/2017/08/01/redis4-0配置文件介绍/" class="leancloud_visitors" data-flag-title="redis4.0配置文件介绍">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">阅读次数：</span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
 
           
 
@@ -832,7 +813,8 @@
         
           
           Redis默认不是以守护进程的方式运行，可以通过该配置项修改，使用yes启用守护进程1daemonize no
-当Redis以守护进程方式运行时，Redis默认会把pid写入/var/run/redi
+当Redis以守护进程方式运行时，Redis默认会把pid写入/var/run/redis.pid文件，可以通过pidfile指定1pidfile /var/run/redis.pid
+指
           ...
           <!--noindex-->
           <div class="post-button text-center">
@@ -897,7 +879,7 @@
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="hyman">
       <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="image" content="/images/avatar.jpg">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
@@ -909,14 +891,14 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">
+          <h2 class="post-title" itemprop="name headline">
                 
                 <a class="post-title-link" href="/2017/05/09/SaltStack学习记录/" itemprop="url">
                   SaltStack学习记录
                 </a>
               
             
-          </h1>
+          </h2>
         
 
         <div class="post-meta">
@@ -956,17 +938,6 @@
 
           
           
-             <span id="/2017/05/09/SaltStack学习记录/" class="leancloud_visitors" data-flag-title="SaltStack学习记录">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">阅读次数：</span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
 
           
 
@@ -989,7 +960,7 @@
       
         
           
-          SaltStack 介绍salt是一个新的基础平台管理工具, 只需要花费数分钟即可运行起来, 扩展性足以支撑管理上万台服务器, 数秒钟即可完成数据传递。 经常被描述为Func加强版+Puppet精简版
+          SaltStack 介绍salt是一个新的基础平台管理工具, 只需要花费数分钟即可运行起来, 扩展性足以支撑管理上万台服务器, 数秒钟即可完成数据传递。 经常被描述为Func加强版+Puppet精简版。 SaltStack采用C/S架构。简单的说: salt是一种全新的基础设施管理方式, 部署轻松,
           ...
           <!--noindex-->
           <div class="post-button text-center">
@@ -1054,7 +1025,7 @@
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="hyman">
       <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="image" content="/images/avatar.jpg">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
@@ -1066,14 +1037,14 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">
+          <h2 class="post-title" itemprop="name headline">
                 
                 <a class="post-title-link" href="/2017/05/08/记录redis的RDB、AOF持久化/" itemprop="url">
                   记录redis的RDB、AOF持久化
                 </a>
               
             
-          </h1>
+          </h2>
         
 
         <div class="post-meta">
@@ -1143,17 +1114,6 @@
 
           
           
-             <span id="/2017/05/08/记录redis的RDB、AOF持久化/" class="leancloud_visitors" data-flag-title="记录redis的RDB、AOF持久化">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">阅读次数：</span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
 
           
 
@@ -1177,7 +1137,7 @@
         
           
           Redis是个支持持久化的内存数据库，redis需要经常将内存中的数据同步到磁盘来保证持久化。
-快照（Snapshotting）默认持久化方式配置1234snapshotting：       sav
+快照（Snapshotting）默认持久化方式配置1234snapshotting：       save 900 1          #900秒内如果超过1个key被修改，则发起快照保存save 30
           ...
           <!--noindex-->
           <div class="post-button text-center">
@@ -1242,7 +1202,7 @@
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="hyman">
       <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="image" content="/images/avatar.jpg">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
@@ -1254,14 +1214,14 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">
+          <h2 class="post-title" itemprop="name headline">
                 
                 <a class="post-title-link" href="/2017/05/05/CentOS-7用DevStack安装OpenStack/" itemprop="url">
                   CentOS 7用DevStack安装OpenStack
                 </a>
               
             
-          </h1>
+          </h2>
         
 
         <div class="post-meta">
@@ -1301,17 +1261,6 @@
 
           
           
-             <span id="/2017/05/05/CentOS-7用DevStack安装OpenStack/" class="leancloud_visitors" data-flag-title="CentOS 7用DevStack安装OpenStack">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">阅读次数：</span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
 
           
 
@@ -1335,7 +1284,8 @@
         
           
           准备阶段OpenStack源码1https://github.com/openstack
-DevStack源码1https://git.openstack.org/cgit/openstack-dev
+DevStack源码1https://git.openstack.org/cgit/openstack-dev/devstack
+设置aliyun的base源12[root@compute ~]# wget -
           ...
           <!--noindex-->
           <div class="post-button text-center">
@@ -1400,7 +1350,7 @@ DevStack源码1https://git.openstack.org/cgit/openstack-dev
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="hyman">
       <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="image" content="/images/avatar.jpg">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
@@ -1412,14 +1362,14 @@ DevStack源码1https://git.openstack.org/cgit/openstack-dev
 
         
         
-          <h1 class="post-title" itemprop="name headline">
+          <h2 class="post-title" itemprop="name headline">
                 
                 <a class="post-title-link" href="/2017/05/04/CentOS-7-安装KVM虚拟机/" itemprop="url">
                   CentOS 7 安装KVM虚拟机
                 </a>
               
             
-          </h1>
+          </h2>
         
 
         <div class="post-meta">
@@ -1471,17 +1421,6 @@ DevStack源码1https://git.openstack.org/cgit/openstack-dev
 
           
           
-             <span id="/2017/05/04/CentOS-7-安装KVM虚拟机/" class="leancloud_visitors" data-flag-title="CentOS 7 安装KVM虚拟机">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">阅读次数：</span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
 
           
 
@@ -1504,7 +1443,7 @@ DevStack源码1https://git.openstack.org/cgit/openstack-dev
       
         
           
-          kvm相关安装包及其作用qemu-kvm    主要的KVM程序包python-virtinst    创建虚拟机所需要的命令行工具和程序库virt-manager    GUI虚拟机管理工具virt
+          kvm相关安装包及其作用qemu-kvm    主要的KVM程序包python-virtinst    创建虚拟机所需要的命令行工具和程序库virt-manager    GUI虚拟机管理工具virt-top    虚拟机统计命令virt-viewer    GUI连接程序，连接到已配置好的虚拟机l
           ...
           <!--noindex-->
           <div class="post-button text-center">
@@ -1569,7 +1508,7 @@ DevStack源码1https://git.openstack.org/cgit/openstack-dev
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="hyman">
       <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="image" content="/images/avatar.jpg">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
@@ -1581,14 +1520,14 @@ DevStack源码1https://git.openstack.org/cgit/openstack-dev
 
         
         
-          <h1 class="post-title" itemprop="name headline">
+          <h2 class="post-title" itemprop="name headline">
                 
                 <a class="post-title-link" href="/2017/05/03/搭建FastDFS分布式文件系统/" itemprop="url">
                   搭建FastDFS分布式文件系统
                 </a>
               
             
-          </h1>
+          </h2>
         
 
         <div class="post-meta">
@@ -1640,17 +1579,6 @@ DevStack源码1https://git.openstack.org/cgit/openstack-dev
 
           
           
-             <span id="/2017/05/03/搭建FastDFS分布式文件系统/" class="leancloud_visitors" data-flag-title="搭建FastDFS分布式文件系统">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">阅读次数：</span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
 
           
 
@@ -1673,7 +1601,7 @@ DevStack源码1https://git.openstack.org/cgit/openstack-dev
       
         
           
-          FastDFS介绍FastDFS是一款类Google FS的开源分布式文件系统，它用纯C语言实现，支持Linux、FreeBSD、AIX等UNIX系统。它只能通过专有API对文件进行存取访问，不支持P
+          FastDFS介绍FastDFS是一款类Google FS的开源分布式文件系统，它用纯C语言实现，支持Linux、FreeBSD、AIX等UNIX系统。它只能通过专有API对文件进行存取访问，不支持POSIX接口方式，不能mount使用。准确地讲，Google FS以及FastDFS、mogileF
           ...
           <!--noindex-->
           <div class="post-button text-center">
@@ -1738,7 +1666,7 @@ DevStack源码1https://git.openstack.org/cgit/openstack-dev
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="hyman">
       <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="image" content="/images/avatar.jpg">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
@@ -1750,14 +1678,14 @@ DevStack源码1https://git.openstack.org/cgit/openstack-dev
 
         
         
-          <h1 class="post-title" itemprop="name headline">
+          <h2 class="post-title" itemprop="name headline">
                 
                 <a class="post-title-link" href="/2017/05/03/记录MongoDB3.4分片的一些配置/" itemprop="url">
                   记录MongoDB3.4分片的一些配置
                 </a>
               
             
-          </h1>
+          </h2>
         
 
         <div class="post-meta">
@@ -1815,17 +1743,6 @@ DevStack源码1https://git.openstack.org/cgit/openstack-dev
 
           
           
-             <span id="/2017/05/03/记录MongoDB3.4分片的一些配置/" class="leancloud_visitors" data-flag-title="记录MongoDB3.4分片的一些配置">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">阅读次数：</span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
 
           
 
@@ -1848,7 +1765,7 @@ DevStack源码1https://git.openstack.org/cgit/openstack-dev
       
         
           
-          MongoDB介绍MongoDB 是由C++语言编写的，是一个基于分布式文件存储的开源数据库系统。在高负载的情况下，添加更多的节点，可以保证服务器性能。MongoDB 旨在为WEB应用提供可扩展的高性
+          MongoDB介绍MongoDB 是由C++语言编写的，是一个基于分布式文件存储的开源数据库系统。在高负载的情况下，添加更多的节点，可以保证服务器性能。MongoDB 旨在为WEB应用提供可扩展的高性能数据存储解决方案。MongoDB 将数据存储为一个文档，数据结构由键值(key=&gt;value
           ...
           <!--noindex-->
           <div class="post-button text-center">
@@ -1913,7 +1830,7 @@ DevStack源码1https://git.openstack.org/cgit/openstack-dev
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="hyman">
       <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="image" content="/images/avatar.jpg">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
@@ -1925,14 +1842,14 @@ DevStack源码1https://git.openstack.org/cgit/openstack-dev
 
         
         
-          <h1 class="post-title" itemprop="name headline">
+          <h2 class="post-title" itemprop="name headline">
                 
                 <a class="post-title-link" href="/2017/05/02/CentOS7-LDAP统一认证部署/" itemprop="url">
                   CentOS7 LDAP统一认证部署
                 </a>
               
             
-          </h1>
+          </h2>
         
 
         <div class="post-meta">
@@ -1972,17 +1889,6 @@ DevStack源码1https://git.openstack.org/cgit/openstack-dev
 
           
           
-             <span id="/2017/05/02/CentOS7-LDAP统一认证部署/" class="leancloud_visitors" data-flag-title="CentOS7 LDAP统一认证部署">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">阅读次数：</span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
 
           
 
@@ -2005,7 +1911,7 @@ DevStack源码1https://git.openstack.org/cgit/openstack-dev
       
         
           
-          LDAP介绍LDAP是轻量目录访问协议，英文全称是Lightweight Directory Access Protocol，简称为LDAP。它是基于X.500标准的，但是简单多了并且可以根据需要定制
+          LDAP介绍LDAP是轻量目录访问协议，英文全称是Lightweight Directory Access Protocol，简称为LDAP。它是基于X.500标准的，但是简单多了并且可以根据需要定制。与X.500不同，LDAP支持TCP/IP。LDAP的核心规范在RFC中都有定义，所有与LDAP相
           ...
           <!--noindex-->
           <div class="post-button text-center">
@@ -2087,7 +1993,7 @@ DevStack源码1https://git.openstack.org/cgit/openstack-dev
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
               <img class="site-author-image" itemprop="image"
-                src="/images/avatar.gif"
+                src="/images/avatar.jpg"
                 alt="hyman" />
             
               <p class="site-author-name" itemprop="name">hyman</p>
@@ -2200,6 +2106,15 @@ DevStack源码1https://git.openstack.org/cgit/openstack-dev
           
 
           
+            <div class="links-of-author motion-element">
+              
+                <span class="links-of-author-item">
+                  <a href="https://github.com/hyman0603" target="_blank" title="GitHub" rel="external nofollow"><i class="fa fa-fw fa-github"></i>GitHub</a>
+                  
+                </span>
+              
+            </div>
+          
 
           
           
@@ -2241,9 +2156,11 @@ DevStack源码1https://git.openstack.org/cgit/openstack-dev
 </div>
 
 
+  
 
 
-  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动 v3.7.1</div>
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" rel="external nofollow" href="https://hexo.io">Hexo</a> 强力驱动</div>
 
 
 
@@ -2251,7 +2168,7 @@ DevStack源码1https://git.openstack.org/cgit/openstack-dev
 
 
 
-  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/theme-next/hexo-theme-next">NexT.Mist</a> v6.2.0</div>
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" rel="external nofollow" href="https://github.com/theme-next/hexo-theme-next">NexT.Mist</a></div>
 
 
 
@@ -2702,104 +2619,21 @@ DevStack源码1https://git.openstack.org/cgit/openstack-dev
 
 
 
+  
+  
+  
+  <link rel="stylesheet" href="/lib/algolia-instant-search/instantsearch.min.css">
 
   
+  
+  <script src="/lib/algolia-instant-search/instantsearch.min.js"></script>
+  
+
+  <script src="/js/src/algolia-search.js?v=6.2.0"></script>
+
+
 
   
-  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
-  <script>AV.initialize("fOCb3HdhYn5GJSX0tsXNl32k-gzGzoHsz", "6l3JwRQEJt5FN16aSuQB2Jl8");</script>
-  <script>
-    function showTime(Counter) {
-      var query = new AV.Query(Counter);
-      var entries = [];
-      var $visitors = $(".leancloud_visitors");
-
-      $visitors.each(function () {
-        entries.push( $(this).attr("id").trim() );
-      });
-
-      query.containedIn('url', entries);
-      query.find()
-        .done(function (results) {
-          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
-
-          if (results.length === 0) {
-            $visitors.find(COUNT_CONTAINER_REF).text(0);
-            return;
-          }
-
-          for (var i = 0; i < results.length; i++) {
-            var item = results[i];
-            var url = item.get('url');
-            var time = item.get('time');
-            var element = document.getElementById(url);
-
-            $(element).find(COUNT_CONTAINER_REF).text(time);
-          }
-          for(var i = 0; i < entries.length; i++) {
-            var url = entries[i];
-            var element = document.getElementById(url);
-            var countSpan = $(element).find(COUNT_CONTAINER_REF);
-            if( countSpan.text() == '') {
-              countSpan.text(0);
-            }
-          }
-        })
-        .fail(function (object, error) {
-          console.log("Error: " + error.code + " " + error.message);
-        });
-    }
-
-    function addCount(Counter) {
-      var $visitors = $(".leancloud_visitors");
-      var url = $visitors.attr('id').trim();
-      var title = $visitors.attr('data-flag-title').trim();
-      var query = new AV.Query(Counter);
-
-      query.equalTo("url", url);
-      query.find({
-        success: function(results) {
-          if (results.length > 0) {
-            var counter = results[0];
-            counter.fetchWhenSave(true);
-            counter.increment("time");
-            
-            counter.save(null, {
-              success: function(counter) {
-                
-                  var $element = $(document.getElementById(url));
-                  $element.find('.leancloud-visitors-count').text(counter.get('time'));
-                
-              },
-              error: function(counter, error) {
-                console.log('Failed to save Visitor num, with error message: ' + error.message);
-              }
-            });
-          } else {
-            
-              var $element = $(document.getElementById(url));
-              $element.find('.leancloud-visitors-count').text('Counter not initialized! See more at console err msg.');
-              console.error('ATTENTION! LeanCloud counter has security bug, see here how to solve it: https://github.com/theme-next/hexo-leancloud-counter-security. \n But you also can use LeanCloud without security, by set \'security\' option to \'false\'.');
-            
-          }
-        },
-        error: function(error) {
-          console.log('Error:' + error.code + " " + error.message);
-        }
-      });
-    }
-
-    $(function() {
-      var Counter = AV.Object.extend("Counter");
-      if ($('.leancloud_visitors').length == 1) {
-        addCount(Counter);
-      } else if ($('.post-title-link').length > 1) {
-        showTime(Counter);
-      }
-    });
-  </script>
-
-
 
   
 
@@ -2832,6 +2666,15 @@ DevStack源码1https://git.openstack.org/cgit/openstack-dev
   
 
   
+  
+  
+  <script src="/lib/bookmark/bookmark.min.js?v=1.0"></script>
+  <script type="text/javascript">
+  
+    bookmark.loadBookmark();
+  
+  </script>
+
 
   
 
