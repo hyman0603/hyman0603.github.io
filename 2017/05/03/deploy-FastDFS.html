@@ -165,7 +165,7 @@
 <meta property="og:image" content="http://imglf1.nosdn.127.net/img/R3hDdlA4YitONFpPSXdaUEVIeXNxd20wOGd2UFBkR0NIRGkwTzN3RjlOcklzS3NzTzlFY0pRPT0.gif">
 <meta property="og:image" content="http://imglf.nosdn.127.net/img/R3hDdlA4YitONFpPSXdaUEVIeXNxNjRjV2FWQjZZMHovREprSGx6ZnBNSmFoUXp3WDdVZ0p3PT0.gif">
 <meta property="og:image" content="http://imglf2.nosdn.127.net/img/R3hDdlA4YitONFpPSXdaUEVIeXNxekFWSXFDQW5HOHFTUklySk5adlNHbVJZRDVMMEpkMDBnPT0.gif">
-<meta property="og:updated_time" content="2017-05-04T01:26:31.643Z">
+<meta property="og:updated_time" content="2018-05-25T09:49:22.444Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="搭建FastDFS分布式文件系统">
 <meta name="twitter:description" content="FastDFS介绍FastDFS是一款类Google FS的开源分布式文件系统，它用纯C语言实现，支持Linux、FreeBSD、AIX等UNIX系统。它只能通过专有API对文件进行存取访问，不支持POSIX接口方式，不能mount使用。准确地讲，Google FS以及FastDFS、mogileFS、HDFS、TFS等类Google FS都不是系统级的分布式文件系统，而是应用级的分布式文件存储服">
@@ -459,7 +459,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2017-05-04 09:26:31" itemprop="dateModified" datetime="2017-05-04T09:26:31+08:00">2017-05-04</time>
+                <time title="修改时间：2018-05-25 17:49:22" itemprop="dateModified" datetime="2018-05-25T17:49:22+08:00">2018-05-25</time>
               
             
           </span>
@@ -492,8 +492,7 @@
       
 
       
-        <h2 id="FastDFS介绍"><a href="#FastDFS介绍" class="headerlink" title="FastDFS介绍"></a>FastDFS介绍</h2><p>FastDFS是一款类Google FS的开源分布式文件系统，它用纯C语言实现，支持Linux、FreeBSD、AIX等UNIX系统。它只能通过专有API对文件进行存取访问，不支持POSIX接口方式，不能mount使用。准确地讲，Google FS以及FastDFS、mogileFS、HDFS、TFS等类Google FS都不是系统级的分布式文件系统，而是应用级的分布式文件存储服务。</p>
-<p>FastDFS是一个开源的，高性能的的分布式文件系统，他主要的功能包括：文件存储，同步和访问，设计基于高可用和负载均衡，fastfd非常适用于基于文件服务的站点，例如图片分享和视频分享网站。<br>FastDFS有两个角色：跟踪服务和存储服务，跟踪服务控制，调度文件以负载均衡的方式访问；存储服务包括：文件存储，文件同步，提供文件访问接口，同时以key value的方式管理文件的元数据。<br>跟踪和存储服务可以由1台或者多台服务器组成，同时可以动态的添加，删除跟踪和存储服务而不会对在线的服务产生影响，在集群中，tracker服务是对等的。<br>存储系统由一个或多个卷组成，卷与卷之间的文件是相互独立的，所有卷的文件容量累加就是整个存储系统中的文件容量。一个卷可以由一台或多台存储服务器组成，一个卷下的存储服务器中的文件都是相同的，卷中的多台存储服务器起到了冗余备份和负载均衡的作用。在卷中增加服务器时，同步已有的文件由系统自动完成，同步完成后，系统自动将新增服务器切换到线上提供服务。当存储空间不足或即将耗尽时，可以动态添加卷。只需要增加一台或多台服务器，并将它们配置为一个新的卷，这样就扩大了存储系统的容量。</p>
+        <h2 id="FastDFS介绍"><a href="#FastDFS介绍" class="headerlink" title="FastDFS介绍"></a>FastDFS介绍</h2><p>FastDFS是一款类Google FS的开源分布式文件系统，它用纯C语言实现，支持Linux、FreeBSD、AIX等UNIX系统。它只能通过专有API对文件进行存取访问，不支持POSIX接口方式，不能mount使用。准确地讲，Google FS以及FastDFS、mogileFS、HDFS、TFS等类Google FS都不是系统级的分布式文件系统，而是应用级的分布式文件存储服务。<br><a id="more"></a><br>FastDFS是一个开源的，高性能的的分布式文件系统，他主要的功能包括：文件存储，同步和访问，设计基于高可用和负载均衡，fastfd非常适用于基于文件服务的站点，例如图片分享和视频分享网站。<br>FastDFS有两个角色：跟踪服务和存储服务，跟踪服务控制，调度文件以负载均衡的方式访问；存储服务包括：文件存储，文件同步，提供文件访问接口，同时以key value的方式管理文件的元数据。<br>跟踪和存储服务可以由1台或者多台服务器组成，同时可以动态的添加，删除跟踪和存储服务而不会对在线的服务产生影响，在集群中，tracker服务是对等的。<br>存储系统由一个或多个卷组成，卷与卷之间的文件是相互独立的，所有卷的文件容量累加就是整个存储系统中的文件容量。一个卷可以由一台或多台存储服务器组成，一个卷下的存储服务器中的文件都是相同的，卷中的多台存储服务器起到了冗余备份和负载均衡的作用。在卷中增加服务器时，同步已有的文件由系统自动完成，同步完成后，系统自动将新增服务器切换到线上提供服务。当存储空间不足或即将耗尽时，可以动态添加卷。只需要增加一台或多台服务器，并将它们配置为一个新的卷，这样就扩大了存储系统的容量。</p>
 <h2 id="FastDFS架构"><a href="#FastDFS架构" class="headerlink" title="FastDFS架构"></a>FastDFS架构</h2><p><img src="http://imglf1.nosdn.127.net/img/R3hDdlA4YitONFpPSXdaUEVIeXNxd20wOGd2UFBkR0NIRGkwTzN3RjlOcklzS3NzTzlFY0pRPT0.gif" alt=""><br>客户端和Storage server主动连接Tracker server。Storage server主动向Tracker server报告其状态信息，包括磁盘剩余空间、文件同步状况、文件上传下载次数等统计信息。Storage server会连接集群中所有的Tracker server，向他们报告自己的状态。Storage server启动一个单独的线程来完成对一台Tracker server的连接和定时报告。需要说明的是，一个组包含的Storage server不是通过配置文件设定的，而是通过Tracker server获取到的。<br>不同组的Storage server之间不会相互通信，同组内的Storage server之间会相互连接进行文件同步。<br>Storage server采用binlog文件记录文件上传、删除等更新操作。binlog中只记录文件名，不记录文件内容。<br>文件同步只在同组内的Storage server之间进行，采用push方式，即源头服务器同步给目标服务器。只有源头数据才需要同步，备份数据并不需要再次同步，否则就构成环路了。有个例外，就是新增加一台Storage server时，由已有的一台Storage server将已有的所有数据（包括源头数据和备份数据）同步给该新增服务器。<br>Storage server中由专门的线程根据binlog进行文件同步。为了最大程度地避免相互影响以及出于系统简洁性考虑，Storage server对组内除自己以外的每台服务器都会启动一个线程来进行文件同步。<br>文件同步采用增量同步方式，系统记录已同步的位置（binlog文件偏移量）到标识文件中。标识文件名格式：{dest storage IP}_{port}.mark，例如：192.168.1.14_23000.mark。</p>
 <h2 id="FastDFS文件上传下载交互过程"><a href="#FastDFS文件上传下载交互过程" class="headerlink" title="FastDFS文件上传下载交互过程"></a>FastDFS文件上传下载交互过程</h2><p><img src="http://imglf.nosdn.127.net/img/R3hDdlA4YitONFpPSXdaUEVIeXNxNjRjV2FWQjZZMHovREprSGx6ZnBNSmFoUXp3WDdVZ0p3PT0.gif" alt=""></p>
 <h3 id="文件下载流程"><a href="#文件下载流程" class="headerlink" title="文件下载流程"></a>文件下载流程</h3><ol>

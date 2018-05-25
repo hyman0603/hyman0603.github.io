@@ -154,18 +154,18 @@
 
 
 
-  <meta name="description" content="Redis是个支持持久化的内存数据库，redis需要经常将内存中的数据同步到磁盘来保证持久化。 快照（Snapshotting）默认持久化方式配置1234snapshotting：       save 900 1          #900秒内如果超过1个key被修改，则发起快照保存save 300 10         #300秒内如果超过10个key被修改，则发起快照保存save 60 10">
+  <meta name="description" content="Redis是个支持持久化的内存数据库，redis需要经常将内存中的数据同步到磁盘来保证持久化。">
 <meta name="keywords" content="redis">
 <meta property="og:type" content="article">
 <meta property="og:title" content="记录redis的RDB、AOF持久化">
 <meta property="og:url" content="http://www.hyman.shop/2017/05/08/record-redis-RDB、AOF-persistence.html">
 <meta property="og:site_name" content="hyman">
-<meta property="og:description" content="Redis是个支持持久化的内存数据库，redis需要经常将内存中的数据同步到磁盘来保证持久化。 快照（Snapshotting）默认持久化方式配置1234snapshotting：       save 900 1          #900秒内如果超过1个key被修改，则发起快照保存save 300 10         #300秒内如果超过10个key被修改，则发起快照保存save 60 10">
+<meta property="og:description" content="Redis是个支持持久化的内存数据库，redis需要经常将内存中的数据同步到磁盘来保证持久化。">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2017-08-01T06:22:05.810Z">
+<meta property="og:updated_time" content="2018-05-25T09:50:34.024Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="记录redis的RDB、AOF持久化">
-<meta name="twitter:description" content="Redis是个支持持久化的内存数据库，redis需要经常将内存中的数据同步到磁盘来保证持久化。 快照（Snapshotting）默认持久化方式配置1234snapshotting：       save 900 1          #900秒内如果超过1个key被修改，则发起快照保存save 300 10         #300秒内如果超过10个key被修改，则发起快照保存save 60 10">
+<meta name="twitter:description" content="Redis是个支持持久化的内存数据库，redis需要经常将内存中的数据同步到磁盘来保证持久化。">
 
 
 
@@ -455,7 +455,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2017-08-01 14:22:05" itemprop="dateModified" datetime="2017-08-01T14:22:05+08:00">2017-08-01</time>
+                <time title="修改时间：2018-05-25 17:50:34" itemprop="dateModified" datetime="2018-05-25T17:50:34+08:00">2018-05-25</time>
               
             
           </span>
@@ -506,7 +506,7 @@
       
 
       
-        <p>Redis是个支持持久化的内存数据库，redis需要经常将内存中的数据同步到磁盘来保证持久化。</p>
+        <p>Redis是个支持持久化的内存数据库，redis需要经常将内存中的数据同步到磁盘来保证持久化。<br><a id="more"></a></p>
 <h3 id="快照（Snapshotting）默认持久化方式"><a href="#快照（Snapshotting）默认持久化方式" class="headerlink" title="快照（Snapshotting）默认持久化方式"></a>快照（Snapshotting）默认持久化方式</h3><h4 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">snapshotting：       </span><br><span class="line">save 900 1          #900秒内如果超过1个key被修改，则发起快照保存</span><br><span class="line">save 300 10         #300秒内如果超过10个key被修改，则发起快照保存</span><br><span class="line">save 60 10000</span><br></pre></td></tr></table></figure>
 <h4 id="工作原理"><a href="#工作原理" class="headerlink" title="工作原理"></a>工作原理</h4><ol>
 <li><p>Redis使用fork函数复制一份当前进程（父进程）的副本（子进程）；</p>

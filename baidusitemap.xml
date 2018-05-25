@@ -4,95 +4,8 @@
 
     
   <url>
-    <loc>http://www.hyman.shop/2018/05/25/winscp-switch-root.html</loc>
-    <lastmod>2018-05-25T08:20:39.175Z</lastmod>
-    <data>
-        <display>
-        <title>winscp 普通用户登录sftp后切换到root权限</title>
-        <pubTime>2018-05-25T06:40:41.000Z</pubTime>
-        
-         
-           
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>http://www.hyman.shop/2018/05/15/k8s-simple-install-1.10.3.html</loc>
-    <lastmod>2018-05-24T07:19:15.370Z</lastmod>
-    <data>
-        <display>
-        <title>k8s简易安装1.10.3</title>
-        <pubTime>2018-05-15T06:56:50.000Z</pubTime>
-        
-        <tag>k8s</tag>
-         
-         
-           
-             
-              <breadCrumb title="kubernetes" url="http://www.hyman.shop/categories/kubernetes/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>http://www.hyman.shop/2018/05/18/CentOS7-install-NFS.html</loc>
-    <lastmod>2018-05-18T08:14:47.585Z</lastmod>
-    <data>
-        <display>
-        <title>CentOS 7 安装NFS</title>
-        <pubTime>2018-05-18T08:08:00.000Z</pubTime>
-        
-        <tag>nfs</tag>
-         
-         
-           
-             
-              <breadCrumb title="nfs" url="http://www.hyman.shop/categories/nfs/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>http://www.hyman.shop/2018/05/17/oracle-base-operation.html</loc>
-    <lastmod>2018-05-17T06:49:23.976Z</lastmod>
-    <data>
-        <display>
-        <title>oracle 基本操作</title>
-        <pubTime>2018-05-17T06:47:12.000Z</pubTime>
-        
-         
-           
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>http://www.hyman.shop/2017/11/30/install-ELK5.x-some-problem.html</loc>
-    <lastmod>2017-11-30T09:48:02.316Z</lastmod>
-    <data>
-        <display>
-        <title>ELK5.x安装过程中所遇到的问题</title>
-        <pubTime>2017-11-30T09:38:06.000Z</pubTime>
-        
-        <tag>ELK</tag>
-         
-         
-           
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
     <loc>http://www.hyman.shop/2017/11/16/%E6%8D%AE%E8%AF%B4%E6%98%AF%E5%B0%8F%E7%B1%B3%E6%8B%9B%E8%81%98%E8%BF%90%E7%BB%B4%E5%B7%A5%E7%A8%8B%E5%B8%88%E7%9A%84%E9%A2%98%E7%9B%AE.html</loc>
-    <lastmod>2017-11-16T07:26:22.218Z</lastmod>
+    <lastmod>2018-05-25T09:51:10.360Z</lastmod>
     <data>
         <display>
         <title>据说是小米招聘运维工程师的题目</title>
@@ -111,96 +24,8 @@
 
     
   <url>
-    <loc>http://www.hyman.shop/2017/11/06/Haproxy-configuration-https.html</loc>
-    <lastmod>2017-11-06T07:16:59.873Z</lastmod>
-    <data>
-        <display>
-        <title>Haproxy配置支持https协议转发</title>
-        <pubTime>2017-11-06T06:40:57.000Z</pubTime>
-        
-        <tag>harpoxy</tag>
-         
-        <tag>https</tag>
-         
-         
-           
-             
-              <breadCrumb title="haproxy" url="http://www.hyman.shop/categories/haproxy/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>http://www.hyman.shop/2017/10/23/MySQL-backup-explain.html</loc>
-    <lastmod>2017-10-23T02:27:19.881Z</lastmod>
-    <data>
-        <display>
-        <title>MySQL备份说明</title>
-        <pubTime>2017-10-23T01:39:54.000Z</pubTime>
-        
-        <tag>mysql</tag>
-         
-        <tag>备份</tag>
-         
-         
-           
-             
-              <breadCrumb title="mysql" url="http://www.hyman.shop/categories/mysql/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>http://www.hyman.shop/2017/08/23/Python-base-operation.html</loc>
-    <lastmod>2017-08-23T05:57:20.716Z</lastmod>
-    <data>
-        <display>
-        <title>Python基本算法</title>
-        <pubTime>2017-08-23T02:11:25.000Z</pubTime>
-        
-        <tag>python</tag>
-         
-        <tag>算法</tag>
-         
-         
-           
-             
-              <breadCrumb title="python" url="http://www.hyman.shop/categories/python/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>http://www.hyman.shop/2017/08/10/Linux-some-command-recommend.html</loc>
-    <lastmod>2017-08-10T01:43:16.248Z</lastmod>
-    <data>
-        <display>
-        <title>Linux几个常用命令使用介绍</title>
-        <pubTime>2017-08-10T01:19:39.000Z</pubTime>
-        
-        <tag>grep</tag>
-         
-        <tag>sed</tag>
-         
-         
-           
-             
-              <breadCrumb title="linux" url="http://www.hyman.shop/categories/linux/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
     <loc>http://www.hyman.shop/2017/08/09/%E5%A4%87%E4%BB%BD%E6%95%B0%E6%8D%AE%E5%BA%93%E8%84%9A%E6%9C%AC%E5%B9%B6%E5%B0%86%E5%A4%87%E4%BB%BD%E6%95%B0%E6%8D%AE%E5%BA%93%E5%90%8C%E6%AD%A5%E5%88%B0%E5%8F%88%E6%8B%8D%E4%BA%91%E5%AD%98%E5%82%A8%E7%A9%BA%E9%97%B4.html</loc>
-    <lastmod>2017-08-09T06:01:02.933Z</lastmod>
+    <lastmod>2018-05-25T09:51:02.564Z</lastmod>
     <data>
         <display>
         <title>备份数据库脚本并将备份数据库同步到又拍云存储空间</title>
@@ -225,8 +50,23 @@
 
     
   <url>
+    <loc>http://www.hyman.shop/2017/04/26/Zookeeper-Dubbo-Admin-platform-deploy.html</loc>
+    <lastmod>2018-05-25T09:50:57.622Z</lastmod>
+    <data>
+        <display>
+        <title>Zookeeper、Dubbo-Admin管理平台的搭建</title>
+        <pubTime>2017-04-26T06:53:28.000Z</pubTime>
+        
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
     <loc>http://www.hyman.shop/2017/08/08/use-Xtrabackup-MySQL-backup.html</loc>
-    <lastmod>2017-08-08T08:32:29.446Z</lastmod>
+    <lastmod>2018-05-25T09:50:51.014Z</lastmod>
     <data>
         <display>
         <title>使用Xtrabackup进行MySQL备份</title>
@@ -247,8 +87,25 @@
 
     
   <url>
+    <loc>http://www.hyman.shop/2017/05/09/SaltStack-stuty-record.html</loc>
+    <lastmod>2018-05-25T09:50:45.830Z</lastmod>
+    <data>
+        <display>
+        <title>SaltStack学习记录</title>
+        <pubTime>2017-05-09T07:58:52.000Z</pubTime>
+        
+        <tag>saltstack</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
     <loc>http://www.hyman.shop/2017/08/01/redis4.0-config-file-explain.html</loc>
-    <lastmod>2017-08-01T06:30:53.181Z</lastmod>
+    <lastmod>2018-05-25T09:50:41.506Z</lastmod>
     <data>
         <display>
         <title>redis4.0配置文件介绍</title>
@@ -268,7 +125,7 @@
     
   <url>
     <loc>http://www.hyman.shop/2017/05/08/record-redis-RDB%E3%80%81AOF-persistence.html</loc>
-    <lastmod>2017-08-01T06:22:05.810Z</lastmod>
+    <lastmod>2018-05-25T09:50:34.024Z</lastmod>
     <data>
         <display>
         <title>记录redis的RDB、AOF持久化</title>
@@ -287,72 +144,8 @@
 
     
   <url>
-    <loc>http://www.hyman.shop/2017/05/09/SaltStack-stuty-record.html</loc>
-    <lastmod>2017-05-09T08:20:05.316Z</lastmod>
-    <data>
-        <display>
-        <title>SaltStack学习记录</title>
-        <pubTime>2017-05-09T07:58:52.000Z</pubTime>
-        
-        <tag>saltstack</tag>
-         
-         
-           
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>http://www.hyman.shop/2017/05/05/CentOS7-DevStack-install-OpenStack.html</loc>
-    <lastmod>2017-05-05T08:06:03.652Z</lastmod>
-    <data>
-        <display>
-        <title>CentOS 7用DevStack安装OpenStack</title>
-        <pubTime>2017-05-05T07:41:14.000Z</pubTime>
-        
-         
-           
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>http://www.hyman.shop/2017/05/04/CentOS7-install-KVM.html</loc>
-    <lastmod>2017-05-05T02:19:32.299Z</lastmod>
-    <data>
-        <display>
-        <title>CentOS 7 安装KVM虚拟机</title>
-        <pubTime>2017-05-04T07:56:12.000Z</pubTime>
-        
-         
-           
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>http://www.hyman.shop/2017/05/03/deploy-FastDFS.html</loc>
-    <lastmod>2017-05-04T01:26:31.643Z</lastmod>
-    <data>
-        <display>
-        <title>搭建FastDFS分布式文件系统</title>
-        <pubTime>2017-05-03T07:21:14.000Z</pubTime>
-        
-        <tag>FastDFS</tag>
-         
-         
-           
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
     <loc>http://www.hyman.shop/2017/05/03/record-MongoDB3.4-shard-some-config.html</loc>
-    <lastmod>2017-05-03T04:04:26.461Z</lastmod>
+    <lastmod>2018-05-25T09:50:30.257Z</lastmod>
     <data>
         <display>
         <title>记录MongoDB3.4分片的一些配置</title>
@@ -371,46 +164,34 @@
 
     
   <url>
-    <loc>http://www.hyman.shop/2017/05/02/CentOS7-LDAP-deployment.html</loc>
-    <lastmod>2017-05-02T08:46:46.665Z</lastmod>
+    <loc>http://www.hyman.shop/2017/08/23/Python-base-operation.html</loc>
+    <lastmod>2018-05-25T09:50:25.391Z</lastmod>
     <data>
         <display>
-        <title>CentOS7 LDAP统一认证部署</title>
-        <pubTime>2017-05-02T06:17:51.000Z</pubTime>
+        <title>Python基本算法</title>
+        <pubTime>2017-08-23T02:11:25.000Z</pubTime>
         
-        <tag>LDAP</tag>
+        <tag>python</tag>
+         
+        <tag>算法</tag>
          
          
            
+             
+              <breadCrumb title="python" url="http://www.hyman.shop/categories/python/"/>
+          
         </display>
     </data>
     </url>
 
     
   <url>
-    <loc>http://www.hyman.shop/2017/04/27/CentOS7-install-ansible.html</loc>
-    <lastmod>2017-04-27T08:53:47.252Z</lastmod>
+    <loc>http://www.hyman.shop/2018/05/17/oracle-base-operation.html</loc>
+    <lastmod>2018-05-25T09:50:13.470Z</lastmod>
     <data>
         <display>
-        <title>CentOS 7通过yum安装ansible</title>
-        <pubTime>2017-04-27T08:09:09.000Z</pubTime>
-        
-        <tag>ansible</tag>
-         
-         
-           
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>http://www.hyman.shop/2017/04/26/Zookeeper-Dubbo-Admin-platform-deploy.html</loc>
-    <lastmod>2017-04-26T07:31:21.256Z</lastmod>
-    <data>
-        <display>
-        <title>Zookeeper、Dubbo-Admin管理平台的搭建</title>
-        <pubTime>2017-04-26T06:53:28.000Z</pubTime>
+        <title>oracle 基本操作</title>
+        <pubTime>2018-05-17T06:47:12.000Z</pubTime>
         
          
            
@@ -421,7 +202,7 @@
     
   <url>
     <loc>http://www.hyman.shop/2017/04/26/MySQL%E8%87%AA%E5%B8%A6%E5%8E%8B%E5%8A%9B%E6%B5%8B%E8%AF%95%E5%B7%A5%E5%85%B7mysqlslap%E7%9A%84%E4%BD%BF%E7%94%A8%E6%96%B9%E6%B3%95.html</loc>
-    <lastmod>2017-04-26T04:05:09.678Z</lastmod>
+    <lastmod>2018-05-25T09:50:07.220Z</lastmod>
     <data>
         <display>
         <title>MySQL自带压力测试工具mysqlslap的使用方法</title>
@@ -437,8 +218,143 @@
 
     
   <url>
+    <loc>http://www.hyman.shop/2017/10/23/MySQL-backup-explain.html</loc>
+    <lastmod>2018-05-25T09:50:03.254Z</lastmod>
+    <data>
+        <display>
+        <title>MySQL备份说明</title>
+        <pubTime>2017-10-23T01:39:54.000Z</pubTime>
+        
+        <tag>mysql</tag>
+         
+        <tag>备份</tag>
+         
+         
+           
+             
+              <breadCrumb title="mysql" url="http://www.hyman.shop/categories/mysql/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://www.hyman.shop/2017/08/10/Linux-some-command-recommend.html</loc>
+    <lastmod>2018-05-25T09:49:58.762Z</lastmod>
+    <data>
+        <display>
+        <title>Linux几个常用命令使用介绍</title>
+        <pubTime>2017-08-10T01:19:39.000Z</pubTime>
+        
+        <tag>grep</tag>
+         
+        <tag>sed</tag>
+         
+         
+           
+             
+              <breadCrumb title="linux" url="http://www.hyman.shop/categories/linux/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://www.hyman.shop/2018/05/15/k8s-simple-install-1.10.3.html</loc>
+    <lastmod>2018-05-25T09:49:51.860Z</lastmod>
+    <data>
+        <display>
+        <title>k8s简易安装1.10.3</title>
+        <pubTime>2018-05-15T06:56:50.000Z</pubTime>
+        
+        <tag>k8s</tag>
+         
+         
+           
+             
+              <breadCrumb title="kubernetes" url="http://www.hyman.shop/categories/kubernetes/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://www.hyman.shop/2017/11/30/install-ELK5.x-some-problem.html</loc>
+    <lastmod>2018-05-25T09:49:41.678Z</lastmod>
+    <data>
+        <display>
+        <title>ELK5.x安装过程中所遇到的问题</title>
+        <pubTime>2017-11-30T09:38:06.000Z</pubTime>
+        
+        <tag>ELK</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://www.hyman.shop/2017/01/13/Hexo-github-next-blog.html</loc>
+    <lastmod>2018-05-25T09:49:32.891Z</lastmod>
+    <data>
+        <display>
+        <title>Hexo+github+next搭建的blog</title>
+        <pubTime>2017-01-13T11:42:30.000Z</pubTime>
+        
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://www.hyman.shop/2017/11/06/Haproxy-configuration-https.html</loc>
+    <lastmod>2018-05-25T09:49:26.550Z</lastmod>
+    <data>
+        <display>
+        <title>Haproxy配置支持https协议转发</title>
+        <pubTime>2017-11-06T06:40:57.000Z</pubTime>
+        
+        <tag>harpoxy</tag>
+         
+        <tag>https</tag>
+         
+         
+           
+             
+              <breadCrumb title="haproxy" url="http://www.hyman.shop/categories/haproxy/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://www.hyman.shop/2017/05/03/deploy-FastDFS.html</loc>
+    <lastmod>2018-05-25T09:49:22.444Z</lastmod>
+    <data>
+        <display>
+        <title>搭建FastDFS分布式文件系统</title>
+        <pubTime>2017-05-03T07:21:14.000Z</pubTime>
+        
+        <tag>FastDFS</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
     <loc>http://www.hyman.shop/2017/04/26/CentOS7-yum-install-MySQL.html</loc>
-    <lastmod>2017-04-26T03:31:59.471Z</lastmod>
+    <lastmod>2018-05-25T09:49:18.159Z</lastmod>
     <data>
         <display>
         <title>CentOS7通过yum安装最新版本MySQL</title>
@@ -456,15 +372,50 @@
     </url>
 
     
-    
-    
   <url>
-    <loc>http://www.hyman.shop/2017/01/13/Hexo-github-next-blog.html</loc>
-    <lastmod>2017-01-14T01:17:14.745Z</lastmod>
+    <loc>http://www.hyman.shop/2017/05/02/CentOS7-LDAP-deployment.html</loc>
+    <lastmod>2018-05-25T09:49:10.128Z</lastmod>
     <data>
         <display>
-        <title>Hexo+github+next搭建的blog</title>
-        <pubTime>2017-01-13T11:42:30.000Z</pubTime>
+        <title>CentOS7 LDAP统一认证部署</title>
+        <pubTime>2017-05-02T06:17:51.000Z</pubTime>
+        
+        <tag>LDAP</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://www.hyman.shop/2018/05/18/CentOS7-install-NFS.html</loc>
+    <lastmod>2018-05-25T09:49:05.889Z</lastmod>
+    <data>
+        <display>
+        <title>CentOS 7 安装NFS</title>
+        <pubTime>2018-05-18T08:08:00.000Z</pubTime>
+        
+        <tag>nfs</tag>
+         
+         
+           
+             
+              <breadCrumb title="nfs" url="http://www.hyman.shop/categories/nfs/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://www.hyman.shop/2017/05/04/CentOS7-install-KVM.html</loc>
+    <lastmod>2018-05-25T09:48:16.929Z</lastmod>
+    <data>
+        <display>
+        <title>CentOS 7 安装KVM虚拟机</title>
+        <pubTime>2017-05-04T07:56:12.000Z</pubTime>
         
          
            
@@ -472,4 +423,53 @@
     </data>
     </url>
 
+    
+  <url>
+    <loc>http://www.hyman.shop/2017/04/27/CentOS7-install-ansible.html</loc>
+    <lastmod>2018-05-25T09:48:10.945Z</lastmod>
+    <data>
+        <display>
+        <title>CentOS 7通过yum安装ansible</title>
+        <pubTime>2017-04-27T08:09:09.000Z</pubTime>
+        
+        <tag>ansible</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://www.hyman.shop/2017/05/05/CentOS7-DevStack-install-OpenStack.html</loc>
+    <lastmod>2018-05-25T09:48:01.814Z</lastmod>
+    <data>
+        <display>
+        <title>CentOS 7用DevStack安装OpenStack</title>
+        <pubTime>2017-05-05T07:41:14.000Z</pubTime>
+        
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://www.hyman.shop/2018/05/25/winscp-switch-root.html</loc>
+    <lastmod>2018-05-25T09:47:15.312Z</lastmod>
+    <data>
+        <display>
+        <title>winscp 普通用户登录sftp后切换到root权限</title>
+        <pubTime>2018-05-25T06:40:41.000Z</pubTime>
+        
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+    
 </urlset>

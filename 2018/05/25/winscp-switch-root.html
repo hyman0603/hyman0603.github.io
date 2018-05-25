@@ -154,20 +154,20 @@
 
 
 
-  <meta name="description" content="工具： Xshell、winscp服务器环境： linux RedHat 6.4遇到的问题：普通用户使用winscp账户登录服务器，没有操作权限！ 一、普通用户，通过Xshell登录服务器。输入以下命令，再输入密码。切换为root。1su 二、先查找sftp-server 文件夹所在的系统路径，得到sftp-server文件路径后。12[root@LJS-CSS-APP3 ~]# cat /etc">
+  <meta name="description" content="工具： Xshell、winscp服务器环境： linux RedHat 6.4遇到的问题：普通用户使用winscp账户登录服务器，没有操作权限！">
 <meta property="og:type" content="article">
 <meta property="og:title" content="winscp 普通用户登录sftp后切换到root权限">
 <meta property="og:url" content="http://www.hyman.shop/2018/05/25/winscp-switch-root.html">
 <meta property="og:site_name" content="hyman">
-<meta property="og:description" content="工具： Xshell、winscp服务器环境： linux RedHat 6.4遇到的问题：普通用户使用winscp账户登录服务器，没有操作权限！ 一、普通用户，通过Xshell登录服务器。输入以下命令，再输入密码。切换为root。1su 二、先查找sftp-server 文件夹所在的系统路径，得到sftp-server文件路径后。12[root@LJS-CSS-APP3 ~]# cat /etc">
+<meta property="og:description" content="工具： Xshell、winscp服务器环境： linux RedHat 6.4遇到的问题：普通用户使用winscp账户登录服务器，没有操作权限！">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="http://www.hyman.shop/images/stfp.png">
 <meta property="og:image" content="http://www.hyman.shop/images/stfp1.png">
 <meta property="og:image" content="http://www.hyman.shop/images/stfp2.png">
-<meta property="og:updated_time" content="2018-05-25T08:20:39.175Z">
+<meta property="og:updated_time" content="2018-05-25T09:47:15.312Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="winscp 普通用户登录sftp后切换到root权限">
-<meta name="twitter:description" content="工具： Xshell、winscp服务器环境： linux RedHat 6.4遇到的问题：普通用户使用winscp账户登录服务器，没有操作权限！ 一、普通用户，通过Xshell登录服务器。输入以下命令，再输入密码。切换为root。1su 二、先查找sftp-server 文件夹所在的系统路径，得到sftp-server文件路径后。12[root@LJS-CSS-APP3 ~]# cat /etc">
+<meta name="twitter:description" content="工具： Xshell、winscp服务器环境： linux RedHat 6.4遇到的问题：普通用户使用winscp账户登录服务器，没有操作权限！">
 <meta name="twitter:image" content="http://www.hyman.shop/images/stfp.png">
 
 
@@ -441,7 +441,7 @@
                 
               
 
-              <time title="创建时间：2018-05-25 14:40:41 / 修改时间：16:20:39" itemprop="dateCreated datePublished" datetime="2018-05-25T14:40:41+08:00">2018-05-25</time>
+              <time title="创建时间：2018-05-25 14:40:41 / 修改时间：17:47:15" itemprop="dateCreated datePublished" datetime="2018-05-25T14:40:41+08:00">2018-05-25</time>
             
 
             
@@ -480,6 +480,7 @@
 
       
         <p>工具： Xshell、winscp<br>服务器环境： linux RedHat 6.4<br>遇到的问题：普通用户使用winscp账户登录服务器，没有操作权限！</p>
+<a id="more"></a>
 <h2 id="一、普通用户，通过Xshell登录服务器。"><a href="#一、普通用户，通过Xshell登录服务器。" class="headerlink" title="一、普通用户，通过Xshell登录服务器。"></a>一、普通用户，通过Xshell登录服务器。</h2><p>输入以下命令，再输入密码。切换为root。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">su</span><br></pre></td></tr></table></figure></p>
 <h2 id="二、先查找sftp-server-文件夹所在的系统路径，得到sftp-server文件路径后。"><a href="#二、先查找sftp-server-文件夹所在的系统路径，得到sftp-server文件路径后。" class="headerlink" title="二、先查找sftp-server 文件夹所在的系统路径，得到sftp-server文件路径后。"></a>二、先查找sftp-server 文件夹所在的系统路径，得到sftp-server文件路径后。</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root@LJS-CSS-APP3 ~]# cat /etc/ssh/sshd_config|grep sftp</span><br><span class="line">[root@LJS-CSS-APP3 ~]# /usr/libexec/openssh/sftp-server</span><br></pre></td></tr></table></figure>
 <p><img src="/images/stfp.png" width="100%" height="100%"></p>
