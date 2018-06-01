@@ -4,6 +4,61 @@
 
     
   <url>
+    <loc>http://www.hyman.shop/2018/05/15/k8s-simple-install-1.10.3.html</loc>
+    <lastmod>2018-06-01T04:27:06.483Z</lastmod>
+    <data>
+        <display>
+        <title>k8s简易安装1.10.3</title>
+        <pubTime>2018-05-15T06:56:50.000Z</pubTime>
+        
+        <tag>k8s</tag>
+         
+         
+           
+             
+              <breadCrumb title="kubernetes" url="http://www.hyman.shop/categories/kubernetes/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://www.hyman.shop/2018/05/30/linux-filesystem-tripwire.html</loc>
+    <lastmod>2018-06-01T03:54:50.454Z</lastmod>
+    <data>
+        <display>
+        <title>CentOS 7上使用Tripwire监控和检测修改的文件</title>
+        <pubTime>2018-05-30T06:37:12.000Z</pubTime>
+        
+        <tag>Tripwire</tag>
+         
+         
+           
+             
+              <breadCrumb title="linux" url="http://www.hyman.shop/categories/linux/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://www.hyman.shop/2018/05/25/winscp-switch-root.html</loc>
+    <lastmod>2018-05-30T06:26:36.384Z</lastmod>
+    <data>
+        <display>
+        <title>winscp 普通用户登录sftp后切换到root权限</title>
+        <pubTime>2018-05-25T06:40:41.000Z</pubTime>
+        
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
     <loc>http://www.hyman.shop/2017/11/16/%E6%8D%AE%E8%AF%B4%E6%98%AF%E5%B0%8F%E7%B1%B3%E6%8B%9B%E8%81%98%E8%BF%90%E7%BB%B4%E5%B7%A5%E7%A8%8B%E5%B8%88%E7%9A%84%E9%A2%98%E7%9B%AE.html</loc>
     <lastmod>2018-05-25T09:51:10.360Z</lastmod>
     <data>
@@ -35,9 +90,9 @@
          
         <tag>redis</tag>
          
-        <tag>xtrabackup</tag>
-         
         <tag>mongodb</tag>
+         
+        <tag>xtrabackup</tag>
          
          
            
@@ -186,21 +241,6 @@
 
     
   <url>
-    <loc>http://www.hyman.shop/2018/05/17/oracle-base-operation.html</loc>
-    <lastmod>2018-05-25T09:50:13.470Z</lastmod>
-    <data>
-        <display>
-        <title>oracle 基本操作</title>
-        <pubTime>2018-05-17T06:47:12.000Z</pubTime>
-        
-         
-           
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
     <loc>http://www.hyman.shop/2017/04/26/MySQL%E8%87%AA%E5%B8%A6%E5%8E%8B%E5%8A%9B%E6%B5%8B%E8%AF%95%E5%B7%A5%E5%85%B7mysqlslap%E7%9A%84%E4%BD%BF%E7%94%A8%E6%96%B9%E6%B3%95.html</loc>
     <lastmod>2018-05-25T09:50:07.220Z</lastmod>
     <data>
@@ -255,26 +295,6 @@
            
              
               <breadCrumb title="linux" url="http://www.hyman.shop/categories/linux/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>http://www.hyman.shop/2018/05/15/k8s-simple-install-1.10.3.html</loc>
-    <lastmod>2018-05-25T09:49:51.860Z</lastmod>
-    <data>
-        <display>
-        <title>k8s简易安装1.10.3</title>
-        <pubTime>2018-05-15T06:56:50.000Z</pubTime>
-        
-        <tag>k8s</tag>
-         
-         
-           
-             
-              <breadCrumb title="kubernetes" url="http://www.hyman.shop/categories/kubernetes/"/>
           
         </display>
     </data>
@@ -448,21 +468,6 @@
         <display>
         <title>CentOS 7用DevStack安装OpenStack</title>
         <pubTime>2017-05-05T07:41:14.000Z</pubTime>
-        
-         
-           
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>http://www.hyman.shop/2018/05/25/winscp-switch-root.html</loc>
-    <lastmod>2018-05-25T09:47:15.312Z</lastmod>
-    <data>
-        <display>
-        <title>winscp 普通用户登录sftp后切换到root权限</title>
-        <pubTime>2018-05-25T06:40:41.000Z</pubTime>
         
          
            

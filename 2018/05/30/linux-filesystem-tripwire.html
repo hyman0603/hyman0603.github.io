@@ -154,20 +154,31 @@
 
 
 
-  <meta property="og:type" content="website">
-<meta property="og:title" content="hyman">
-<meta property="og:url" content="http://www.hyman.shop/categories/nfs/index.html">
+  <meta name="description" content="Tripwire是一个免费的开源入侵检测系统（IDS）。 它是用于监视和警告系统上文件更改的安全工具。 Tripwire是一个功能强大的IDS，可以保护您的系统免受不必要的更改。 您可以使用它来监控您的系统文件，包括网站文件，因此当有不需要的文件更改时，Tripwire会检查您的系统，如果设置正确，可以通过电子邮件提醒您。">
+<meta name="keywords" content="Tripwire">
+<meta property="og:type" content="article">
+<meta property="og:title" content="CentOS 7上使用Tripwire监控和检测修改的文件">
+<meta property="og:url" content="http://www.hyman.shop/2018/05/30/linux-filesystem-tripwire.html">
 <meta property="og:site_name" content="hyman">
+<meta property="og:description" content="Tripwire是一个免费的开源入侵检测系统（IDS）。 它是用于监视和警告系统上文件更改的安全工具。 Tripwire是一个功能强大的IDS，可以保护您的系统免受不必要的更改。 您可以使用它来监控您的系统文件，包括网站文件，因此当有不需要的文件更改时，Tripwire会检查您的系统，如果设置正确，可以通过电子邮件提醒您。">
 <meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="http://www.hyman.shop/images/tripwire-site.png">
+<meta property="og:image" content="http://www.hyman.shop/images/tripwire-local.png">
+<meta property="og:image" content="http://www.hyman.shop/images/tripwire-site-key.png">
+<meta property="og:image" content="http://www.hyman.shop/images/tripwire-local-key.png">
+<meta property="og:image" content="http://www.hyman.shop/images/tripwire-error.png">
+<meta property="og:updated_time" content="2018-06-01T03:54:50.454Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="hyman">
+<meta name="twitter:title" content="CentOS 7上使用Tripwire监控和检测修改的文件">
+<meta name="twitter:description" content="Tripwire是一个免费的开源入侵检测系统（IDS）。 它是用于监视和警告系统上文件更改的安全工具。 Tripwire是一个功能强大的IDS，可以保护您的系统免受不必要的更改。 您可以使用它来监控您的系统文件，包括网站文件，因此当有不需要的文件更改时，Tripwire会检查您的系统，如果设置正确，可以通过电子邮件提醒您。">
+<meta name="twitter:image" content="http://www.hyman.shop/images/tripwire-site.png">
 
 
 
 
 
 
-  <link rel="canonical" href="http://www.hyman.shop/categories/nfs/"/>
+  <link rel="canonical" href="http://www.hyman.shop/2018/05/30/linux-filesystem-tripwire.html"/>
 
 
 
@@ -177,7 +188,7 @@
   };
 </script>
 
-  <title>分类: nfs | hyman</title>
+  <title>CentOS 7上使用Tripwire监控和检测修改的文件 | hyman</title>
   
 
 
@@ -234,7 +245,7 @@
     
   
 
-  <div class="container sidebar-position-left ">
+  <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -291,7 +302,7 @@
         
         
           
-          <li class="menu-item menu-item-categories menu-item-active">
+          <li class="menu-item menu-item-categories">
     <a href="/categories/" rel="section">
       <i class="menu-item-icon fa fa-fw fa-th"></i> <br />分类</a>
   </li>
@@ -327,28 +338,6 @@
 
   
     
-
-    
-    
-      
-      
-    
-      
-      
-    
-      
-      
-    
-      
-      
-    
-      
-      
-    
-    
-
-  
-
 
   
 
@@ -397,59 +386,280 @@
           <div id="content" class="content">
             
 
-  
-  
-  
-  <div class="post-block category">
+  <div id="posts" class="posts-expand">
+    
 
-    <div id="posts" class="posts-collapse">
-      <div class="collection-title">
-        <h2>nfs<small>分类</small>
-        </h2>
-      </div>
+  
 
-      
-        
+  
+  
+  
+
+  
 
   <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://www.hyman.shop/2018/05/30/linux-filesystem-tripwire.html">
 
-      <h3 class="post-title">
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="hyman">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="hyman">
+    </span>
+
+    
+      <header class="post-header">
+
         
-            <a class="post-title-link" href="/2018/05/18/CentOS7-install-NFS.html" itemprop="url">
-              
-                <span itemprop="name">CentOS 7 安装NFS</span>
-              
-            </a>
         
-      </h3>
+          <h2 class="post-title" itemprop="name headline">CentOS 7上使用Tripwire监控和检测修改的文件
+              
+            
+          </h2>
+        
 
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2018-05-18T16:08:00+08:00"
-              content="2018-05-18" >
-          05-18
-        </time>
-      </div>
+        <div class="post-meta">
+          <span class="post-time">
 
-    </header>
-  </article>
+            
+            
+            
 
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2018-05-30 14:37:12" itemprop="dateCreated datePublished" datetime="2018-05-30T14:37:12+08:00">2018-05-30</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2018-06-01 11:54:50" itemprop="dateModified" datetime="2018-06-01T11:54:50+08:00">2018-06-01</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/linux/" itemprop="url" rel="index"><span itemprop="name">linux</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>Tripwire是一个免费的开源入侵检测系统（IDS）。 它是用于监视和警告系统上文件更改的安全工具。 Tripwire是一个功能强大的IDS，可以保护您的系统免受不必要的更改。 您可以使用它来监控您的系统文件，包括网站文件，因此当有不需要的文件更改时，Tripwire会检查您的系统，如果设置正确，可以通过电子邮件提醒您。<br><a id="more"></a></p>
+<h1 id="在CentOS-7上安装Tripwire"><a href="#在CentOS-7上安装Tripwire" class="headerlink" title="在CentOS 7上安装Tripwire"></a>在CentOS 7上安装Tripwire</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">yum update</span><br><span class="line">yum install epel-release</span><br><span class="line">yum install tripwire</span><br></pre></td></tr></table></figure>
+<p>安装完成后，我们需要生成新的密钥文件。</p>
+<p>Tripwire使用2个关键文件。</p>
+<ol>
+<li>site-key：它用于保护Tripwire配置。 因此，除非我们再次生成配置，否则对tripwire配置所做的任何更改都不会生效，我们会提示您输入“site-key”密码。</li>
+<li>local-key：它用于验证tripwire二进制文件。 当我们想要更新tripwire系统数据库时，我们需要运行tripwire命令，并且会提示我们输入’local-key’的密码。</li>
+</ol>
+<p>我们使用下面的命令生成新的tripwire密钥文件（站点和本地密钥）。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tripwire-setup-keyfiles</span><br></pre></td></tr></table></figure></p>
+<p>该命令将生成两个密钥文件“site-key”和“local-key”，并且您将被要求输入每个密码。</p>
+<p>输入您自己的“ 网站密钥 ”密码，然后按Enter键。<br><img src="/images/tripwire-site.png" width="100%" height="100%"></p>
+<p>输入您自己的“ 本地密钥 ”密码并再次按Enter键。<br><img src="/images/tripwire-local.png" width="100%" height="100%"></p>
+<p>接下来，使用’site-key’签署tripwire配置,输入您的“ 网站密钥 ”密码。<br><img src="/images/tripwire-site-key.png" width="100%" height="100%"><br>现在，为了签署Tripwire政策，请输入您的“ 本地密钥 ”密码。<br><img src="/images/tripwire-local-key.png" width="100%" height="100%"></p>
+<h1 id="配置Tripwire策略"><a href="#配置Tripwire策略" class="headerlink" title="配置Tripwire策略"></a>配置Tripwire策略</h1><p>使用下面的tripwire命令初始化tripwire数据库。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tripwire --init</span><br></pre></td></tr></table></figure></p>
+<p>您可能会收到错误消息“no such directory”，如下所示</p>
+<p><img src="/images/tripwire-error.png" width="100%" height="100%"><br>是因为系统没有在tripwire配置中已经定义的目录和文件。 为了解决这个错误，我们需要编辑tripwire配置’twpol.txt’并重新签署tripwire配置。</p>
+<p>现在使用下面的命令从tripwire生成日志错误。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sh -c &quot;tripwire --check | grep Filename &gt; no-directory.txt&quot;</span><br></pre></td></tr></table></figure></p>
+<p>所有不存在于CentOS 7系统上的目录和文件都列在文件no-directory.txt中<br>使用以下bash脚本编辑tripwire配置’twpol.txt’ - 在终端上运行此脚本。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">for f in $(grep &quot;Filename:&quot; no-directory.txt | cut -f2 -d:); do</span><br><span class="line">sed -i &quot;s|\($f\) |#\\1|g&quot; /etc/tripwire/twpol.txt</span><br><span class="line">done</span><br></pre></td></tr></table></figure></p>
+<p>毕竟，我们需要使用twadmin命令重新生成并重新签署tripwire配置，如下所示。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">twadmin -m P /etc/tripwire/twpol.txt</span><br></pre></td></tr></table></figure></p>
+<p>输入您的“网站密钥”密码。重新初始化tripwire数据库，并确保没有错误。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tripwire --init</span><br></pre></td></tr></table></figure></p>
+<h1 id="验证Tripwire配置和检查系统"><a href="#验证Tripwire配置和检查系统" class="headerlink" title="验证Tripwire配置和检查系统"></a>验证Tripwire配置和检查系统</h1><p>要验证tripwire配置，我们可以运行系统检查命令如下。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tripwire --check</span><br></pre></td></tr></table></figure></p>
+<h1 id="将新规则添加到Tripwire策略"><a href="#将新规则添加到Tripwire策略" class="headerlink" title="将新规则添加到Tripwire策略"></a>将新规则添加到Tripwire策略</h1><p>在这一步中，我们将向您展示如何将新规则添加到tripwire策略配置“twpol.txt”。</p>
+<p>要执行这项工作，我们需要定义规则名称，严重程度，监视目录和文件类型。 在这一步中，我们将在/var/www/目录下为我们的WordPress安装创建一个名为Wordpress Data的新规则，严重程度为HIGH/SIG_HI,并且该目录中的所有文件都是关键的以及源代码不能更改）。</p>
+<p>转到tripwire配置目录/etc/tripwire并使用vim编辑配置文件twpol.txt。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cd /etc/tripwire/</span><br><span class="line">vim twpol.txt</span><br></pre></td></tr></table></figure></p>
+<p>转到该行的末尾，并在那里粘贴以下WordPress规则。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"># Ruleset for Wordpress</span><br><span class="line"> (</span><br><span class="line">   rulename = &quot;Wordpress Data&quot;,</span><br><span class="line">   severity= $(SIG_HI)</span><br><span class="line"> )</span><br><span class="line"> &#123;</span><br><span class="line">         /var/www        -&gt; $(SEC_CRIT);</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure></p>
+<p>保存并退出。</p>
+<p>使用twadmin命令重新生成并重新签名配置，如下所示。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">twadmin -m P /etc/tripwire/twpol.txt</span><br></pre></td></tr></table></figure></p>
+<p>输入您的“网站密钥”密码。现在我们需要再次重新生成tripwire数据库。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tripwire --init</span><br></pre></td></tr></table></figure></p>
+<p>输入“本地密钥”密码。新的规则集已添加并应用于Tripwire策略配置。</p>
+<h1 id="安装Tripwire电子邮件通知和Cron"><a href="#安装Tripwire电子邮件通知和Cron" class="headerlink" title="安装Tripwire电子邮件通知和Cron"></a>安装Tripwire电子邮件通知和Cron</h1><p>在这一步中，我们将为特定tripwire规则集策略配置通知，并配置用于自动系统检查的cronjob。 我们会将任何违反WordPress数据规则的报告发送到电子邮件地址<a href="mailto:myemail@gmail.com" target="_blank" rel="noopener">myemail@gmail.com</a>。</p>
+<p>对于电子邮件通知，tripwire在配置中提供了一个emailto功能。 默认情况下，tripwire使用Postfix或Sendmail通过电子邮件发送报告。</p>
+<p>在配置电子邮件通知之前，请使用以下命令测试tripwire通知功能。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tripwire --test --email email@gmail.com</span><br></pre></td></tr></table></figure></p>
+<p>现在进入/etc/tripwire目录并编辑twpol.txt配置。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cd /etc/tripwire/</span><br><span class="line">vim twpol.txt</span><br></pre></td></tr></table></figure></p>
+<p>在WordPress数据规则中添加新行emailto，如下所示。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"># Ruleset for Wordpress</span><br><span class="line"> (</span><br><span class="line">   rulename = &quot;Wordpress Data&quot;,</span><br><span class="line">   severity= $(SIG_HI),</span><br><span class="line">   emailto = myemail@gmail.com</span><br><span class="line"> )</span><br><span class="line"> &#123;</span><br><span class="line">         /var/www        -&gt; $(SEC_CRIT);</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure></p>
+<p>保存并退出。使用twadmin命令重新生成并签署配置。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">twadmin -m P /etc/tripwire/twpol.txt</span><br></pre></td></tr></table></figure></p>
+<p>输入您的“网站密钥”密码。并重新生成tripwire数据库。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tripwire --init</span><br></pre></td></tr></table></figure></p>
+<p>输入您的tripwire’local-key’密码。Tripwire电子邮件通知的配置已完成。<br><strong>注意：</strong></p>
+<ul>
+<li>–email-report：将系统报告发送到每个规则中定义的电子邮件地址。</li>
+</ul>
+<p>接下来，我们将使用cron setup启用自动Tripwire系统检查。 为此，请使用下面的crontab命令在root用户下创建一个新的cron脚本。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">crontab -e -u root</span><br></pre></td></tr></table></figure></p>
+<p>粘贴以下cron配置。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">0 0 * * * tripwire --check --email-report</span><br></pre></td></tr></table></figure></p>
+<p>保存并退出。</p>
 
       
     </div>
 
+    
+
+    
+    
+    
+
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>如果对您有帮助，可以给我们打赏鼓励！</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/pay/ali.jpg" alt="hyman 支付宝"/>
+        <p>支付宝</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Tripwire/" rel="tag"># Tripwire</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/05/25/winscp-switch-root.html" rel="next" title="winscp 普通用户登录sftp后切换到root权限">
+                <i class="fa fa-chevron-left"></i> winscp 普通用户登录sftp后切换到root权限
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
   </div>
   
   
   
+  </article>
 
-  
 
+
+    <div class="post-spread">
+      
+        
+<script>
+  with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='//bdimg.share.baidu.com/static/api/js/share.js?cdnversion='+~(-new Date()/36e5)];
+</script>
+
+      
+    </div>
+  </div>
 
 
           </div>
           
+
+  
+    <div class="comments" id="comments">
+      <div id="lv-container" data-id="city" data-uid="MTAyMC8yOTg5MS82NDU2"></div>
+    </div>
+
+  
+
+
 
         </div>
         
@@ -470,8 +680,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -616,6 +835,22 @@
       </section>
 
       
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#在CentOS-7上安装Tripwire"><span class="nav-number">1.</span> <span class="nav-text">在CentOS 7上安装Tripwire</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#配置Tripwire策略"><span class="nav-number">2.</span> <span class="nav-text">配置Tripwire策略</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#验证Tripwire配置和检查系统"><span class="nav-number">3.</span> <span class="nav-text">验证Tripwire配置和检查系统</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#将新规则添加到Tripwire策略"><span class="nav-number">4.</span> <span class="nav-text">将新规则添加到Tripwire策略</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#安装Tripwire电子邮件通知和Cron"><span class="nav-number">5.</span> <span class="nav-text">安装Tripwire电子邮件通知和Cron</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
 
       
 
@@ -751,6 +986,10 @@
   
 
   
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=6.2.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=6.2.0"></script>
+
+
 
   
 
@@ -775,6 +1014,17 @@
 
 
 
+  
+    <script type="text/javascript">
+      (function(d, s) {
+        var j, e = d.getElementsByTagName(s)[0];
+        if (typeof LivereTower === 'function') { return; }
+        j = d.createElement(s);
+        j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+        j.async = true;
+        e.parentNode.insertBefore(j, e);
+      })(document, 'script');
+    </script>
   
 
 
@@ -1150,7 +1400,7 @@
   <script src="/lib/bookmark/bookmark.min.js?v=1.0"></script>
   <script type="text/javascript">
   
-    bookmark.loadBookmark();
+    bookmark.scrollToMark('auto', "#更多");
   
   </script>
 

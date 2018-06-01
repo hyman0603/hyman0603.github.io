@@ -1,6 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[CentOS 7上使用Tripwire监控和检测修改的文件]]></title>
+    <url>%2F2018%2F05%2F30%2Flinux-filesystem-tripwire.html</url>
+    <content type="text"><![CDATA[Tripwire是一个免费的开源入侵检测系统（IDS）。 它是用于监视和警告系统上文件更改的安全工具。 Tripwire是一个功能强大的IDS，可以保护您的系统免受不必要的更改。 您可以使用它来监控您的系统文件，包括网站文件，因此当有不需要的文件更改时，Tripwire会检查您的系统，如果设置正确，可以通过电子邮件提醒您。 在CentOS 7上安装Tripwire123yum updateyum install epel-releaseyum install tripwire 安装完成后，我们需要生成新的密钥文件。 Tripwire使用2个关键文件。 site-key：它用于保护Tripwire配置。 因此，除非我们再次生成配置，否则对tripwire配置所做的任何更改都不会生效，我们会提示您输入“site-key”密码。 local-key：它用于验证tripwire二进制文件。 当我们想要更新tripwire系统数据库时，我们需要运行tripwire命令，并且会提示我们输入’local-key’的密码。 我们使用下面的命令生成新的tripwire密钥文件（站点和本地密钥）。1tripwire-setup-keyfiles 该命令将生成两个密钥文件“site-key”和“local-key”，并且您将被要求输入每个密码。 输入您自己的“ 网站密钥 ”密码，然后按Enter键。 输入您自己的“ 本地密钥 ”密码并再次按Enter键。 接下来，使用’site-key’签署tripwire配置,输入您的“ 网站密钥 ”密码。现在，为了签署Tripwire政策，请输入您的“ 本地密钥 ”密码。 配置Tripwire策略使用下面的tripwire命令初始化tripwire数据库。1tripwire --init 您可能会收到错误消息“no such directory”，如下所示 是因为系统没有在tripwire配置中已经定义的目录和文件。 为了解决这个错误，我们需要编辑tripwire配置’twpol.txt’并重新签署tripwire配置。 现在使用下面的命令从tripwire生成日志错误。1sh -c &quot;tripwire --check | grep Filename &gt; no-directory.txt&quot; 所有不存在于CentOS 7系统上的目录和文件都列在文件no-directory.txt中使用以下bash脚本编辑tripwire配置’twpol.txt’ - 在终端上运行此脚本。123for f in $(grep &quot;Filename:&quot; no-directory.txt | cut -f2 -d:); dosed -i &quot;s|\($f\) |#\\1|g&quot; /etc/tripwire/twpol.txtdone 毕竟，我们需要使用twadmin命令重新生成并重新签署tripwire配置，如下所示。1twadmin -m P /etc/tripwire/twpol.txt 输入您的“网站密钥”密码。重新初始化tripwire数据库，并确保没有错误。1tripwire --init 验证Tripwire配置和检查系统要验证tripwire配置，我们可以运行系统检查命令如下。1tripwire --check 将新规则添加到Tripwire策略在这一步中，我们将向您展示如何将新规则添加到tripwire策略配置“twpol.txt”。 要执行这项工作，我们需要定义规则名称，严重程度，监视目录和文件类型。 在这一步中，我们将在/var/www/目录下为我们的WordPress安装创建一个名为Wordpress Data的新规则，严重程度为HIGH/SIG_HI,并且该目录中的所有文件都是关键的以及源代码不能更改）。 转到tripwire配置目录/etc/tripwire并使用vim编辑配置文件twpol.txt。12cd /etc/tripwire/vim twpol.txt 转到该行的末尾，并在那里粘贴以下WordPress规则。12345678# Ruleset for Wordpress ( rulename = &quot;Wordpress Data&quot;, severity= $(SIG_HI) ) &#123; /var/www -&gt; $(SEC_CRIT); &#125; 保存并退出。 使用twadmin命令重新生成并重新签名配置，如下所示。1twadmin -m P /etc/tripwire/twpol.txt 输入您的“网站密钥”密码。现在我们需要再次重新生成tripwire数据库。1tripwire --init 输入“本地密钥”密码。新的规则集已添加并应用于Tripwire策略配置。 安装Tripwire电子邮件通知和Cron在这一步中，我们将为特定tripwire规则集策略配置通知，并配置用于自动系统检查的cronjob。 我们会将任何违反WordPress数据规则的报告发送到电子邮件地址myemail@gmail.com。 对于电子邮件通知，tripwire在配置中提供了一个emailto功能。 默认情况下，tripwire使用Postfix或Sendmail通过电子邮件发送报告。 在配置电子邮件通知之前，请使用以下命令测试tripwire通知功能。1tripwire --test --email email@gmail.com 现在进入/etc/tripwire目录并编辑twpol.txt配置。12cd /etc/tripwire/vim twpol.txt 在WordPress数据规则中添加新行emailto，如下所示。123456789# Ruleset for Wordpress ( rulename = &quot;Wordpress Data&quot;, severity= $(SIG_HI), emailto = myemail@gmail.com ) &#123; /var/www -&gt; $(SEC_CRIT); &#125; 保存并退出。使用twadmin命令重新生成并签署配置。1twadmin -m P /etc/tripwire/twpol.txt 输入您的“网站密钥”密码。并重新生成tripwire数据库。1tripwire --init 输入您的tripwire’local-key’密码。Tripwire电子邮件通知的配置已完成。注意： –email-report：将系统报告发送到每个规则中定义的电子邮件地址。 接下来，我们将使用cron setup启用自动Tripwire系统检查。 为此，请使用下面的crontab命令在root用户下创建一个新的cron脚本。1crontab -e -u root 粘贴以下cron配置。10 0 * * * tripwire --check --email-report 保存并退出。]]></content>
+      <categories>
+        <category>linux</category>
+      </categories>
+      <tags>
+        <tag>Tripwire</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[winscp 普通用户登录sftp后切换到root权限]]></title>
     <url>%2F2018%2F05%2F25%2Fwinscp-switch-root.html</url>
     <content type="text"><![CDATA[工具： Xshell、winscp服务器环境： linux RedHat 6.4遇到的问题：普通用户使用winscp账户登录服务器，没有操作权限！ 一、普通用户，通过Xshell登录服务器。输入以下命令，再输入密码。切换为root。1su 二、先查找sftp-server 文件夹所在的系统路径，得到sftp-server文件路径后。12[root@LJS-CSS-APP3 ~]# cat /etc/ssh/sshd_config|grep sftp[root@LJS-CSS-APP3 ~]# /usr/libexec/openssh/sftp-server 再输入vim命令来编辑修改 /etc/sudoers配置文件1[root@LJS-CSS-APP3 ~]# vim /etc/sudoers 或者visudo 修改内容具体如下： 1、在文本中找到下语句 1root ALL=(ALL) ALL 2、在其下面增加以下语句（ljs是普通用户名,改成你自己的!）1ljs ALL=NOPASSWD:/usr/libexec/openssh/sftp-server 3、然后向上找到下面语句，将其注释掉 123Defaults requiretty修改为#Defaults requiretty 4、保存并退出 三、打开winscp, 设置 sftp和shell12sudo /usr/libexec/openssh/sftp-serversudu -i]]></content>
@@ -17,14 +28,9 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[oracle 基本操作]]></title>
-    <url>%2F2018%2F05%2F17%2Foracle-base-operation.html</url>
-    <content type="text"><![CDATA[1、跟踪、诊断信息ADR（ Automatic Diagnostic Repository） 获取诊断信息diag_info 1234SQL&gt;col name for a50SQL&gt;col value for a60SQL&gt;set linesize 200SQL&gt;select * from v$diag_info;]]></content>
-  </entry>
-  <entry>
     <title><![CDATA[k8s简易安装1.10.3]]></title>
     <url>%2F2018%2F05%2F15%2Fk8s-simple-install-1.10.3.html</url>
-    <content type="text"><![CDATA[备注 12345678运行环境：CentOS 7.4k8s镜像：采用阿里云及阿里云私有仓库系统架构：master 172.16.2.30；node 172.16.2.31官网：https://kubernetes.io/docs/tasks/tools/install-kubeadm/ https://kubernetes.io/docs/setup/independent/create-cluster-kubeadm/日志：/var/log/message 1、初始化环境（master、node执行）1curl -s http://hyman.shop/k8s/sh/1.set.sh |bash 2、安装docker（master、node执行）1curl -s http://hyman.shop/k8s/sh/2.docker-install.sh |bash 3、下载镜像、安装相关镜像（master执行）1curl -s http://hyman.shop/k8s/sh/3.k8s-download.sh |bash 4、部署k8s master节点（master执行）1curl -s http://hyman.shop/k8s/sh/4.master-install.sh |bash 5、部署k8s node节点（node执行）1curl -s http://hyman.shop/k8s/sh/5.node-install.sh |bash 执行完第三步后会显示以下内容（每次运行生成不同的token）：kubeadm join 172.16.2.30:6443 –token v1077m.jilim7xtw3pxeytq –discovery-token-ca-cert-hash sha256:46ba4041a7df8b5777e3be120d3bf93b420929309353dda6b379f233960f6f9e node执行完脚本后，执行master生成的token]]></content>
+    <content type="text"><![CDATA[备注 12345678运行环境：CentOS 7.4k8s镜像：采用阿里云及阿里云私有仓库系统架构：master 172.16.2.30；node 172.16.2.31官网：https://kubernetes.io/docs/tasks/tools/install-kubeadm/ https://kubernetes.io/docs/setup/independent/create-cluster-kubeadm/日志：/var/log/message 1、初始化环境（master、node执行）1curl -s http://hyman.shop/k8s/sh/1.set.sh |bash 2、安装docker（master、node执行）1curl -s http://hyman.shop/k8s/sh/2.docker-install.sh |bash 3、下载镜像、安装相关镜像（master执行）1curl -s http://hyman.shop/k8s/sh/3.k8s-download.sh |bash 4、部署k8s master节点（master执行）1curl -s http://hyman.shop/k8s/sh/4.master-install.sh |bash 5、部署k8s node节点（node执行）1curl -s http://hyman.shop/k8s/sh/5.node-install.sh |bash 执行完第三步后会显示以下内容（每次运行生成不同的token）：1kubeadm join 172.16.2.30:6443 --token v1077m.jilim7xtw3pxeytq --discovery-token-ca-cert-hash sha256:46ba4041a7df8b5777e3be120d3bf93b420929309353dda6b379f233960f6f9e 如果安装Weave网络1kubectl apply -f &quot;https://cloud.weave.works/k8s/net?k8s-version=$(kubectl version | base64 | tr -d &apos;\n&apos;)&quot; 如果在你的主机上启用了私有网络，那么，你可能需要去修改 Weavenet 使用的私有子网络，以便于为 Pod（容器）分配 IP 地址。下面是命令示例：12curl -SL &quot;https://cloud.weave.works/k8s/net?k8s-version=$(kubectl version | base64 | tr -d &apos;\n&apos;)&amp;env.IPALLOC_RANGE=172.16.6.64/27&quot; \| kubectl apply -f -]]></content>
       <categories>
         <category>kubernetes</category>
       </categories>
@@ -109,8 +115,8 @@
       <tags>
         <tag>mysql</tag>
         <tag>redis</tag>
-        <tag>xtrabackup</tag>
         <tag>mongodb</tag>
+        <tag>xtrabackup</tag>
       </tags>
   </entry>
   <entry>
