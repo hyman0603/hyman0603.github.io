@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://www.hyman.shop/2018/06/08/deployment-gitolite-recode.html</loc>
+    
+    <lastmod>2018-06-08T03:21:38.908Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://www.hyman.shop/2018/05/15/k8s-simple-install-1.10.3.html</loc>
     
     <lastmod>2018-06-01T04:27:06.483Z</lastmod>
