@@ -163,7 +163,7 @@
 <meta property="og:description" content="Gitolite架构">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="http://www.hyman.shop/images/15174104_13760152809DNT.png">
-<meta property="og:updated_time" content="2018-06-08T03:21:38.908Z">
+<meta property="og:updated_time" content="2018-06-08T06:17:24.750Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="部署Gitolite、Centos7记录">
 <meta name="twitter:description" content="Gitolite架构">
@@ -440,7 +440,7 @@
                 
               
 
-              <time title="创建时间：2018-06-08 08:51:01 / 修改时间：11:21:38" itemprop="dateCreated datePublished" datetime="2018-06-08T08:51:01+08:00">2018-06-08</time>
+              <time title="创建时间：2018-06-08 08:51:01 / 修改时间：14:17:24" itemprop="dateCreated datePublished" datetime="2018-06-08T08:51:01+08:00">2018-06-08</time>
             
 
             
@@ -502,6 +502,8 @@
 <h1 id="生成SSH-Key（客户端操作，以下linux操作，windows使用git工具）"><a href="#生成SSH-Key（客户端操作，以下linux操作，windows使用git工具）" class="headerlink" title="生成SSH Key（客户端操作，以下linux操作，windows使用git工具）"></a>生成SSH Key（客户端操作，以下linux操作，windows使用git工具）</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[root@server02 ~]# ssh-keygen</span><br><span class="line"></span><br><span class="line">#一路回车键即可，不要输入密码，如输入密码，git clone时会提示输入密码</span><br></pre></td></tr></table></figure>
 <h1 id="将生成的SSH-public-key拷贝到服务器（客户端操作）"><a href="#将生成的SSH-public-key拷贝到服务器（客户端操作）" class="headerlink" title="将生成的SSH public key拷贝到服务器（客户端操作）"></a>将生成的SSH public key拷贝到服务器（客户端操作）</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[root@server02 ~]# scp /root/.ssh/id_rsa.pub gitolite3@172.16.2.30:/var/lib/gitolite3/gitolite-admin/keydir</span><br><span class="line"></span><br><span class="line">#可以直接复制密钥内容即可，以上方式注意权限问题</span><br></pre></td></tr></table></figure>
 <h1 id="修改gitolite配置文件（服务端操作）"><a href="#修改gitolite配置文件（服务端操作）" class="headerlink" title="修改gitolite配置文件（服务端操作）"></a>修改gitolite配置文件（服务端操作）</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">#使用gitolite3用户登录服务器</span><br><span class="line">#客户端的公钥保存在/var/lib/gitolite3/gitolite-admin/keydir</span><br><span class="line">#修改权限/var/lib/gitolite3/gitolite-admin/conf/gitolite.conf</span><br><span class="line">#上传代码即可</span><br></pre></td></tr></table></figure>
+<h1 id="增加仓库"><a href="#增加仓库" class="headerlink" title="增加仓库"></a>增加仓库</h1><p>只需要在/var/lib/gitolite3/gitolite-admin/conf/gitolite.conf文件修改即可<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">repo    ljs-bis</span><br><span class="line">        RW+     =  @developer</span><br></pre></td></tr></table></figure></p>
+<p>然后提交代码，自动创建git仓库</p>
 
       
     </div>
@@ -795,7 +797,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Gitolite架构"><span class="nav-number">1.</span> <span class="nav-text">Gitolite架构</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#安装Gitolie-服务端操作"><span class="nav-number">2.</span> <span class="nav-text">安装Gitolie(服务端操作)</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#生成SSH-Key（客户端操作，以下linux操作，windows使用git工具）"><span class="nav-number">3.</span> <span class="nav-text">生成SSH Key（客户端操作，以下linux操作，windows使用git工具）</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#将生成的SSH-public-key拷贝到服务器（客户端操作）"><span class="nav-number">4.</span> <span class="nav-text">将生成的SSH public key拷贝到服务器（客户端操作）</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#修改gitolite配置文件（服务端操作）"><span class="nav-number">5.</span> <span class="nav-text">修改gitolite配置文件（服务端操作）</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Gitolite架构"><span class="nav-number">1.</span> <span class="nav-text">Gitolite架构</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#安装Gitolie-服务端操作"><span class="nav-number">2.</span> <span class="nav-text">安装Gitolie(服务端操作)</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#生成SSH-Key（客户端操作，以下linux操作，windows使用git工具）"><span class="nav-number">3.</span> <span class="nav-text">生成SSH Key（客户端操作，以下linux操作，windows使用git工具）</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#将生成的SSH-public-key拷贝到服务器（客户端操作）"><span class="nav-number">4.</span> <span class="nav-text">将生成的SSH public key拷贝到服务器（客户端操作）</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#修改gitolite配置文件（服务端操作）"><span class="nav-number">5.</span> <span class="nav-text">修改gitolite配置文件（服务端操作）</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#增加仓库"><span class="nav-number">6.</span> <span class="nav-text">增加仓库</span></a></li></ol></div>
             
 
           </div>
