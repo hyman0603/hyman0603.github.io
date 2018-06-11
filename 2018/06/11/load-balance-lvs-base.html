@@ -154,25 +154,32 @@
 
 
 
-  <meta name="description" content="一、ansible介绍1、ansible 简介Ansible官方的 title 是“Ansible is Simple IT Automation”——简单的自动化IT工具。Ansible是一款为类Unix系统开发的自由开源的配置和自动化工具。它用Python写成，类似于Chef和Puppet，但是有一个不同的优点是我们不需要在节点中安装任何客户端。它使用SSH来和节点进行通信。">
-<meta name="keywords" content="ansible">
+  <meta name="description" content="LVS简介LVS中文官方手册：http://www.linuxvirtualserver.org/zh/index.html。这个手册对于了解lvs的背景知识很有帮助。 LVS英文官方手册：http://www.linuxvirtualserver.org/Documents.html。这个手册比较全面，对于了解和学习lvs的原理、配置很有帮助。 LVS是章文嵩开发的一个国产开源负载均衡软件。LV">
+<meta name="keywords" content="LVS">
 <meta property="og:type" content="article">
-<meta property="og:title" content="CentOS 7通过yum安装ansible">
-<meta property="og:url" content="http://www.hyman.shop/2017/04/27/CentOS7-install-ansible.html">
+<meta property="og:title" content="负载均衡之LVS-基本概念和三种模式">
+<meta property="og:url" content="http://www.hyman.shop/2018/06/11/load-balance-lvs-base.html">
 <meta property="og:site_name" content="hyman">
-<meta property="og:description" content="一、ansible介绍1、ansible 简介Ansible官方的 title 是“Ansible is Simple IT Automation”——简单的自动化IT工具。Ansible是一款为类Unix系统开发的自由开源的配置和自动化工具。它用Python写成，类似于Chef和Puppet，但是有一个不同的优点是我们不需要在节点中安装任何客户端。它使用SSH来和节点进行通信。">
+<meta property="og:description" content="LVS简介LVS中文官方手册：http://www.linuxvirtualserver.org/zh/index.html。这个手册对于了解lvs的背景知识很有帮助。 LVS英文官方手册：http://www.linuxvirtualserver.org/Documents.html。这个手册比较全面，对于了解和学习lvs的原理、配置很有帮助。 LVS是章文嵩开发的一个国产开源负载均衡软件。LV">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2018-05-25T09:48:10.945Z">
+<meta property="og:image" content="http://www.hyman.shop/images/733013-20180211225301232-212054825.png">
+<meta property="og:image" content="http://www.hyman.shop/images/733013-20180211234714295-412364937.png">
+<meta property="og:image" content="http://www.hyman.shop/images/733013-20180213102345546-471661305.png">
+<meta property="og:image" content="http://www.hyman.shop/images/733013-20180213102610124-276805076.png">
+<meta property="og:image" content="http://www.hyman.shop/images/733013-20180213110217531-1638772778.png">
+<meta property="og:image" content="http://www.hyman.shop/images/733013-20180213170727562-1125645743.png">
+<meta property="og:updated_time" content="2018-06-11T07:05:11.083Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="CentOS 7通过yum安装ansible">
-<meta name="twitter:description" content="一、ansible介绍1、ansible 简介Ansible官方的 title 是“Ansible is Simple IT Automation”——简单的自动化IT工具。Ansible是一款为类Unix系统开发的自由开源的配置和自动化工具。它用Python写成，类似于Chef和Puppet，但是有一个不同的优点是我们不需要在节点中安装任何客户端。它使用SSH来和节点进行通信。">
+<meta name="twitter:title" content="负载均衡之LVS-基本概念和三种模式">
+<meta name="twitter:description" content="LVS简介LVS中文官方手册：http://www.linuxvirtualserver.org/zh/index.html。这个手册对于了解lvs的背景知识很有帮助。 LVS英文官方手册：http://www.linuxvirtualserver.org/Documents.html。这个手册比较全面，对于了解和学习lvs的原理、配置很有帮助。 LVS是章文嵩开发的一个国产开源负载均衡软件。LV">
+<meta name="twitter:image" content="http://www.hyman.shop/images/733013-20180211225301232-212054825.png">
 
 
 
 
 
 
-  <link rel="canonical" href="http://www.hyman.shop/2017/04/27/CentOS7-install-ansible.html"/>
+  <link rel="canonical" href="http://www.hyman.shop/2018/06/11/load-balance-lvs-base.html"/>
 
 
 
@@ -182,7 +189,7 @@
   };
 </script>
 
-  <title>CentOS 7通过yum安装ansible | hyman</title>
+  <title>负载均衡之LVS-基本概念和三种模式 | hyman</title>
   
 
 
@@ -396,7 +403,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://www.hyman.shop/2017/04/27/CentOS7-install-ansible.html">
+    <link itemprop="mainEntityOfPage" href="http://www.hyman.shop/2018/06/11/load-balance-lvs-base.html">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="hyman">
@@ -413,7 +420,7 @@
 
         
         
-          <h2 class="post-title" itemprop="name headline">CentOS 7通过yum安装ansible
+          <h2 class="post-title" itemprop="name headline">负载均衡之LVS-基本概念和三种模式
               
             
           </h2>
@@ -438,28 +445,34 @@
                 
               
 
-              <time title="创建时间：2017-04-27 16:09:09" itemprop="dateCreated datePublished" datetime="2017-04-27T16:09:09+08:00">2017-04-27</time>
+              <time title="创建时间：2018-06-11 14:38:19 / 修改时间：15:05:11" itemprop="dateCreated datePublished" datetime="2018-06-11T14:38:19+08:00">2018-06-11</time>
             
 
             
               
 
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">更新于</span>
-                
-                <time title="修改时间：2018-05-25 17:48:10" itemprop="dateModified" datetime="2018-05-25T17:48:10+08:00">2018-05-25</time>
               
             
           </span>
 
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/LVS/" itemprop="url" rel="index"><span itemprop="name">LVS</span></a></span>
+
+                
+                
+              
+            </span>
           
 
           
@@ -488,23 +501,109 @@
       
 
       
-        <h1 id="一、ansible介绍"><a href="#一、ansible介绍" class="headerlink" title="一、ansible介绍"></a>一、ansible介绍</h1><h2 id="1、ansible-简介"><a href="#1、ansible-简介" class="headerlink" title="1、ansible 简介"></a>1、ansible 简介</h2><p>Ansible官方的 title 是“Ansible is Simple IT Automation”——简单的自动化IT工具。Ansible是一款为类Unix系统开发的自由开源的配置和自动化工具。它用Python写成，类似于Chef和Puppet，但是有一个不同的优点是我们不需要在节点中安装任何客户端。它使用SSH来和节点进行通信。<br><a id="more"></a></p>
-<h2 id="2、ansible-特点"><a href="#2、ansible-特点" class="headerlink" title="2、ansible 特点"></a>2、ansible 特点</h2><p>（1） No agents：不需要在被管控主机上安装任意客户端；<br>（2） No server：无服务器端，使用时直接运行命令即可；<br>（3） Modules in any languages：基于模块工作，可使用任意语言开发模块<br>（4） YAML，not code：使用yaml语言定制剧本playbook；<br>（5） SSH by default：基于SSH工作；<br>（6） Strong multi-tier solution：可实现多级指挥；</p>
-<h1 id="二、Ansible安装使用"><a href="#二、Ansible安装使用" class="headerlink" title="二、Ansible安装使用"></a>二、Ansible安装使用</h1><h2 id="1、-设置EPEL仓库"><a href="#1、-设置EPEL仓库" class="headerlink" title="1、 设置EPEL仓库"></a>1、 设置EPEL仓库</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@object1 ~]# rpm -iUvh http://dl.fedoraproject.org/pub/epel/7/x86_64/e/epel-release-7-9.noarch.rpm</span><br></pre></td></tr></table></figure>
-<h2 id="2、使用yum安装Ansible"><a href="#2、使用yum安装Ansible" class="headerlink" title="2、使用yum安装Ansible"></a>2、使用yum安装Ansible</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@object1 ~]# yum install -y ansible</span><br></pre></td></tr></table></figure>
-<h2 id="3、设置用于节点鉴权的SSH密钥"><a href="#3、设置用于节点鉴权的SSH密钥" class="headerlink" title="3、设置用于节点鉴权的SSH密钥"></a>3、设置用于节点鉴权的SSH密钥</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">#在Ansible服务端生成密钥</span><br><span class="line">[root@object1 ~]# ssh-keygen </span><br><span class="line">#使用ssh-copy-id命令来复制Ansible公钥到节点中</span><br><span class="line">[root@object1 ~]# ssh-copy-id -i root@192.168.1.215</span><br></pre></td></tr></table></figure>
-<h2 id="4、为Ansible定义节点的清单"><a href="#4、为Ansible定义节点的清单" class="headerlink" title="4、为Ansible定义节点的清单"></a>4、为Ansible定义节点的清单</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[root@object1 ~]# cat /etc/ansible/hosts</span><br><span class="line">[test]</span><br><span class="line">192.168.1.226</span><br><span class="line">192.168.1.215</span><br></pre></td></tr></table></figure>
-<h2 id="5、尝试在Ansible服务端运行命令"><a href="#5、尝试在Ansible服务端运行命令" class="headerlink" title="5、尝试在Ansible服务端运行命令"></a>5、尝试在Ansible服务端运行命令</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line">#使用ping检查ansible节点的连通性</span><br><span class="line">[root@object1 ~]# ansible -m ping &apos;test&apos;</span><br><span class="line">192.168.1.226 | UNREACHABLE! =&gt; &#123;</span><br><span class="line">    &quot;changed&quot;: false, </span><br><span class="line">    &quot;msg&quot;: &quot;Failed to connect to the host via ssh: Permission denied (publickey,gssapi-keyex,gssapi-with-mic,password).\r\n&quot;, </span><br><span class="line">    &quot;unreachable&quot;: true</span><br><span class="line">&#125;</span><br><span class="line">192.168.1.215 | SUCCESS =&gt; &#123;</span><br><span class="line">    &quot;changed&quot;: false, </span><br><span class="line">    &quot;ping&quot;: &quot;pong&quot;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">#检查Ansible节点的运行时间（uptime）</span><br><span class="line">[root@object1 ~]# ansible -m command -a &quot;uptime&quot; &quot;test&quot;</span><br><span class="line">192.168.1.226 | UNREACHABLE! =&gt; &#123;</span><br><span class="line">    &quot;changed&quot;: false, </span><br><span class="line">    &quot;msg&quot;: &quot;Failed to connect to the host via ssh: Permission denied (publickey,gssapi-keyex,gssapi-with-mic,password).\r\n&quot;, </span><br><span class="line">    &quot;unreachable&quot;: true</span><br><span class="line">&#125;</span><br><span class="line">192.168.1.215 | SUCCESS | rc=0 &gt;&gt;</span><br><span class="line"> 07:11:16 up 42 days, 13:43,  1 user,  load average: 0.00, 0.00, 0.00</span><br><span class="line"></span><br><span class="line">#检查节点的内核版本</span><br><span class="line">[root@object1 ~]# ansible -m command -a &quot;uname -r&quot; &quot;test&quot;</span><br><span class="line">192.168.1.226 | UNREACHABLE! =&gt; &#123;</span><br><span class="line">    &quot;changed&quot;: false, </span><br><span class="line">    &quot;msg&quot;: &quot;Failed to connect to the host via ssh: Permission denied (publickey,gssapi-keyex,gssapi-with-mic,password).\r\n&quot;, </span><br><span class="line">    &quot;unreachable&quot;: true</span><br><span class="line">&#125;</span><br><span class="line">192.168.1.215 | SUCCESS | rc=0 &gt;&gt;</span><br><span class="line">2.6.32-573.3.1.el6.x86_64</span><br><span class="line"></span><br><span class="line">#给节点增加用户</span><br><span class="line">[root@object1 ~]# ansible -m command -a &quot;useradd test&quot; &quot;test&quot;</span><br><span class="line">192.168.1.226 | SUCCESS | rc=0 &gt;&gt;</span><br><span class="line">192.168.1.215 | SUCCESS | rc=0 &gt;&gt;</span><br></pre></td></tr></table></figure>
-<h2 id="6、模块的使用"><a href="#6、模块的使用" class="headerlink" title="6、模块的使用"></a>6、模块的使用</h2><p>查看各模块的使用方法<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">ansible-doc [options] [modules]  ：Show Ansible module documentation </span><br><span class="line">-l 列出所有的ansible模块 </span><br><span class="line">-s 列出该模块的相关指令</span><br><span class="line">可以直接使用 ansible-doc 模块名 来查看模块的使用，如</span><br><span class="line"># ansible-doc htpasswd</span><br></pre></td></tr></table></figure></p>
-<h1 id="三、playbook的使用"><a href="#三、playbook的使用" class="headerlink" title="三、playbook的使用"></a>三、playbook的使用</h1><p>YAML Ain’t Markup Language，即YAML不是XML。不过，在开发的这种语言时，YAML的意思其实是：”Yet Another Markup Language”（仍是一种标记语言）。</p>
-<p>YAML的语法和其他高阶语言类似，并且可以简单表达清单、散列表、标量等数据结构。其结构（Structure）通过空格来展示，序列（Sequence）里的项用”-“来代表，Map里的键值对用”:”分隔。</p>
-<h2 id="1、playbook使用"><a href="#1、playbook使用" class="headerlink" title="1、playbook使用"></a>1、playbook使用</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ansible-playbook test.yaml</span><br></pre></td></tr></table></figure>
-<p>下面就是一个只包含了一个play的playbook，在写playbook的时候，一定要记住在 hosts，yum（模块儿名）等后带空格，否则会报错。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">#这个是你选择的主机</span><br><span class="line">- hosts: webservers</span><br><span class="line">#这个是变量</span><br><span class="line">  vars:</span><br><span class="line">    http_port: 80</span><br><span class="line">    max_clients: 200</span><br><span class="line">#远端的执行权限</span><br><span class="line">  remote_user: root  tasks:</span><br><span class="line">#利用yum模块来操作</span><br><span class="line">  - name: ensure apache is at the latest version</span><br><span class="line">    yum: pkg=httpd state=latest</span><br><span class="line">  - name: write the apache config file    </span><br><span class="line">    template: src=/srv/httpd.j2 dest=/etc/httpd.conf</span><br><span class="line"> #触发重启服务器</span><br><span class="line">    notify:</span><br><span class="line">    - restart apache</span><br><span class="line">  - name: ensure apache is running    </span><br><span class="line">    service: name=httpd state=started</span><br><span class="line"> #这里的restart apache 和上面的触发是配对的。这就是handlers的作用。相当于tag</span><br><span class="line">  handlers:</span><br><span class="line">    - name: restart apache</span><br><span class="line">      service: name=httpd state=restarted</span><br></pre></td></tr></table></figure>
-<h2 id="2、playbook案例"><a href="#2、playbook案例" class="headerlink" title="2、playbook案例"></a>2、playbook案例</h2><p>corosync.yaml</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line">- hosts: hanodes      #指定要执行任务的主机，可由冒号分隔主机组</span><br><span class="line">  remote_user: root   #指定远程主机上执行任务的用户</span><br><span class="line">  vars:  #定义如下2个变量</span><br><span class="line">    crmsh: crmsh-1.2.6.4.el6.x86_64.rpm  </span><br><span class="line">    pssh: pssh-2.3.1-2.el6.x86_64.rpm</span><br><span class="line">  tasks:    #指定需执行的任务列表，每个task都有其name和使用的模块及参数</span><br><span class="line">    - name: test connection      </span><br><span class="line">      ping:        #ping模块无需执行参数</span><br><span class="line">      remote_user: jason  #在task中指定远程主机上执行任务的用户</span><br><span class="line">      sudo: yes   #使用sudo在远程主机上执行任务</span><br><span class="line">    - name: corosync installing      </span><br><span class="line">      yum: name=corosync state=present</span><br><span class="line">    - name: pacemaker installing          #定义一个软件安装任务</span><br><span class="line">      yum: name=pacemaker state=present   #使用yum安装，并配置需安装的软件名（name），及状态（state）</span><br><span class="line">    - name: crmsh rpm packages      </span><br><span class="line">      copy: src=/ansible/corosync/packages/&#123;&#123; crmsh &#125;&#125; dest=/tmp/&#123;&#123; crmsh &#125;&#125;</span><br><span class="line">    - name: pssh rpm packages      </span><br><span class="line">      copy: src=/ansible/corosync/packages/&#123;&#123; pssh &#125;&#125; dest=/tmp/&#123;&#123; pssh &#125;&#125;</span><br><span class="line">    - name: crmsh installing      </span><br><span class="line">      command: yum -y reinstall /tmp/&#123;&#123; crmsh &#125;&#125; /tmp/&#123;&#123; pssh &#125;&#125;</span><br><span class="line">    - name: authkey configure file      </span><br><span class="line">      copy: src=/ansible/corosync/conf/authkey dest=/etc/corosync/authkey</span><br><span class="line">    - name: authkey mode 400   #定义一个文件权限设置任务</span><br><span class="line">      file: path=/etc/corosync/authkey mode=400</span><br><span class="line">      notify:   #定义一个通知，当此任务执行时，可以激发响应的handler</span><br><span class="line">        - restart corosync</span><br><span class="line">    - name: corosync.conf configure file      </span><br><span class="line">      copy: src=/ansible/corosync/conf/corosync.conf dest=/etc/corosync/corosync.conf      </span><br><span class="line">      tags:</span><br><span class="line">        - conf      </span><br><span class="line">      notify:</span><br><span class="line">        - restart corosync</span><br><span class="line">    - name: ensure the corosync service startup on boot      </span><br><span class="line">      service: name=corosync state=started enabled=yes</span><br><span class="line">  handlers:   #定义当关注的资源发生变化时，需采取的操作</span><br><span class="line">    - name: restart corosync  #定义一个服务重启任务</span><br><span class="line">      service: name=corosync state=restarted</span><br></pre></td></tr></table></figure>
-<p>heartbeat.yaml</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">- hosts: hbhosts</span><br><span class="line">    remote_user: root    </span><br><span class="line">    tasks:</span><br><span class="line">        - name: ensure heartbeat latest version     </span><br><span class="line">         yum: name=heartbeat state=present</span><br><span class="line">        - name: authkeys configure file          </span><br><span class="line">         copy: src=/root/hb_conf/authkeys dest=/etc/ha.d/authkeys</span><br><span class="line">        - name: authkeys mode 600</span><br><span class="line">          file: path=/etc/ha.d/authkeys mode=600</span><br><span class="line">          notify:</span><br><span class="line">            - restart heartbeat</span><br><span class="line">        - name: ha.cf configure file          </span><br><span class="line">         copy: src=/root/hb_conf/ha.cf dest=/etc/ha.d/ha.cf          </span><br><span class="line">         notify:</span><br><span class="line">            - restart heartbeat    </span><br><span class="line">         handlers:</span><br><span class="line">        - name: restart heartbeat        </span><br><span class="line">            service: name=heartbeat state=restarted</span><br></pre></td></tr></table></figure>
+        <h1 id="LVS简介"><a href="#LVS简介" class="headerlink" title="LVS简介"></a>LVS简介</h1><p>LVS中文官方手册：<a href="http://www.linuxvirtualserver.org/zh/index.html。这个手册对于了解lvs的背景知识很有帮助。" target="_blank" rel="noopener">http://www.linuxvirtualserver.org/zh/index.html。这个手册对于了解lvs的背景知识很有帮助。</a></p>
+<p>LVS英文官方手册：<a href="http://www.linuxvirtualserver.org/Documents.html。这个手册比较全面，对于了解和学习lvs的原理、配置很有帮助。" target="_blank" rel="noopener">http://www.linuxvirtualserver.org/Documents.html。这个手册比较全面，对于了解和学习lvs的原理、配置很有帮助。</a></p>
+<p>LVS是章文嵩开发的一个国产开源负载均衡软件。LVS最初是他在大学期间的玩具，随着后来使用的用户越来越多，LVS也越来越完善，最终集成到了Linux的内核中。有不少开源牛人都为LVS开发过辅助工具和辅助组件，最出名的就是Alexandre为LVS编写的Keepalived，它最初专门用于监控LVS，后来加入了通过VRRP实现高可用的功能。<br><a id="more"></a><br>LVS的全称是Linux virtual server，即Linux虚拟服务器。之所以是虚拟服务器，是因为LVS自身是个负载均衡器(director)，不直接处理请求，而是将请求转发至位于它后端真正的服务器realserver上。</p>
+<p>LVS是四层(传输层tcp/udp)、七层(应用层)的负载均衡工具，只不过大众一般都使用它的四层负载均衡功能ipvs，而七层的内容分发负载工具ktcpvs(kernel tcp virtual server)不怎么完善，使用的人并不多。</p>
+<p>ipvs是集成在内核中的框架，可以通过用户空间的程序ipvsadm工具来管理，该工具可以定义一些规则来管理内核中的ipvs。就像iptables和netfilter的关系一样。</p>
+<h1 id="LVS-ipvs三种模式的工作原理"><a href="#LVS-ipvs三种模式的工作原理" class="headerlink" title="LVS-ipvs三种模式的工作原理"></a>LVS-ipvs三种模式的工作原理</h1><p>首先要解释的是LVS相关的几种IP：</p>
+<p>VIP:virtual IP，LVS服务器上接收外网数据包的网卡IP地址。<br>DIP:director IP，LVS服务器上转发数据包到realserver的网卡IP地址。<br>RIP:realserver(常简称为RS)上接收Director转发数据包的IP，即提供服务的服务器IP。<br>CIP:客户端的IP。</p>
+<p><img src="/images/733013-20180211225301232-212054825.png" width="100%" height="100%"><br>LVS的三种工作模式：通过网络地址转换(NAT)将一组服务器构成一个高性能的、高可用的虚拟服务器，是VS/NAT技术。在分析VS/NAT的缺点和网络服务的非对称性的基础上，提出了通过IP隧道实现虚拟服务器的方法VS/TUN（Virtual Server via IP Tunneling），和通过直接路由实现虚拟服务器的方法VS/DR（Virtual Server via Direct Routing），它们可以极大地提高系统的伸缩性。</p>
+<h2 id="VS-NAT模式"><a href="#VS-NAT模式" class="headerlink" title="VS/NAT模式"></a>VS/NAT模式</h2><p>客户端发送的请求到达Director后，Director根据负载均衡算法改写目标地址为后端某个RIP(web服务器池中主机之一)并转发给该后端主机，就像NAT一样。当后端主机处理完请求后，后端主机将响应数据交给Director，并由director改写源地址为VIP后传输给客户端。大多数商品化的IP负载均衡硬件都是使用此方法，如Cisco的LocalDirector、F5的Big/IP。<br><img src="/images/733013-20180211234714295-412364937.png" width="100%" height="100%"><br><strong>这种模式下：</strong></p>
+<ol>
+<li><p>RIP和DIP一般处于同一私有网段中。但并非必须，只要它们能通信即可。</p>
+</li>
+<li><p>各RealServer的网关指向DIP，这样能保证将响应数据交给Director。</p>
+</li>
+<li><p>VS/NAT模式的最大缺点是Director负责所有进出数据：不仅处理客户端发起的请求，还负责将响应传输给客户端。而响应数据一般比请求数据大得多，调度器Director容易出现瓶颈。(也就是像7层负载的处理方式一样，但却没有7层负载那么”多功能”)</p>
+</li>
+<li><p>这种模式配置起来最简单。</p>
+</li>
+</ol>
+<h2 id="VS-TUN模式"><a href="#VS-TUN模式" class="headerlink" title="VS/TUN模式"></a>VS/TUN模式</h2><p>采用NAT技术时，由于请求和响应报文都必须经过调度器地址重写，当客户请求越来越多时，调度器的处理能力将成为瓶颈。为了解决这个问题，调度器把请求报文通过IP隧道转发至真实服务器，而真实服务器将响应直接返回给客户，所以调度器只处理请求报文。由于一般网络服务响应报文比请求报文大许多，采用VS/TUN技术后，调度器得到极大的解放，集群系统的最大吞吐量可以提高10倍。<br><img src="/images/733013-20180213102345546-471661305.png" width="100%" height="100%"><br><strong>VS/TUN模式的工作原理：</strong></p>
+<ul>
+<li><p>(1)IP隧道技术又称为IP封装技术，它可以将带有源和目标IP地址的数据报文使用新的源和目标IP进行第二次封装，这样这个报文就可以发送到一个指定的目标主机上；</p>
+</li>
+<li><p>(2)VS/TUN模式下，调度器和后端服务器组之间使用IP隧道技术。当客户端发送的请求(CIP–&gt;VIP)被director接收后，director修改该报文，加上IP隧道两端的IP地址作为新的源和目标地址，并将请求转发给后端被选中的一个目标；</p>
+</li>
+<li><p>(3)当后端服务器接收到报文后，首先解封报文得到原有的CIP–&gt;VIP，该后端服务器发现自身的tun接口上配置了VIP，因此接受该数据包。</p>
+</li>
+<li><p>(4)当请求处理完成后，结果将不会重新交给director，而是直接返回给客户端。此时响应数据包的源IP为VIP，目标IP为CIP。</p>
+</li>
+</ul>
+<p><strong>采用VS/TUN模式时的基本属性和要求：</strong></p>
+<ol>
+<li><p>RealServer的RIP和director的DIP不用处于同一物理网络中，且RIP必须可以和公网通信。也就是说集群节点可以跨互联网实现。</p>
+</li>
+<li><p>realserver的tun接口上需要配置VIP地址，以便接收director转发过来的数据包，以及作为响应报文的源IP。</p>
+</li>
+<li><p>director给realserver时需要借助隧道，隧道外层的IP头部的源IP是DIP，目标IP是RIP。而realsever响应给客户端的IP头部是根据隧道内层的IP头分析得到的，源IP是VIP，目标IP是CIP。这样客户端就无法区分这个VIP到底是director的还是服务器组中的。</p>
+</li>
+<li><p>director只处理入站请求，响应请求由realserver完成。</p>
+</li>
+<li><p>一般来说，VS/TUN模式会用来负载调度缓存服务器组，这些缓存服务器一般放置在不同网络环境，可以就近返回数据给客户端。在请求对象不能在Cache服务器本地命中的情况下，Cache服务器要向源服务器发请求，将结果取回，最后将结果返回给客户。</p>
+</li>
+</ol>
+<h2 id="VS-DR模式"><a href="#VS-DR模式" class="headerlink" title="VS/DR模式"></a>VS/DR模式</h2><p>VS/TUN模式下，调度器对数据包的处理是使用IP隧道技术进行二次封装。VS/DR模式和VS/TUN模式很类似，只不过调度器对数据包的处理是改写数据帧的目标MAC地址，通过链路层来负载均衡。</p>
+<p>VS/DR通过改写请求报文的目标MAC地址，将请求发送到真实服务器，而真实服务器将响应直接返回给客户。同VS/TUN技术一样，VS/DR技术可极大地提高集群系统的伸缩性。这种方法没有IP隧道的开销，对集群中的真实服务器也没有必须支持IP隧道协议的要求，但是要求调度器与真实服务器都有一块网卡连在同一物理网段上，以便使用MAC地址通信转发数据包。<br><img src="/images/733013-20180213102610124-276805076.png" width="100%" height="100%"><br><strong>VS/DR模式的工作原理：</strong></p>
+<ul>
+<li><p>(1)客户端发送的请求被director接收后，director根据负载均衡算法，改写数据帧的目标MAC地址为后端某RS的MAC地址，并将该数据包转发给该RS(实际上是往整个局域网发送，但只有该MAC地址的RS才不会丢弃)。</p>
+</li>
+<li><p>(2)RS接收到数据包后，发现数据包的目标IP地址为VIP，而RS本身已经将VIP配置在了某个接口上，因此RS会接收下这个数据包并进行处理。</p>
+</li>
+<li><p>(3)处理完毕后，RS直接将响应报文响应给客户端。此时数据包源IP为VIP，目标IP为CIP。<br>也就是说，客户端请求发送到LB上，源和目标IP为CIP:VIP，LB上有VIP和DIP，重新改写MAC地址后通过DIP发送给某个realserver，如RS1，此时源和目标IP还是CIP:VIP，但是目标MAC地址改写为RIP1所在网卡的MAC地址”RS1_MAC”，RS1发现自身有VIP地址，所以收下此数据报文(所以在RS上必须配置VIP)。返回时，RS1根据路由表直接返回给客户端，此时，源和目标IP是VIP–&gt;CIP。但由于流出接口为RIP所在网卡接口，因此源MAC地址为RIP所在接口的MAC地址。这一细节在考虑CIP、RIP不同网段时的配置时很重要。</p>
+</li>
+</ul>
+<p><strong>采用VS/DR模式时的基本属性和要求：</strong></p>
+<ul>
+<li><p>RealServer的RIP和director的DIP必须处于同一网段中，以便使用MAC地址进行通信。</p>
+</li>
+<li><p>realserver上必须配置VIP地址，以便接收director转发过来的数据包，以及作为响应报文的源IP。</p>
+</li>
+<li><p>realsever响应给客户端的数据包的源和目标IP为VIP–&gt;CIP。</p>
+</li>
+<li><p>director只处理入站请求，响应请求由realserver完成。</p>
+</li>
+</ul>
+<h2 id="lvs-ipvs的三种模式比较"><a href="#lvs-ipvs的三种模式比较" class="headerlink" title="lvs-ipvs的三种模式比较"></a>lvs-ipvs的三种模式比较</h2><p><img src="/images/733013-20180213110217531-1638772778.png" width="100%" height="100%"><br>在性能上，VS/DR和VS/TUN远高于VS/NAT，因为调度器只处于从客户到服务器的半连接中，按照半连接的TCP有限状态机进行状态迁移，极大程度上减轻了调度器的压力(真正建立TCP连接的是RS和Client)。VS/DR性能又稍高于VS/TUN，因为少了隧道的开销。但是，VS/DR和VS/TUN的主要区别是VS/TUN可以跨网络实现后端服务器负载均衡(也可以局域网内)，而VS/DR只能和director在局域网内进行负载均衡。</p>
+<h1 id="VS-TUN和VS-DR模式中的ARP问题"><a href="#VS-TUN和VS-DR模式中的ARP问题" class="headerlink" title="VS/TUN和VS/DR模式中的ARP问题"></a>VS/TUN和VS/DR模式中的ARP问题</h1><p>当一个目标IP地址为VIP的数据包进入Director前端的路由器时，路由器会向局域网内发送ARP广播，以找出VIP地址的MAC地址在哪台主机上。<br><img src="/images/733013-20180213170727562-1125645743.png" width="60%" height="60%"></p>
+<p>Director和各RS都配置了VIP。当路由器发送ARP广播后，Director和RS都会收到这个广播包，且都认为这个广播包找的就是自己，于是都回应给路由器，这样路由器上的ARP缓存表中的条目VIP<-->vip_MAC就不断被覆盖直到最后一个回应。这样一来，路由器将把客户端的数据包发送给最后一个回应的主机，这台主机的VIP可能是Director上的，也可能是某个RS上的。在一定时间内，路由器收到目标IP为VIP的数据包都会发送给该主机。但路由器会定时发送ARP广播包，这样一来ARP缓存表中的VIP对应的MAC地址可能会换成另一台主机。</--></p>
+<p>因此，必须要保证路由器只保存Director上VIP对应的MAC地址，即只允许Director才对路由器的ARP广播进行回应。也就是说，所有RS上的VIP必须隐藏起来。</p>
+<p>一般通过将Real Server上的VIP设置在lo接口的别名接口上(如lo:0)，并设置arp_ignore=1和arp_announce=2的方式来隐藏RS上的VIP。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">echo 1 &gt;/proc/sys/net/ipv4/conf/all/arp_ignore</span><br><span class="line">echo 2 &gt;/proc/sys/net/ipv4/conf/all/arp_announce</span><br></pre></td></tr></table></figure></p>
+<p>或者<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sysctl -w net.ipv4.conf.all.arp_ignore=1</span><br><span class="line">sysctl -w net.ipv4.conf.all.arp_announce=2</span><br></pre></td></tr></table></figure></p>
+<p>或者将arp参数设置到内核参数配置文件中以让其永久生效。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">echo &quot;net.ipv4.conf.all.arp_ignore=1&quot; &gt;&gt;/etc/sysctl.conf</span><br><span class="line">echo &quot;net.ipv4.conf.all.arp_announce=2&quot; &gt;&gt;/etc/sysctl.conf</span><br><span class="line">sysctl -p</span><br></pre></td></tr></table></figure></p>
+<p>在网上几乎所有文章还设置了lo接口上的arp参数：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">echo 1 &gt;/proc/sys/net/ipv4/conf/lo/arp_ignore</span><br><span class="line">echo 2 &gt;/proc/sys/net/ipv4/conf/lo/arp_announce</span><br></pre></td></tr></table></figure></p>
+<p>但这没有任何意义，因为从lo接口不受arp参数的影响。</p>
+<p>应该在配置VIP之前就设置arp参数，以防止配置VIP后、设置arp抑制之前被外界主机发现。</p>
+<h1 id="LVS负载均衡的调度算法"><a href="#LVS负载均衡的调度算法" class="headerlink" title="LVS负载均衡的调度算法"></a>LVS负载均衡的调度算法</h1><p>LVS的调度算法，详细内容见官方手册：<a href="http://www.linuxvirtualserver.org/zh/lvs4.html" target="_blank" rel="noopener">http://www.linuxvirtualserver.org/zh/lvs4.html</a> 。</p>
+<p>IPVS在内核中的负载均衡调度是以连接为粒度的。在HTTP协议（非持久）中，每次从WEB服务器上获取资源都需要建立一个TCP连接，同一用户的不同请求会被调度到不同的服务器上，所以这种细粒度的调度在一定程度上可以避免单个用户访问的突发性引起服务器间的负载不平衡。</p>
+<p>LVS分为两种调度方式：静态调度和动态反馈调度。</p>
+<p>静态调度方式是指不管RS的繁忙程度，根据调度算法计算后轮到谁就调度谁。例如两台realserver，一开始双方都在处理500个连接，下一个请求到来前，server1只断开了10个，而server2断开了490个，但是此时轮到了server1，就会调度server1而不管繁忙的程度。</p>
+<p>动态调度方式是指根据RS的繁忙程度反馈，计算出下一个连接应该调度谁(动态反馈负载均衡算法考虑服务器的实时负载和响应情况，不断调整服务器间处理请求的比例，来避免有些服务器超载时依然收到大量请求，从而提高整个系统的吞吐率)。</p>
+<p>在内核中的连接调度算法上，IPVS已实现了以下八种调度算法：默认的算法为wlc。</p>
+<p><strong>静态调度：</strong></p>
+<ul>
+<li><p>轮叫调度（Round-Robin Scheduling,rr）</p>
+</li>
+<li><p>加权轮叫调度（Weighted Round-Robin Scheduling,wrr），按照权重比例作为轮询标准</p>
+</li>
+<li><p>目标地址散列调度（Destination Hashing Scheduling,dh），目标地址哈希，对于同一目标IP的请求总是发往同一服务器</p>
+</li>
+<li><p>源地址散列调度（Source Hashing Scheduling,sh），源地址哈希，在一定时间内，只要是来自同一个客户端的请求，就发送至同一个realserver</p>
+</li>
+</ul>
+<p><strong>动态反馈调度：</strong></p>
+<ul>
+<li><p>最小连接调度（Least-Connection Scheduling,lc），调度器需要记录各个服务器已建立连接的数目，当一个请求被调度到某服务器，其连接数加1；当连接中止或超时，其连接数减1。当各个服务器的处理能力不同时，该算法不理想。</p>
+</li>
+<li><p>加权最小连接调度（Weighted Least-Connection Scheduling,wlc）</p>
+</li>
+<li><p>基于本地的最少连接（Locality-Based Least Connections Scheduling,lblc），目前该算法主要用于cache集群系统。</p>
+</li>
+<li><p>带复制的基于局部性最少连接（Locality-Based Least Connections with Replication Scheduling,lblcr），目前主要用于Cache集群系统。</p>
+</li>
+</ul>
+
       
     </div>
 
@@ -548,7 +647,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/ansible/" rel="tag"># ansible</a>
+            <a href="/tags/LVS/" rel="tag"># LVS</a>
           
         </div>
       
@@ -561,8 +660,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2017/04/26/Zookeeper-Dubbo-Admin-platform-deploy.html" rel="next" title="Zookeeper、Dubbo-Admin管理平台的搭建">
-                <i class="fa fa-chevron-left"></i> Zookeeper、Dubbo-Admin管理平台的搭建
+              <a href="/2018/06/08/deployment-gitolite-recode.html" rel="next" title="部署Gitolite、Centos7记录">
+                <i class="fa fa-chevron-left"></i> 部署Gitolite、Centos7记录
               </a>
             
           </div>
@@ -570,10 +669,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2017/05/02/CentOS7-LDAP-deployment.html" rel="prev" title="CentOS7 LDAP统一认证部署">
-                CentOS7 LDAP统一认证部署 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -805,7 +900,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#一、ansible介绍"><span class="nav-number">1.</span> <span class="nav-text">一、ansible介绍</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1、ansible-简介"><span class="nav-number">1.1.</span> <span class="nav-text">1、ansible 简介</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2、ansible-特点"><span class="nav-number">1.2.</span> <span class="nav-text">2、ansible 特点</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#二、Ansible安装使用"><span class="nav-number">2.</span> <span class="nav-text">二、Ansible安装使用</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1、-设置EPEL仓库"><span class="nav-number">2.1.</span> <span class="nav-text">1、 设置EPEL仓库</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2、使用yum安装Ansible"><span class="nav-number">2.2.</span> <span class="nav-text">2、使用yum安装Ansible</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3、设置用于节点鉴权的SSH密钥"><span class="nav-number">2.3.</span> <span class="nav-text">3、设置用于节点鉴权的SSH密钥</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4、为Ansible定义节点的清单"><span class="nav-number">2.4.</span> <span class="nav-text">4、为Ansible定义节点的清单</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5、尝试在Ansible服务端运行命令"><span class="nav-number">2.5.</span> <span class="nav-text">5、尝试在Ansible服务端运行命令</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#6、模块的使用"><span class="nav-number">2.6.</span> <span class="nav-text">6、模块的使用</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#三、playbook的使用"><span class="nav-number">3.</span> <span class="nav-text">三、playbook的使用</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1、playbook使用"><span class="nav-number">3.1.</span> <span class="nav-text">1、playbook使用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2、playbook案例"><span class="nav-number">3.2.</span> <span class="nav-text">2、playbook案例</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#LVS简介"><span class="nav-number">1.</span> <span class="nav-text">LVS简介</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#LVS-ipvs三种模式的工作原理"><span class="nav-number">2.</span> <span class="nav-text">LVS-ipvs三种模式的工作原理</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#VS-NAT模式"><span class="nav-number">2.1.</span> <span class="nav-text">VS/NAT模式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#VS-TUN模式"><span class="nav-number">2.2.</span> <span class="nav-text">VS/TUN模式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#VS-DR模式"><span class="nav-number">2.3.</span> <span class="nav-text">VS/DR模式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#lvs-ipvs的三种模式比较"><span class="nav-number">2.4.</span> <span class="nav-text">lvs-ipvs的三种模式比较</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#VS-TUN和VS-DR模式中的ARP问题"><span class="nav-number">3.</span> <span class="nav-text">VS/TUN和VS/DR模式中的ARP问题</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#LVS负载均衡的调度算法"><span class="nav-number">4.</span> <span class="nav-text">LVS负载均衡的调度算法</span></a></li></ol></div>
             
 
           </div>

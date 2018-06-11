@@ -4,6 +4,26 @@
 
     
   <url>
+    <loc>http://www.hyman.shop/2018/06/11/load-balance-lvs-base.html</loc>
+    <lastmod>2018-06-11T07:05:11.083Z</lastmod>
+    <data>
+        <display>
+        <title>负载均衡之LVS-基本概念和三种模式</title>
+        <pubTime>2018-06-11T06:38:19.000Z</pubTime>
+        
+        <tag>LVS</tag>
+         
+         
+           
+             
+              <breadCrumb title="LVS" url="http://www.hyman.shop/categories/LVS/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
     <loc>http://www.hyman.shop/2018/06/08/deployment-gitolite-recode.html</loc>
     <lastmod>2018-06-08T06:17:24.750Z</lastmod>
     <data>
@@ -108,11 +128,11 @@
         
         <tag>mysql</tag>
          
-        <tag>xtrabackup</tag>
-         
         <tag>mongodb</tag>
          
         <tag>redis</tag>
+         
+        <tag>xtrabackup</tag>
          
          
            
