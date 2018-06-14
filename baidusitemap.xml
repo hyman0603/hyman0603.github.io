@@ -4,6 +4,48 @@
 
     
   <url>
+    <loc>http://www.hyman.shop/2018/06/14/Centos-ansible-nokey-deploy.html</loc>
+    <lastmod>2018-06-14T02:10:09.681Z</lastmod>
+    <data>
+        <display>
+        <title>Centos7基于ansible批量部署SSH免密钥</title>
+        <pubTime>2018-06-14T01:57:18.000Z</pubTime>
+        
+        <tag>ssh</tag>
+         
+        <tag>ansible</tag>
+         
+         
+           
+             
+              <breadCrumb title="运维部署记录" url="http://www.hyman.shop/categories/%E8%BF%90%E7%BB%B4%E9%83%A8%E7%BD%B2%E8%AE%B0%E5%BD%95/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://www.hyman.shop/2018/06/13/nginx-consul-upsync.html</loc>
+    <lastmod>2018-06-13T07:30:45.842Z</lastmod>
+    <data>
+        <display>
+        <title>Consul集群搭建，配合nginx完成服务动态发现和健康检查</title>
+        <pubTime>2018-06-13T07:03:40.000Z</pubTime>
+        
+        <tag>Ngins</tag>
+         
+         
+           
+             
+              <breadCrumb title="运维部署记录" url="http://www.hyman.shop/categories/%E8%BF%90%E7%BB%B4%E9%83%A8%E7%BD%B2%E8%AE%B0%E5%BD%95/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
     <loc>http://www.hyman.shop/2018/06/11/load-balance-lvs-base.html</loc>
     <lastmod>2018-06-11T07:05:11.083Z</lastmod>
     <data>
@@ -128,11 +170,11 @@
         
         <tag>mysql</tag>
          
+        <tag>xtrabackup</tag>
+         
         <tag>mongodb</tag>
          
         <tag>redis</tag>
-         
-        <tag>xtrabackup</tag>
          
          
            

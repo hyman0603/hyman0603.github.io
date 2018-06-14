@@ -2,6 +2,20 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://www.hyman.shop/2018/06/14/Centos-ansible-nokey-deploy.html</loc>
+    
+    <lastmod>2018-06-14T02:10:09.681Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://www.hyman.shop/2018/06/13/nginx-consul-upsync.html</loc>
+    
+    <lastmod>2018-06-13T07:30:45.842Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://www.hyman.shop/2018/06/11/load-balance-lvs-base.html</loc>
     
     <lastmod>2018-06-11T07:05:11.083Z</lastmod>
