@@ -2,6 +2,20 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://www.hyman.shop/2018/06/15/oracle-11g2-install.html</loc>
+    
+    <lastmod>2018-06-15T03:16:40.602Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://www.hyman.shop/2018/06/15/redhat-not-use-yum.html</loc>
+    
+    <lastmod>2018-06-15T03:08:43.172Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://www.hyman.shop/2018/06/14/Centos-ansible-nokey-deploy.html</loc>
     
     <lastmod>2018-06-14T02:10:09.681Z</lastmod>

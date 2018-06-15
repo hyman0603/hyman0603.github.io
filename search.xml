@@ -1,6 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[Redhat6不能使用yum安装软件的解决]]></title>
+    <url>%2F2018%2F06%2F15%2Fredhat-not-use-yum.html</url>
+    <content type="text"><![CDATA[RHEL的YUM源需要注册用户才能更新使用，由于CentOS和RHEL基本没有区别，并且CentOS已经被REHL收购。所以将RHEL的YUM源替换为CentOS即可。新安装的redhat使用yum时会出现如下如下：123[root@localhost~]# yum repolistLoaded plugins: product-id, refresh-packagekit, security, subscription-managerThis system is not registered to Red Hat Subscription Management. You can use subscription-manager to register. 解决方法：执行此脚本即可：(只对于Redhat6测试，具体方法后面)1curl -s http://hyman.shop/sh/redhat6-yum.sh |bash 清除原有RHEL的YUM及相关软件包。12[root@localhost~]# rpm -qa | grep yum | xargs rpm -e --nodeps[root@localhost~]# rpm -qa |grep python-urlgrabber|xargs rpm -e --nodeps 下载centos6的相关软件包。12345[root@localhost~]# wget http://mirrors.163.com/centos/6/os/x86_64/Packages/yum-3.2.29-81.el6.centos.noarch.rpm[root@localhost~]# wget http://mirrors.163.com/centos/6/os/x86_64/Packages/yum-metadata-parser-1.1.2-16.el6.x86_64.rpm[root@localhost~]# wget http://mirrors.163.com/centos/6/os/x86_64/Packages/yum-plugin-fastestmirror-1.1.30-40.el6.noarch.rpm[root@localhost~]# wget http://mirrors.163.com/centos/6/os/x86_64/Packages/python-iniparse-0.3.1-2.1.el6.noarch.rpm[root@localhost~]# wget http://mirrors.163.com/centos/6/os/x86_64/Packages/python-urlgrabber-3.9.1-11.el6.noarch.rpm 安装软件包。12345[root@localhost~]# rpm -ivh python-iniparse-0.3.1-2.1.el6.noarch.rpm[root@localhost~]# rpm -ivh python-urlgrabber-3.9.1-11.el6.noarch.rpm[root@localhost~]# rpm -ivh yum-metadata-parser-1.1.2-16.el6.x86_64.rpm[root@localhost~]# rpm -ivh yum-plugin-fastestmirror-1.1.30-40.el6.noarch.rpm yum-3.2.29-81.el6.centos.noarch.rpm*注释yum-plugin-fastestmirror和yum-3.2.29要一起安装。 编辑文件1234567wget http://mirrors.163.com/.help/CentOS6-Base-163.repo[root@localhost~]# vim /etc/yum.repos.d/CentOS-Base.repo把$releasever替换成现有系统的版cd本号(6)vim替换命令：%s/$releasever/6/g退出保存 清理yum缓存1[root@localhost~]# yum clean all 将服务器软件包信息缓存至本地，提高搜索安装效率1[root@localhost~]# yum makecache]]></content>
+      <categories>
+        <category>运维部署记录</category>
+      </categories>
+      <tags>
+        <tag>redhat</tag>
+        <tag>yum</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[Centos7 Oracle11.2.0.4安装步骤]]></title>
+    <url>%2F2018%2F06%2F15%2Foracle-11g2-install.html</url>
+    <content type="text"><![CDATA[准备阶段在开始安装前先要检查下相应的依赖包，这里要注意的是如果是在X64的系统上安装记得需要安装i686即X64系统上的X86的包,这点很重要,如果漏了Oracle是无法正常的安装的，这里pdksh没有安装没有关系，在这里已经安装了ksh就可以了1[root@localhost ~]# yum -y install binutils compat-libstdc++-33 elfutils-libelf elfutils-libelf-devel glibc glibc-common glibc-devel gcc gcc-c++ libaio-devel libaio libgcc libstdc++ libstdc++-devel make sysstat unixODBC unixODBC-devel pdksh ksh libaio.i686 glibc.i686 compat-libstdc++-33.i686 libaio-devel.i686 libgcc.i686 libstdc++.i686 unixODBC.i686 unixODBC-devel.i686 compat-libcap1 创建oracle用户、组1234[root@localhost ~]# groupadd oinstall [root@localhost ~]# groupadd dba [root@localhost ~]# useradd -g oinstall -G dba oracle [root@localhost ~]# echo oracle:123456 |chpasswd 配置系统的limits的配置文件123456[root@localhost ~]# cat &gt;&gt; /etc/security/limits.conf &lt;&lt;EOForacle soft nproc 2047oracle hard nproc 16384oracle soft nofile 1024oracle hard nofile 65536EOF 修改内核变量配置文件123456789101112131415[root@localhost ~]# cat &gt;&gt; /etc/sysctl.conf &lt;&lt;EOFkernel.shmmni = 4096kernel.shmall = 2097152kernel.shmmax = 2147483648kernel.sem = 250 32000 100 128fs.file-max = 6815744net.ipv4.ip_local_port_range = 9000 65500net.core.rmem_default = 262144net.core.rmem_max = 4194304net.core.wmem_default= 262144net.core.wmem_max = 1048576fs.aio-max-nr = 1048576EOF[root@localhost ~]# sysctl -p 配置Oracle用户的环境变量配置文件123456789101112131415[root@localhost ~]# su - oracle [oracle@localhost ~]$ cat &gt;&gt; /home/oracle/.bash_profile &lt;&lt;EOFexport ORACLE_BASE=/app/oracle11gexport ORACLE_HOME=/app/oracle11g/product/11.2.0/dbhome_1export ORACLE_SID=orcl#NLS_LANG=AMERICAN_CHINA.ZHS16GBK#export ORACLE_UNQNAME=orclexport LD_LIBRARY_PATH=\$ORACLE_HOME/lib:/usr/libexport PATH=$PATH:$HOME/bin:$ORACLE_HOME/bin:/usr/binEOF以下配置需要另外安装rlwrapalias sqlplus=&apos;rlwrap sqlplus&apos;alias rman=&apos;rlwrap rman&apos; 安装Oracle123456789[root@localhost ~]# mkdir -p /app/&#123;oracle11g,oraInventory&#125;[root@localhost ~]# chown -R oracle:oinstall /app [root@localhost ~]#su - oracle[oracle@localhost database]$ ./runInstaller如启动安装界面失败切换root账号执行命令[root@localhost ~] xhost + 如swap不足123[root@oracle ~]#cd /tmp &amp;&amp; dd if=/dev/zero of=swap bs=1M count=2048[root@oracle tmp]# mkswap /tmp/swap -f[root@oracle tmp]# swapon /tmp/swap 安装完成后管理界面是ip:1158/em]]></content>
+      <categories>
+        <category>运维部署记录</category>
+      </categories>
+      <tags>
+        <tag>oracle</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[Centos7基于ansible批量部署SSH免密钥]]></title>
     <url>%2F2018%2F06%2F14%2FCentos-ansible-nokey-deploy.html</url>
     <content type="text"><![CDATA[应用场景：作为运维，经常会遇到批量管理Linux服务器，为了免去输入远程服务器的账号密码苦恼，可使用SSH的免秘钥登录 解决方案：生成密钥对1ssh-keygen -t rsa -f ~/.ssh/id_rsa -P &quot;&quot; 添加/etc/ansible/hosts主机123[server]172.16.2.31172.16.2.32 批量分发秘钥1ansible server -m authorized_key -a &quot;user=root key=&apos;&#123;&#123; lookup(&apos;file&apos;,&apos;/root/.ssh/id_rsa.pub&apos;) &#125;&#125;&apos;&quot; -k]]></content>
@@ -8,8 +31,8 @@
         <category>运维部署记录</category>
       </categories>
       <tags>
-        <tag>ssh</tag>
         <tag>ansible</tag>
+        <tag>ssh</tag>
       </tags>
   </entry>
   <entry>
@@ -159,9 +182,9 @@
       </categories>
       <tags>
         <tag>mysql</tag>
-        <tag>xtrabackup</tag>
         <tag>mongodb</tag>
         <tag>redis</tag>
+        <tag>xtrabackup</tag>
       </tags>
   </entry>
   <entry>
