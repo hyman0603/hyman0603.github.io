@@ -4,8 +4,28 @@
 
     
   <url>
+    <loc>http://www.hyman.shop/2018/06/19/oracle-deployment-dataguard.html</loc>
+    <lastmod>2018-06-20T03:31:06.874Z</lastmod>
+    <data>
+        <display>
+        <title>Oracle 11g2 DataGuard简单部署</title>
+        <pubTime>2018-06-19T02:54:01.000Z</pubTime>
+        
+        <tag>oracle</tag>
+         
+         
+           
+             
+              <breadCrumb title="运维部署记录" url="http://www.hyman.shop/categories/%E8%BF%90%E7%BB%B4%E9%83%A8%E7%BD%B2%E8%AE%B0%E5%BD%95/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
     <loc>http://www.hyman.shop/2018/06/15/oracle-11g2-install.html</loc>
-    <lastmod>2018-06-15T03:16:40.602Z</lastmod>
+    <lastmod>2018-06-15T06:40:29.397Z</lastmod>
     <data>
         <display>
         <title>Centos7 Oracle11.2.0.4安装步骤</title>

@@ -154,20 +154,25 @@
 
 
 
-  <meta property="og:type" content="website">
-<meta property="og:title" content="hyman">
-<meta property="og:url" content="http://www.hyman.shop/page/4/index.html">
+  <meta name="description" content="修改主库静态监听1234567891011121314151617vim listener.oraLISTENER =  (DESCRIPTION_LIST =    (DESCRIPTION =      (ADDRESS = (PROTOCOL = IPC)(KEY = EXTPROC1521))      (ADDRESS = (PROTOCOL = TCP)(HOST = server02">
+<meta name="keywords" content="oracle">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Oracle 11g2 DataGuard简单部署">
+<meta property="og:url" content="http://www.hyman.shop/2018/06/19/oracle-deployment-dataguard.html">
 <meta property="og:site_name" content="hyman">
+<meta property="og:description" content="修改主库静态监听1234567891011121314151617vim listener.oraLISTENER =  (DESCRIPTION_LIST =    (DESCRIPTION =      (ADDRESS = (PROTOCOL = IPC)(KEY = EXTPROC1521))      (ADDRESS = (PROTOCOL = TCP)(HOST = server02">
 <meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2018-06-20T03:31:06.874Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="hyman">
+<meta name="twitter:title" content="Oracle 11g2 DataGuard简单部署">
+<meta name="twitter:description" content="修改主库静态监听1234567891011121314151617vim listener.oraLISTENER =  (DESCRIPTION_LIST =    (DESCRIPTION =      (ADDRESS = (PROTOCOL = IPC)(KEY = EXTPROC1521))      (ADDRESS = (PROTOCOL = TCP)(HOST = server02">
 
 
 
 
 
 
-  <link rel="canonical" href="http://www.hyman.shop/page/4/"/>
+  <link rel="canonical" href="http://www.hyman.shop/2018/06/19/oracle-deployment-dataguard.html"/>
 
 
 
@@ -177,7 +182,7 @@
   };
 </script>
 
-  <title>hyman &mdash; 一些简单的记录</title>
+  <title>Oracle 11g2 DataGuard简单部署 | hyman</title>
   
 
 
@@ -234,8 +239,7 @@
     
   
 
-  <div class="container sidebar-position-left 
-  page-home">
+  <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -375,9 +379,9 @@
           
           <div id="content" class="content">
             
-  <section id="posts" class="posts-expand">
+
+  <div id="posts" class="posts-expand">
     
-      
 
   
 
@@ -392,7 +396,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://www.hyman.shop/2017/04/26/CentOS7-yum-install-MySQL.html">
+    <link itemprop="mainEntityOfPage" href="http://www.hyman.shop/2018/06/19/oracle-deployment-dataguard.html">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="hyman">
@@ -409,11 +413,7 @@
 
         
         
-          <h2 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/04/26/CentOS7-yum-install-MySQL.html" itemprop="url">
-                  CentOS7通过yum安装最新版本MySQL
-                </a>
+          <h2 class="post-title" itemprop="name headline">Oracle 11g2 DataGuard简单部署
               
             
           </h2>
@@ -438,7 +438,7 @@
                 
               
 
-              <time title="创建时间：2017-04-26 10:44:24" itemprop="dateCreated datePublished" datetime="2017-04-26T10:44:24+08:00">2017-04-26</time>
+              <time title="创建时间：2018-06-19 10:54:01" itemprop="dateCreated datePublished" datetime="2018-06-19T10:54:01+08:00">2018-06-19</time>
             
 
             
@@ -455,7 +455,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2018-05-25 17:49:18" itemprop="dateModified" datetime="2018-05-25T17:49:18+08:00">2018-05-25</time>
+                <time title="修改时间：2018-06-20 11:31:06" itemprop="dateModified" datetime="2018-06-20T11:31:06+08:00">2018-06-20</time>
               
             
           </span>
@@ -472,7 +472,7 @@
                 <span class="post-meta-item-text">分类于</span>
               
               
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/MySQL/" itemprop="url" rel="index"><span itemprop="name">MySQL</span></a></span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/运维部署记录/" itemprop="url" rel="index"><span itemprop="name">运维部署记录</span></a></span>
 
                 
                 
@@ -506,18 +506,23 @@
       
 
       
-        
-          <p>CentOS 7之后的版本yum的默认源中使用MariaDB替代原先MySQL，因此安装方式较为以往有一些改变：</p>
-<p>卸载原来的MariaDB</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum remove -y mariadb-config-3:10.1.17-1.el7.x86_64</span><br></pre></td></tr></table></figure>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2017/04/26/CentOS7-yum-install-MySQL.html#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
+        <h1 id="修改主库静态监听"><a href="#修改主库静态监听" class="headerlink" title="修改主库静态监听"></a>修改主库静态监听</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">vim listener.ora</span><br><span class="line"></span><br><span class="line">LISTENER =</span><br><span class="line">  (DESCRIPTION_LIST =</span><br><span class="line">    (DESCRIPTION =</span><br><span class="line">      (ADDRESS = (PROTOCOL = IPC)(KEY = EXTPROC1521))</span><br><span class="line">      (ADDRESS = (PROTOCOL = TCP)(HOST = server02)(PORT = 1521))</span><br><span class="line">    )</span><br><span class="line">  )</span><br><span class="line">SID_LIST_LISTENER=</span><br><span class="line">  (SID_LIST=</span><br><span class="line">    (SID_DESC=</span><br><span class="line">       (GLOBAL_DBNAME=primary)</span><br><span class="line">       (SID_NAME=orcl)</span><br><span class="line">     )</span><br><span class="line">  )</span><br><span class="line">ADR_BASE_LISTENER = /app/oracle11g</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">vim tnsnames.ora</span><br><span class="line"></span><br><span class="line">PRIMARY =</span><br><span class="line">  (DESCRIPTION =</span><br><span class="line">    (ADDRESS = (PROTOCOL = TCP)(HOST = primary)(PORT = 1521))</span><br><span class="line">    (CONNECT_DATA =</span><br><span class="line">      (SERVER = DEDICATED)</span><br><span class="line">      (SERVICE_NAME = primary)</span><br><span class="line">    )</span><br><span class="line">  )</span><br><span class="line">STANDBY =</span><br><span class="line">  (DESCRIPTION =</span><br><span class="line">    (ADDRESS = (PROTOCOL = TCP)(HOST = standby)(PORT = 1521))</span><br><span class="line">    (CONNECT_DATA =</span><br><span class="line">      (SERVER = DEDICATED)</span><br><span class="line">      (SERVICE_NAME = standby)</span><br><span class="line">    )</span><br><span class="line">  )</span><br></pre></td></tr></table></figure>
+<h1 id="修改主库初始化参数文件"><a href="#修改主库初始化参数文件" class="headerlink" title="修改主库初始化参数文件"></a>修改主库初始化参数文件</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">startup mount;</span><br><span class="line">alter database archivelog;</span><br><span class="line">alter database force logging;</span><br><span class="line">alter database open;</span><br><span class="line">alter system set db_unique_name=primary scope=spfile;</span><br><span class="line">alter system set log_archive_config = &apos;DG_CONFIG=(primary,standby)&apos; scope=spfile;</span><br><span class="line">alter system set log_archive_dest_1 = &apos;LOCATION=/app/oracle11g/archivelog valid_for=(all_logfiles,all_roles) db_unique_name=primary&apos; scope=spfile;</span><br><span class="line">alter system set log_archive_dest_2 = &apos;SERVICE=standby lgwr sync valid_for=(online_logfiles,primary_role) db_unique_name=standby&apos; scope=spfile;</span><br><span class="line">alter system set log_archive_dest_state_1 = ENABLE;</span><br><span class="line">alter system set log_archive_dest_state_2 = ENABLE;</span><br><span class="line">alter system set fal_server = standby scope=spfile;</span><br><span class="line">alter system set fal_client = primary scope=spfile;</span><br><span class="line">alter system set log_archive_max_processes=5 scope=spfile;</span><br><span class="line">alter system set standby_file_management=AUTO scope=spfile;</span><br><span class="line">create pfile from spfile;</span><br></pre></td></tr></table></figure>
+<h1 id="在主库pfile参数文件和密码文件，并且拷贝到备库相应位置"><a href="#在主库pfile参数文件和密码文件，并且拷贝到备库相应位置" class="headerlink" title="在主库pfile参数文件和密码文件，并且拷贝到备库相应位置"></a>在主库pfile参数文件和密码文件，并且拷贝到备库相应位置</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cd $ORACLE_HOME/dbs</span><br><span class="line">scp initorcl.ora orapworcl oracle@172.16.2.32:/$ORACLE_HOME/dbs</span><br></pre></td></tr></table></figure>
+<h1 id="修改备库静态监听"><a href="#修改备库静态监听" class="headerlink" title="修改备库静态监听"></a>修改备库静态监听</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">vim listener.ora</span><br><span class="line"></span><br><span class="line">LISTENER =</span><br><span class="line">  (DESCRIPTION_LIST =</span><br><span class="line">    (DESCRIPTION =</span><br><span class="line">      (ADDRESS = (PROTOCOL = IPC)(KEY = EXTPROC1521))</span><br><span class="line">      (ADDRESS = (PROTOCOL = TCP)(HOST = standby)(PORT = 1521))</span><br><span class="line">    )</span><br><span class="line">  )</span><br><span class="line">SID_LIST_LISTENER=</span><br><span class="line">  (SID_LIST=</span><br><span class="line">    (SID_DESC=</span><br><span class="line">       (GLOBAL_DBNAME=standby)</span><br><span class="line">       (SID_NAME=orcl)</span><br><span class="line">     )</span><br><span class="line">  )</span><br><span class="line">ADR_BASE_LISTENER = /app/oracle11g</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">vim tnsnames.ora</span><br><span class="line"></span><br><span class="line">PRIMARY =</span><br><span class="line">  (DESCRIPTION =</span><br><span class="line">    (ADDRESS = (PROTOCOL = TCP)(HOST = primary)(PORT = 1521))</span><br><span class="line">    (CONNECT_DATA =</span><br><span class="line">      (SERVER = DEDICATED)</span><br><span class="line">      (SERVICE_NAME = primary)</span><br><span class="line">    )</span><br><span class="line">  )</span><br><span class="line">STANDBY =</span><br><span class="line">  (DESCRIPTION =</span><br><span class="line">    (ADDRESS = (PROTOCOL = TCP)(HOST = standby)(PORT = 1521))</span><br><span class="line">    (CONNECT_DATA =</span><br><span class="line">      (SERVER = DEDICATED)</span><br><span class="line">      (SERVICE_NAME = standby)</span><br><span class="line">    )</span><br><span class="line">  )</span><br></pre></td></tr></table></figure>
+<h1 id="修改备库初始化参数文件"><a href="#修改备库初始化参数文件" class="headerlink" title="修改备库初始化参数文件"></a>修改备库初始化参数文件</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">startup nomount</span><br><span class="line">create spfile from pfile=&apos;/app/oracle11g/product/11.2.0/dbhome_1/dbs/initorcl.ora&apos;;</span><br><span class="line">shutdown abort;</span><br><span class="line">alter system set db_unique_name=standby scope=spfile;</span><br><span class="line">alter system set log_archive_config=&apos;DG_CONFIG=(primary,standby)&apos; scope=spfile;</span><br><span class="line">alter system set log_archive_dest_1 = &apos;LOCATION=/app/oracle11g/archivelog valid_for=(all_logfiles,all_roles) db_unique_name=standby&apos; scope=spfile;</span><br><span class="line">alter system set log_archive_dest_2 = &apos;SERVICE=primary lgwr sync valid_for=(online_logfiles,primary_role) db_unique_name=primary&apos; scope=spfile;</span><br><span class="line">alter system set fal_server=primary scope=spfile;</span><br><span class="line">alter system set fal_client=standby scope=spfile;</span><br><span class="line">shutdown abort;</span><br><span class="line">startup nomount;</span><br></pre></td></tr></table></figure>
+<h1 id="测试主库备库是否tnsping正常"><a href="#测试主库备库是否tnsping正常" class="headerlink" title="测试主库备库是否tnsping正常"></a>测试主库备库是否tnsping正常</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">sqlplus sys/123456@primary as sysdba</span><br><span class="line">sqlplus sys/123456@standby as sysdba </span><br><span class="line">tnsping standby</span><br><span class="line">tnsping primary</span><br></pre></td></tr></table></figure>
+<h1 id="在主库通过Rman-Duplicate创建备库"><a href="#在主库通过Rman-Duplicate创建备库" class="headerlink" title="在主库通过Rman Duplicate创建备库"></a>在主库通过Rman Duplicate创建备库</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">rman target sys/123456@primary auxiliary sys/123456@standby nocatalog</span><br><span class="line">duplicate target database for standby from active database nofilenamecheck;</span><br></pre></td></tr></table></figure>
+<h1 id="在主库和备库添加standby日志"><a href="#在主库和备库添加standby日志" class="headerlink" title="在主库和备库添加standby日志"></a>在主库和备库添加standby日志</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">alter database add standby logfile group 4 &apos;/app/oracle11g/standbylog/standby_redo04.log&apos; size 50m;</span><br><span class="line">alter database add standby logfile group 5 &apos;/app/oracle11g/standbylog/standby_redo05.log&apos; size 50m;</span><br><span class="line">alter database add standby logfile group 6 &apos;/app/oracle11g/standbylog/standby_redo06.log&apos; size 50m;</span><br><span class="line">alter database add standby logfile group 7 &apos;/app/oracle11g/standbylog/standby_redo07.log&apos; size 50m;</span><br></pre></td></tr></table></figure>
+<h1 id="在备库开启实时日志应用"><a href="#在备库开启实时日志应用" class="headerlink" title="在备库开启实时日志应用"></a>在备库开启实时日志应用</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SQL&gt;recover managed standby database using current logfile disconnect from session;</span><br></pre></td></tr></table></figure>
+<p><strong>取消备库实时日志</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">alter database recover managed standby database cancel;</span><br></pre></td></tr></table></figure></p>
+<p><strong>查看备库状态</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">select group#,thread#,sequence#,archived,status from v$standby_log</span><br><span class="line">select open_mode,database_role,db_unique_name from v$database;</span><br></pre></td></tr></table></figure>
+<p><strong>查看standby启动进程状态</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">select process,client_process,sequence#,status from v$managed_standby;</span><br></pre></td></tr></table></figure></p>
+<p><strong>查看数据库保护模式</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">select database_role,protection_mode,protection_level,open_mode from v$database;</span><br></pre></td></tr></table></figure>
       
     </div>
 
@@ -530,179 +535,65 @@
     
 
     
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>如果对您有帮助，可以给我们打赏鼓励！</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/pay/ali.jpg" alt="hyman 支付宝"/>
+        <p>支付宝</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
 
     
 
     <footer class="post-footer">
       
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://www.hyman.shop/2017/01/13/Hexo-github-next-blog.html">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="hyman">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="hyman">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h2 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/01/13/Hexo-github-next-blog.html" itemprop="url">
-                  Hexo+github+next搭建的blog
-                </a>
-              
-            
-          </h2>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-
-              
-                
-              
-
-              <time title="创建时间：2017-01-13 19:42:30" itemprop="dateCreated datePublished" datetime="2017-01-13T19:42:30+08:00">2017-01-13</time>
-            
-
-            
-              
-
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">更新于</span>
-                
-                <time title="修改时间：2018-05-25 17:49:32" itemprop="dateModified" datetime="2018-05-25T17:49:32+08:00">2018-05-25</time>
-              
-            
-          </span>
-
+        <div class="post-tags">
           
-
+            <a href="/tags/oracle/" rel="tag"># oracle</a>
           
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
         </div>
-      </header>
-    
+      
 
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
+      
       
       
 
       
-        
-          <hr>
-<ol>
-<li>搭建环境：Windows 10</li>
-<li>软件工具：git、node.js、hexo、Markdownpad2</li>
-</ol>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2017/01/13/Hexo-github-next-blog.html#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/06/15/redhat-not-use-yum.html" rel="next" title="Redhat6不能使用yum安装软件的解决">
+                <i class="fa fa-chevron-left"></i> Redhat6不能使用yum安装软件的解决
+              </a>
+            
           </div>
-          <!--/noindex-->
-        
-      
-    </div>
 
-    
+          <span class="post-nav-divider"></span>
 
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
       
 
       
-
-      
-
-      
-      
-        <div class="post-eof"></div>
       
     </footer>
   </div>
@@ -712,18 +603,30 @@
   </article>
 
 
-    
-  </section>
 
-  
-  <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/3/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/3/">3</a><span class="page-number current">4</span>
-  </nav>
+    <div class="post-spread">
+      
+        
+<script>
+  with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='//bdimg.share.baidu.com/static/api/js/share.js?cdnversion='+~(-new Date()/36e5)];
+</script>
 
+      
+    </div>
+  </div>
 
 
           </div>
           
+
+  
+    <div class="comments" id="comments">
+      <div id="lv-container" data-id="city" data-uid="MTAyMC8yOTg5MS82NDU2"></div>
+    </div>
+
+  
+
+
 
         </div>
         
@@ -744,8 +647,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -908,6 +820,22 @@
       </section>
 
       
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#修改主库静态监听"><span class="nav-number">1.</span> <span class="nav-text">修改主库静态监听</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#修改主库初始化参数文件"><span class="nav-number">2.</span> <span class="nav-text">修改主库初始化参数文件</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#在主库pfile参数文件和密码文件，并且拷贝到备库相应位置"><span class="nav-number">3.</span> <span class="nav-text">在主库pfile参数文件和密码文件，并且拷贝到备库相应位置</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#修改备库静态监听"><span class="nav-number">4.</span> <span class="nav-text">修改备库静态监听</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#修改备库初始化参数文件"><span class="nav-number">5.</span> <span class="nav-text">修改备库初始化参数文件</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#测试主库备库是否tnsping正常"><span class="nav-number">6.</span> <span class="nav-text">测试主库备库是否tnsping正常</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#在主库通过Rman-Duplicate创建备库"><span class="nav-number">7.</span> <span class="nav-text">在主库通过Rman Duplicate创建备库</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#在主库和备库添加standby日志"><span class="nav-number">8.</span> <span class="nav-text">在主库和备库添加standby日志</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#在备库开启实时日志应用"><span class="nav-number">9.</span> <span class="nav-text">在备库开启实时日志应用</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
 
       
 
@@ -1043,6 +971,10 @@
   
 
   
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=6.2.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=6.2.0"></script>
+
+
 
   
 
@@ -1067,6 +999,17 @@
 
 
 
+  
+    <script type="text/javascript">
+      (function(d, s) {
+        var j, e = d.getElementsByTagName(s)[0];
+        if (typeof LivereTower === 'function') { return; }
+        j = d.createElement(s);
+        j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+        j.async = true;
+        e.parentNode.insertBefore(j, e);
+      })(document, 'script');
+    </script>
   
 
 
@@ -1442,7 +1385,7 @@
   <script src="/lib/bookmark/bookmark.min.js?v=1.0"></script>
   <script type="text/javascript">
   
-    bookmark.loadBookmark();
+    bookmark.scrollToMark('auto', "#更多");
   
   </script>
 
