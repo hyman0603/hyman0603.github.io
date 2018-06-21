@@ -15,7 +15,7 @@ rpm -ivh http://mirrors.163.com/centos/6/os/x86_64/Packages/yum-plugin-fastestmi
 # 注释yum-plugin-fastestmirror和yum-3.2.29要一起安装。
 
 # 下载163源
-wget -P http://mirrors.163.com/.help/CentOS6-Base-163.repo /etc/yum.repos.d/
+wget -P /etc/yum.repos.d/ http://mirrors.163.com/.help/CentOS6-Base-163.repo
 sed -i 's/$releasever/6/g' /etc/yum.repos.d/CentOS6-Base-163.repo
 
 # 清理yum缓存
