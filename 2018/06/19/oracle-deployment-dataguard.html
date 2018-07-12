@@ -154,18 +154,18 @@
 
 
 
-  <meta name="description" content="环境：centos 7redhat 6.4oracle 11.2.0.4 172.16.2.31 primary172.16.2.32 standby172.16.2.19 testdb">
+  <meta name="description" content="环境：centos 7redhat 6.4oracle 11.2.0.4">
 <meta name="keywords" content="oracle">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Oracle 11g2 DataGuard简单部署">
 <meta property="og:url" content="http://www.hyman.shop/2018/06/19/oracle-deployment-dataguard.html">
 <meta property="og:site_name" content="hyman">
-<meta property="og:description" content="环境：centos 7redhat 6.4oracle 11.2.0.4 172.16.2.31 primary172.16.2.32 standby172.16.2.19 testdb">
+<meta property="og:description" content="环境：centos 7redhat 6.4oracle 11.2.0.4">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2018-06-21T05:32:14.835Z">
+<meta property="og:updated_time" content="2018-06-21T05:33:29.378Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Oracle 11g2 DataGuard简单部署">
-<meta name="twitter:description" content="环境：centos 7redhat 6.4oracle 11.2.0.4 172.16.2.31 primary172.16.2.32 standby172.16.2.19 testdb">
+<meta name="twitter:description" content="环境：centos 7redhat 6.4oracle 11.2.0.4">
 
 
 
@@ -455,7 +455,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2018-06-21 13:32:14" itemprop="dateModified" datetime="2018-06-21T13:32:14+08:00">2018-06-21</time>
+                <time title="修改时间：2018-06-21 13:33:29" itemprop="dateModified" datetime="2018-06-21T13:33:29+08:00">2018-06-21</time>
               
             
           </span>
@@ -506,8 +506,7 @@
       
 
       
-        <p>环境：<br>centos 7<br>redhat 6.4<br>oracle 11.2.0.4</p>
-<p>172.16.2.31 primary<br>172.16.2.32 standby<br>172.16.2.19 testdb<br><a id="more"></a></p>
+        <p>环境：<br>centos 7<br>redhat 6.4<br>oracle 11.2.0.4<br><a id="more"></a><br>172.16.2.31 primary<br>172.16.2.32 standby<br>172.16.2.19 testdb</p>
 <h1 id="修改主库静态监听"><a href="#修改主库静态监听" class="headerlink" title="修改主库静态监听"></a>修改主库静态监听</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">vim listener.ora</span><br><span class="line"></span><br><span class="line">LISTENER =</span><br><span class="line">  (DESCRIPTION_LIST =</span><br><span class="line">    (DESCRIPTION =</span><br><span class="line">      (ADDRESS = (PROTOCOL = TCP)(HOST = primary)(PORT = 1521))</span><br><span class="line">    )</span><br><span class="line">  )</span><br><span class="line">SID_LIST_LISTENER=</span><br><span class="line">  (SID_LIST=</span><br><span class="line">    (SID_DESC=</span><br><span class="line">       (GLOBAL_DBNAME=primary)</span><br><span class="line">       (SID_NAME=orcl)</span><br><span class="line">     )</span><br><span class="line">  )</span><br><span class="line">ADR_BASE_LISTENER = /app/oracle11g</span><br></pre></td></tr></table></figure>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">vim tnsnames.ora</span><br><span class="line"></span><br><span class="line">PRIMARY =</span><br><span class="line">  (DESCRIPTION =</span><br><span class="line">    (ADDRESS = (PROTOCOL = TCP)(HOST = primary)(PORT = 1521))</span><br><span class="line">    (CONNECT_DATA =</span><br><span class="line">      (SERVER = DEDICATED)</span><br><span class="line">      (SERVICE_NAME = primary)</span><br><span class="line">    )</span><br><span class="line">  )</span><br><span class="line">STANDBY =</span><br><span class="line">  (DESCRIPTION =</span><br><span class="line">    (ADDRESS = (PROTOCOL = TCP)(HOST = standby)(PORT = 1521))</span><br><span class="line">    (CONNECT_DATA =</span><br><span class="line">      (SERVER = DEDICATED)</span><br><span class="line">      (SERVICE_NAME = standby)</span><br><span class="line">    )</span><br><span class="line">  )</span><br></pre></td></tr></table></figure>
 <h1 id="修改主库初始化参数文件"><a href="#修改主库初始化参数文件" class="headerlink" title="修改主库初始化参数文件"></a>修改主库初始化参数文件</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">startup mount;</span><br><span class="line">alter database archivelog;</span><br><span class="line">alter database force logging;</span><br><span class="line">alter database open;</span><br><span class="line">alter system set db_unique_name=primary scope=spfile;</span><br><span class="line">alter system set log_archive_config = &apos;DG_CONFIG=(primary,standby)&apos; scope=spfile;</span><br><span class="line">alter system set log_archive_dest_1 = &apos;LOCATION=/app/oracle11g/archivelog valid_for=(all_logfiles,all_roles) db_unique_name=primary&apos; scope=spfile;</span><br><span class="line">alter system set log_archive_dest_2 = &apos;SERVICE=standby lgwr sync valid_for=(online_logfiles,primary_role) db_unique_name=standby&apos; scope=spfile;</span><br><span class="line">alter system set log_archive_dest_state_1 = ENABLE;</span><br><span class="line">alter system set log_archive_dest_state_2 = ENABLE;</span><br><span class="line">alter system set fal_server = standby scope=spfile;</span><br><span class="line">alter system set fal_client = primary scope=spfile;</span><br><span class="line">alter system set log_archive_max_processes=5 scope=spfile;</span><br><span class="line">alter system set standby_file_management=AUTO scope=spfile;</span><br><span class="line">create pfile from spfile;</span><br></pre></td></tr></table></figure>
@@ -600,6 +599,10 @@
 
           <div class="post-nav-prev post-nav-item">
             
+              <a href="/2018/07/04/docker-swarm-mongodb-replication.html" rel="prev" title="基于Docker Swarm 构建MongoDB分片副本集群">
+                基于Docker Swarm 构建MongoDB分片副本集群 <i class="fa fa-chevron-right"></i>
+              </a>
+            
           </div>
         </div>
       
@@ -687,7 +690,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">32</span>
+                    <span class="site-state-item-count">34</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -726,7 +729,11 @@
                     
                       
                     
-                    <span class="site-state-item-count">13</span>
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">15</span>
                     <span class="site-state-item-name">分类</span>
                   </a>
                 </div>
@@ -795,7 +802,15 @@
                     
                       
                     
-                    <span class="site-state-item-count">28</span>
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">32</span>
                     <span class="site-state-item-name">标签</span>
                   </a>
                 </div>

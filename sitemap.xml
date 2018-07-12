@@ -2,9 +2,37 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://www.hyman.shop/2018/07/09/nginx-remote-addr-rewrite.html</loc>
+    
+    <lastmod>2018-07-12T08:54:31.060Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://www.hyman.shop/2018/07/04/docker-swarm-mongodb-replication.html</loc>
+    
+    <lastmod>2018-07-04T07:36:27.226Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://www.hyman.shop/2018/05/15/k8s-simple-install-1.10.3.html</loc>
+    
+    <lastmod>2018-07-03T03:27:32.256Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://www.hyman.shop/2018/06/15/redhat-not-use-yum.html</loc>
+    
+    <lastmod>2018-07-03T03:26:55.066Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://www.hyman.shop/2018/06/19/oracle-deployment-dataguard.html</loc>
     
-    <lastmod>2018-06-21T05:32:14.835Z</lastmod>
+    <lastmod>2018-06-21T05:33:29.378Z</lastmod>
     
   </url>
   
@@ -12,13 +40,6 @@
     <loc>http://www.hyman.shop/2018/06/15/oracle-11g2-install.html</loc>
     
     <lastmod>2018-06-21T00:57:14.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://www.hyman.shop/2018/06/15/redhat-not-use-yum.html</loc>
-    
-    <lastmod>2018-06-15T03:08:43.172Z</lastmod>
     
   </url>
   
@@ -47,13 +68,6 @@
     <loc>http://www.hyman.shop/2018/06/08/deployment-gitolite-recode.html</loc>
     
     <lastmod>2018-06-08T06:17:24.750Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://www.hyman.shop/2018/05/15/k8s-simple-install-1.10.3.html</loc>
-    
-    <lastmod>2018-06-01T04:27:06.483Z</lastmod>
     
   </url>
   
