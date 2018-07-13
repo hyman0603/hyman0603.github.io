@@ -28,7 +28,7 @@ systemctl enable kubelet
 echo 'download K8S images'
 MyUrl=registry.cn-shenzhen.aliyuncs.com/hyman0603
 images=(
-kube-proxy-amd64:v1.10.3 kube-controller-manager-amd64:v1.10.3 kube-scheduler-amd64:v1.10.3 kube-apiserver-amd64:v1.10.3 
+kube-proxy-amd64:v1.11.0 kube-controller-manager-amd64:v1.11.0 kube-scheduler-amd64:v1.11.0 kube-apiserver-amd64:v1.11.0 
 etcd-amd64:3.1.12 kubernetes-dashboard-amd64:v1.8.3 metrics-server-amd64:v0.2.1 heapster-grafana-amd64:v4.4.3 heapster-influxdb-amd64:v1.3.3 heapster-amd64:v1.5.3 
 k8s-dns-dnsmasq-nanny-amd64:1.14.8 k8s-dns-sidecar-amd64:1.14.8 k8s-dns-kube-dns-amd64:1.14.8 
 k8s-dns-dnsmasq-nanny-amd64:1.14.10 k8s-dns-sidecar-amd64:1.14.10 k8s-dns-kube-dns-amd64:1.14.10 pause-amd64:3.1

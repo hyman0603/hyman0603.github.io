@@ -20,7 +20,7 @@ systemctl enable kubelet
 
 echo "download k8s images"
 MyUrl=registry.cn-shenzhen.aliyuncs.com/hyman0603
-images=(kube-proxy-amd64:v1.10.3 pause-amd64:3.1)
+images=(kube-proxy-amd64:v1.11.0 pause-amd64:3.1)
 for imageName in ${images[@]} ; do
   docker pull $MyUrl/$imageName
   docker tag $MyUrl/$imageName k8s.gcr.io/$imageName
