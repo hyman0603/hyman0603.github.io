@@ -4,8 +4,28 @@
 
     
   <url>
+    <loc>http://www.hyman.shop/2018/05/15/k8s-simple-install-1.10.3.html</loc>
+    <lastmod>2018-07-13T00:48:12.574Z</lastmod>
+    <data>
+        <display>
+        <title>k8s简易安装1.11.0</title>
+        <pubTime>2018-05-15T06:56:50.000Z</pubTime>
+        
+        <tag>k8s</tag>
+         
+         
+           
+             
+              <breadCrumb title="kubernetes" url="http://www.hyman.shop/categories/kubernetes/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
     <loc>http://www.hyman.shop/2018/07/09/nginx-remote-addr-rewrite.html</loc>
-    <lastmod>2018-07-12T08:54:31.060Z</lastmod>
+    <lastmod>2018-07-12T08:59:51.895Z</lastmod>
     <data>
         <display>
         <title>Nginx根据指定IP转发链接</title>
@@ -43,26 +63,6 @@
            
              
               <breadCrumb title="docker" url="http://www.hyman.shop/categories/docker/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>http://www.hyman.shop/2018/05/15/k8s-simple-install-1.10.3.html</loc>
-    <lastmod>2018-07-03T03:27:32.256Z</lastmod>
-    <data>
-        <display>
-        <title>k8s简易安装1.10.3</title>
-        <pubTime>2018-05-15T06:56:50.000Z</pubTime>
-        
-        <tag>k8s</tag>
-         
-         
-           
-             
-              <breadCrumb title="kubernetes" url="http://www.hyman.shop/categories/kubernetes/"/>
           
         </display>
     </data>

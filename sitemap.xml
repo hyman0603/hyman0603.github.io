@@ -2,9 +2,16 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://www.hyman.shop/2018/05/15/k8s-simple-install-1.10.3.html</loc>
+    
+    <lastmod>2018-07-13T00:48:12.574Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://www.hyman.shop/2018/07/09/nginx-remote-addr-rewrite.html</loc>
     
-    <lastmod>2018-07-12T08:54:31.060Z</lastmod>
+    <lastmod>2018-07-12T08:59:51.895Z</lastmod>
     
   </url>
   
@@ -12,13 +19,6 @@
     <loc>http://www.hyman.shop/2018/07/04/docker-swarm-mongodb-replication.html</loc>
     
     <lastmod>2018-07-04T07:36:27.226Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://www.hyman.shop/2018/05/15/k8s-simple-install-1.10.3.html</loc>
-    
-    <lastmod>2018-07-03T03:27:32.256Z</lastmod>
     
   </url>
   
