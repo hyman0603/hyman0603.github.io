@@ -28,12 +28,13 @@ systemctl enable kubelet
 echo 'download K8S images'
 MyUrl=registry.cn-shenzhen.aliyuncs.com/hyman0603
 images=(
-kube-proxy-amd64:v1.11.0 kube-controller-manager-amd64:v1.11.0 kube-scheduler-amd64:v1.11.0 kube-apiserver-amd64:v1.11.0 
-etcd-amd64:3.2.18 coredns:1.1.3 kubernetes-dashboard-amd64:v1.8.3 metrics-server-amd64:v0.2.1 heapster-grafana-amd64:v4.4.3 heapster-influxdb-amd64:v1.3.3 heapster-amd64:v1.5.3 
-k8s-dns-dnsmasq-nanny-amd64:1.14.8 k8s-dns-sidecar-amd64:1.14.8 k8s-dns-kube-dns-amd64:1.14.8 
+kube-proxy-amd64:v1.11.0 kube-controller-manager-amd64:v1.11.0 kube-scheduler-amd64:v1.11.0 
+kube-apiserver-amd64:v1.11.0 etcd-amd64:3.2.18 coredns:1.1.3 kubernetes-dashboard-amd64:v1.8.3 
+heapster-grafana-amd64:v4.4.3 heapster-influxdb-amd64:v1.3.3 heapster-amd64:v1.5.3 
 k8s-dns-dnsmasq-nanny-amd64:1.14.10 k8s-dns-sidecar-amd64:1.14.10 k8s-dns-kube-dns-amd64:1.14.10 pause-amd64:3.1
 )
 
+#metrics-server-amd64:v0.2.1  k8s-dns-dnsmasq-nanny-amd64:1.14.8 k8s-dns-sidecar-amd64:1.14.8 k8s-dns-kube-dns-amd64:1.14.8
 
 
 #
@@ -61,12 +62,12 @@ curl -s https://raw.githubusercontent.com/kubernetes/heapster/master/deploy/kube
 curl -s https://raw.githubusercontent.com/kubernetes/heapster/master/deploy/kube-config/influxdb/grafana.yaml > k8s/heapster/grafana.yaml 
 
 #metrics-server
-curl -s https://raw.githubusercontent.com/kubernetes-incubator/metrics-server/master/deploy/1.8%2B/auth-delegator.yaml > k8s/metrics-server/auth-delegator.yaml
-curl -s https://raw.githubusercontent.com/kubernetes-incubator/metrics-server/master/deploy/1.8%2B/auth-reader.yaml > k8s/metrics-server/auth-reader.yaml
-curl -s https://raw.githubusercontent.com/kubernetes-incubator/metrics-server/master/deploy/1.8%2B/metrics-apiservice.yaml > k8s/metrics-server/metrics-apiservice.yaml
-curl -s https://raw.githubusercontent.com/kubernetes-incubator/metrics-server/master/deploy/1.8%2B/metrics-server-deployment.yaml > k8s/metrics-server/metrics-server-deployment.yaml
-curl -s https://raw.githubusercontent.com/kubernetes-incubator/metrics-server/master/deploy/1.8%2B/metrics-server-service.yaml > k8s/metrics-server/metrics-server-service.yaml
-curl -s https://raw.githubusercontent.com/kubernetes-incubator/metrics-server/master/deploy/1.8%2B/resource-reader.yaml > k8s/metrics-server/resource-reader.yaml
+#curl -s https://raw.githubusercontent.com/kubernetes-incubator/metrics-server/master/deploy/1.8%2B/auth-delegator.yaml > k8s/metrics-server/auth-delegator.yaml
+#curl -s https://raw.githubusercontent.com/kubernetes-incubator/metrics-server/master/deploy/1.8%2B/auth-reader.yaml > k8s/metrics-server/auth-reader.yaml
+#curl -s https://raw.githubusercontent.com/kubernetes-incubator/metrics-server/master/deploy/1.8%2B/metrics-apiservice.yaml > k8s/metrics-server/metrics-apiservice.yaml
+#curl -s https://raw.githubusercontent.com/kubernetes-incubator/metrics-server/master/deploy/1.8%2B/metrics-server-deployment.yaml > k8s/metrics-server/metrics-server-deployment.yaml
+#curl -s https://raw.githubusercontent.com/kubernetes-incubator/metrics-server/master/deploy/1.8%2B/metrics-server-service.yaml > k8s/metrics-server/metrics-server-service.yaml
+#curl -s https://raw.githubusercontent.com/kubernetes-incubator/metrics-server/master/deploy/1.8%2B/resource-reader.yaml > k8s/metrics-server/resource-reader.yaml
 
 echo  
 echo 'images list'

@@ -8,7 +8,7 @@
 kubeadm reset &>/dev/null
 
 echo -e "\033[32m install K8S Master \033[0m" 
-kubeadm init --kubernetes-version=v1.10.3  --pod-network-cidr=10.244.0.0/16 |tee /tmp/install.log
+kubeadm init --kubernetes-version=v1.11.0  --pod-network-cidr=10.244.0.0/16 |tee /tmp/install.log
 
 echo  
 echo -e "\033[32mk8s node节点代码保存到 $HOME/k8s.add.node.txt\033[0m" 
