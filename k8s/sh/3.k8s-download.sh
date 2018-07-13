@@ -40,8 +40,8 @@ k8s-dns-dnsmasq-nanny-amd64:1.14.10 k8s-dns-sidecar-amd64:1.14.10 k8s-dns-kube-d
 #
 for imageName in ${images[@]} ; do
   docker pull $MyUrl/$imageName
-  docker tag $MyUrl/$imageName k8s.gcr.io/$imageName
-  docker rmi $MyUrl/$imageName
+  docker image tag $MyUrl/$imageName k8s.gcr.io/$imageName
+  docker image rm $MyUrl/$imageName
 done
   
 #flannel-amd64
