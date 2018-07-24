@@ -4,8 +4,28 @@
 
     
   <url>
+    <loc>http://www.hyman.shop/2018/07/24/kubernetes-master-install-for-kubeadm-1-11.html</loc>
+    <lastmod>2018-07-24T10:36:54.584Z</lastmod>
+    <data>
+        <display>
+        <title>利用 kubeadm 部署 Kubernetes v1.11.x HA 集群</title>
+        <pubTime>2018-07-24T05:35:20.000Z</pubTime>
+        
+        <tag>k8s</tag>
+         
+         
+           
+             
+              <breadCrumb title="kubernetes" url="http://www.hyman.shop/categories/kubernetes/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
     <loc>http://www.hyman.shop/2018/05/15/k8s-simple-install-1.11.0.html</loc>
-    <lastmod>2018-07-13T00:59:03.538Z</lastmod>
+    <lastmod>2018-07-24T10:20:15.389Z</lastmod>
     <data>
         <display>
         <title>k8s简易安装1.11.0</title>
