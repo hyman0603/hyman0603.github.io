@@ -2,9 +2,37 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://www.hyman.shop/2018/07/27/vmware-os-reboot-fsckext4-no-file.html</loc>
+    
+    <lastmod>2018-07-31T09:30:06.534Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://www.hyman.shop/2018/07/31/oracle-error-ora00980.html</loc>
+    
+    <lastmod>2018-07-31T09:29:54.199Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://www.hyman.shop/2018/07/23/ceph-cluster-deploy-luminous.html</loc>
+    
+    <lastmod>2018-07-27T04:42:47.783Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://www.hyman.shop/2018/07/24/kubernetes-master-install-for-kubeadm-1-11.html</loc>
     
-    <lastmod>2018-07-24T10:36:54.584Z</lastmod>
+    <lastmod>2018-07-26T02:07:28.583Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://www.hyman.shop/2018/07/25/kubernetes-install-helm.html</loc>
+    
+    <lastmod>2018-07-25T02:34:58.949Z</lastmod>
     
   </url>
   

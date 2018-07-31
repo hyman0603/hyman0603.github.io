@@ -4,14 +4,98 @@
 
     
   <url>
+    <loc>http://www.hyman.shop/2018/07/27/vmware-os-reboot-fsckext4-no-file.html</loc>
+    <lastmod>2018-07-31T09:30:06.534Z</lastmod>
+    <data>
+        <display>
+        <title>Vmware虚拟机系统重启后系统无法进入解决</title>
+        <pubTime>2018-07-27T03:01:45.000Z</pubTime>
+        
+        <tag>vmware</tag>
+         
+         
+           
+             
+              <breadCrumb title="日常问题处理" url="http://www.hyman.shop/categories/%E6%97%A5%E5%B8%B8%E9%97%AE%E9%A2%98%E5%A4%84%E7%90%86/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://www.hyman.shop/2018/07/31/oracle-error-ora00980.html</loc>
+    <lastmod>2018-07-31T09:29:54.199Z</lastmod>
+    <data>
+        <display>
+        <title>ORA-00980同义词转换不再有效</title>
+        <pubTime>2018-07-31T09:10:15.000Z</pubTime>
+        
+        <tag>oracle</tag>
+         
+         
+           
+             
+              <breadCrumb title="日常问题处理" url="http://www.hyman.shop/categories/%E6%97%A5%E5%B8%B8%E9%97%AE%E9%A2%98%E5%A4%84%E7%90%86/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://www.hyman.shop/2018/07/23/ceph-cluster-deploy-luminous.html</loc>
+    <lastmod>2018-07-27T04:42:47.783Z</lastmod>
+    <data>
+        <display>
+        <title>Ceph luminous 安装配置</title>
+        <pubTime>2018-07-23T02:32:35.000Z</pubTime>
+        
+        <tag>ceph</tag>
+         
+         
+           
+             
+              <breadCrumb title="Ceph" url="http://www.hyman.shop/categories/Ceph/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
     <loc>http://www.hyman.shop/2018/07/24/kubernetes-master-install-for-kubeadm-1-11.html</loc>
-    <lastmod>2018-07-24T10:36:54.584Z</lastmod>
+    <lastmod>2018-07-26T02:07:28.583Z</lastmod>
     <data>
         <display>
         <title>利用 kubeadm 部署 Kubernetes v1.11.x HA 集群</title>
         <pubTime>2018-07-24T05:35:20.000Z</pubTime>
         
         <tag>k8s</tag>
+         
+        <tag>kubernetes</tag>
+         
+         
+           
+             
+              <breadCrumb title="kubernetes" url="http://www.hyman.shop/categories/kubernetes/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://www.hyman.shop/2018/07/25/kubernetes-install-helm.html</loc>
+    <lastmod>2018-07-25T02:34:58.949Z</lastmod>
+    <data>
+        <display>
+        <title>kubernetes包管理器Helm快速安装</title>
+        <pubTime>2018-07-25T02:22:49.000Z</pubTime>
+        
+        <tag>k8s</tag>
+         
+        <tag>kubernetes</tag>
          
          
            
