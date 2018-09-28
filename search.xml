@@ -1,6 +1,123 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[利用ps工具统计CPU/MEM消耗高或者负载高的进程]]></title>
+    <url>%2F2018%2F09%2F28%2Fuse-ps-tools-count-cpu-mem-loadaverage.html</url>
+    <content type="text"><![CDATA[CPU消耗高往往是系统异常的一种表现。因为平常检查系统运行有哪些进程，都是使用ps工具。因此，出现这种情况时，如果能够通过ps工具搜寻出CPU消耗高的线程，则对进一步搜寻线索或者排查应该有帮助。 一个进程可能包含多个线程。但是考察CPU消耗问题，只考虑进程而不考虑线程是不够的。就是说，我们总是得给ps命令加上“-T”选项。 为了便于按照CPU消耗的情况排序，我们也通过“-o”定制ps输出的字段，以确保CPU消耗占比字段是第一个字段，这样便于排序。 列出消耗高的线程123456789101112131415161718192021222324LANG=C ps -eT -o%cpu,pid,tid,ppid,comm | grep -v CPU | sort -n -r | head -20#效果如下[root@es ~]# LANG=C ps -eT -o%cpu,pid,tid,ppid,comm | grep -v CPU | sort -n -r | head -2026.0 1760 1782 1 java17.6 1760 22003 1 java17.0 1760 22006 1 java16.2 1760 21986 1 java16.0 1760 22024 1 java15.0 1760 22025 1 java14.8 13825 21917 1 java14.7 13825 21992 1 java14.2 1760 21989 1 java14.0 1760 22042 1 java13.2 13825 21993 1 java12.6 1760 22008 1 java12.0 1760 22027 1 java12.0 13825 22043 1 java11.0 13825 22047 1 java10.5 1760 1783 1 java 8.3 13825 22016 1 java 8.0 1760 5966 1 java 8.0 1760 5897 1 java 8.0 13825 14598 1 java 统计线程消耗的总的CPU1234567&#123; LANG=C ps -eT -o%cpu,pid,tid,ppid,comm | sed -e &apos;s/^ *//&apos; | tr -s &apos; &apos; | grep -v CPU | sort -n -r | cut -d &apos; &apos; -f 1 | xargs -I&#123;&#125; echo -n &quot;&#123;&#125; + &quot; &amp;&amp; echo &apos; 0&apos;; &#125; | bc -l#效果如下[root@es ~]# &#123; LANG=C ps -eT -o%cpu,pid,tid,ppid,comm | sed -e &apos;s/^ *//&apos; | tr -s &apos; &apos; | grep -v CPU | sort -n -r | cut -d &apos; &apos; -f 1 | xargs -I&#123;&#125; echo -n &quot;&#123;&#125; + &quot; &amp;&amp; echo &apos; 0&apos;; &#125; | bc -l356.1[root@es ~]# 应用设想我们需要追踪CPU占用最高的线程，则可以这样123export LANG=C;d=$(mktemp -d) &amp;&amp; cd $d # 建并进入临时目录# 捕捉之strace -f -ff -s 256 -tt -T -o strace.log -p $(ps -eT -o%cpu,pid,tid,ppid,comm | grep -v CPU | sort -n -r | head -1 | sed -e &apos;s/^ *//&apos; | tr -s &apos; &apos; | cut -d &apos; &apos; -f 3) 内存线程是共享内存空间的。所以，一般情况下，没有必要使用“-T”选项。 列出内存消耗高的进程 1LANG=C ps -e -o%mem,pid,tid,ppid,comm | grep -v MEM | sort -n -r | head -20 统计内存消耗情况1&#123; LANG=C ps -e -o%mem,pid,tid,ppid,comm | sed -e &apos;s/^ *//&apos; | tr -s &apos; &apos; | grep -v MEM | sort -n -r | cut -d &apos; &apos; -f 1 | xargs -I&#123;&#125; echo -n &quot;&#123;&#125; + &quot; &amp;&amp; echo &apos; 0&apos;; &#125; | bc -l 列出导致CPU负载高的线程1LANG=C ps -eTo stat,pid,tid,ppid,comm,args | perl -ne &apos;chomp;if (m!^\s*(\S*[RD]+\S*.*)!) &#123;print qq[$1\n];&#125;&apos; tomcat cpu过高1，根据top命令，发现PID为2633的Java进程占用CPU高达300%，出现故障。 2，找到该进程后，如何定位具体线程或代码呢，首先显示线程列表,并按照CPU占用高的线程排序123456ps -mp 2633 -o THREAD,tid,time | sort -rn显示结果如下：USER %CPU PRI SCNT WCHAN USER SYSTEM TID TIMEroot 10.5 19 - - - - 3626 00:12:48root 10.1 19 - - - - 3593 00:12:16 找到了耗时最高的线程3626，占用CPU时间有12分钟了！ 3.将需要的线程ID转换为16进制格式12printf &quot;%x\n&quot; 3626e18 4.最后打印线程的堆栈信息1jstack 2633 |grep e18 -A 30]]></content>
+      <categories>
+        <category>日常问题处理</category>
+      </categories>
+      <tags>
+        <tag>cpu</tag>
+        <tag>mem</tag>
+        <tag>ps</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[定期删除elasticsearch索引记录]]></title>
+    <url>%2F2018%2F09%2F27%2Fregular-delete-elasticsearch-index.html</url>
+    <content type="text"><![CDATA[需要定期清理的索引的后缀日期格式为YYYY.MM.DD，如：nginx-2018.09.01，解决方法通过_cat/indices接口可以获取当前ES全部索引信息，取第三列为索引名。过滤出索引名中带有的日期字符串，然后进行日期比较，早于10天前的日期便可通过日期模糊匹配索引来删除。 shell脚本如下：12345678910111213141516171819202122232425262728#!/bin/bash####################################删除早于20天的ES集群的索引###################################function delete_indices() &#123; comp_date=`date -d &quot;20 day ago&quot; +&quot;%Y-%m-%d&quot;` date1=&quot;$1 00:00:00&quot; date2=&quot;$comp_date 00:00:00&quot; t1=`date -d &quot;$date1&quot; +%s` t2=`date -d &quot;$date2&quot; +%s` if [ $t1 -le $t2 ]; then echo &quot;$1时间早于$comp_date，进行索引删除&quot; #转换一下格式，将类似2018-09-01格式转化为2018.09.01 format_date=`echo $1| sed &apos;s/-/\./g&apos;` curl -XDELETE http://127.0.0.1:9200/*$format_date fi&#125;curl -XGET http://127.0.0.1:9200/_cat/indices | awk -F&quot; &quot; &apos;&#123;print $3&#125;&apos; | awk -F&quot;-&quot; &apos;&#123;print $NF&#125;&apos; | egrep &quot;[0-9]*\.[0-9]*\.[0-9]*&quot; | sort | uniq | sed &apos;s/\./-/g&apos; | while read LINEdo #调用索引删除函数 delete_indices $LINEdone##将脚本配置到定时任务定期执行即可。]]></content>
+      <categories>
+        <category>elk</category>
+      </categories>
+      <tags>
+        <tag>elk</tag>
+        <tag>elasticsearch</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[在k8s上通过helm与动态NFS部署kafka、zookeeper]]></title>
+    <url>%2F2018%2F09%2F17%2Fhelm-install-kafka-zookeeper-with-nfs.html</url>
+    <content type="text"><![CDATA[helm仓库地址https://github.com/helm/charts 添加helm仓库12345678910谷歌仓库helm repo add incubator http://storage.googleapis.com/kubernetes-charts-incubator由于国内网络缘故，可添加阿里云，但是zookeeper版本为v2，谷歌为v3helm repo add incubator https://aliacs-app-catalog.oss-cn-hangzhou.aliyuncs.com/charts-incubator/这里采用谷歌仓库的kafka[root@public03 ~]# helm search kafkaNAME CHART VERSION APP VERSION DESCRIPTION incubator/kafka 0.9.6 4.1.2 Apache Kafka is publish-subscribe messaging rethought as ... 修改kafa相关配置123456789101112131415161718192021222324252627282930313233343536#下载hlem fetch incubator/kafka#解压tar zxf kafka-0.9.6.tgz &amp;&amp; cd kafka#修改文件zookeepercharts/zookeeper/templates/statefulset.yaml#zookeeper的镜像地址改为registry.cn-hangzhou.aliyuncs.com/appstore/k8szk:v3最后创建pvc模板修改为以下：volumeClaimTemplates: - metadata: name: data annotations: volume.beta.kubernetes.io/storage-class: &quot;managed-nfs-storage&quot; spec: accessModes: - ReadWriteMany resources: requests: storage: 1Gi#修改文件kafkatemplates/statefulset.yaml最后创建pvc模板修改为以下：volumeClaimTemplates: - metadata: name: data annotations: volume.beta.kubernetes.io/storage-class: &quot;managed-nfs-storage&quot; spec: accessModes: - ReadWriteMany resources: requests: storage: 1Gistorageclass查询命令： kubectl get sc --all-namespaces 安装kafka123helm install ./kafka -n kafka --namespace xxx#查看pvc状态kubectl get pvc -n xxx 验证创建测试pod123456789101112131415apiVersion: v1kind: Podmetadata: name: testclient namespace: defaultspec: containers: - name: kafka image: confluentinc/cp-kafka:4.1.2-2 command: - sh - -c - &quot;exec tail -f /dev/null&quot;kubectl apply -f testclient.yaml 列出topics1234kubectl -n default exec testclient -- /usr/bin/kafka-topics --zookeeper kafka-zookeeper:2181 --list[root@public03 ~]# kubectl -n default exec testclient -- /usr/bin/kafka-topics --zookeeper kafka-zookeeper:2181 --list__confluent.support.metrics 创建topic1234kubectl -n default exec testclient -- /usr/bin/kafka-topics --zookeeper kafka-zookeeper:2181 --topic test1 --create --partitions 1 --replication-factor 1[root@public03 ~]# kubectl -n default exec testclient -- /usr/bin/kafka-topics --zookeeper kafka-zookeeper:2181 --topic test1 --create --partitions 1 --replication-factor 1Created topic &quot;test1&quot;. 在一个topic监听messages1234kubectl -n default exec -ti testclient -- /usr/bin/kafka-console-consumer --bootstrap-server kafka:9092 --topic test1 --from-beginning#获取服务地址kubectl get svc 在另外一个终端启动交互式消息生产者会话1234kubectl -n default exec -ti testclient -- /usr/bin/kafka-console-producer --broker-list kafka-headless:9092 --topic test1#获取服务地址kubectl get svc]]></content>
+      <categories>
+        <category>kubernetes</category>
+      </categories>
+      <tags>
+        <tag>nfs</tag>
+        <tag>k8s</tag>
+        <tag>kubernetes</tag>
+        <tag>helm</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[利用cert-manager让Ingress启用免费的HTTPS证书]]></title>
+    <url>%2F2018%2F09%2F14%2Fkubernetes-ingress-enable-free-https-with-cert-manager.html</url>
+    <content type="text"><![CDATA[cert-manager 是替代 kube-lego 的一个开源项目，用于在 Kubernetes 集群中自动提供 HTTPS 证书，支持 Let’s Encrypt, HashiCorp Vault 这些免费证书的签发。 使用 Helm 安装，所以请确保 Helm 已安装 集群必须已经装有 Ingress Controller 需要颁发免费证书的域名配置DNS记录，IP 指向 Ingress Controller 对外暴露的地址 开源地址：https://github.com/jetstack/cert-manager 文档地址：https://cert-manager.readthedocs.io 安装 cert-manager1234helm install \ --name cert-manager \ --namespace kube-system \ stable/cert-manager 生成免费证书先创建一个签发机构，cert-manager 给我们提供了 Issuer 和 ClusterIssuer 这两种用于创建签发机构的自定义资源对象，Issuer 只能用来签发自己所在 namespace 下的证书，ClusterIssuer 可以签发任意 namespace 下的证书，这里以 ClusterIssuer 为例创建一个签发机构12345678910111213vi issuer.yamlapiVersion: certmanager.k8s.io/v1alpha1kind: ClusterIssuermetadata: name: letsencrypt-prodspec: acme: server: https://acme-v02.api.letsencrypt.org/directory email: ywthings@qq.com privateKeySecretRef: name: letsencrypt-prod http01: &#123;&#125; metadata.name 是我们创建的签发机构的名称，后面我们创建证书的时候会引用它spec.acme.email 是你自己的邮箱，证书快过期的时候会有邮件提醒，不过 cert-manager 会利用 acme 协议自动给我们重新颁发证书来续期spec.acme.server 是 acme 协议的服务端，我们这里用 Let’s Encrypt，这个地址就写死成这样就行spec.acme.privateKeySecretRef 指示此签发机构的私钥将要存储到哪个 Secret 对象中，名称不重要spec.acme.http01 这里指示签发机构使用 HTTP-01 的方式进行 acme 协议 (还可以用 DNS 方式，acme 协议的目的是证明这台机器和域名都是属于你的，然后才准许给你颁发证书) 签发机构，接下来我们就可以生成免费证书了，cert-manager 给我们提供了 Certificate 这个用于生成证书的自定义资源对象，它必须局限在某一个 namespace 下，证书最终会在这个 namespace 下以 Secret 的资源对象存储，假如我想在 dashboard 这个 namespace 下生成免费证书（这个 namespace 已存在)，创建一个 Certificate 对象：1234567891011121314151617181920vi cert.yamlapiVersion: certmanager.k8s.io/v1alpha1kind: Certificatemetadata: name: ywthings.com namespace: dashboardspec: secretName: ywthings.com-tls issuerRef: name: letsencrypt-prod kind: ClusterIssuer dnsNames: - ywthings.com acme: config: - http01: ingressClass: nginx domains: - ywthings.com spec.secretName 指示证书最终存到哪个 Secret 中spec.issuerRef.kind 值为 ClusterIssuer 说明签发机构不在本 namespace 下，而是在全局spec.issuerRef.name 我们创建的签发机构的名称 (ClusterIssuer.metadata.name)spec.dnsNames 指示该证书的可以用于哪些域名spec.acme.config.http01.ingressClass 使用 HTTP-01 方式校验该域名和机器时，cert-manager 会尝试创建Ingress 对象来实现该校验，如果指定该值，会给创建的 Ingress 加上 kubernetes.io/ingress.class 这个 annotation，如果我们的 Ingress Controller 是 Nginx Ingress Controller，指定这个字段可以让创建的 Ingress 被 Nginx Ingress Controller 处理。spec.acme.config.http01.domains 指示该证书的可以用于哪些域名 Ingress 使用来启用免费 HTTPS12345678910111213141516171819apiVersion: extensions/v1beta1kind: Ingressmetadata: name: my-nginx annotations: kubernetes.io/ingress.class: &quot;nginx&quot;spec: rules: - host: ywthings.com http: paths: - backend: serviceName: my-nginx servicePort: 443 path: / tls: - secretName: ywthings.com-tls hosts: - ywthings.com 在 Ingress 定义的 spec.tls.secretName 引用生成的证书所在的 Secret 名称即可实现使用免费证书将 Ingress 定义的 spec.rules.host 和 spec.tls.hosts 里的域名都替换为你自己的域名]]></content>
+      <categories>
+        <category>kubernetes</category>
+      </categories>
+      <tags>
+        <tag>k8s</tag>
+        <tag>kubernetes</tag>
+        <tag>tls</tag>
+        <tag>cert-manager</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[kubernetes通过TLS安全访问]]></title>
+    <url>%2F2018%2F09%2F14%2Fkubernetes-use-tls.html</url>
+    <content type="text"><![CDATA[外部访问k8s里的服务，都是直接以http方式进行的，缺少TLS安全 生成并信任自签名证书首先这里生成自签名的服务器证书，官方介绍了easyrsa, openssl 、 cfssl三个工具，这里使用cfssl 安装CFSSL直接使用二进制源码包安装1234567891011wget https://pkg.cfssl.org/R1.2/cfssl_linux-amd64chmod +x cfssl_linux-amd64mv cfssl_linux-amd64 /usr/sbin/cfsslwget https://pkg.cfssl.org/R1.2/cfssljson_linux-amd64chmod +x cfssljson_linux-amd64mv cfssljson_linux-amd64 /usr/sbin/cfssljsonwget https://pkg.cfssl.org/R1.2/cfssl-certinfo_linux-amd64chmod +x cfssl-certinfo_linux-amd64mv cfssl-certinfo_linux-amd64 /usr/sbin/cfssl-certinfo 生成默认配置文件12cfssl print-defaults config &gt; config.jsoncfssl print-defaults csr &gt; csr.json 生成自定义的config.json文件1cp config.json ca-config.json 生成ca和server的证书请求json文件12cp csr.json ca-csr.jsoncp csr.json server-csr.json 编辑ca-config.json123456789101112131415161718&#123; &quot;signing&quot;: &#123; &quot;default&quot;: &#123; &quot;expiry&quot;: &quot;168h&quot; &#125;, &quot;profiles&quot;: &#123; &quot;k8s-local&quot;: &#123; &quot;expiry&quot;: &quot;8760h&quot;, &quot;usages&quot;: [ &quot;signing&quot;, &quot;key encipherment&quot;, &quot;server auth&quot;, &quot;client auth&quot; ] &#125; &#125; &#125;&#125; 编辑ca-csr.json12345678910111213141516&#123; &quot;CN&quot;: &quot;k8s-local&quot;, &quot;key&quot;: &#123; &quot;algo&quot;: &quot;rsa&quot;, &quot;size&quot;: 2048 &#125;, &quot;names&quot;: [ &#123; &quot;C&quot;: &quot;CN&quot;, &quot;ST&quot;: &quot;GuangDong&quot;, &quot;L&quot;: &quot;Shenzhen&quot;, &quot;O&quot;: &quot;my self signed certificate&quot;, &quot;OU&quot;: &quot;self signed&quot; &#125; ]&#125; 编辑server-csr.json1234567891011121314151617181920&#123; &quot;CN&quot;: &quot;k8s.local&quot;, &quot;hosts&quot;: [ &quot;127.0.0.1&quot;, &quot;*.k8s.local&quot; ], &quot;key&quot;: &#123; &quot;algo&quot;: &quot;rsa&quot;, &quot;size&quot;: 2048 &#125;, &quot;names&quot;: [ &#123; &quot;C&quot;: &quot;CN&quot;, &quot;ST&quot;: &quot;GuangDong&quot;, &quot;L&quot;: &quot;Shenzhen&quot;, &quot;O&quot;: &quot;my self signed certificate&quot;, &quot;OU&quot;: &quot;self signed&quot; &#125; ]&#125; 生成CA证书及服务器证书12cfssl gencert -initca ca-csr.json | cfssljson -bare cacfssl gencert -ca=ca.pem -ca-key=ca-key.pem --config=ca-config.json -profile=k8s-local server-csr.json | cfssljson -bare server 得到ca.pem，server-key.pem，server.pem三个证书文件，其中ca.pem是ca的证书，server-key.pem是服务器证书的密钥，server.pem是服务器证书。 在k8s里使用自签名证书创建默认的tls secret1kubectl -n kube-system create secret tls default-tls-cert --key=server-key.pem --cert=server.pem]]></content>
+      <categories>
+        <category>kubernetes</category>
+      </categories>
+      <tags>
+        <tag>k8s</tag>
+        <tag>kubernetes</tag>
+        <tag>tls</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[kubernetes 中拉取私有仓库(腾讯云)]]></title>
+    <url>%2F2018%2F09%2F13%2Fuse-kubernetes-private-resgistry.html</url>
+    <content type="text"><![CDATA[官方介绍：https://kubernetes.io/docs/concepts/containers/images/ 创建保存仓库地址和密码的secret12345kubectl create secret docker-registry registry-secret --docker-server=registry.cn-shenzhen.aliyuncs.com --docker-username=user-test --docker-password=xxxxxx --docker-email=xxx@xxx.com--docker-server: 仓库地址--docker-username: 仓库登陆账号--docker-password: 仓库登陆密码--docker-email: 邮件地址(选填) deployment.yml加入拉取镜像的密钥1234567891011apiVersion: v1kind: Podmetadata: name: foo namespace: awesomeappsspec: containers: - name: foo image: janedoe/awesomeapp:v1 imagePullSecrets: - name: myregistrykey]]></content>
+      <categories>
+        <category>kubernetes</category>
+      </categories>
+      <tags>
+        <tag>k8s</tag>
+        <tag>kubernetes</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[利用NFS client provisioner动态提供Kubernetes后端存储卷]]></title>
+    <url>%2F2018%2F09%2F11%2Fuse-nfs-client-provisioner-k8s.html</url>
+    <content type="text"><![CDATA[利用NFS Server给Kubernetes作为持久存储的后端，并且动态提供PV。前提条件是有已经安装好的NFS服务器，并且NFS服务器与Kubernetes的Slave节点都能网络连通。官方文档：https://github.com/kubernetes-incubator/external-storage/tree/master/nfs-client nfs-client-provisionernfs-client-provisioner 是一个Kubernetes的简易NFS的外部provisioner，本身不提供NFS，需要现有的NFS服务器提供存储 PV以 ${namespace}-${pvcName}-${pvName}的命名格式提供（在NFS服务器上） PV回收的时候以 archieved-${namespace}-${pvcName}-${pvName} 的命名格式（在NFS服务器上） 安装部署 修改deployment文件并部署 deploy/deployment.yaml需要修改的地方只有NFS服务器所在的IP地址（10.10.10.60），以及NFS服务器共享的路径（/ifs/kubernetes），两处都需要修改为你实际的NFS服务器和共享目录 12345678910111213141516171819202122232425262728293031323334# https://raw.githubusercontent.com/kubernetes-incubator/external-storage/master/nfs-client/deploy/deployment.yamlkind: DeploymentapiVersion: extensions/v1beta1metadata: name: nfs-client-provisionerspec: replicas: 1 strategy: type: Recreate template: metadata: labels: app: nfs-client-provisioner spec: serviceAccountName: nfs-client-provisioner containers: - name: nfs-client-provisioner image: quay.io/external_storage/nfs-client-provisioner:latest volumeMounts: - name: nfs-client-root mountPath: /persistentvolumes env: - name: PROVISIONER_NAME value: fuseim.pri/ifs - name: NFS_SERVER value: 10.10.10.60 - name: NFS_PATH value: /ifs/kubernetes volumes: - name: nfs-client-root nfs: server: 10.10.10.60 path: /ifs/kubernetes 修改StorageClass文件并部署 deploy/class.yaml此处可以不修改，或者修改provisioner的名字，需要与上面的deployment的PROVISIONER_NAME名字一致。 1234567# https://raw.githubusercontent.com/kubernetes-incubator/external-storage/master/nfs-client/deploy/class.yamlapiVersion: storage.k8s.io/v1kind: StorageClassmetadata: name: managed-nfs-storageprovisioner: fuseim.pri/ifs 授权kubernetes 1.6以上默认开启了rbac认证。1234567891011121314151617181920212223242526272829303132333435363738394041424344454647484950515253545556575859kind: ClusterRoleapiVersion: rbac.authorization.k8s.io/v1metadata: name: nfs-client-provisioner-runnerrules: - apiGroups: [&quot;&quot;] resources: [&quot;persistentvolumes&quot;] verbs: [&quot;get&quot;, &quot;list&quot;, &quot;watch&quot;, &quot;create&quot;, &quot;delete&quot;] - apiGroups: [&quot;&quot;] resources: [&quot;persistentvolumeclaims&quot;] verbs: [&quot;get&quot;, &quot;list&quot;, &quot;watch&quot;, &quot;update&quot;] - apiGroups: [&quot;storage.k8s.io&quot;] resources: [&quot;storageclasses&quot;] verbs: [&quot;get&quot;, &quot;list&quot;, &quot;watch&quot;] - apiGroups: [&quot;&quot;] resources: [&quot;events&quot;] verbs: [&quot;create&quot;, &quot;update&quot;, &quot;patch&quot;] - apiGroups: [&quot;&quot;] resources: [&quot;services&quot;, &quot;endpoints&quot;] verbs: [&quot;get&quot;] - apiGroups: [&quot;extensions&quot;] resources: [&quot;podsecuritypolicies&quot;] resourceNames: [&quot;nfs-client-provisioner&quot;] verbs: [&quot;use&quot;]---kind: ClusterRoleBindingapiVersion: rbac.authorization.k8s.io/v1metadata: name: run-nfs-client-provisionersubjects: - kind: ServiceAccount name: nfs-client-provisioner namespace: defaultroleRef: kind: ClusterRole name: nfs-client-provisioner-runner apiGroup: rbac.authorization.k8s.io---kind: RoleapiVersion: rbac.authorization.k8s.io/v1metadata: name: leader-locking-nfs-client-provisionerrules: - apiGroups: [&quot;&quot;] resources: [&quot;endpoints&quot;] verbs: [&quot;get&quot;, &quot;list&quot;, &quot;watch&quot;, &quot;create&quot;, &quot;update&quot;, &quot;patch&quot;]---kind: RoleBindingapiVersion: rbac.authorization.k8s.io/v1metadata: name: leader-locking-nfs-client-provisionersubjects: - kind: ServiceAccount name: nfs-client-provisioner namespace: defaultroleRef: kind: Role name: leader-locking-nfs-client-provisioner apiGroup: rbac.authorization.k8s.io 测试测试创建PVC1234567891011121314https://raw.githubusercontent.com/kubernetes-incubator/external-storage/master/nfs-client/deploy/test-claim.yamlkind: PersistentVolumeClaimapiVersion: v1metadata: name: test-claim annotations: volume.beta.kubernetes.io/storage-class: &quot;managed-nfs-storage&quot;spec: accessModes: - ReadWriteMany resources: requests: storage: 1Mi 测试创建POD1234567891011121314151617181920212223https://raw.githubusercontent.com/kubernetes-incubator/external-storage/master/nfs-client/deploy/test-pod.yamlkind: PodapiVersion: v1metadata: name: test-podspec: containers: - name: test-pod image: gcr.io/google_containers/busybox:1.24 #如访问缘故可以直接采用busybox镜像 command: - &quot;/bin/sh&quot; args: - &quot;-c&quot; - &quot;touch /mnt/SUCCESS &amp;&amp; exit 0 || exit 1&quot; volumeMounts: - name: nfs-pvc mountPath: &quot;/mnt&quot; restartPolicy: &quot;Never&quot; volumes: - name: nfs-pvc persistentVolumeClaim: claimName: test-claim 在NFS服务器上的共享目录下的卷子目录中检查创建的NFS PV卷下是否有”SUCCESS” 文件。]]></content>
+      <categories>
+        <category>kubernetes</category>
+      </categories>
+      <tags>
+        <tag>k8s</tag>
+        <tag>kubernetes</tag>
+        <tag>NFS</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[Kubernetes应用程序部署工作流程]]></title>
+    <url>%2F2018%2F08%2F16%2FKubernetes-application-deployment-workflow.html</url>
+    <content type="text"><![CDATA[用户通过“kubectl”部署一个新的应用程序。Kubectl将请求发送到API服务器。 API服务器接收请求并将其存储在数据存储（etcd）中。将请求写入数据存储后，API服务器将完成请求。 监视器检测资源变化并向控制器发送通知以对其进行操作。 Controller会检测新应用并创建新的pod以匹配所需的实例数量。将拾取对存储模型的任何更改以创建或删除Pod。 调度程序根据条件为节点分配新的pod。Scheduler决定在集群中的特定节点上运行Pod。调度程序使用节点信息修改模型。 节点上的Kubelet检测到具有自身分配的pod，并通过容器运行时（例如Docker）部署所请求的容器。每个节点都会监视存储，以查看它分配给哪些pod运行。它对分配给它的资源采取必要的操作，如创建/删除Pod。 Kubeproxy管理容器的网络流量 - 包括服务发现和负载平衡。Kubeproxy负责想要进行交互的Pod之间的通信。]]></content>
+      <categories>
+        <category>kubernetes</category>
+      </categories>
+      <tags>
+        <tag>k8s</tag>
+        <tag>kubernetes</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[通过kubenetes Helm安装Ceph]]></title>
+    <url>%2F2018%2F07%2F31%2Fuse-kubenetes-helm-install-ceph.html</url>
+    <content type="text"><![CDATA[准备环境 公共网络和集群网络必须相同 如果存储类用户标识不是admin，则必须在Ceph集群中手动创建用户并在Kubernetes中创建其密钥 ceph-mgr只能运行1个副本 启动本地Helmceph-helm项目默认使用本地Helm repo来存储images，要启动本地Helm repo服务器12$ helm serve &amp;$ helm repo add local http://localhost:8879/charts 增加本地helm仓库123$ git clone https://github.com/ceph/ceph-helm$ cd ceph-helm/ceph$ make 配置Ceph创建一个ceph-overrides.yaml Ceph配置来覆盖ceph-helm默认值1234567891011121314151617$ cat ~/ceph-overrides.yamlnetwork: public: 172.16.0.0/20 cluster: 172.16.0.0/20osd_devices: - name: dev-sdb device: /dev/sdb zap: &quot;1&quot; - name: dev-sdc device: /dev/sdc zap: &quot;1&quot;storageclass: name: ceph-rbd pool: rbd user_id: k8s 创建kubernetes 命名空间1$ kubectl create namespace ceph 配置RBAC权限Kubernetes&gt; = v1.6使用RBAC为默认权限,rbac.yaml默认在git clone下来的文件夹里面1kubectl create -f ~/ceph-helm/ceph/rbac.yaml 创建标签` Ceph Monitor$ kubectl label node ceph-mon=enabled ceph-mgr=enabled OSD node$ kubectl label node ceph-osd=enabled ceph-osd-device-dev-sdb=enabled ceph-osd-device-dev-sdc=enabled]]></content>
+      <categories>
+        <category>kubernetes</category>
+      </categories>
+      <tags>
+        <tag>k8s</tag>
+        <tag>kubernetes</tag>
+        <tag>ceph</tag>
+        <tag>helm</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[ORA-00980同义词转换不再有效]]></title>
     <url>%2F2018%2F07%2F31%2Foracle-error-ora00980.html</url>
     <content type="text"><![CDATA[问题：ORA-00980: 同义词转换不再有效 解决方法：使用拥有dba权限的账号sys的登录。执行查找所有失效的同义词，生成删除脚本如下： 12345678910111213141516--复制需要删除的同义词select &apos;drop &apos; || decode(s.owner, &apos;PUBLIC&apos;, &apos;public synonym &apos;, &apos;synonym &apos; || s.owner || &apos;.&apos;) || s.synonym_name || &apos;;&apos; as &quot;Dropping invalid synonyms:&quot; from dba_synonyms s where table_owner not in (&apos;SYSTEM&apos;, &apos;SYS&apos;) and db_link is null and not exists (select null from dba_objects o where s.table_owner = o.owner and s.table_name = o.object_name); 处理办法删除重建：SQL&gt;Drop public synonym T_INVEST_ZS;SQL&gt;Create public synonym T_INVEST_ZS; for 用户名.T_INVEST_ZS; 123456789101112131415161718192021--复制需要创建的同义词select &apos;create &apos; || decode(s.owner, &apos;PUBLIC&apos;, &apos;public synonym &apos;, &apos;synonym &apos; || s.owner || &apos;.&apos;) || s.synonym_name || &apos; for&apos; || &apos; 用户名&apos; || &apos;.&apos; || s.synonym_name || &apos;;&apos; as &quot;Dropping invalid synonyms:&quot; from dba_synonyms s where table_owner not in (&apos;SYSTEM&apos;, &apos;SYS&apos;) and db_link is null and not exists (select null from dba_objects o where s.table_owner = o.owner and s.table_name = o.object_name);]]></content>
@@ -25,7 +142,7 @@
   <entry>
     <title><![CDATA[kubernetes包管理器Helm快速安装]]></title>
     <url>%2F2018%2F07%2F25%2Fkubernetes-install-helm.html</url>
-    <content type="text"><![CDATA[概述Helm 是由 Deis 发起的一个开源工具，Helm是查找，共享和使用为Kubernetes构建的软件的最佳方式。 安装执行脚本安装 helm 客户端123curl https://raw.githubusercontent.com/kubernetes/helm/master/scripts/get | bash如下载不来，可以直接下载二进制文件https://github.com/helm/helm/releases 安装 tiller 服务端到 kubernetes 集群1helm init 查看 tiller 是否启动成功1kubectl get pods --namespace=kube-system | grep tiller 如果状态是 ImagePullBackOff ，说明是镜像问题，一般是未拉取到镜像（国内机器拉取不到 gcr.io 下的镜像) ，使用阿里源解决1helm init --upgrade -i registry.cn-shenzhen.aliyuncs.com/hyman0603/tiller:v2.9.1 --stable-repo-url https://kubernetes.oss-cn-hangzhou.aliyuncs.com/charts 自Kubernetes 1.6版本开始，API Server启用了RBAC授权。而目前的Tiller部署没有定义授权的ServiceAccount，这会导致访问API Server时被拒绝。123kubectl create serviceaccount --namespace kube-system tillerkubectl create clusterrolebinding tiller-cluster-rule --clusterrole=cluster-admin --serviceaccount=kube-system:tillerkubectl patch deploy --namespace kube-system tiller-deploy -p &apos;&#123;&quot;spec&quot;:&#123;&quot;template&quot;:&#123;&quot;spec&quot;:&#123;&quot;serviceAccount&quot;:&quot;tiller&quot;&#125;&#125;&#125;&#125;&apos; 更多文档资料可以查看官网https://docs.helm.sh/]]></content>
+    <content type="text"><![CDATA[概述Helm 是由 Deis 发起的一个开源工具，Helm是查找，共享和使用为Kubernetes构建的软件的最佳方式。 安装执行脚本安装 helm 客户端1234567curl https://raw.githubusercontent.com/kubernetes/helm/master/scripts/get | bash如下载不来，可以直接下载二进制文件https://github.com/helm/helm/releases解包并将二进制文件helm拷贝到/usr/local/bin目录下tar -zxvf helm-v2.10.0-linux-amd64.tgz &amp;&amp; mv linux-amd64/helm /usr/local/bin/helm 安装 tiller 服务端到 kubernetes 集群1helm init 查看 tiller 是否启动成功1kubectl get pods --namespace=kube-system | grep tiller 如果状态是 ImagePullBackOff ，说明是镜像问题，一般是未拉取到镜像（国内机器拉取不到 gcr.io 下的镜像) ，使用阿里源解决1helm init --upgrade -i registry.cn-shenzhen.aliyuncs.com/hyman0603/tiller:v2.10.0 --stable-repo-url https://kubernetes.oss-cn-hangzhou.aliyuncs.com/charts 自Kubernetes 1.6版本开始，API Server启用了RBAC授权。而目前的Tiller部署没有定义授权的ServiceAccount，这会导致访问API Server时被拒绝。123kubectl create serviceaccount --namespace kube-system tillerkubectl create clusterrolebinding tiller-cluster-rule --clusterrole=cluster-admin --serviceaccount=kube-system:tillerkubectl patch deploy --namespace kube-system tiller-deploy -p &apos;&#123;&quot;spec&quot;:&#123;&quot;template&quot;:&#123;&quot;spec&quot;:&#123;&quot;serviceAccount&quot;:&quot;tiller&quot;&#125;&#125;&#125;&#125;&apos; 更多文档资料可以查看官网https://docs.helm.sh/]]></content>
       <categories>
         <category>kubernetes</category>
       </categories>
@@ -124,8 +241,8 @@
         <category>运维部署记录</category>
       </categories>
       <tags>
-        <tag>ansible</tag>
         <tag>ssh</tag>
+        <tag>ansible</tag>
       </tags>
   </entry>
   <entry>
