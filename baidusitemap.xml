@@ -4,8 +4,114 @@
 
     
   <url>
+    <loc>https://www.ywthings.com/2018/10/23/ffmpeg-install-static-release.html</loc>
+    <lastmod>2018-10-23T09:06:11.123Z</lastmod>
+    <data>
+        <display>
+        <title>FFmpeg静态构建</title>
+        <pubTime>2018-10-23T08:57:41.000Z</pubTime>
+        
+        <tag>ffmpeg</tag>
+         
+         
+           
+             
+              <breadCrumb title="日常部署记录" url="https://www.ywthings.com/categories/%E6%97%A5%E5%B8%B8%E9%83%A8%E7%BD%B2%E8%AE%B0%E5%BD%95/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>https://www.ywthings.com/2018/10/18/hung-task-timeout-secs.html</loc>
+    <lastmod>2018-10-23T01:11:51.868Z</lastmod>
+    <data>
+        <display>
+        <title>Linux进程出现D状态</title>
+        <pubTime>2018-10-18T01:09:43.000Z</pubTime>
+        
+        <tag>nfs</tag>
+         
+         
+           
+             
+              <breadCrumb title="日常问题处理" url="https://www.ywthings.com/categories/%E6%97%A5%E5%B8%B8%E9%97%AE%E9%A2%98%E5%A4%84%E7%90%86/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>https://www.ywthings.com/2018/10/10/some-command-useful.html</loc>
+    <lastmod>2018-10-11T06:56:09.000Z</lastmod>
+    <data>
+        <display>
+        <title>一些有用的命令汇总</title>
+        <pubTime>2018-10-10T05:30:37.000Z</pubTime>
+        
+        <tag>mysql</tag>
+         
+        <tag>运维</tag>
+         
+         
+           
+             
+              <breadCrumb title="运维" url="https://www.ywthings.com/categories/%E8%BF%90%E7%BB%B4/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>https://www.ywthings.com/2018/10/10/elasticsearch-cluster.html</loc>
+    <lastmod>2018-10-10T11:09:14.555Z</lastmod>
+    <data>
+        <display>
+        <title>部署Elasticsearch集群</title>
+        <pubTime>2018-10-10T10:02:14.000Z</pubTime>
+        
+        <tag>ELK</tag>
+         
+        <tag>Elasticsearch</tag>
+         
+         
+           
+             
+              <breadCrumb title="ELK" url="https://www.ywthings.com/categories/ELK/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>https://www.ywthings.com/2018/07/25/kubernetes-install-helm.html</loc>
+    <lastmod>2018-10-09T08:46:54.148Z</lastmod>
+    <data>
+        <display>
+        <title>kubernetes包管理器Helm快速安装</title>
+        <pubTime>2018-07-25T02:22:49.000Z</pubTime>
+        
+        <tag>k8s</tag>
+         
+        <tag>kubernetes</tag>
+         
+         
+           
+             
+              <breadCrumb title="kubernetes" url="https://www.ywthings.com/categories/kubernetes/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
     <loc>https://www.ywthings.com/2018/09/29/install-kubeadm-kubernetes-1-12-0.html</loc>
-    <lastmod>2018-09-30T02:36:39.679Z</lastmod>
+    <lastmod>2018-10-09T08:40:39.063Z</lastmod>
     <data>
         <display>
         <title>使用kubeadm安装kubernetes 1.12.0</title>
@@ -19,6 +125,28 @@
            
              
               <breadCrumb title="kubernetes" url="https://www.ywthings.com/categories/kubernetes/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>https://www.ywthings.com/2018/09/30/regular-restart-tomcat.html</loc>
+    <lastmod>2018-09-30T06:39:44.246Z</lastmod>
+    <data>
+        <display>
+        <title>shell脚本定期重启tomcat</title>
+        <pubTime>2018-09-30T06:32:44.000Z</pubTime>
+        
+        <tag>shell</tag>
+         
+        <tag>tomcat</tag>
+         
+         
+           
+             
+              <breadCrumb title="运维部署记录" url="https://www.ywthings.com/categories/%E8%BF%90%E7%BB%B4%E9%83%A8%E7%BD%B2%E8%AE%B0%E5%BD%95/"/>
           
         </display>
     </data>
@@ -202,28 +330,6 @@
         <tag>kubernetes</tag>
          
         <tag>NFS</tag>
-         
-         
-           
-             
-              <breadCrumb title="kubernetes" url="https://www.ywthings.com/categories/kubernetes/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>https://www.ywthings.com/2018/07/25/kubernetes-install-helm.html</loc>
-    <lastmod>2018-09-07T02:55:15.671Z</lastmod>
-    <data>
-        <display>
-        <title>kubernetes包管理器Helm快速安装</title>
-        <pubTime>2018-07-25T02:22:49.000Z</pubTime>
-        
-        <tag>k8s</tag>
-         
-        <tag>kubernetes</tag>
          
          
            
@@ -501,9 +607,9 @@
         <title>Centos7基于ansible批量部署SSH免密钥</title>
         <pubTime>2018-06-14T01:57:18.000Z</pubTime>
         
-        <tag>ansible</tag>
-         
         <tag>ssh</tag>
+         
+        <tag>ansible</tag>
          
          
            
