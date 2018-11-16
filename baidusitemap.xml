@@ -4,6 +4,96 @@
 
     
   <url>
+    <loc>https://www.ywthings.com/2018/11/16/setup-efk-on-kubernetes-1-12-x.html</loc>
+    <lastmod>2018-11-16T08:16:14.659Z</lastmod>
+    <data>
+        <display>
+        <title>在kubernetes-1.12.x上搭建EFK日志分析平台</title>
+        <pubTime>2018-11-16T07:14:47.000Z</pubTime>
+        
+        <tag>k8s</tag>
+         
+        <tag>kubernetes</tag>
+         
+        <tag>EFK</tag>
+         
+         
+           
+             
+              <breadCrumb title="kubernetes" url="https://www.ywthings.com/categories/kubernetes/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>https://www.ywthings.com/2018/11/13/vsftp-deployment.html</loc>
+    <lastmod>2018-11-16T08:00:33.761Z</lastmod>
+    <data>
+        <display>
+        <title>Centos 7 安装vsftpd</title>
+        <pubTime>2018-11-13T03:02:59.000Z</pubTime>
+        
+        <tag>vsftp</tag>
+         
+        <tag>ftp</tag>
+         
+         
+           
+             
+              <breadCrumb title="运维部署记录" url="https://www.ywthings.com/categories/%E8%BF%90%E7%BB%B4%E9%83%A8%E7%BD%B2%E8%AE%B0%E5%BD%95/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>https://www.ywthings.com/2018/10/26/kubernetes-some-command.html</loc>
+    <lastmod>2018-11-16T08:00:30.532Z</lastmod>
+    <data>
+        <display>
+        <title>kubernetes 命令记录</title>
+        <pubTime>2018-10-26T08:41:00.000Z</pubTime>
+        
+        <tag>k8s</tag>
+         
+        <tag>kubernetes</tag>
+         
+         
+           
+             
+              <breadCrumb title="日常部署记录" url="https://www.ywthings.com/categories/%E6%97%A5%E5%B8%B8%E9%83%A8%E7%BD%B2%E8%AE%B0%E5%BD%95/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>https://www.ywthings.com/2018/09/29/install-kubeadm-kubernetes-1-12-0.html</loc>
+    <lastmod>2018-11-06T08:39:39.602Z</lastmod>
+    <data>
+        <display>
+        <title>使用kubeadm安装kubernetes 1.12.x</title>
+        <pubTime>2018-09-29T11:21:57.000Z</pubTime>
+        
+        <tag>k8s</tag>
+         
+        <tag>kubernetes</tag>
+         
+         
+           
+             
+              <breadCrumb title="kubernetes" url="https://www.ywthings.com/categories/kubernetes/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
     <loc>https://www.ywthings.com/2018/10/23/ffmpeg-install-static-release.html</loc>
     <lastmod>2018-10-23T09:06:11.123Z</lastmod>
     <data>
@@ -94,28 +184,6 @@
         <display>
         <title>kubernetes包管理器Helm快速安装</title>
         <pubTime>2018-07-25T02:22:49.000Z</pubTime>
-        
-        <tag>k8s</tag>
-         
-        <tag>kubernetes</tag>
-         
-         
-           
-             
-              <breadCrumb title="kubernetes" url="https://www.ywthings.com/categories/kubernetes/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>https://www.ywthings.com/2018/09/29/install-kubeadm-kubernetes-1-12-0.html</loc>
-    <lastmod>2018-10-09T08:40:39.063Z</lastmod>
-    <data>
-        <display>
-        <title>使用kubeadm安装kubernetes 1.12.0</title>
-        <pubTime>2018-09-29T11:21:57.000Z</pubTime>
         
         <tag>k8s</tag>
          
