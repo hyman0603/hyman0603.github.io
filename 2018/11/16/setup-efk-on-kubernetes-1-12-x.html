@@ -134,19 +134,19 @@
 
 
 
-  <meta name="description" content="EFK 插件是kubernetes项目的一个日志解决方案，它包括三个组件：Elasticsearch, Fluentd, Kibana。  Elasticsearch 是日志存储和日志搜索引擎  Fluentd 负责把k8s集群的日志发送给 Elasticsearch">
+  <meta name="description" content="EFK 插件是kubernetes项目的一个日志解决方案，它包括三个组件：Elasticsearch, Fluentd, Kibana。  Elasticsearch 是日志存储和日志搜索引擎  Fluentd 负责把k8s集群的日志发送给 Elasticsearch  Kibana 则是可视化界面查看和检索存储在 Elasticsearch 的数据">
 <meta name="keywords" content="k8s,kubernetes,EFK">
 <meta property="og:type" content="article">
 <meta property="og:title" content="在kubernetes-1.12.x上搭建EFK日志分析平台">
 <meta property="og:url" content="https://www.ywthings.com/2018/11/16/setup-efk-on-kubernetes-1-12-x.html">
 <meta property="og:site_name" content="hyman">
-<meta property="og:description" content="EFK 插件是kubernetes项目的一个日志解决方案，它包括三个组件：Elasticsearch, Fluentd, Kibana。  Elasticsearch 是日志存储和日志搜索引擎  Fluentd 负责把k8s集群的日志发送给 Elasticsearch">
+<meta property="og:description" content="EFK 插件是kubernetes项目的一个日志解决方案，它包括三个组件：Elasticsearch, Fluentd, Kibana。  Elasticsearch 是日志存储和日志搜索引擎  Fluentd 负责把k8s集群的日志发送给 Elasticsearch  Kibana 则是可视化界面查看和检索存储在 Elasticsearch 的数据">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="https://www.ywthings.com/images/20181116160340.png">
-<meta property="og:updated_time" content="2018-11-16T08:16:14.659Z">
+<meta property="og:updated_time" content="2018-11-17T02:53:16.658Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="在kubernetes-1.12.x上搭建EFK日志分析平台">
-<meta name="twitter:description" content="EFK 插件是kubernetes项目的一个日志解决方案，它包括三个组件：Elasticsearch, Fluentd, Kibana。  Elasticsearch 是日志存储和日志搜索引擎  Fluentd 负责把k8s集群的日志发送给 Elasticsearch">
+<meta name="twitter:description" content="EFK 插件是kubernetes项目的一个日志解决方案，它包括三个组件：Elasticsearch, Fluentd, Kibana。  Elasticsearch 是日志存储和日志搜索引擎  Fluentd 负责把k8s集群的日志发送给 Elasticsearch  Kibana 则是可视化界面查看和检索存储在 Elasticsearch 的数据">
 <meta name="twitter:image" content="https://www.ywthings.com/images/20181116160340.png">
 
 
@@ -420,12 +420,24 @@
                 
               
 
-              <time title="创建时间：2018-11-16 15:14:47 / 修改时间：16:16:14" itemprop="dateCreated datePublished" datetime="2018-11-16T15:14:47+08:00">2018-11-16</time>
+              <time title="创建时间：2018-11-16 15:14:47" itemprop="dateCreated datePublished" datetime="2018-11-16T15:14:47+08:00">2018-11-16</time>
             
 
             
               
 
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2018-11-17 10:53:16" itemprop="dateModified" datetime="2018-11-17T10:53:16+08:00">2018-11-17</time>
               
             
           </span>
@@ -481,10 +493,12 @@
 <li><p>Elasticsearch 是日志存储和日志搜索引擎</p>
 </li>
 <li><p>Fluentd 负责把k8s集群的日志发送给 Elasticsearch</p>
-<a id="more"></a></li>
-<li>Kibana 则是可视化界面查看和检索存储在 Elasticsearch 的数据</li>
-</ul>
+</li>
+<li><p>Kibana 则是可视化界面查看和检索存储在 Elasticsearch 的数据</p>
+<a id="more"></a>
 <p>官方EFK地址：<a href="https://github.com/kubernetes/kubernetes/tree/master/cluster/addons/fluentd-elasticsearch" target="_blank" rel="noopener">https://github.com/kubernetes/kubernetes/tree/master/cluster/addons/fluentd-elasticsearch</a></p>
+</li>
+</ul>
 <p>由于官方部署方案存在elasticsearch存储模式为emptyDir，国内下载镜像不能成功，部署Fluentd，还需要添加标签<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kubectl label nodes node2 beta.kubernetes.io/fluentd-ds-ready=true</span><br></pre></td></tr></table></figure></p>
 <p>问题也有可能出现Fluentd镜像不可用等问题，部署起来操作比较繁琐。因此本次搭建EFK采用Elasticsearch、Kibana单独部署，独立于容器，Fluentd采用官方的daemonset部署方式。</p>
 <h1 id="部署java"><a href="#部署java" class="headerlink" title="部署java"></a>部署java</h1><p>java 版本需要1.8以上</p>
@@ -569,6 +583,10 @@
 
           <div class="post-nav-prev post-nav-item">
             
+              <a href="/2018/11/17/kubernetes-1-12-x-deployment-prometheus-operator.html" rel="prev" title="在kubernetes-1.12.x上搭建prometheus-operator监控预警系统">
+                在kubernetes-1.12.x上搭建prometheus-operator监控预警系统 <i class="fa fa-chevron-right"></i>
+              </a>
+            
           </div>
         </div>
       
@@ -646,7 +664,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">58</span>
+                    <span class="site-state-item-count">64</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -701,7 +719,9 @@
                     
                       
                     
-                    <span class="site-state-item-count">21</span>
+                      
+                    
+                    <span class="site-state-item-count">22</span>
                     <span class="site-state-item-name">分类</span>
                   </a>
                 </div>
@@ -822,7 +842,17 @@
                     
                       
                     
-                    <span class="site-state-item-count">53</span>
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">59</span>
                     <span class="site-state-item-name">标签</span>
                   </a>
                 </div>
@@ -887,7 +917,7 @@
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; 2017 – <span itemprop="copyrightYear">2018</span>
+        <div class="copyright">&copy; 2017 – <span itemprop="copyrightYear">2019</span>
   <span class="with-love" id="animate">
     <i class="fa fa-user"></i>
   </span>

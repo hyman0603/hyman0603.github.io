@@ -2,9 +2,79 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://www.ywthings.com/2019/01/02/aliyun-no-access-lb.html</loc>
+    
+    <lastmod>2019-01-02T02:03:48.714Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://www.ywthings.com/2018/11/24/yum-install-mysql5-6.html</loc>
+    
+    <lastmod>2019-01-02T02:01:11.145Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://www.ywthings.com/2018/12/28/install-harbor.html</loc>
+    
+    <lastmod>2019-01-02T02:00:58.460Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://www.ywthings.com/2018/12/11/systemd-causes-high-CPU-load.html</loc>
+    
+    <lastmod>2019-01-02T01:42:23.725Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://www.ywthings.com/2018/09/29/install-kubeadm-kubernetes-1-12-0.html</loc>
+    
+    <lastmod>2018-12-17T05:56:58.562Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://www.ywthings.com/2018/10/26/kubernetes-some-command.html</loc>
+    
+    <lastmod>2018-12-07T06:58:37.465Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://www.ywthings.com/2018/11/20/nginx-gcc-http2-0.html</loc>
+    
+    <lastmod>2018-11-22T01:15:44.116Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://www.ywthings.com/2018/10/10/elasticsearch-cluster.html</loc>
+    
+    <lastmod>2018-11-17T05:56:49.126Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://www.ywthings.com/2018/11/17/kubernetes-1-12-x-deployment-prometheus-operator.html</loc>
+    
+    <lastmod>2018-11-17T02:54:21.379Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://www.ywthings.com/2018/11/16/setup-efk-on-kubernetes-1-12-x.html</loc>
     
-    <lastmod>2018-11-16T08:16:14.659Z</lastmod>
+    <lastmod>2018-11-17T02:53:16.658Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://www.ywthings.com/2018/10/10/some-command-useful.html</loc>
+    
+    <lastmod>2018-11-17T02:35:34.566Z</lastmod>
     
   </url>
   
@@ -12,20 +82,6 @@
     <loc>https://www.ywthings.com/2018/11/13/vsftp-deployment.html</loc>
     
     <lastmod>2018-11-16T08:00:33.761Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://www.ywthings.com/2018/10/26/kubernetes-some-command.html</loc>
-    
-    <lastmod>2018-11-16T08:00:30.532Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://www.ywthings.com/2018/09/29/install-kubeadm-kubernetes-1-12-0.html</loc>
-    
-    <lastmod>2018-11-06T08:39:39.602Z</lastmod>
     
   </url>
   
@@ -40,20 +96,6 @@
     <loc>https://www.ywthings.com/2018/10/18/hung-task-timeout-secs.html</loc>
     
     <lastmod>2018-10-23T01:11:51.868Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://www.ywthings.com/2018/10/10/some-command-useful.html</loc>
-    
-    <lastmod>2018-10-11T06:56:09.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://www.ywthings.com/2018/10/10/elasticsearch-cluster.html</loc>
-    
-    <lastmod>2018-10-10T11:09:14.555Z</lastmod>
     
   </url>
   
