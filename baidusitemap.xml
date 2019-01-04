@@ -4,6 +4,28 @@
 
     
   <url>
+    <loc>https://www.ywthings.com/2017/08/23/Python-base-operation.html</loc>
+    <lastmod>2019-01-04T05:59:45.649Z</lastmod>
+    <data>
+        <display>
+        <title>Python基本算法</title>
+        <pubTime>2017-08-23T02:11:25.000Z</pubTime>
+        
+        <tag>python</tag>
+         
+        <tag>算法</tag>
+         
+         
+           
+             
+              <breadCrumb title="python" url="https://www.ywthings.com/categories/python/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
     <loc>https://www.ywthings.com/2018/09/29/install-kubeadm-kubernetes-1-12-0.html</loc>
     <lastmod>2019-01-03T05:49:10.752Z</lastmod>
     <data>
@@ -1068,28 +1090,6 @@
            
              
               <breadCrumb title="MongoDB" url="https://www.ywthings.com/categories/MongoDB/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>https://www.ywthings.com/2017/08/23/Python-base-operation.html</loc>
-    <lastmod>2018-05-25T09:50:25.391Z</lastmod>
-    <data>
-        <display>
-        <title>Python基本算法</title>
-        <pubTime>2017-08-23T02:11:25.000Z</pubTime>
-        
-        <tag>python</tag>
-         
-        <tag>算法</tag>
-         
-         
-           
-             
-              <breadCrumb title="python" url="https://www.ywthings.com/categories/python/"/>
           
         </display>
     </data>

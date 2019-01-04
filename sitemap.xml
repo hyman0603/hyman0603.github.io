@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://www.ywthings.com/2017/08/23/Python-base-operation.html</loc>
+    
+    <lastmod>2019-01-04T05:59:45.649Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://www.ywthings.com/2018/09/29/install-kubeadm-kubernetes-1-12-0.html</loc>
     
     <lastmod>2019-01-03T05:49:10.752Z</lastmod>
@@ -348,13 +355,6 @@
     <loc>https://www.ywthings.com/2017/05/03/record-MongoDB3.4-shard-some-config.html</loc>
     
     <lastmod>2018-05-25T09:50:30.257Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://www.ywthings.com/2017/08/23/Python-base-operation.html</loc>
-    
-    <lastmod>2018-05-25T09:50:25.391Z</lastmod>
     
   </url>
   
