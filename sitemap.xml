@@ -2,9 +2,23 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://www.ywthings.com/2018/09/29/install-kubeadm-kubernetes-1-12-0.html</loc>
+    
+    <lastmod>2019-01-03T05:49:10.752Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://www.ywthings.com/2018/10/10/some-command-useful.html</loc>
+    
+    <lastmod>2019-01-02T11:04:21.784Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://www.ywthings.com/2019/01/02/aliyun-no-access-lb.html</loc>
     
-    <lastmod>2019-01-02T02:03:48.714Z</lastmod>
+    <lastmod>2019-01-02T06:21:03.762Z</lastmod>
     
   </url>
   
@@ -26,13 +40,6 @@
     <loc>https://www.ywthings.com/2018/12/11/systemd-causes-high-CPU-load.html</loc>
     
     <lastmod>2019-01-02T01:42:23.725Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://www.ywthings.com/2018/09/29/install-kubeadm-kubernetes-1-12-0.html</loc>
-    
-    <lastmod>2018-12-17T05:56:58.562Z</lastmod>
     
   </url>
   
@@ -68,13 +75,6 @@
     <loc>https://www.ywthings.com/2018/11/16/setup-efk-on-kubernetes-1-12-x.html</loc>
     
     <lastmod>2018-11-17T02:53:16.658Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://www.ywthings.com/2018/10/10/some-command-useful.html</loc>
-    
-    <lastmod>2018-11-17T02:35:34.566Z</lastmod>
     
   </url>
   

@@ -143,7 +143,7 @@
 <meta property="og:description" content="问题由于需要扩大业务访问量，新增ECS服务器，作为TCP负载均衡，添加到阿里云负载均衡下，添加成功后，业务总是会出现发送不了消息，登陆不成功。">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="https://www.ywthings.com/images/729984945541266907.jpg">
-<meta property="og:updated_time" content="2019-01-02T02:03:48.714Z">
+<meta property="og:updated_time" content="2019-01-02T06:21:03.762Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="新增阿里云ECS服务器作为TCP负载均衡访问失败">
 <meta name="twitter:description" content="问题由于需要扩大业务访问量，新增ECS服务器，作为TCP负载均衡，添加到阿里云负载均衡下，添加成功后，业务总是会出现发送不了消息，登陆不成功。">
@@ -420,7 +420,7 @@
                 
               
 
-              <time title="创建时间：2019-01-02 09:40:42 / 修改时间：10:03:48" itemprop="dateCreated datePublished" datetime="2019-01-02T09:40:42+08:00">2019-01-02</time>
+              <time title="创建时间：2019-01-02 09:40:42 / 修改时间：14:21:03" itemprop="dateCreated datePublished" datetime="2019-01-02T09:40:42+08:00">2019-01-02</time>
             
 
             
@@ -477,9 +477,9 @@
 
       
         <h1 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h1><p>由于需要扩大业务访问量，新增ECS服务器，作为TCP负载均衡，添加到阿里云负载均衡下，添加成功后，业务总是会出现发送不了消息，登陆不成功。<br><a id="more"></a>如图所示<br><img src="/images/729984945541266907.jpg" width="100%" height="100%"></p>
-<h1 id="原因"><a href="#原因" class="headerlink" title="原因"></a>原因</h1><p>初步找遍了防火墙、业务配置问题都没发现问题，单独调用一台服务器作为开发调试，也是正常，在负载均衡器里面，只添加一台新增服务器也是正常的，添加两台后就立马不行。最后无奈只能提交给工单，给阿里云客服处理，结果反馈是需要在ECS服务器上需要添加内核参数。是因为rp_filter特性和负载均衡底层LVS的策略路由产生冲突，导致访问出现异常。</p>
+<h1 id="原因"><a href="#原因" class="headerlink" title="原因"></a>原因</h1><p>初步找遍了防火墙、业务配置问题都没发现问题，单独调用一台服务器作为开发调试，也是正常，在负载均衡器里面，只添加一台新增服务器也是正常的，添加两台后就立马不行。最后无奈只能提交给工单，给阿里云客服处理，结果反馈是需要在ECS服务器上需要添加内核参数。是因为rp_filter特性和负载均衡底层LVS的策略路由产生冲突，导致访问出现异常。改成0,是因为从mac层面接受数据包 拆包到ip层 对应lo后 会以其他网卡发送数据包 ，由于rp_filter参数为1  所以 不允许从非此网卡接受的数据从该网卡发出 导致了 大量的syn超时。</p>
 <h1 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案"></a>解决方案</h1><p>具体参照阿里云TCP负载均衡不能访问解决方案：<a href="https://help.aliyun.com/knowledge_detail/55206.html" target="_blank" rel="noopener">https://help.aliyun.com/knowledge_detail/55206.html</a></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">#编辑/etc/sysctl.conf文件，将系统配置文件中的以下三个参数值设置为0。</span><br><span class="line"></span><br><span class="line">net.ipv4.conf.default.rp_filter = 0</span><br><span class="line">net.ipv4.conf.all.rp_filter = 0</span><br><span class="line">net.ipv4.conf.eth0.rp_filter = 0</span><br><span class="line"></span><br><span class="line">#执行sysctl -p命令，使配置生效。</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">#编辑/etc/sysctl.conf文件，将系统配置文件中的以下三个参数值设置为0。</span><br><span class="line"></span><br><span class="line">net.ipv4.conf.default.rp_filter = 0</span><br><span class="line">net.ipv4.conf.all.rp_filter = 0</span><br><span class="line">net.ipv4.conf.eth0.rp_filter = 0</span><br><span class="line">net.ipv4.conf.eth1.rp_filter = 0 </span><br><span class="line"></span><br><span class="line"></span><br><span class="line">#执行sysctl -p命令，使配置生效。</span><br></pre></td></tr></table></figure>
       
     </div>
 

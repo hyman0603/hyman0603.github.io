@@ -4,8 +4,52 @@
 
     
   <url>
+    <loc>https://www.ywthings.com/2018/09/29/install-kubeadm-kubernetes-1-12-0.html</loc>
+    <lastmod>2019-01-03T05:49:10.752Z</lastmod>
+    <data>
+        <display>
+        <title>使用kubeadm安装kubernetes 1.12.x</title>
+        <pubTime>2018-09-29T11:21:57.000Z</pubTime>
+        
+        <tag>k8s</tag>
+         
+        <tag>kubernetes</tag>
+         
+         
+           
+             
+              <breadCrumb title="kubernetes" url="https://www.ywthings.com/categories/kubernetes/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>https://www.ywthings.com/2018/10/10/some-command-useful.html</loc>
+    <lastmod>2019-01-02T11:04:21.784Z</lastmod>
+    <data>
+        <display>
+        <title>一些有用的命令汇总</title>
+        <pubTime>2018-10-10T05:30:37.000Z</pubTime>
+        
+        <tag>mysql</tag>
+         
+        <tag>运维</tag>
+         
+         
+           
+             
+              <breadCrumb title="运维" url="https://www.ywthings.com/categories/%E8%BF%90%E7%BB%B4/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
     <loc>https://www.ywthings.com/2019/01/02/aliyun-no-access-lb.html</loc>
-    <lastmod>2019-01-02T02:03:48.714Z</lastmod>
+    <lastmod>2019-01-02T06:21:03.762Z</lastmod>
     <data>
         <display>
         <title>新增阿里云ECS服务器作为TCP负载均衡访问失败</title>
@@ -83,28 +127,6 @@
            
              
               <breadCrumb title="日常问题处理" url="https://www.ywthings.com/categories/%E6%97%A5%E5%B8%B8%E9%97%AE%E9%A2%98%E5%A4%84%E7%90%86/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>https://www.ywthings.com/2018/09/29/install-kubeadm-kubernetes-1-12-0.html</loc>
-    <lastmod>2018-12-17T05:56:58.562Z</lastmod>
-    <data>
-        <display>
-        <title>使用kubeadm安装kubernetes 1.12.x</title>
-        <pubTime>2018-09-29T11:21:57.000Z</pubTime>
-        
-        <tag>k8s</tag>
-         
-        <tag>kubernetes</tag>
-         
-         
-           
-             
-              <breadCrumb title="kubernetes" url="https://www.ywthings.com/categories/kubernetes/"/>
           
         </display>
     </data>
@@ -217,28 +239,6 @@
            
              
               <breadCrumb title="kubernetes" url="https://www.ywthings.com/categories/kubernetes/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>https://www.ywthings.com/2018/10/10/some-command-useful.html</loc>
-    <lastmod>2018-11-17T02:35:34.566Z</lastmod>
-    <data>
-        <display>
-        <title>一些有用的命令汇总</title>
-        <pubTime>2018-10-10T05:30:37.000Z</pubTime>
-        
-        <tag>mysql</tag>
-         
-        <tag>运维</tag>
-         
-         
-           
-             
-              <breadCrumb title="运维" url="https://www.ywthings.com/categories/%E8%BF%90%E7%BB%B4/"/>
           
         </display>
     </data>
