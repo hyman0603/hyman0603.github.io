@@ -142,7 +142,7 @@
 <meta property="og:site_name" content="hyman">
 <meta property="og:description" content="下载 MySQL Yum Repository1wget http://dev.mysql.com/get/mysql-community-release-el7-5.noarch.rpm">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-01-02T02:01:11.145Z">
+<meta property="og:updated_time" content="2019-01-25T00:43:47.033Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="CentOS7 yum 安装mysql 5.6">
 <meta name="twitter:description" content="下载 MySQL Yum Repository1wget http://dev.mysql.com/get/mysql-community-release-el7-5.noarch.rpm">
@@ -435,7 +435,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2019-01-02 10:01:11" itemprop="dateModified" datetime="2019-01-02T10:01:11+08:00">2019-01-02</time>
+                <time title="修改时间：2019-01-25 08:43:47" itemprop="dateModified" datetime="2019-01-25T08:43:47+08:00">2019-01-25</time>
               
             
           </span>
@@ -499,6 +499,10 @@
 <h1 id="启动mysql"><a href="#启动mysql" class="headerlink" title="启动mysql"></a>启动mysql</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">systemctl start mysqld</span><br></pre></td></tr></table></figure>
 <h1 id="MySQL-安全设置（设置密码）"><a href="#MySQL-安全设置（设置密码）" class="headerlink" title="MySQL 安全设置（设置密码）"></a>MySQL 安全设置（设置密码）</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysql_secure_installation</span><br></pre></td></tr></table></figure>
 <h1 id="远程访问设置"><a href="#远程访问设置" class="headerlink" title="远程访问设置"></a>远程访问设置</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt;use mysql;  </span><br><span class="line">mysql&gt; GRANT ALL PRIVILEGES ON *.* TO root@&quot;%&quot; IDENTIFIED BY &quot;root&quot;;    //为root添加远程连接的能力  </span><br><span class="line">mysql&gt; flush privileges;</span><br></pre></td></tr></table></figure>
+<h1 id="数据存储位置更改"><a href="#数据存储位置更改" class="headerlink" title="数据存储位置更改"></a>数据存储位置更改</h1><p>先关闭数据库</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">cp -rp /var/lib/mysql /data/</span><br><span class="line"></span><br><span class="line">-p：源目录或者文件的属性保留</span><br></pre></td></tr></table></figure>
+<p>修改/etc/my.cnf文件</p>
+
       
     </div>
 
@@ -646,7 +650,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">64</span>
+                    <span class="site-state-item-count">66</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -834,7 +838,15 @@
                     
                       
                     
-                    <span class="site-state-item-count">59</span>
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">63</span>
                     <span class="site-state-item-name">标签</span>
                   </a>
                 </div>
@@ -879,7 +891,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#下载-MySQL-Yum-Repository"><span class="nav-number">1.</span> <span class="nav-text">下载 MySQL Yum Repository</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#添加-MySQL-Yum-Repository"><span class="nav-number">2.</span> <span class="nav-text">添加 MySQL Yum Repository</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#验证下是否添加成功"><span class="nav-number">3.</span> <span class="nav-text">验证下是否添加成功</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#选择要启用-MySQL-版本"><span class="nav-number">4.</span> <span class="nav-text">选择要启用 MySQL 版本</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#通过-Yum-来安装-MySQL"><span class="nav-number">5.</span> <span class="nav-text">通过 Yum 来安装 MySQL</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#启动mysql"><span class="nav-number">6.</span> <span class="nav-text">启动mysql</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#MySQL-安全设置（设置密码）"><span class="nav-number">7.</span> <span class="nav-text">MySQL 安全设置（设置密码）</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#远程访问设置"><span class="nav-number">8.</span> <span class="nav-text">远程访问设置</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#下载-MySQL-Yum-Repository"><span class="nav-number">1.</span> <span class="nav-text">下载 MySQL Yum Repository</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#添加-MySQL-Yum-Repository"><span class="nav-number">2.</span> <span class="nav-text">添加 MySQL Yum Repository</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#验证下是否添加成功"><span class="nav-number">3.</span> <span class="nav-text">验证下是否添加成功</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#选择要启用-MySQL-版本"><span class="nav-number">4.</span> <span class="nav-text">选择要启用 MySQL 版本</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#通过-Yum-来安装-MySQL"><span class="nav-number">5.</span> <span class="nav-text">通过 Yum 来安装 MySQL</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#启动mysql"><span class="nav-number">6.</span> <span class="nav-text">启动mysql</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#MySQL-安全设置（设置密码）"><span class="nav-number">7.</span> <span class="nav-text">MySQL 安全设置（设置密码）</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#远程访问设置"><span class="nav-number">8.</span> <span class="nav-text">远程访问设置</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#数据存储位置更改"><span class="nav-number">9.</span> <span class="nav-text">数据存储位置更改</span></a></li></ol></div>
             
 
           </div>

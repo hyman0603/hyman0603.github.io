@@ -2,6 +2,27 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://www.ywthings.com/2019/01/24/project-deploy.html</loc>
+    
+    <lastmod>2019-01-25T03:13:38.789Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://www.ywthings.com/2018/11/24/yum-install-mysql5-6.html</loc>
+    
+    <lastmod>2019-01-25T00:43:47.033Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://www.ywthings.com/2019/01/07/kubernetes-master-install-for-kubeadm-1-13-x.html</loc>
+    
+    <lastmod>2019-01-24T02:13:29.982Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://www.ywthings.com/2017/08/23/Python-base-operation.html</loc>
     
     <lastmod>2019-01-04T05:59:45.649Z</lastmod>
@@ -26,13 +47,6 @@
     <loc>https://www.ywthings.com/2019/01/02/aliyun-no-access-lb.html</loc>
     
     <lastmod>2019-01-02T06:21:03.762Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://www.ywthings.com/2018/11/24/yum-install-mysql5-6.html</loc>
-    
-    <lastmod>2019-01-02T02:01:11.145Z</lastmod>
     
   </url>
   
