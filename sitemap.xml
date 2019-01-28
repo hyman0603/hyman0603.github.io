@@ -4,7 +4,21 @@
   <url>
     <loc>https://www.ywthings.com/2019/01/24/project-deploy.html</loc>
     
-    <lastmod>2019-01-25T03:13:38.789Z</lastmod>
+    <lastmod>2019-01-28T04:37:53.037Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://www.ywthings.com/2019/01/07/kubernetes-master-install-for-kubeadm-1-13-x.html</loc>
+    
+    <lastmod>2019-01-26T12:03:19.931Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://www.ywthings.com/2019/01/26/update-mysql-max-connections-not-userful.html</loc>
+    
+    <lastmod>2019-01-26T12:02:42.408Z</lastmod>
     
   </url>
   
@@ -12,13 +26,6 @@
     <loc>https://www.ywthings.com/2018/11/24/yum-install-mysql5-6.html</loc>
     
     <lastmod>2019-01-25T00:43:47.033Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://www.ywthings.com/2019/01/07/kubernetes-master-install-for-kubeadm-1-13-x.html</loc>
-    
-    <lastmod>2019-01-24T02:13:29.982Z</lastmod>
     
   </url>
   
