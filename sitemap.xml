@@ -2,9 +2,23 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://www.ywthings.com/2019/03/01/kubernets-docker-images-auto-delete.html</loc>
+    
+    <lastmod>2019-03-01T02:55:15.996Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://www.ywthings.com/2019/01/24/project-deploy.html</loc>
     
-    <lastmod>2019-01-28T04:37:53.037Z</lastmod>
+    <lastmod>2019-02-22T01:00:16.420Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://www.ywthings.com/2019/01/28/nginx-make-install.html</loc>
+    
+    <lastmod>2019-01-28T06:41:05.370Z</lastmod>
     
   </url>
   
