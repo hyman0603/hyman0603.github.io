@@ -4,6 +4,92 @@
 
     
   <url>
+    <loc>https://www.ywthings.com/2019/03/13/docker-registry-clean.html</loc>
+    <lastmod>2019-03-13T09:00:04.245Z</lastmod>
+    <data>
+        <display>
+        <title>清理Docker仓库Registry</title>
+        <pubTime>2019-03-13T08:47:47.000Z</pubTime>
+        
+        <tag>docker</tag>
+         
+        <tag>registry</tag>
+         
+         
+           
+             
+              <breadCrumb title="日常问题处理" url="https://www.ywthings.com/categories/%E6%97%A5%E5%B8%B8%E9%97%AE%E9%A2%98%E5%A4%84%E7%90%86/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>https://www.ywthings.com/2018/10/26/kubernetes-some-command.html</loc>
+    <lastmod>2019-03-11T04:54:17.990Z</lastmod>
+    <data>
+        <display>
+        <title>kubernetes 命令记录</title>
+        <pubTime>2018-10-26T08:41:00.000Z</pubTime>
+        
+        <tag>k8s</tag>
+         
+        <tag>kubernetes</tag>
+         
+         
+           
+             
+              <breadCrumb title="日常部署记录" url="https://www.ywthings.com/categories/%E6%97%A5%E5%B8%B8%E9%83%A8%E7%BD%B2%E8%AE%B0%E5%BD%95/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>https://www.ywthings.com/2018/10/10/some-command-useful.html</loc>
+    <lastmod>2019-03-11T04:53:17.818Z</lastmod>
+    <data>
+        <display>
+        <title>一些有用的命令汇总</title>
+        <pubTime>2018-10-10T05:30:37.000Z</pubTime>
+        
+        <tag>mysql</tag>
+         
+        <tag>运维</tag>
+         
+         
+           
+             
+              <breadCrumb title="运维" url="https://www.ywthings.com/categories/%E8%BF%90%E7%BB%B4/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>https://www.ywthings.com/2019/01/28/nginx-make-install.html</loc>
+    <lastmod>2019-03-07T01:03:21.763Z</lastmod>
+    <data>
+        <display>
+        <title>Centos7 安装nginx1.14</title>
+        <pubTime>2019-01-28T06:24:48.000Z</pubTime>
+        
+        <tag>nginx</tag>
+         
+         
+           
+             
+              <breadCrumb title="运维部署记录" url="https://www.ywthings.com/categories/%E8%BF%90%E7%BB%B4%E9%83%A8%E7%BD%B2%E8%AE%B0%E5%BD%95/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
     <loc>https://www.ywthings.com/2019/03/01/kubernets-docker-images-auto-delete.html</loc>
     <lastmod>2019-03-01T02:55:15.996Z</lastmod>
     <data>
@@ -42,26 +128,6 @@
         <tag>GraphicsMagick</tag>
          
         <tag>jpegsrc</tag>
-         
-         
-           
-             
-              <breadCrumb title="运维部署记录" url="https://www.ywthings.com/categories/%E8%BF%90%E7%BB%B4%E9%83%A8%E7%BD%B2%E8%AE%B0%E5%BD%95/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>https://www.ywthings.com/2019/01/28/nginx-make-install.html</loc>
-    <lastmod>2019-01-28T06:41:05.370Z</lastmod>
-    <data>
-        <display>
-        <title>Centos7 安装nginx1.14</title>
-        <pubTime>2019-01-28T06:24:48.000Z</pubTime>
-        
-        <tag>nginx</tag>
          
          
            
@@ -180,28 +246,6 @@
 
     
   <url>
-    <loc>https://www.ywthings.com/2018/10/10/some-command-useful.html</loc>
-    <lastmod>2019-01-02T11:04:21.784Z</lastmod>
-    <data>
-        <display>
-        <title>一些有用的命令汇总</title>
-        <pubTime>2018-10-10T05:30:37.000Z</pubTime>
-        
-        <tag>mysql</tag>
-         
-        <tag>运维</tag>
-         
-         
-           
-             
-              <breadCrumb title="运维" url="https://www.ywthings.com/categories/%E8%BF%90%E7%BB%B4/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
     <loc>https://www.ywthings.com/2019/01/02/aliyun-no-access-lb.html</loc>
     <lastmod>2019-01-02T06:21:03.762Z</lastmod>
     <data>
@@ -261,28 +305,6 @@
            
              
               <breadCrumb title="日常问题处理" url="https://www.ywthings.com/categories/%E6%97%A5%E5%B8%B8%E9%97%AE%E9%A2%98%E5%A4%84%E7%90%86/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>https://www.ywthings.com/2018/10/26/kubernetes-some-command.html</loc>
-    <lastmod>2018-12-07T06:58:37.465Z</lastmod>
-    <data>
-        <display>
-        <title>kubernetes 命令记录</title>
-        <pubTime>2018-10-26T08:41:00.000Z</pubTime>
-        
-        <tag>k8s</tag>
-         
-        <tag>kubernetes</tag>
-         
-         
-           
-             
-              <breadCrumb title="日常部署记录" url="https://www.ywthings.com/categories/%E6%97%A5%E5%B8%B8%E9%83%A8%E7%BD%B2%E8%AE%B0%E5%BD%95/"/>
           
         </display>
     </data>

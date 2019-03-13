@@ -469,7 +469,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">69</span>
+                    <span class="site-state-item-count">70</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -667,7 +667,9 @@
                     
                       
                     
-                    <span class="site-state-item-count">64</span>
+                      
+                    
+                    <span class="site-state-item-count">65</span>
                     <span class="site-state-item-name">标签</span>
                   </a>
                 </div>
@@ -1237,7 +1239,31 @@
 
 </body>
 </html>
-:visible');
+     $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
       if (shouldDismissSearchPopup) {
         onPopupClose();
       }

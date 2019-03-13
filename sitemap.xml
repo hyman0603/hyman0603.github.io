@@ -2,6 +2,34 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://www.ywthings.com/2019/03/13/docker-registry-clean.html</loc>
+    
+    <lastmod>2019-03-13T09:00:04.245Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://www.ywthings.com/2018/10/26/kubernetes-some-command.html</loc>
+    
+    <lastmod>2019-03-11T04:54:17.990Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://www.ywthings.com/2018/10/10/some-command-useful.html</loc>
+    
+    <lastmod>2019-03-11T04:53:17.818Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://www.ywthings.com/2019/01/28/nginx-make-install.html</loc>
+    
+    <lastmod>2019-03-07T01:03:21.763Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://www.ywthings.com/2019/03/01/kubernets-docker-images-auto-delete.html</loc>
     
     <lastmod>2019-03-01T02:55:15.996Z</lastmod>
@@ -12,13 +40,6 @@
     <loc>https://www.ywthings.com/2019/01/24/project-deploy.html</loc>
     
     <lastmod>2019-02-22T01:00:16.420Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://www.ywthings.com/2019/01/28/nginx-make-install.html</loc>
-    
-    <lastmod>2019-01-28T06:41:05.370Z</lastmod>
     
   </url>
   
@@ -58,13 +79,6 @@
   </url>
   
   <url>
-    <loc>https://www.ywthings.com/2018/10/10/some-command-useful.html</loc>
-    
-    <lastmod>2019-01-02T11:04:21.784Z</lastmod>
-    
-  </url>
-  
-  <url>
     <loc>https://www.ywthings.com/2019/01/02/aliyun-no-access-lb.html</loc>
     
     <lastmod>2019-01-02T06:21:03.762Z</lastmod>
@@ -82,13 +96,6 @@
     <loc>https://www.ywthings.com/2018/12/11/systemd-causes-high-CPU-load.html</loc>
     
     <lastmod>2019-01-02T01:42:23.725Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://www.ywthings.com/2018/10/26/kubernetes-some-command.html</loc>
-    
-    <lastmod>2018-12-07T06:58:37.465Z</lastmod>
     
   </url>
   
