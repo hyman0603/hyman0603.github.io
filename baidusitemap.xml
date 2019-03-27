@@ -4,8 +4,82 @@
 
     
   <url>
+    <loc>https://www.ywthings.com/2019/01/07/kubernetes-master-install-for-kubeadm-1-13-x.html</loc>
+    <lastmod>2019-03-26T09:36:53.950Z</lastmod>
+    <data>
+        <display>
+        <title>利用 kubeadm 部署 Kubernetes v1.13.x</title>
+        <pubTime>2019-01-07T01:26:17.000Z</pubTime>
+        
+        <tag>k8s</tag>
+         
+        <tag>kubernetes</tag>
+         
+         
+           
+             
+              <breadCrumb title="kubernetes" url="https://www.ywthings.com/categories/kubernetes/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>https://www.ywthings.com/2019/03/19/clear-kubernetes-pod-logs.html</loc>
+    <lastmod>2019-03-19T09:22:13.921Z</lastmod>
+    <data>
+        <display>
+        <title>清除kubernetes pod产生的日志文件logs</title>
+        <pubTime>2019-03-19T09:13:57.000Z</pubTime>
+        
+        <tag>k8s</tag>
+         
+        <tag>kubernetes</tag>
+         
+        <tag>docker</tag>
+         
+         
+           
+             
+              <breadCrumb title="kubernetes" url="https://www.ywthings.com/categories/kubernetes/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>https://www.ywthings.com/2019/01/24/project-deploy.html</loc>
+    <lastmod>2019-03-18T10:57:09.598Z</lastmod>
+    <data>
+        <display>
+        <title>视频语音实时可视化部署记录</title>
+        <pubTime>2019-01-24T02:12:06.000Z</pubTime>
+        
+        <tag>ffmpeg</tag>
+         
+        <tag>srs</tag>
+         
+        <tag>ImageMagick</tag>
+         
+        <tag>GraphicsMagick</tag>
+         
+        <tag>jpegsrc</tag>
+         
+         
+           
+             
+              <breadCrumb title="运维部署记录" url="https://www.ywthings.com/categories/%E8%BF%90%E7%BB%B4%E9%83%A8%E7%BD%B2%E8%AE%B0%E5%BD%95/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
     <loc>https://www.ywthings.com/2019/03/13/docker-registry-clean.html</loc>
-    <lastmod>2019-03-13T09:00:04.245Z</lastmod>
+    <lastmod>2019-03-18T01:02:08.999Z</lastmod>
     <data>
         <display>
         <title>清理Docker仓库Registry</title>
@@ -105,56 +179,6 @@
            
              
               <breadCrumb title="日常问题处理" url="https://www.ywthings.com/categories/%E6%97%A5%E5%B8%B8%E9%97%AE%E9%A2%98%E5%A4%84%E7%90%86/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>https://www.ywthings.com/2019/01/24/project-deploy.html</loc>
-    <lastmod>2019-02-22T01:00:16.420Z</lastmod>
-    <data>
-        <display>
-        <title>视频语音实时可视化部署记录</title>
-        <pubTime>2019-01-24T02:12:06.000Z</pubTime>
-        
-        <tag>ffmpeg</tag>
-         
-        <tag>srs</tag>
-         
-        <tag>ImageMagick</tag>
-         
-        <tag>GraphicsMagick</tag>
-         
-        <tag>jpegsrc</tag>
-         
-         
-           
-             
-              <breadCrumb title="运维部署记录" url="https://www.ywthings.com/categories/%E8%BF%90%E7%BB%B4%E9%83%A8%E7%BD%B2%E8%AE%B0%E5%BD%95/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>https://www.ywthings.com/2019/01/07/kubernetes-master-install-for-kubeadm-1-13-x.html</loc>
-    <lastmod>2019-01-26T12:03:19.931Z</lastmod>
-    <data>
-        <display>
-        <title>利用 kubeadm 部署 Kubernetes v1.13.x HA 集群</title>
-        <pubTime>2019-01-07T01:26:17.000Z</pubTime>
-        
-        <tag>k8s</tag>
-         
-        <tag>kubernetes</tag>
-         
-         
-           
-             
-              <breadCrumb title="kubernetes" url="https://www.ywthings.com/categories/kubernetes/"/>
           
         </display>
     </data>

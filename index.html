@@ -372,6 +372,168 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://www.ywthings.com/2019/03/19/clear-kubernetes-pod-logs.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="hyman">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="hyman">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/03/19/clear-kubernetes-pod-logs.html" itemprop="url">
+                  清除kubernetes pod产生的日志文件logs
+                </a>
+              
+            
+          </h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2019-03-19 17:13:57 / 修改时间：17:22:13" itemprop="dateCreated datePublished" datetime="2019-03-19T17:13:57+08:00">2019-03-19</time>
+            
+
+            
+              
+
+              
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/kubernetes/" itemprop="url" rel="index"><span itemprop="name">kubernetes</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <p>随着系统运行的时间越长，Log日志所占的空间也越来越大，但是磁盘空间是一定的，这时就需要清理一下这些无用的日志文件。<br>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2019/03/19/clear-kubernetes-pod-logs.html#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://www.ywthings.com/2019/03/13/docker-registry-clean.html">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -418,12 +580,24 @@
                 
               
 
-              <time title="创建时间：2019-03-13 16:47:47 / 修改时间：17:00:04" itemprop="dateCreated datePublished" datetime="2019-03-13T16:47:47+08:00">2019-03-13</time>
+              <time title="创建时间：2019-03-13 16:47:47" itemprop="dateCreated datePublished" datetime="2019-03-13T16:47:47+08:00">2019-03-13</time>
             
 
             
               
 
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2019-03-18 09:02:08" itemprop="dateModified" datetime="2019-03-18T09:02:08+08:00">2019-03-18</time>
               
             
           </span>
@@ -475,7 +649,8 @@
 
       
         
-          <h1 id="查看repositories"><a href="#查看repositories" class="headerlink" title="查看repositories"></a>查看repositories</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http://192.168.100.2:30100/v2/_catalog</span><br></pre></td></tr></table></figure>
+          <h1 id="下载清理工具"><a href="#下载清理工具" class="headerlink" title="下载清理工具"></a>下载清理工具</h1><p>github 官网：<a href="https://github.com/burnettk/delete-docker-registry-image" target="_blank" rel="noopener">https://github.com/burnettk/delete-docker-registry-image</a></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">curl https://raw.githubusercontent.com/burnettk/delete-docker-registry-image/master/delete_docker_registry_image.py | sudo tee /usr/local/bin/delete_docker_registry_image &gt;/dev/null</span><br><span class="line">sudo chmod a+x /usr/local/bin/delete_docker_registry_image</span><br></pre></td></tr></table></figure>
           <!--noindex-->
           <div class="post-button text-center">
             <a class="btn" href="/2019/03/13/docker-registry-clean.html#more" rel="contents">
@@ -1095,7 +1270,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2019-02-22 09:00:16" itemprop="dateModified" datetime="2019-02-22T09:00:16+08:00">2019-02-22</time>
+                <time title="修改时间：2019-03-18 18:57:09" itemprop="dateModified" datetime="2019-03-18T18:57:09+08:00">2019-03-18</time>
               
             
           </span>
@@ -1228,7 +1403,7 @@
           <h2 class="post-title" itemprop="name headline">
                 
                 <a class="post-title-link" href="/2019/01/07/kubernetes-master-install-for-kubeadm-1-13-x.html" itemprop="url">
-                  利用 kubeadm 部署 Kubernetes v1.13.x HA 集群
+                  利用 kubeadm 部署 Kubernetes v1.13.x
                 </a>
               
             
@@ -1271,7 +1446,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2019-01-26 20:03:19" itemprop="dateModified" datetime="2019-01-26T20:03:19+08:00">2019-01-26</time>
+                <time title="修改时间：2019-03-26 17:36:53" itemprop="dateModified" datetime="2019-03-26T17:36:53+08:00">2019-03-26</time>
               
             
           </span>
@@ -1880,185 +2055,11 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://www.ywthings.com/2018/11/24/yum-install-mysql5-6.html">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="hyman">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="hyman">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h2 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/11/24/yum-install-mysql5-6.html" itemprop="url">
-                  CentOS7 yum 安装mysql 5.6
-                </a>
-              
-            
-          </h2>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-
-              
-                
-              
-
-              <time title="创建时间：2018-11-24 09:34:57" itemprop="dateCreated datePublished" datetime="2018-11-24T09:34:57+08:00">2018-11-24</time>
-            
-
-            
-              
-
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">更新于</span>
-                
-                <time title="修改时间：2019-01-25 08:43:47" itemprop="dateModified" datetime="2019-01-25T08:43:47+08:00">2019-01-25</time>
-              
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/运维部署记录/" itemprop="url" rel="index"><span itemprop="name">运维部署记录</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <h1 id="下载-MySQL-Yum-Repository"><a href="#下载-MySQL-Yum-Repository" class="headerlink" title="下载 MySQL Yum Repository"></a>下载 MySQL Yum Repository</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wget http://dev.mysql.com/get/mysql-community-release-el7-5.noarch.rpm</span><br></pre></td></tr></table></figure>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2018/11/24/yum-install-mysql5-6.html#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
   <nav class="pagination">
-    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/page/7/">7</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/page/8/">8</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
   </nav>
 
 
@@ -2105,7 +2106,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">70</span>
+                    <span class="site-state-item-count">71</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>

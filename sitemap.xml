@@ -2,9 +2,30 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://www.ywthings.com/2019/01/07/kubernetes-master-install-for-kubeadm-1-13-x.html</loc>
+    
+    <lastmod>2019-03-26T09:36:53.950Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://www.ywthings.com/2019/03/19/clear-kubernetes-pod-logs.html</loc>
+    
+    <lastmod>2019-03-19T09:22:13.921Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://www.ywthings.com/2019/01/24/project-deploy.html</loc>
+    
+    <lastmod>2019-03-18T10:57:09.598Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://www.ywthings.com/2019/03/13/docker-registry-clean.html</loc>
     
-    <lastmod>2019-03-13T09:00:04.245Z</lastmod>
+    <lastmod>2019-03-18T01:02:08.999Z</lastmod>
     
   </url>
   
@@ -33,20 +54,6 @@
     <loc>https://www.ywthings.com/2019/03/01/kubernets-docker-images-auto-delete.html</loc>
     
     <lastmod>2019-03-01T02:55:15.996Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://www.ywthings.com/2019/01/24/project-deploy.html</loc>
-    
-    <lastmod>2019-02-22T01:00:16.420Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://www.ywthings.com/2019/01/07/kubernetes-master-install-for-kubeadm-1-13-x.html</loc>
-    
-    <lastmod>2019-01-26T12:03:19.931Z</lastmod>
     
   </url>
   
