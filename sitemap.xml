@@ -2,6 +2,69 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://www.ywthings.com/2019/04/17/tencent-cloud-install-gnome-desktop-with-centos-7.html</loc>
+    
+    <lastmod>2019-04-17T09:23:40.750Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://www.ywthings.com/2019/04/15/clound-server-install-google-chrome.html</loc>
+    
+    <lastmod>2019-04-16T01:06:20.706Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://www.ywthings.com/2019/04/15/centos-7-install-fonts.html</loc>
+    
+    <lastmod>2019-04-15T03:15:37.816Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://www.ywthings.com/2019/04/12/install-pgadmin4-in-centos-7.html</loc>
+    
+    <lastmod>2019-04-12T07:31:31.959Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://www.ywthings.com/2019/04/12/load-testing-web-servers-with-siege-benchmarking-tool.html</loc>
+    
+    <lastmod>2019-04-12T02:21:08.224Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://www.ywthings.com/2019/01/24/project-deploy.html</loc>
+    
+    <lastmod>2019-04-12T01:47:04.729Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://www.ywthings.com/2019/04/09/yum-memcached-redis-mongod-rabbitmq.html</loc>
+    
+    <lastmod>2019-04-12T01:39:53.955Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://www.ywthings.com/2019/04/11/shell-deployment-project.html</loc>
+    
+    <lastmod>2019-04-11T01:49:33.200Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://www.ywthings.com/2018/05/18/CentOS7-install-NFS.html</loc>
+    
+    <lastmod>2019-03-29T08:06:37.042Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://www.ywthings.com/2019/01/07/kubernetes-master-install-for-kubeadm-1-13-x.html</loc>
     
     <lastmod>2019-03-26T09:36:53.950Z</lastmod>
@@ -12,13 +75,6 @@
     <loc>https://www.ywthings.com/2019/03/19/clear-kubernetes-pod-logs.html</loc>
     
     <lastmod>2019-03-19T09:22:13.921Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://www.ywthings.com/2019/01/24/project-deploy.html</loc>
-    
-    <lastmod>2019-03-18T10:57:09.598Z</lastmod>
     
   </url>
   
@@ -467,13 +523,6 @@
     <loc>https://www.ywthings.com/2017/05/02/CentOS7-LDAP-deployment.html</loc>
     
     <lastmod>2018-05-25T09:49:10.128Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://www.ywthings.com/2018/05/18/CentOS7-install-NFS.html</loc>
-    
-    <lastmod>2018-05-25T09:49:05.889Z</lastmod>
     
   </url>
   
