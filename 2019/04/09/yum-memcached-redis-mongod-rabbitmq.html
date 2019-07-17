@@ -135,14 +135,14 @@
 
 
   <meta name="description" content="因测试需要，简便安装测试环境所需软件，环境CentOS 7">
-<meta name="keywords" content="mongodb,redis,memcached,rabbitmq">
+<meta name="keywords" content="rabbitmq,mongodb,memcached,redis">
 <meta property="og:type" content="article">
 <meta property="og:title" content="yum安装redis、mongodb、memcached、rabbitmq">
 <meta property="og:url" content="https://www.ywthings.com/2019/04/09/yum-memcached-redis-mongod-rabbitmq.html">
 <meta property="og:site_name" content="hyman">
 <meta property="og:description" content="因测试需要，简便安装测试环境所需软件，环境CentOS 7">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-04-12T01:39:53.955Z">
+<meta property="og:updated_time" content="2019-04-22T01:06:03.367Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="yum安装redis、mongodb、memcached、rabbitmq">
 <meta name="twitter:description" content="因测试需要，简便安装测试环境所需软件，环境CentOS 7">
@@ -435,7 +435,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2019-04-12 09:39:53" itemprop="dateModified" datetime="2019-04-12T09:39:53+08:00">2019-04-12</time>
+                <time title="修改时间：2019-04-22 09:06:03" itemprop="dateModified" datetime="2019-04-22T09:06:03+08:00">2019-04-22</time>
               
             
           </span>
@@ -492,7 +492,7 @@
 <h1 id="memcached"><a href="#memcached" class="headerlink" title="memcached"></a>memcached</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line">yum install memcached</span><br><span class="line"></span><br><span class="line">#配置文件</span><br><span class="line">vi /etc/sysconfig/memcached</span><br><span class="line"></span><br><span class="line">可添加OPTIONS=&quot;-l 127.0.0.1 -U 0&quot; 只允许本机连接</span><br><span class="line"></span><br><span class="line">PORT：Memcached用来运行的端口。</span><br><span class="line">USER：Memcached服务的启动守护程序。</span><br><span class="line">MAXCONN：用于将最大同时连接数设置为1024的值。对于繁忙的Web服务器，您可以根据需要增加任何数量。</span><br><span class="line">CACHESIZE：将高速缓存大小内存设置为2048。对于繁忙的服务器，您最多可以增加4GB。</span><br><span class="line">OPTIONS：设置服务器的IP地址，以便Apache或Nginx Web服务器可以连接到它。</span><br><span class="line"></span><br><span class="line">#启动</span><br><span class="line">systemctl enable memcached</span><br><span class="line">systemctl restart memcached</span><br><span class="line"></span><br><span class="line">#检查服务器的统计信息</span><br><span class="line">memcached-tool 127.0.0.1 stats</span><br><span class="line"></span><br><span class="line">#客户端工具libmemcached</span><br><span class="line">Libmemcached是一个开源的Memcached客户端库，其内部实现了分布式管理、内存池等功能</span><br><span class="line"></span><br><span class="line">Libmemcached特性：</span><br><span class="line"></span><br><span class="line">异步和同步传输支持。</span><br><span class="line">支持一致性hash分布式算法。</span><br><span class="line">可调哈希算法来匹配密钥。</span><br><span class="line">访问大对象支持。</span><br><span class="line">本地复制。</span><br><span class="line">提供了一些管理memcached服务器的工具命令</span><br><span class="line"></span><br><span class="line">yum install libmemcached</span><br></pre></td></tr></table></figure>
 <h1 id="mongodb"><a href="#mongodb" class="headerlink" title="mongodb"></a>mongodb</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br></pre></td><td class="code"><pre><span class="line">#添加yum源</span><br><span class="line">vim /etc/yum.repos.d/mongodb-org.repo</span><br><span class="line"></span><br><span class="line">[mongodb-org]</span><br><span class="line">name=MongoDB Repository</span><br><span class="line">baseurl=http://mirrors.aliyun.com/mongodb/yum/redhat/7Server/mongodb-org/3.2/x86_64/</span><br><span class="line">gpgcheck=0</span><br><span class="line">enabled=1</span><br><span class="line"></span><br><span class="line">#清空缓存和更新yum源</span><br><span class="line">yum clean all</span><br><span class="line">yum make cache</span><br><span class="line"></span><br><span class="line">#安装</span><br><span class="line">yum install -y mongodb-org</span><br><span class="line">service mongod start</span><br><span class="line">chkconfig mongod on</span><br><span class="line"></span><br><span class="line">#使用认证</span><br><span class="line">vim /etc/mongod.conf</span><br><span class="line"></span><br><span class="line">security:</span><br><span class="line">  authorization: enabled</span><br><span class="line"></span><br><span class="line">#导出数据</span><br><span class="line">mongodump -h 192.168.100.65:27017 -d test -o /home/ -u test -p 123456 --authenticationDatabase test</span><br><span class="line"></span><br><span class="line">#导入数据(有创建用户)</span><br><span class="line">mongorestore -h 192.168.1.79:27017 -d test --dir /home/test/ -u lolaage -p 123456 --authenticationDatabase admin</span><br><span class="line"></span><br><span class="line">#导入数据(无用户)</span><br><span class="line">mongorestore -h 192.168.1.79:27017 -d test --dir /home/test/</span><br><span class="line"></span><br><span class="line">#导入数据（压缩）</span><br><span class="line">mongorestore -h 10.66.225.207:27017 -d test -u test -p 123456 --gzip --authenticationDatabase admin /home/test</span><br><span class="line"></span><br><span class="line">#创建用户</span><br><span class="line">db.createUser( </span><br><span class="line">  &#123; </span><br><span class="line">    user: &quot;test&quot;,</span><br><span class="line">    pwd: &quot;123456&quot;, </span><br><span class="line">    roles: [ &#123; role: &quot;root&quot;, db: &quot;admin&quot; &#125; ] </span><br><span class="line">  &#125; )</span><br><span class="line">db.system.users.update(&#123;&quot;db&quot;:&quot;admin&quot;&#125;,&#123;$set:&#123;&quot;db&quot;:&quot;test&quot;&#125;&#125;);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"># mongodb 4.0版本</span><br><span class="line">vi /etc/yum.repos.d/mongodb-org-4.0.repo</span><br><span class="line"></span><br><span class="line">[mongodb-org-4.0]</span><br><span class="line">name=MongoDB Repository</span><br><span class="line">baseurl=https://repo.mongodb.org/yum/redhat/$releasever/mongodb-org/4.0/x86_64/</span><br><span class="line">gpgcheck=1</span><br><span class="line">enabled=1</span><br><span class="line">gpgkey=https://www.mongodb.org/static/pgp/server-4.0.asc</span><br></pre></td></tr></table></figure>
 <h1 id="rabbitmq"><a href="#rabbitmq" class="headerlink" title="rabbitmq"></a>rabbitmq</h1><p>官网：<a href="https://www.rabbitmq.com/install-rpm.html" target="_blank" rel="noopener">https://www.rabbitmq.com/install-rpm.html</a></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line"># erlang</span><br><span class="line">curl -s https://packagecloud.io/install/repositories/rabbitmq/erlang/script.rpm.sh | sudo bash</span><br><span class="line"></span><br><span class="line"># 导入2018年12月1日（GMT）开始使用的新PackageCloud密钥</span><br><span class="line">rpm --import https://packagecloud.io/rabbitmq/rabbitmq-server/gpgkey</span><br><span class="line"></span><br><span class="line"># 导入2018年12月1日停止使用的旧PackageCloud密钥（GMT）</span><br><span class="line">rpm --import https://packagecloud.io/gpg.key</span><br><span class="line"></span><br><span class="line"># 导入RabbitMQ签名密钥</span><br><span class="line">rpm --import https://github.com/rabbitmq/signing-keys/releases/download/2.0/rabbitmq-release-signing-key.asc</span><br><span class="line"></span><br><span class="line"># 添加Yum存储库</span><br><span class="line">vim /etc/yum.repos.d/rabbitmq.repo</span><br><span class="line">[bintray-rabbitmq-server]</span><br><span class="line">name=bintray-rabbitmq-rpm</span><br><span class="line">baseurl=https://dl.bintray.com/rabbitmq/rpm/rabbitmq-server/v3.7.x/el/7/</span><br><span class="line">gpgcheck=0</span><br><span class="line">repo_gpgcheck=0</span><br><span class="line">enabled=1</span><br><span class="line"></span><br><span class="line">rpm --import https://github.com/rabbitmq/signing-keys/releases/download/2.0/rabbitmq-release-signing-key.asc</span><br><span class="line"># this example assumes the CentOS 7 version of the package</span><br><span class="line"></span><br><span class="line">yum install rabbitmq-server</span><br><span class="line"></span><br><span class="line">chkconfig rabbitmq-server on</span><br><span class="line">service rabbitmq-server start</span><br><span class="line"></span><br><span class="line"># 查看RabbitMQ中用户命令</span><br><span class="line">rabbitmqctl list_users</span><br><span class="line"></span><br><span class="line"># 创建用户命令</span><br><span class="line">rabbitmqctl add_user test 123456</span><br><span class="line"></span><br><span class="line"># 赋予用户权限命令</span><br><span class="line">rabbitmqctl  set_permissions -p &quot;/&quot; test &apos;.*&apos; &apos;.*&apos; &apos;.*&apos;</span><br><span class="line"></span><br><span class="line"># 赋予用户角色命令</span><br><span class="line">rabbitmqctl set_user_tags test administrator</span><br><span class="line"></span><br><span class="line"># 开启rabbitmq管理控制台命令</span><br><span class="line">rabbitmq-plugins enable rabbitmq_management</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><span class="line"># erlang</span><br><span class="line">curl -s https://packagecloud.io/install/repositories/rabbitmq/erlang/script.rpm.sh | sudo bash</span><br><span class="line"></span><br><span class="line"># 导入2018年12月1日（GMT）开始使用的新PackageCloud密钥</span><br><span class="line">rpm --import https://packagecloud.io/rabbitmq/rabbitmq-server/gpgkey</span><br><span class="line"></span><br><span class="line"># 导入2018年12月1日停止使用的旧PackageCloud密钥（GMT）</span><br><span class="line">rpm --import https://packagecloud.io/gpg.key</span><br><span class="line"></span><br><span class="line"># 导入RabbitMQ签名密钥</span><br><span class="line">rpm --import https://github.com/rabbitmq/signing-keys/releases/download/2.0/rabbitmq-release-signing-key.asc</span><br><span class="line"></span><br><span class="line"># 添加Yum存储库</span><br><span class="line">vim /etc/yum.repos.d/rabbitmq.repo</span><br><span class="line">[bintray-rabbitmq-server]</span><br><span class="line">name=bintray-rabbitmq-rpm</span><br><span class="line">baseurl=https://dl.bintray.com/rabbitmq/rpm/rabbitmq-server/v3.7.x/el/7/</span><br><span class="line">gpgcheck=0</span><br><span class="line">repo_gpgcheck=0</span><br><span class="line">enabled=1</span><br><span class="line"></span><br><span class="line">yum install rabbitmq-server</span><br><span class="line"></span><br><span class="line">chkconfig rabbitmq-server on</span><br><span class="line">service rabbitmq-server start</span><br><span class="line"></span><br><span class="line"># 查看RabbitMQ中用户命令</span><br><span class="line">rabbitmqctl list_users</span><br><span class="line"></span><br><span class="line"># 创建用户命令</span><br><span class="line">rabbitmqctl add_user test 123456</span><br><span class="line"></span><br><span class="line"># 赋予用户权限命令</span><br><span class="line">rabbitmqctl  set_permissions -p &quot;/&quot; test &apos;.*&apos; &apos;.*&apos; &apos;.*&apos;</span><br><span class="line"></span><br><span class="line"># 赋予用户角色命令</span><br><span class="line">rabbitmqctl set_user_tags test administrator</span><br><span class="line"></span><br><span class="line"># 开启rabbitmq管理控制台命令</span><br><span class="line">rabbitmq-plugins enable rabbitmq_management</span><br><span class="line"></span><br><span class="line"># 错误</span><br><span class="line">偶遇一次rabbitmq启动失败，查看错误日志如下：</span><br><span class="line">* connected to epmd (port 4369) on k8s-node2</span><br><span class="line">* epmd reports: node &apos;rabbit&apos; not running at all</span><br><span class="line">no other nodes on k8s-node2</span><br><span class="line"></span><br><span class="line">由于hostname 对应的ip解析错误</span><br><span class="line">需要添加/etc/hosts即可</span><br></pre></td></tr></table></figure>
       
     </div>
 
@@ -536,13 +536,13 @@
       
         <div class="post-tags">
           
-            <a href="/tags/mongodb/" rel="tag"># mongodb</a>
+            <a href="/tags/rabbitmq/" rel="tag"># rabbitmq</a>
           
-            <a href="/tags/redis/" rel="tag"># redis</a>
+            <a href="/tags/mongodb/" rel="tag"># mongodb</a>
           
             <a href="/tags/memcached/" rel="tag"># memcached</a>
           
-            <a href="/tags/rabbitmq/" rel="tag"># rabbitmq</a>
+            <a href="/tags/redis/" rel="tag"># redis</a>
           
         </div>
       
@@ -555,8 +555,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2019/03/19/clear-kubernetes-pod-logs.html" rel="next" title="清除kubernetes pod产生的日志文件logs">
-                <i class="fa fa-chevron-left"></i> 清除kubernetes pod产生的日志文件logs
+              <a href="/2019/03/19/deployment-rabbitmq.html" rel="next" title="搭建 RabbitMQ Server 集群">
+                <i class="fa fa-chevron-left"></i> 搭建 RabbitMQ Server 集群
               </a>
             
           </div>
@@ -565,8 +565,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2019/04/11/shell-deployment-project.html" rel="prev" title="Shell脚本部署tomcat项目">
-                Shell脚本部署tomcat项目 <i class="fa fa-chevron-right"></i>
+              <a href="/2019/04/11/shell-deployment-project.html" rel="prev" title="Shell脚本全量、增量发布项目部署">
+                Shell脚本全量、增量发布项目部署 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -646,7 +646,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">78</span>
+                    <span class="site-state-item-count">86</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -703,7 +703,9 @@
                     
                       
                     
-                    <span class="site-state-item-count">22</span>
+                      
+                    
+                    <span class="site-state-item-count">23</span>
                     <span class="site-state-item-name">分类</span>
                   </a>
                 </div>
@@ -862,7 +864,11 @@
                     
                       
                     
-                    <span class="site-state-item-count">73</span>
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">75</span>
                     <span class="site-state-item-name">标签</span>
                   </a>
                 </div>

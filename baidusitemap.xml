@@ -4,8 +4,236 @@
 
     
   <url>
+    <loc>https://www.ywthings.com/2019/07/11/kubernetes-master-install-for-kubeadm-1-15-x%20.html</loc>
+    <lastmod>2019-07-11T11:22:28.287Z</lastmod>
+    <data>
+        <display>
+        <title>利用 kubeadm 部署 Kubernetes v1.15.x</title>
+        <pubTime>2019-07-11T08:23:18.000Z</pubTime>
+        
+        <tag>k8s</tag>
+         
+        <tag>kubernetes</tag>
+         
+         
+           
+             
+              <breadCrumb title="kubernetes" url="https://www.ywthings.com/categories/kubernetes/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>https://www.ywthings.com/2019/04/20/maven-local-install-jar.html</loc>
+    <lastmod>2019-06-11T11:19:21.450Z</lastmod>
+    <data>
+        <display>
+        <title>通过maven本地安装第三方jar包</title>
+        <pubTime>2019-04-20T05:41:12.000Z</pubTime>
+        
+        <tag>maven</tag>
+         
+         
+           
+             
+              <breadCrumb title="运维部署记录" url="https://www.ywthings.com/categories/%E8%BF%90%E7%BB%B4%E9%83%A8%E7%BD%B2%E8%AE%B0%E5%BD%95/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>https://www.ywthings.com/2019/05/31/deployment-docx-model.html</loc>
+    <lastmod>2019-05-31T00:58:25.215Z</lastmod>
+    <data>
+        <display>
+        <title>应用系统部署文档模板</title>
+        <pubTime>2019-05-31T00:49:59.000Z</pubTime>
+        
+         
+           
+             
+              <breadCrumb title="日常部署记录" url="https://www.ywthings.com/categories/%E6%97%A5%E5%B8%B8%E9%83%A8%E7%BD%B2%E8%AE%B0%E5%BD%95/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>https://www.ywthings.com/2019/05/22/kubernetes-in-action.html</loc>
+    <lastmod>2019-05-25T06:50:28.024Z</lastmod>
+    <data>
+        <display>
+        <title><< Kubernetes In Action >> 书中一些命令摘抄</title>
+        <pubTime>2019-05-22T05:40:05.000Z</pubTime>
+        
+        <tag>k8s</tag>
+         
+        <tag>kubernetes</tag>
+         
+         
+           
+             
+              <breadCrumb title="日常部署记录" url="https://www.ywthings.com/categories/%E6%97%A5%E5%B8%B8%E9%83%A8%E7%BD%B2%E8%AE%B0%E5%BD%95/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>https://www.ywthings.com/2019/05/24/systemtap-install-centos-7.html</loc>
+    <lastmod>2019-05-24T08:28:18.067Z</lastmod>
+    <data>
+        <display>
+        <title>CentOS7 安装 systemtap</title>
+        <pubTime>2019-05-24T02:33:34.000Z</pubTime>
+        
+        <tag>systemtap</tag>
+         
+         
+           
+             
+              <breadCrumb title="日常部署记录" url="https://www.ywthings.com/categories/%E6%97%A5%E5%B8%B8%E9%83%A8%E7%BD%B2%E8%AE%B0%E5%BD%95/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>https://www.ywthings.com/2019/01/28/nginx-make-install.html</loc>
+    <lastmod>2019-05-21T02:22:32.585Z</lastmod>
+    <data>
+        <display>
+        <title>Centos7 安装nginx1.16</title>
+        <pubTime>2019-01-28T06:24:48.000Z</pubTime>
+        
+        <tag>nginx</tag>
+         
+         
+           
+             
+              <breadCrumb title="运维部署记录" url="https://www.ywthings.com/categories/%E8%BF%90%E7%BB%B4%E9%83%A8%E7%BD%B2%E8%AE%B0%E5%BD%95/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>https://www.ywthings.com/2019/04/11/shell-deployment-project.html</loc>
+    <lastmod>2019-05-08T08:20:01.223Z</lastmod>
+    <data>
+        <display>
+        <title>Shell脚本全量、增量发布项目部署</title>
+        <pubTime>2019-04-11T01:00:37.000Z</pubTime>
+        
+        <tag>shell</tag>
+         
+         
+           
+             
+              <breadCrumb title="shell脚本" url="https://www.ywthings.com/categories/shell%E8%84%9A%E6%9C%AC/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>https://www.ywthings.com/2019/04/22/memcached-repcached.html</loc>
+    <lastmod>2019-04-27T07:44:55.989Z</lastmod>
+    <data>
+        <display>
+        <title>Memcached基于repcached的主从复制</title>
+        <pubTime>2019-04-22T01:49:34.000Z</pubTime>
+        
+        <tag>memcached</tag>
+         
+         
+           
+             
+              <breadCrumb title="运维部署记录" url="https://www.ywthings.com/categories/%E8%BF%90%E7%BB%B4%E9%83%A8%E7%BD%B2%E8%AE%B0%E5%BD%95/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>https://www.ywthings.com/2019/04/27/fg-clean-shell.html</loc>
+    <lastmod>2019-04-27T03:17:58.348Z</lastmod>
+    <data>
+        <display>
+        <title>日志分割、日志清理脚本</title>
+        <pubTime>2019-04-27T03:09:18.000Z</pubTime>
+        
+        <tag>shell</tag>
+         
+         
+           
+             
+              <breadCrumb title="shell脚本" url="https://www.ywthings.com/categories/shell%E8%84%9A%E6%9C%AC/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>https://www.ywthings.com/2019/04/09/yum-memcached-redis-mongod-rabbitmq.html</loc>
+    <lastmod>2019-04-22T01:06:03.367Z</lastmod>
+    <data>
+        <display>
+        <title>yum安装redis、mongodb、memcached、rabbitmq</title>
+        <pubTime>2019-04-09T05:20:56.000Z</pubTime>
+        
+        <tag>rabbitmq</tag>
+         
+        <tag>mongodb</tag>
+         
+        <tag>memcached</tag>
+         
+        <tag>redis</tag>
+         
+         
+           
+             
+              <breadCrumb title="运维部署记录" url="https://www.ywthings.com/categories/%E8%BF%90%E7%BB%B4%E9%83%A8%E7%BD%B2%E8%AE%B0%E5%BD%95/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>https://www.ywthings.com/2019/03/19/deployment-rabbitmq.html</loc>
+    <lastmod>2019-04-20T03:40:42.703Z</lastmod>
+    <data>
+        <display>
+        <title>搭建 RabbitMQ Server 集群</title>
+        <pubTime>2019-03-19T09:37:49.000Z</pubTime>
+        
+        <tag>rabbitmq</tag>
+         
+         
+           
+             
+              <breadCrumb title="运维部署记录" url="https://www.ywthings.com/categories/%E8%BF%90%E7%BB%B4%E9%83%A8%E7%BD%B2%E8%AE%B0%E5%BD%95/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
     <loc>https://www.ywthings.com/2019/04/17/tencent-cloud-install-gnome-desktop-with-centos-7.html</loc>
-    <lastmod>2019-04-17T09:23:40.750Z</lastmod>
+    <lastmod>2019-04-17T09:26:08.623Z</lastmod>
     <data>
         <display>
         <title>腾讯云服务器CentOS 7 安装桌面版</title>
@@ -122,52 +350,6 @@
         <tag>GraphicsMagick</tag>
          
         <tag>jpegsrc</tag>
-         
-         
-           
-             
-              <breadCrumb title="运维部署记录" url="https://www.ywthings.com/categories/%E8%BF%90%E7%BB%B4%E9%83%A8%E7%BD%B2%E8%AE%B0%E5%BD%95/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>https://www.ywthings.com/2019/04/09/yum-memcached-redis-mongod-rabbitmq.html</loc>
-    <lastmod>2019-04-12T01:39:53.955Z</lastmod>
-    <data>
-        <display>
-        <title>yum安装redis、mongodb、memcached、rabbitmq</title>
-        <pubTime>2019-04-09T05:20:56.000Z</pubTime>
-        
-        <tag>mongodb</tag>
-         
-        <tag>redis</tag>
-         
-        <tag>memcached</tag>
-         
-        <tag>rabbitmq</tag>
-         
-         
-           
-             
-              <breadCrumb title="运维部署记录" url="https://www.ywthings.com/categories/%E8%BF%90%E7%BB%B4%E9%83%A8%E7%BD%B2%E8%AE%B0%E5%BD%95/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>https://www.ywthings.com/2019/04/11/shell-deployment-project.html</loc>
-    <lastmod>2019-04-11T01:49:33.200Z</lastmod>
-    <data>
-        <display>
-        <title>Shell脚本部署tomcat项目</title>
-        <pubTime>2019-04-11T01:00:37.000Z</pubTime>
-        
-        <tag>shell</tag>
          
          
            
@@ -305,26 +487,6 @@
            
              
               <breadCrumb title="运维" url="https://www.ywthings.com/categories/%E8%BF%90%E7%BB%B4/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>https://www.ywthings.com/2019/01/28/nginx-make-install.html</loc>
-    <lastmod>2019-03-07T01:03:21.763Z</lastmod>
-    <data>
-        <display>
-        <title>Centos7 安装nginx1.14</title>
-        <pubTime>2019-01-28T06:24:48.000Z</pubTime>
-        
-        <tag>nginx</tag>
-         
-         
-           
-             
-              <breadCrumb title="运维部署记录" url="https://www.ywthings.com/categories/%E8%BF%90%E7%BB%B4%E9%83%A8%E7%BD%B2%E8%AE%B0%E5%BD%95/"/>
           
         </display>
     </data>
@@ -1290,9 +1452,9 @@
         <title>备份数据库脚本并将备份数据库同步到又拍云存储空间</title>
         <pubTime>2017-08-09T04:04:57.000Z</pubTime>
         
-        <tag>mysql</tag>
-         
         <tag>mongodb</tag>
+         
+        <tag>mysql</tag>
          
         <tag>redis</tag>
          

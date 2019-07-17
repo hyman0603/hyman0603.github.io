@@ -142,7 +142,7 @@
 <meta property="og:site_name" content="hyman">
 <meta property="og:description" content="腾讯云服务器安装CentOS 7基本都是最小化安装，默认不带X WINDOWS，因此在安装桌面之前先安装一下X WINDOWS，这个控制功能。">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-04-17T09:23:40.750Z">
+<meta property="og:updated_time" content="2019-04-17T09:26:08.623Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="腾讯云服务器CentOS 7 安装桌面版">
 <meta name="twitter:description" content="腾讯云服务器安装CentOS 7基本都是最小化安装，默认不带X WINDOWS，因此在安装桌面之前先安装一下X WINDOWS，这个控制功能。">
@@ -418,7 +418,7 @@
                 
               
 
-              <time title="创建时间：2019-04-17 09:54:39 / 修改时间：17:23:40" itemprop="dateCreated datePublished" datetime="2019-04-17T09:54:39+08:00">2019-04-17</time>
+              <time title="创建时间：2019-04-17 09:54:39 / 修改时间：17:26:08" itemprop="dateCreated datePublished" datetime="2019-04-17T09:54:39+08:00">2019-04-17</time>
             
 
             
@@ -478,11 +478,11 @@
 <h1 id="GNOME桌面环境"><a href="#GNOME桌面环境" class="headerlink" title="GNOME桌面环境"></a>GNOME桌面环境</h1><p>安装GNOME桌面环境<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum -y groups install &quot;GNOME Desktop&quot;</span><br></pre></td></tr></table></figure></p>
 <p>服务器在远程，需要用VNC，设置系统图形登录并重启系统<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">systemctl set-default graphical.target</span><br></pre></td></tr></table></figure></p>
 <h1 id="安装vnc-server"><a href="#安装vnc-server" class="headerlink" title="安装vnc server"></a>安装vnc server</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum install tigervnc-server -y</span><br></pre></td></tr></table></figure>
-<h1 id="设置为服务"><a href="#设置为服务" class="headerlink" title="设置为服务"></a>设置为服务</h1><p>复制一个服务设置的模板<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cp /lib/systemd/system/vncserver@.service /etc/systemd/system/vncserver@:1.service</span><br></pre></td></tr></table></figure></p>
+<h2 id="设置为服务"><a href="#设置为服务" class="headerlink" title="设置为服务"></a>设置为服务</h2><p>复制一个服务设置的模板<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cp /lib/systemd/system/vncserver@.service /etc/systemd/system/vncserver@:1.service</span><br></pre></td></tr></table></figure></p>
 <p>修改此服务配置<br>以下为root用户的配置，每一个用户，都需要单独设置一个监听服务。且配置不同<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">vim /etc/systemd/system/vncserver@\:1.service</span><br><span class="line"></span><br><span class="line">[Unit]</span><br><span class="line">Description=Remote desktop service (VNC)</span><br><span class="line">After=syslog.target network.target</span><br><span class="line"></span><br><span class="line">[Service]</span><br><span class="line">Type=forking</span><br><span class="line">User=root</span><br><span class="line"></span><br><span class="line"># Clean any existing files in /tmp/.X11-unix environment</span><br><span class="line">ExecStartPre=-/usr/bin/vncserver -kill %i</span><br><span class="line">ExecStart=/sbin/runuser -l root -c &quot;/usr/bin/vncserver -geometry 1440x900 %i&quot;</span><br><span class="line">PIDFile=/root/.vnc/%H%i.pid</span><br><span class="line">ExecStop=-/usr/bin/vncserver -kill %i</span><br><span class="line"></span><br><span class="line">[Install]</span><br><span class="line">WantedBy=multi-user.target</span><br></pre></td></tr></table></figure></p>
 <p>对于普通用户,如test<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"># 下面举例进行设置： 首先一样复制一个server配置。改名为vncserver@:2.service</span><br><span class="line">cp /lib/systemd/system/vncserver@.service /etc/systemd/system/vncserver@:2.service</span><br><span class="line"># 然后进行修改</span><br><span class="line">vim /etc/systemd/system/vncserver@\:2.service</span><br><span class="line">--------------------------------------------------------------------------------------------------------</span><br><span class="line">[Unit]</span><br><span class="line">Description=Remote desktop service (VNC)</span><br><span class="line">After=syslog.target network.target</span><br><span class="line"></span><br><span class="line">[Service]</span><br><span class="line">Type=forking</span><br><span class="line">User=root</span><br><span class="line"></span><br><span class="line"># Clean any existing files in /tmp/.X11-unix environment</span><br><span class="line">ExecStartPre=-/usr/bin/vncserver -kill %i</span><br><span class="line">ExecStart=/usr/bin/vncserver %i</span><br><span class="line">PIDFile=/home/test/.vnc/%H%i.pid</span><br><span class="line">ExecStop=-/usr/bin/vncserver -kill %i</span><br><span class="line"></span><br><span class="line">[Install]</span><br><span class="line">WantedBy=multi-user.target</span><br></pre></td></tr></table></figure></p>
-<h1 id="设置vnc密码"><a href="#设置vnc密码" class="headerlink" title="设置vnc密码"></a>设置vnc密码</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost ~]# vncpasswd</span><br><span class="line">Password:</span><br><span class="line">Verify:</span><br><span class="line">Would you like to enter a view-only password (y/n)? n</span><br><span class="line">A view-only password is not used</span><br><span class="line"># 这里不添加只读账号密码</span><br><span class="line"># 每个不用的系统用户，设置密码时，需要切换到该用户下，执行此命令</span><br><span class="line"># 如：su test  切换到test用户再执行上vncpasswd设置密码</span><br></pre></td></tr></table></figure>
-<h1 id="启动服务"><a href="#启动服务" class="headerlink" title="启动服务"></a>启动服务</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">systemctl start vncserver@:1</span><br><span class="line">systemctl enable vncserver@:1</span><br><span class="line"></span><br><span class="line"># 查看服务监听的端口</span><br><span class="line">netstat -lnpt|grep Xvnc</span><br><span class="line"># 根据监听的端口，进行端口开放，每个用户会对应一个端口，第一个用户默认为5901端口</span><br></pre></td></tr></table></figure>
+<h2 id="设置vnc密码"><a href="#设置vnc密码" class="headerlink" title="设置vnc密码"></a>设置vnc密码</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost ~]# vncpasswd</span><br><span class="line">Password:</span><br><span class="line">Verify:</span><br><span class="line">Would you like to enter a view-only password (y/n)? n</span><br><span class="line">A view-only password is not used</span><br><span class="line"># 这里不添加只读账号密码</span><br><span class="line"># 每个不用的系统用户，设置密码时，需要切换到该用户下，执行此命令</span><br><span class="line"># 如：su test  切换到test用户再执行上vncpasswd设置密码</span><br></pre></td></tr></table></figure>
+<h2 id="启动服务"><a href="#启动服务" class="headerlink" title="启动服务"></a>启动服务</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">systemctl start vncserver@:1</span><br><span class="line">systemctl enable vncserver@:1</span><br><span class="line"></span><br><span class="line"># 查看服务监听的端口</span><br><span class="line">netstat -lnpt|grep Xvnc</span><br><span class="line"># 根据监听的端口，进行端口开放，每个用户会对应一个端口，第一个用户默认为5901端口</span><br></pre></td></tr></table></figure>
       
     </div>
 
@@ -548,6 +548,10 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/04/20/maven-local-install-jar.html" rel="prev" title="通过maven本地安装第三方jar包">
+                通过maven本地安装第三方jar包 <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -626,7 +630,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">78</span>
+                    <span class="site-state-item-count">86</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -683,7 +687,9 @@
                     
                       
                     
-                    <span class="site-state-item-count">22</span>
+                      
+                    
+                    <span class="site-state-item-count">23</span>
                     <span class="site-state-item-name">分类</span>
                   </a>
                 </div>
@@ -842,7 +848,11 @@
                     
                       
                     
-                    <span class="site-state-item-count">73</span>
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">75</span>
                     <span class="site-state-item-name">标签</span>
                   </a>
                 </div>
@@ -887,7 +897,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#GNOME桌面环境"><span class="nav-number">1.</span> <span class="nav-text">GNOME桌面环境</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#安装vnc-server"><span class="nav-number">2.</span> <span class="nav-text">安装vnc server</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#设置为服务"><span class="nav-number">3.</span> <span class="nav-text">设置为服务</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#设置vnc密码"><span class="nav-number">4.</span> <span class="nav-text">设置vnc密码</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#启动服务"><span class="nav-number">5.</span> <span class="nav-text">启动服务</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#GNOME桌面环境"><span class="nav-number">1.</span> <span class="nav-text">GNOME桌面环境</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#安装vnc-server"><span class="nav-number">2.</span> <span class="nav-text">安装vnc server</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#设置为服务"><span class="nav-number">2.1.</span> <span class="nav-text">设置为服务</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#设置vnc密码"><span class="nav-number">2.2.</span> <span class="nav-text">设置vnc密码</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#启动服务"><span class="nav-number">2.3.</span> <span class="nav-text">启动服务</span></a></li></ol></li></ol></div>
             
 
           </div>

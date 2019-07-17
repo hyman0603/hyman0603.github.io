@@ -2,9 +2,86 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://www.ywthings.com/2019/07/11/kubernetes-master-install-for-kubeadm-1-15-x%20.html</loc>
+    
+    <lastmod>2019-07-11T11:22:28.287Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://www.ywthings.com/2019/04/20/maven-local-install-jar.html</loc>
+    
+    <lastmod>2019-06-11T11:19:21.450Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://www.ywthings.com/2019/05/31/deployment-docx-model.html</loc>
+    
+    <lastmod>2019-05-31T00:58:25.215Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://www.ywthings.com/2019/05/22/kubernetes-in-action.html</loc>
+    
+    <lastmod>2019-05-25T06:50:28.024Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://www.ywthings.com/2019/05/24/systemtap-install-centos-7.html</loc>
+    
+    <lastmod>2019-05-24T08:28:18.067Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://www.ywthings.com/2019/01/28/nginx-make-install.html</loc>
+    
+    <lastmod>2019-05-21T02:22:32.585Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://www.ywthings.com/2019/04/11/shell-deployment-project.html</loc>
+    
+    <lastmod>2019-05-08T08:20:01.223Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://www.ywthings.com/2019/04/22/memcached-repcached.html</loc>
+    
+    <lastmod>2019-04-27T07:44:55.989Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://www.ywthings.com/2019/04/27/fg-clean-shell.html</loc>
+    
+    <lastmod>2019-04-27T03:17:58.348Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://www.ywthings.com/2019/04/09/yum-memcached-redis-mongod-rabbitmq.html</loc>
+    
+    <lastmod>2019-04-22T01:06:03.367Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://www.ywthings.com/2019/03/19/deployment-rabbitmq.html</loc>
+    
+    <lastmod>2019-04-20T03:40:42.703Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://www.ywthings.com/2019/04/17/tencent-cloud-install-gnome-desktop-with-centos-7.html</loc>
     
-    <lastmod>2019-04-17T09:23:40.750Z</lastmod>
+    <lastmod>2019-04-17T09:26:08.623Z</lastmod>
     
   </url>
   
@@ -40,20 +117,6 @@
     <loc>https://www.ywthings.com/2019/01/24/project-deploy.html</loc>
     
     <lastmod>2019-04-12T01:47:04.729Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://www.ywthings.com/2019/04/09/yum-memcached-redis-mongod-rabbitmq.html</loc>
-    
-    <lastmod>2019-04-12T01:39:53.955Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://www.ywthings.com/2019/04/11/shell-deployment-project.html</loc>
-    
-    <lastmod>2019-04-11T01:49:33.200Z</lastmod>
     
   </url>
   
@@ -96,13 +159,6 @@
     <loc>https://www.ywthings.com/2018/10/10/some-command-useful.html</loc>
     
     <lastmod>2019-03-11T04:53:17.818Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://www.ywthings.com/2019/01/28/nginx-make-install.html</loc>
-    
-    <lastmod>2019-03-07T01:03:21.763Z</lastmod>
     
   </url>
   
