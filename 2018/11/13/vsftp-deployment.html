@@ -142,7 +142,7 @@
 <meta property="og:site_name" content="hyman">
 <meta property="og:description" content="安装vsftpd1yum -y install vsftpd">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2018-11-16T08:00:33.761Z">
+<meta property="og:updated_time" content="2019-08-12T10:00:27.494Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Centos 7 安装vsftpd">
 <meta name="twitter:description" content="安装vsftpd1yum -y install vsftpd">
@@ -435,7 +435,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2018-11-16 16:00:33" itemprop="dateModified" datetime="2018-11-16T16:00:33+08:00">2018-11-16</time>
+                <time title="修改时间：2019-08-12 18:00:27" itemprop="dateModified" datetime="2019-08-12T18:00:27+08:00">2019-08-12</time>
               
             
           </span>
@@ -493,6 +493,9 @@
 <h2 id="新增文件权限"><a href="#新增文件权限" class="headerlink" title="新增文件权限"></a>新增文件权限</h2><p>如果希望某个用户可以访问根目录，把用户名加入<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@web1 ~]# echo &quot;ftpuser&quot; &gt;&gt; /etc/vsftpd/chroot_list</span><br></pre></td></tr></table></figure></p>
 <h2 id="启动vsftp"><a href="#启动vsftp" class="headerlink" title="启动vsftp"></a>启动vsftp</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">systemctl start  vsftpd</span><br><span class="line">systemctl enable vsftpd</span><br></pre></td></tr></table></figure>
 <h2 id="备注"><a href="#备注" class="headerlink" title="备注"></a>备注</h2><p>windows 如IE访问ftp会提示200 Switching to ASCII mode，解决方案是打开ie浏览器-工具-internet选项-高级-不勾选使用被动FTP即可。</p>
+<h2 id="错误"><a href="#错误" class="headerlink" title="错误"></a>错误</h2><p>问题：<br>常规部署完成后，帐号密码正确，一直提示无法登录<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">331 Please specify the password.</span><br><span class="line">Password:</span><br><span class="line">530 Login incorrect.</span><br><span class="line">Login failed.</span><br></pre></td></tr></table></figure></p>
+<p>解决方案：</p>
+<p>查看 /etc/vsftpd/vsftpd.conf 查到 pam_service_name=vsftpd ，可知认证pam 文件位于 /etc/pam.d/vsftpd<br>查看 /etc/pam.d/vsftpd 看到一行 auth required pam_shells.so ,因为创建ftp账户时候，禁止了ssh登陆 所以此处应该改为 pam_nologin.so<br>重启 systemctl vsftpd.service restart ，可以正常登陆</p>
 
       
     </div>
@@ -643,7 +646,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">86</span>
+                    <span class="site-state-item-count">90</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -865,7 +868,19 @@
                     
                       
                     
-                    <span class="site-state-item-count">75</span>
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">81</span>
                     <span class="site-state-item-name">标签</span>
                   </a>
                 </div>
@@ -910,7 +925,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#安装vsftpd"><span class="nav-number">1.</span> <span class="nav-text">安装vsftpd</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#配置信息-本地账户登录模式"><span class="nav-number">2.</span> <span class="nav-text">配置信息(本地账户登录模式)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#新增用户"><span class="nav-number">3.</span> <span class="nav-text">新增用户</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#新增文件权限"><span class="nav-number">4.</span> <span class="nav-text">新增文件权限</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#启动vsftp"><span class="nav-number">5.</span> <span class="nav-text">启动vsftp</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#备注"><span class="nav-number">6.</span> <span class="nav-text">备注</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#安装vsftpd"><span class="nav-number">1.</span> <span class="nav-text">安装vsftpd</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#配置信息-本地账户登录模式"><span class="nav-number">2.</span> <span class="nav-text">配置信息(本地账户登录模式)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#新增用户"><span class="nav-number">3.</span> <span class="nav-text">新增用户</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#新增文件权限"><span class="nav-number">4.</span> <span class="nav-text">新增文件权限</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#启动vsftp"><span class="nav-number">5.</span> <span class="nav-text">启动vsftp</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#备注"><span class="nav-number">6.</span> <span class="nav-text">备注</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#错误"><span class="nav-number">7.</span> <span class="nav-text">错误</span></a></li></ol></div>
             
 
           </div>
