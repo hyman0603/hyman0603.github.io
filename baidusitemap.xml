@@ -4,6 +4,26 @@
 
     
   <url>
+    <loc>https://www.ywthings.com/2019/12/28/shell-deployment-project2.html</loc>
+    <lastmod>2019-12-28T06:08:44.776Z</lastmod>
+    <data>
+        <display>
+        <title>Shell脚本项目部署</title>
+        <pubTime>2019-12-28T06:04:16.000Z</pubTime>
+        
+        <tag>shell</tag>
+         
+         
+           
+             
+              <breadCrumb title="shell脚本" url="https://www.ywthings.com/categories/shell%E8%84%9A%E6%9C%AC/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
     <loc>https://www.ywthings.com/2018/11/13/vsftp-deployment.html</loc>
     <lastmod>2019-12-26T03:35:09.771Z</lastmod>
     <data>
@@ -409,9 +429,9 @@
         <title>yum安装redis、mongodb、memcached、rabbitmq</title>
         <pubTime>2019-04-09T05:20:56.000Z</pubTime>
         
-        <tag>mongodb</tag>
-         
         <tag>rabbitmq</tag>
+         
+        <tag>mongodb</tag>
          
         <tag>memcached</tag>
          
@@ -1624,9 +1644,9 @@
         <title>备份数据库脚本并将备份数据库同步到又拍云存储空间</title>
         <pubTime>2017-08-09T04:04:57.000Z</pubTime>
         
-        <tag>mysql</tag>
-         
         <tag>mongodb</tag>
+         
+        <tag>mysql</tag>
          
         <tag>redis</tag>
          
