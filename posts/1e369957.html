@@ -1,0 +1,496 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/favicon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon.png">
+  <link rel="mask-icon" href="/images/favicon.png" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"www.ywthings.com","root":"/","scheme":"Mist","version":"8.0.0-rc.2","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"appID":"UDW7NS797T","apiKey":"c4bb3c2b53b39900e8498ee72e6dc96e","indexName":"hyman","hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="redisRedis的同步机制1Redis可以使用主从同步，从从同步。第一次同步时，主节点做一次bgsave，并同时将后续修改操作记录到内存buffer，待完成后将RDB文件全量同步到复制节点，复制节点接受完成后将RDB镜像加载到内存。加载完成后，再通知主节点将期间修改的操作记录同步到复制节点进行重放就完成了同步过程。后续的增量数据通过AOF日志同步即可，有点类似数据库的binlog。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Redis学习笔记--Redis一些问题详解">
+<meta property="og:url" content="https://www.ywthings.com/posts/1e369957.html">
+<meta property="og:site_name" content="hyman">
+<meta property="og:description" content="redisRedis的同步机制1Redis可以使用主从同步，从从同步。第一次同步时，主节点做一次bgsave，并同时将后续修改操作记录到内存buffer，待完成后将RDB文件全量同步到复制节点，复制节点接受完成后将RDB镜像加载到内存。加载完成后，再通知主节点将期间修改的操作记录同步到复制节点进行重放就完成了同步过程。后续的增量数据通过AOF日志同步即可，有点类似数据库的binlog。">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2020-03-23T08:47:29.000Z">
+<meta property="article:modified_time" content="2020-05-17T23:58:41.209Z">
+<meta property="article:author" content="hyman">
+<meta property="article:tag" content="redis">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://www.ywthings.com/posts/1e369957.html">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>Redis学习笔记--Redis一些问题详解 | hyman</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+        <span class="toggle-line toggle-line-first"></span>
+        <span class="toggle-line toggle-line-middle"></span>
+        <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">hyman</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">一些简单的记录</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://www.ywthings.com/posts/1e369957.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="hyman">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="hyman">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Redis学习笔记--Redis一些问题详解
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-03-23 16:47:29" itemprop="dateCreated datePublished" datetime="2020-03-23T16:47:29+08:00">2020-03-23</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-05-18 07:58:41" itemprop="dateModified" datetime="2020-05-18T07:58:41+08:00">2020-05-18</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/redis/" itemprop="url" rel="index"><span itemprop="name">redis</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="redis"><a href="#redis" class="headerlink" title="redis"></a>redis</h1><h2 id="Redis的同步机制"><a href="#Redis的同步机制" class="headerlink" title="Redis的同步机制"></a>Redis的同步机制</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Redis可以使用主从同步，从从同步。第一次同步时，主节点做一次bgsave，并同时将后续修改操作记录到内存buffer，待完成后将RDB文件全量同步到复制节点，复制节点接受完成后将RDB镜像加载到内存。加载完成后，再通知主节点将期间修改的操作记录同步到复制节点进行重放就完成了同步过程。后续的增量数据通过AOF日志同步即可，有点类似数据库的binlog。</span><br></pre></td></tr></table></figure>
+<a id="more"></a>
+<h2 id="Redis有哪些数据结构"><a href="#Redis有哪些数据结构" class="headerlink" title="Redis有哪些数据结构"></a>Redis有哪些数据结构</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">String、Hash、List、Set、SortedSet、HyperLogLog、Geo、Pub&#x2F;Sub、Redis Module，像BloomFilter，RedisSearch，Redis-ML</span><br></pre></td></tr></table></figure>
+
+<h2 id="Redis是怎么持久化的？服务主从数据怎么交互的？"><a href="#Redis是怎么持久化的？服务主从数据怎么交互的？" class="headerlink" title="Redis是怎么持久化的？服务主从数据怎么交互的？"></a>Redis是怎么持久化的？服务主从数据怎么交互的？</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">RDB做镜像全量持久化，AOF做增量持久化。因为RDB会耗费较长时间，不够实时，在停机的时候会导致大量丢失数据，所以需要AOF来配合使用。在redis实例重启时，会使用RDB持久化文件重新构建内存，再使用AOF重放近期的操作指令来实现完整恢复重启之前的状态。</span><br><span class="line">这里很好理解，把RDB理解为一整个表全量的数据，AOF理解为每次操作的日志就好了，服务器重启的时候先把表的数据全部搞进去，但是他可能不完整，你再回放一下日志，数据不就完整了嘛。不过Redis本身的机制是 AOF持久化开启且存在AOF文件时，优先加载AOF文件；AOF关闭或者AOF文件不存在时，加载RDB文件；加载AOF&#x2F;RDB文件城后，Redis启动成功； AOF&#x2F;RDB文件存在错误时，Redis启动失败并打印错误信息</span><br></pre></td></tr></table></figure>
+
+<h2 id="如果突然机器掉电会怎样"><a href="#如果突然机器掉电会怎样" class="headerlink" title="如果突然机器掉电会怎样"></a>如果突然机器掉电会怎样</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">取决于AOF日志sync属性的配置，如果不要求性能，在每条写指令时都sync一下磁盘，就不会丢失数据。但是在高性能的要求下每次都sync是不现实的，一般都使用定时sync，比如1s1次，这个时候最多就会丢失1s的数据。</span><br></pre></td></tr></table></figure>
+
+<h2 id="RDB的原理"><a href="#RDB的原理" class="headerlink" title="RDB的原理"></a>RDB的原理</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">fork是指redis通过创建子进程来进行RDB操作，cow指的是copy on write，子进程创建后，父子进程共享数据段，父进程继续提供读写服务，写脏的页面数据会逐渐和子进程分离开来。</span><br></pre></td></tr></table></figure>
+
+<h2 id="为啥Redis那么快"><a href="#为啥Redis那么快" class="headerlink" title="为啥Redis那么快"></a>为啥Redis那么快</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">Redis采用的是基于内存的采用的是单进程单线程模型的 KV 数据库，由C语言编写，官方提供的数据是可以达到100000+的QPS（每秒内查询次数）。</span><br><span class="line"></span><br><span class="line">完全基于内存，绝大部分请求是纯粹的内存操作，非常快速。它的，数据存在内存中，类似于HashMap，HashMap的优势就是查找和操作的时间复杂度都是O(1)；</span><br><span class="line"></span><br><span class="line">数据结构简单，对数据操作也简单，Redis中的数据结构是专门进行设计的；</span><br><span class="line"></span><br><span class="line">采用单线程，避免了不必要的上下文切换和竞争条件，也不存在多进程或者多线程导致的切换而消耗 CPU，不用去考虑各种锁的问题，不存在加锁释放锁操作，没有因为可能出现死锁而导致的性能消耗；</span><br><span class="line"></span><br><span class="line">使用多路I&#x2F;O复用模型，非阻塞IO；</span><br><span class="line"></span><br><span class="line">使用底层模型不同，它们之间底层实现方式以及与客户端之间通信的应用协议不一样，Redis直接自己构建了VM 机制 ，因为一般的系统调用系统函数的话，会浪费一定的时间去移动和请求；</span><br></pre></td></tr></table></figure>
+
+<h2 id="啥是上下文切换"><a href="#啥是上下文切换" class="headerlink" title="啥是上下文切换"></a>啥是上下文切换</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">就好比你看一本英文书，你看到第十页发现有个单词不会读，你加了个书签，然后去查字典，过了一会你又回来继续从书签那里读，ok到目前为止没啥问题。</span><br><span class="line"></span><br><span class="line">如果是你一个人读肯定没啥问题，但是你去查的时候，别的小伙伴好奇你在看啥他就翻了一下你的书，然后溜了，哦豁，你再看的时候就发现书不是你看的那一页了。不知道到这里为止我有没有解释清楚，以及为啥会线程不安全，就是因为你一个人怎么看都没事，但是人多了换来换去的操作一本书数据就乱了。可能我的解释很粗糙，但是道理应该是一样的。</span><br></pre></td></tr></table></figure>
+
+<h2 id="主从之间的数据怎么同步"><a href="#主从之间的数据怎么同步" class="headerlink" title="主从之间的数据怎么同步"></a>主从之间的数据怎么同步</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">启动一台slave 的时候，他会发送一个psync命令给master ，如果是这个slave第一次连接到master，他会触发一个全量复制。master就会启动一个线程，生成RDB快照，还会把新的写请求都缓存在内存中，RDB文件生成后，master会将这个RDB发送给slave的，slave拿到之后做的第一件事情就是写进本地的磁盘，然后加载进内存，然后master会把内存里面缓存的那些新命名都发给slave。</span><br><span class="line"></span><br><span class="line">###数据传输的时候断网了或者服务器挂了怎么办啊？</span><br><span class="line"></span><br><span class="line">传输过程中有什么网络问题啥的，会自动重连的，并且连接之后会把缺少的数据补上的。</span><br></pre></td></tr></table></figure>
+
+<h2 id="内存淘汰机制"><a href="#内存淘汰机制" class="headerlink" title="内存淘汰机制"></a>内存淘汰机制</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">noeviction:返回错误当内存限制达到并且客户端尝试执行会让更多内存被使用的命令（大部分的写入指令，但DEL和几个例外）</span><br><span class="line"></span><br><span class="line">allkeys-lru: 尝试回收最少使用的键（LRU），使得新添加的数据有空间存放。</span><br><span class="line"></span><br><span class="line">volatile-lru: 尝试回收最少使用的键（LRU），但仅限于在过期集合的键,使得新添加的数据有空间存放。</span><br><span class="line"></span><br><span class="line">allkeys-random: 回收随机的键使得新添加的数据有空间存放。</span><br><span class="line"></span><br><span class="line">volatile-random: 回收随机的键使得新添加的数据有空间存放，但仅限于在过期集合的键。</span><br><span class="line"></span><br><span class="line">volatile-ttl: 回收在过期集合的键，并且优先回收存活时间（TTL）较短的键,使得新添加的数据有空间存放。</span><br></pre></td></tr></table></figure>
+
+<h2 id="Redis-和-Memcached-有啥区别"><a href="#Redis-和-Memcached-有啥区别" class="headerlink" title="Redis 和 Memcached 有啥区别"></a>Redis 和 Memcached 有啥区别</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">Memcache</span><br><span class="line">注意后面会把 Memcache 简称为 MC。</span><br><span class="line"></span><br><span class="line">先来看看 MC 的特点：</span><br><span class="line"></span><br><span class="line">- MC 处理请求时使用多线程异步 IO 的方式，可以合理利用 CPU 多核的优势，性能非常优秀；</span><br><span class="line">- MC 功能简单，使用内存存储数据；</span><br><span class="line">- MC 的内存结构以及钙化问题我就不细说了，大家可以查看官网了解下；</span><br><span class="line">- MC 对缓存的数据可以设置失效期，过期后的数据会被清除；</span><br><span class="line">失效的策略采用延迟失效，就是当再次使用数据时检查是否失效；</span><br><span class="line">当容量存满时，会对缓存中的数据进行剔除，剔除时除了会对过期 key 进行清理，还会按 LRU 策略对数据进行剔除。</span><br><span class="line">另外，使用 MC 有一些限制，这些限制在现在的互联网场景下很致命，成为大家选择Redis、MongoDB的重要原因：</span><br><span class="line"></span><br><span class="line">- key 不能超过 250 个字节；</span><br><span class="line">- value 不能超过 1M 字节；</span><br><span class="line">- key 的最大失效时间是 30 天；</span><br><span class="line">- 只支持 K-V 结构，不提供持久化和主从同步功能。</span><br><span class="line">Redis</span><br><span class="line">先简单说一下 Redis 的特点，方便和 MC 比较。</span><br><span class="line"></span><br><span class="line">与 MC 不同的是，Redis 采用单线程模式处理请求。这样做的原因有 2 个：一个是因为采用了非阻塞的异步事件处理机制；另一个是缓存数据都是内存操作 IO 时间不会太长，单线程可以避免线程上下文切换产生的代价。</span><br><span class="line">Redis 支持持久化，所以 Redis 不仅仅可以用作缓存，也可以用作 NoSQL 数据库。</span><br><span class="line">相比 MC，Redis 还有一个非常大的优势，就是除了 K-V 之外，还支持多种数据格式，例如 list、set、sorted set、hash 等。</span><br><span class="line">Redis 提供主从同步机制，以及 Cluster 集群部署能力，能够提供高可用服务。</span><br></pre></td></tr></table></figure>
+
+<h2 id="Redis-的线程模型"><a href="#Redis-的线程模型" class="headerlink" title="Redis 的线程模型"></a>Redis 的线程模型</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">Redis 内部使用文件事件处理器 file event handler，这个文件事件处理器是单线程的，所以 Redis 才叫做单线程的模型。它采用 IO 多路复用机制同时监听多个 Socket，根据 Socket 上的事件来选择对应的事件处理器进行处理。</span><br><span class="line"></span><br><span class="line">文件事件处理器的结构包含 4 个部分：</span><br><span class="line">- 多个 Socket</span><br><span class="line">- IO 多路复用程序</span><br><span class="line">- 文件事件分派器</span><br><span class="line">事件处理器（连接应答处理器、命令请求处理器、命令回复处理器）</span><br><span class="line">多个 Socket 可能会并发产生不同的操作，每个操作对应不同的文件事件，但是 IO 多路复用程序会监听多个 Socket，会将 Socket 产生的事件放入队列中排队，事件分派器每次从队列中取出一个事件，把该事件交给对应的事件处理器进行处理。</span><br></pre></td></tr></table></figure>
+
+
+<h2 id="扫描大-KEY"><a href="#扫描大-KEY" class="headerlink" title="扫描大 KEY"></a>扫描大 KEY</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">.&#x2F;redis-cli --bigkeys -i 0.01</span><br></pre></td></tr></table></figure>
+
+<h2 id="采样服务器指令"><a href="#采样服务器指令" class="headerlink" title="采样服务器指令"></a>采样服务器指令</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">redis-cli --host 192.168.x.x --port 6379 monitor</span><br></pre></td></tr></table></figure>
+
+<h2 id="诊断服务器时延"><a href="#诊断服务器时延" class="headerlink" title="诊断服务器时延"></a>诊断服务器时延</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">redis-cli --host 192.168.x.x --port 6379 --latency</span><br><span class="line">时延单位是 ms。redis-cli 还能显示时延的分布情况，而且是图形化输出。</span><br><span class="line">redis-cli --latency-dist</span><br></pre></td></tr></table></figure>
+
+<h2 id="远程-rdb-备份"><a href="#远程-rdb-备份" class="headerlink" title="远程 rdb 备份"></a>远程 rdb 备份</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">远程服务器会执行一次bgsave操作，然后将 rdb 文件传输到客户端</span><br><span class="line">.&#x2F;redis-cli --host 192.168.x.x --port 6379 --rdb .&#x2F;user.rdb</span><br></pre></td></tr></table></figure>
+
+<h2 id="模拟从库"><a href="#模拟从库" class="headerlink" title="模拟从库"></a>模拟从库</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">.&#x2F;redis-cli --host 192.168.x.x --port 6379 --slave</span><br><span class="line">从库连上主库的第一件事是全量同步，所以看到上面的指令卡顿这很正常，待首次全量同步完成后，就会输出增量的 aof 日志。</span><br></pre></td></tr></table></figure>
+
+<h2 id="aof-导入方式"><a href="#aof-导入方式" class="headerlink" title="aof 导入方式"></a>aof 导入方式</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"># 清空上文目标实例全部数据</span><br><span class="line">redis-cli -h 目标RedisIP -a password flushall</span><br><span class="line"># 源实例开启 aof 功能，将在 dir 目录下生成 appendonly.aof 文件</span><br><span class="line">redis-cli -h 源RedisIP -a password config set appendonly yes</span><br><span class="line"># 将 appendonly.aof 文件放在当前路径下</span><br><span class="line">redis-cli -h 目标RedisIp -a password --pipe &lt; appendonly.aof</span><br><span class="line"># 源实例关闭 aof 功能</span><br><span class="line">redis-cli -h 源RedisIp -a password config set appendonly no</span><br></pre></td></tr></table></figure>
+
+<h2 id="redis-dump-工具"><a href="#redis-dump-工具" class="headerlink" title="redis-dump 工具"></a>redis-dump 工具</h2><p>Redis-Dump 是一个用于 Redis 数据导入 / 导出的工具，是基于 Ruby 实现的,可以方便的进行 redis 的数据备份。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"># 没安装 ruby 的话，先安装 ruby</span><br><span class="line">brew install ruby</span><br><span class="line"># 移除 gem 自带源</span><br><span class="line">gem sources --remove https:&#x2F;&#x2F;rubygems.org&#x2F; </span><br><span class="line"># 添加淘宝源</span><br><span class="line">gem sources -a https:&#x2F;&#x2F;ruby.taobao.org&#x2F; </span><br><span class="line"># 安装 redis-dump</span><br><span class="line">gem install redis-dump -V</span><br><span class="line"># 替换镜像地址</span><br><span class="line">gem sources --add http:&#x2F;&#x2F;gems.ruby-china.org&#x2F; --remove http:&#x2F;&#x2F;rubygems.org&#x2F;</span><br><span class="line"># 确认镜像地址是否替换成功</span><br><span class="line">gem sources -l</span><br><span class="line"># 替换成功后再安装 redis-dump</span><br><span class="line">gem install redis-dump -V</span><br><span class="line"># redis-dump 导出</span><br><span class="line">redis-dump -u :password@源RedisIp:6379 &gt; 源Redis数据文件.json</span><br><span class="line"># redis-load 导入</span><br><span class="line">cat 源Redis数据文件.json | redis-load -u :password@目标RedisIp:6379</span><br></pre></td></tr></table></figure>
+
+
+<h2 id="redis清理某个前缀的key"><a href="#redis清理某个前缀的key" class="headerlink" title="redis清理某个前缀的key"></a>redis清理某个前缀的key</h2><p>需要快速的清理掉某种前缀的key出现了脏数据key</p>
+<p>安装 rdb 解析工具</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">pip install rdbtools python-lzf   # python2.7 下 一行命令即可完成安装</span><br><span class="line"></span><br><span class="line">rdb -c memory dump-6379.rdb &gt; memory.csv  # 用这个命令将rdb进行分析</span><br></pre></td></tr></table></figure>
+
+<p>过滤出符合条件的key</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">awk  -F &#39;,&#39; &#39;&#123;print $3 ,  $NF &#125;&#39;  memory.csv &gt; keys.txt    # 过滤出key的名称和过期时间</span><br><span class="line"></span><br><span class="line">egrep key_  keys.txt &gt; &#x2F;root&#x2F;key_.txt     # 将 key_ 前缀的key 过滤出来</span><br><span class="line"></span><br><span class="line">cat &#x2F;root&#x2F;key_.txt | sort -k 2 -r &gt; &#x2F;root&#x2F;sort_keys    # 对key按照日期进行倒序排序</span><br><span class="line"></span><br><span class="line">egrep 2019-09-10 &#x2F;root&#x2F;sort_keys  &gt; &#x2F;root&#x2F;match_keys    # 注意：我这里紧急处理，只过滤出 2019-09-10 过期的key(这是最新的数据，也是目前业务最常访问的key，也就是最需要紧急处理的)</span><br><span class="line"></span><br><span class="line">awk &#39;&#123;print $1&#125;&#39; &#x2F;root&#x2F;match_keys &gt; &#x2F;root&#x2F;filter_keys    # 将最终需要处理的key重定向到一个文件</span><br><span class="line"></span><br><span class="line">mkdir &#x2F;root&#x2F;test&#x2F;</span><br><span class="line"></span><br><span class="line">split -2000 &#x2F;root&#x2F;filter_keys  &#x2F;root&#x2F;test&#x2F;    # 将 filter_keys 这个文件 按照每个2k行切分成多个文件，便于后续并行处理</span><br></pre></td></tr></table></figure>
+
+<p>批量处理下</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">for i in &#96;ls &#x2F;root&#x2F;test&#x2F;&#96;; do</span><br><span class="line">echo &quot;while read line;do</span><br><span class="line">echo \&quot;del \$line\&quot; | redis-cli -h 127.0.0.1 -p 6379 </span><br><span class="line">done &lt; &#x2F;root&#x2F;test&#x2F;$&#123;i&#125;&quot; &gt; &#x2F;root&#x2F;run_$&#123;i&#125;.sh</span><br><span class="line">chmod +x &#x2F;root&#x2F;run_$&#123;i&#125;.sh </span><br><span class="line">done</span><br></pre></td></tr></table></figure>
+
+<p>批量执行下</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">#!&#x2F;bin&#x2F;bash</span><br><span class="line">for i in &#96;ls run*.sh&#96;; do </span><br><span class="line">nohup sh $i &gt; &#x2F;dev&#x2F;null &amp;</span><br><span class="line">done</span><br></pre></td></tr></table></figure>
+
+<h2 id="redis-server-大量key过期不释放空间"><a href="#redis-server-大量key过期不释放空间" class="headerlink" title="redis-server 大量key过期不释放空间"></a>redis-server 大量key过期不释放空间</h2><p>使用 rdb工具 （git地址：<a href="https://github.com/sripathikrishnan/redis-rdb-tools）">https://github.com/sripathikrishnan/redis-rdb-tools）</a> 分析下rdb文件后，发现内存中有很多的key，过期时间早到了，但是实际上还存在。原因： 因为redis的key清理策略是懒惰删除(lazy free)，我们可以尝试调大，这样每秒钟执行的redis的内部cronjob次数将增大，也就可以加快key的淘汰。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">1、config get hz   看到当前redis-server 默认值是10 </span><br><span class="line">2、config set hz 50    我们这里将hz设置为50，然后观察段时间看看（注意hz的设置值可以以10为步长逐步增加，但是一般不要超过100）</span><br></pre></td></tr></table></figure>
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/redis/" rel="tag"># redis</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/posts/45b4ba0b.html" rel="prev" title="mongodb面试收集">
+      <i class="fa fa-chevron-left"></i> mongodb面试收集
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/posts/365dbdc6.html" rel="next" title="k8s 1.17.x 高可用部署：keepalived + haproxy">
+      k8s 1.17.x 高可用部署：keepalived + haproxy <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#redis"><span class="nav-number">1.</span> <span class="nav-text">redis</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Redis的同步机制"><span class="nav-number">1.1.</span> <span class="nav-text">Redis的同步机制</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Redis有哪些数据结构"><span class="nav-number">1.2.</span> <span class="nav-text">Redis有哪些数据结构</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Redis是怎么持久化的？服务主从数据怎么交互的？"><span class="nav-number">1.3.</span> <span class="nav-text">Redis是怎么持久化的？服务主从数据怎么交互的？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#如果突然机器掉电会怎样"><span class="nav-number">1.4.</span> <span class="nav-text">如果突然机器掉电会怎样</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#RDB的原理"><span class="nav-number">1.5.</span> <span class="nav-text">RDB的原理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#为啥Redis那么快"><span class="nav-number">1.6.</span> <span class="nav-text">为啥Redis那么快</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#啥是上下文切换"><span class="nav-number">1.7.</span> <span class="nav-text">啥是上下文切换</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#主从之间的数据怎么同步"><span class="nav-number">1.8.</span> <span class="nav-text">主从之间的数据怎么同步</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#内存淘汰机制"><span class="nav-number">1.9.</span> <span class="nav-text">内存淘汰机制</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Redis-和-Memcached-有啥区别"><span class="nav-number">1.10.</span> <span class="nav-text">Redis 和 Memcached 有啥区别</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Redis-的线程模型"><span class="nav-number">1.11.</span> <span class="nav-text">Redis 的线程模型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#扫描大-KEY"><span class="nav-number">1.12.</span> <span class="nav-text">扫描大 KEY</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#采样服务器指令"><span class="nav-number">1.13.</span> <span class="nav-text">采样服务器指令</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#诊断服务器时延"><span class="nav-number">1.14.</span> <span class="nav-text">诊断服务器时延</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#远程-rdb-备份"><span class="nav-number">1.15.</span> <span class="nav-text">远程 rdb 备份</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#模拟从库"><span class="nav-number">1.16.</span> <span class="nav-text">模拟从库</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#aof-导入方式"><span class="nav-number">1.17.</span> <span class="nav-text">aof 导入方式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#redis-dump-工具"><span class="nav-number">1.18.</span> <span class="nav-text">redis-dump 工具</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#redis清理某个前缀的key"><span class="nav-number">1.19.</span> <span class="nav-text">redis清理某个前缀的key</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#redis-server-大量key过期不释放空间"><span class="nav-number">1.20.</span> <span class="nav-text">redis-server 大量key过期不释放空间</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">hyman</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">133</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+        <span class="site-state-item-count">28</span>
+        <span class="site-state-item-name">分类</span>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">96</span>
+        <span class="site-state-item-name">标签</span>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">hyman</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/mist/" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

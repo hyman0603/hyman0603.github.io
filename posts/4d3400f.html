@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/favicon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon.png">
+  <link rel="mask-icon" href="/images/favicon.png" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"www.ywthings.com","root":"/","scheme":"Mist","version":"8.0.0-rc.2","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"appID":"UDW7NS797T","apiKey":"c4bb3c2b53b39900e8498ee72e6dc96e","indexName":"hyman","hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="问题早上产品说XX平台不能打开，就自行打开平台，F12查看了接口提示500，说明服务异常，登陆服务器看了负载，磁盘空间无异常，查看应用日志提示mongodb无法连接导致。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="记一次mongodb被删库">
+<meta property="og:url" content="https://www.ywthings.com/posts/4d3400f.html">
+<meta property="og:site_name" content="hyman">
+<meta property="og:description" content="问题早上产品说XX平台不能打开，就自行打开平台，F12查看了接口提示500，说明服务异常，登陆服务器看了负载，磁盘空间无异常，查看应用日志提示mongodb无法连接导致。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://www.ywthings.com/images/20200415094927.png">
+<meta property="article:published_time" content="2020-04-15T01:53:50.000Z">
+<meta property="article:modified_time" content="2020-05-17T23:58:41.141Z">
+<meta property="article:author" content="hyman">
+<meta property="article:tag" content="mongodb">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://www.ywthings.com/images/20200415094927.png">
+
+<link rel="canonical" href="https://www.ywthings.com/posts/4d3400f.html">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>记一次mongodb被删库 | hyman</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+        <span class="toggle-line toggle-line-first"></span>
+        <span class="toggle-line toggle-line-middle"></span>
+        <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">hyman</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">一些简单的记录</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://www.ywthings.com/posts/4d3400f.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="hyman">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="hyman">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          记一次mongodb被删库
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-04-15 09:53:50" itemprop="dateCreated datePublished" datetime="2020-04-15T09:53:50+08:00">2020-04-15</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-05-18 07:58:41" itemprop="dateModified" datetime="2020-05-18T07:58:41+08:00">2020-05-18</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%97%A5%E5%B8%B8%E9%97%AE%E9%A2%98%E5%A4%84%E7%90%86/" itemprop="url" rel="index"><span itemprop="name">日常问题处理</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h1><p>早上产品说XX平台不能打开，就自行打开平台，F12查看了接口提示500，说明服务异常，登陆服务器看了负载，磁盘空间无异常，查看应用日志提示mongodb无法连接导致。<a id="more"></a>于是登陆mongodb，出现了一个新的数据库，原来的数据库丢失，查看数据库的内容原来是被清空数据勒索了，如图所示<br><img src="/images/20200415094927.png" width="100%" height="100%"></p>
+<p>查看mongodb日志，可以看到大量了外网地址连接</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line">2020-04-14T04:56:09.550+0800 I NETWORK  [conn1511714] end connection 39.107.14.208:40666 (43 connections now open)</span><br><span class="line">2020-04-14T05:20:30.311+0800 I NETWORK  [initandlisten] connection accepted from 104.152.52.34:51853 #1512195 (44 connections now open)</span><br><span class="line">2020-04-14T05:21:01.296+0800 I NETWORK  [conn1512195] end connection 104.152.52.34:51853 (43 connections now open)</span><br><span class="line">2020-04-14T07:15:53.163+0800 I NETWORK  [initandlisten] connection accepted from 45.227.255.233:61000 #1514516 (44 connections now open)</span><br><span class="line">2020-04-14T07:16:24.155+0800 I NETWORK  [conn1514516] end connection 45.227.255.233:61000 (43 connections now open)</span><br><span class="line">2020-04-14T11:48:18.433+0800 I NETWORK  [initandlisten] connection accepted from 3.80.64.27:60438 #1519957 (44 connections now open)</span><br><span class="line">2020-04-14T11:48:18.660+0800 I NETWORK  [conn1519957] end connection 3.80.64.27:60438 (43 connections now open)</span><br><span class="line">2020-04-14T12:40:03.620+0800 I NETWORK  [initandlisten] connection accepted from 106.15.76.92:35372 #1520998 (44 connections now open)</span><br><span class="line">2020-04-14T12:40:03.692+0800 I NETWORK  [conn1520998] end connection 106.15.76.92:35372 (43 connections now open)</span><br><span class="line">2020-04-14T15:19:26.779+0800 I NETWORK  [initandlisten] connection accepted from 45.76.69.227:52032 #1524191 (44 connections now open)</span><br><span class="line">2020-04-14T15:19:27.293+0800 I NETWORK  [initandlisten] connection accepted from 45.76.69.227:52036 #1524192 (45 connections now open)</span><br><span class="line">2020-04-14T15:19:30.424+0800 I NETWORK  [conn1524191] end connection 45.76.69.227:52032 (44 connections now open)</span><br><span class="line">2020-04-14T15:19:30.424+0800 I NETWORK  [conn1524192] end connection 45.76.69.227:52036 (43 connections now open)</span><br><span class="line">2020-04-14T15:37:25.731+0800 I NETWORK  [initandlisten] connection accepted from 218.17.161.71:58517 #1524553 (44 connections now open)</span><br><span class="line">2020-04-14T15:53:33.064+0800 I NETWORK  [conn1488049] end connection 119.137.53.77:35317 (43 connections now open)</span><br><span class="line">2020-04-14T16:27:03.334+0800 I NETWORK  [initandlisten] connection accepted from 47.97.16.76:59748 #1525554 (44 connections now open)</span><br><span class="line">2020-04-14T16:27:03.458+0800 I NETWORK  [conn1525554] end connection 47.97.16.76:59748 (43 connections now open)</span><br><span class="line">2020-04-14T17:34:56.440+0800 I NETWORK  [initandlisten] connection accepted from 47.93.57.242:47316 #1526915 (44 connections now open)</span><br><span class="line">2020-04-14T17:34:56.440+0800 I NETWORK  [conn1526915] end connection 47.93.57.242:47316 (43 connections now open)</span><br><span class="line">2020-04-14T17:34:56.482+0800 I NETWORK  [initandlisten] connection accepted from 47.93.57.242:47322 #1526916 (44 connections now open)</span><br><span class="line">2020-04-14T17:34:56.560+0800 I NETWORK  [initandlisten] connection accepted from 47.93.57.242:47332 #1526917 (45 connections now open)</span><br><span class="line">2020-04-14T17:34:56.631+0800 I NETWORK  [conn1526917] end connection 47.93.57.242:47332 (44 connections now open)</span><br><span class="line">2020-04-14T17:34:56.633+0800 I NETWORK  [conn1526916] end connection 47.93.57.242:47322 (43 connections now open)</span><br><span class="line">2020-04-14T20:03:12.999+0800 I NETWORK  [initandlisten] connection accepted from 47.97.16.76:54368 #1529878 (44 connections now open)</span><br><span class="line">2020-04-14T20:03:13.135+0800 I NETWORK  [conn1529878] end connection 47.97.16.76:54368 (43 connections now open)</span><br><span class="line">2020-04-15T00:03:54.045+0800 I NETWORK  [initandlisten] connection accepted from 184.105.247.196:46242 #1534686 (44 connections now open)</span><br><span class="line">2020-04-15T00:03:54.776+0800 I NETWORK  [conn1534686] end connection 184.105.247.196:46242 (43 connections now open)</span><br><span class="line">2020-04-15T00:04:02.802+0800 I NETWORK  [initandlisten] connection accepted from 184.105.247.196:7576 #1534687 (44 connections now open)</span><br><span class="line">2020-04-15T00:04:03.003+0800 I NETWORK  [conn1534687] end connection 184.105.247.196:7576 (43 connections now open)</span><br><span class="line">2020-04-15T02:11:39.270+0800 I NETWORK  [initandlisten] connection accepted from 51.38.140.6:35767 #1537241 (44 connections now open)</span><br><span class="line">2020-04-15T02:11:39.723+0800 I NETWORK  [conn1537241] AssertionException handling request, closing client connection: 34348 cannot translate opcode 2013</span><br><span class="line">2020-04-15T04:20:26.768+0800 I NETWORK  [initandlisten] connection accepted from 60.190.226.178:37104 #1539809 (44 connections now open)</span><br><span class="line">2020-04-15T04:20:26.826+0800 I NETWORK  [conn1539809] end connection 60.190.226.178:37104 (43 connections now open)</span><br><span class="line">2020-04-15T06:18:45.449+0800 I NETWORK  [initandlisten] connection accepted from 45.227.255.190:60790 #1542185 (44 connections now open)</span><br><span class="line">2020-04-15T06:18:45.903+0800 I NETWORK  [initandlisten] connection accepted from 45.227.255.190:60822 #1542204 (45 connections now open)</span><br><span class="line">2020-04-15T06:18:47.381+0800 I NETWORK  [conn1542185] end connection 45.227.255.190:60790 (44 connections now open)</span><br><span class="line">2020-04-15T06:18:47.386+0800 I NETWORK  [conn1542204] end connection 45.227.255.190:60822 (43 connections now open)</span><br><span class="line">2020-04-15T09:40:11.357+0800 I NETWORK  [conn1524553] end connection 218.17.161.71:58517 (3 connections now open)</span><br><span class="line">2020-04-15T09:40:11.954+0800 I NETWORK  [initandlisten] waiting for connections on port 27017</span><br><span class="line">2020-04-15T09:52:25.378+0800 I NETWORK  [initandlisten] waiting for connections on port 27017</span><br></pre></td></tr></table></figure>
+
+<h1 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案"></a>解决方案</h1><p>由于这平台目前还处于调试阶段，还没正式使用，所以就没设置mongodb帐号密码，端口也没有作限制才导致被人批量扫描了。只能从本地测试坏境导入数据解决。</p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/mongodb/" rel="tag"># mongodb</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/posts/6e6dc2cb.html" rel="prev" title="Linux 中的 netcat 网络工具简介">
+      <i class="fa fa-chevron-left"></i> Linux 中的 netcat 网络工具简介
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/posts/d9404faf.html" rel="next" title="Elasticsearch系列---基本概念及工作原理">
+      Elasticsearch系列---基本概念及工作原理 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#问题"><span class="nav-number">1.</span> <span class="nav-text">问题</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#解决方案"><span class="nav-number">2.</span> <span class="nav-text">解决方案</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">hyman</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">133</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+        <span class="site-state-item-count">28</span>
+        <span class="site-state-item-name">分类</span>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">96</span>
+        <span class="site-state-item-name">标签</span>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">hyman</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/mist/" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

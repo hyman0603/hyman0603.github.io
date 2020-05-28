@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/favicon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon.png">
+  <link rel="mask-icon" href="/images/favicon.png" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"www.ywthings.com","root":"/","scheme":"Mist","version":"8.0.0-rc.2","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"appID":"UDW7NS797T","apiKey":"c4bb3c2b53b39900e8498ee72e6dc96e","indexName":"hyman","hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="官方文档：https:&#x2F;&#x2F;kubernetes.io&#x2F;docs&#x2F;setup&#x2F;independent&#x2F;high-availability&#x2F; 关闭防火墙12systemctl stop firewalldsystemctl disable firewalld">
+<meta property="og:type" content="article">
+<meta property="og:title" content="利用 kubeadm 部署 Kubernetes v1.13.x">
+<meta property="og:url" content="https://www.ywthings.com/posts/1fb681a.html">
+<meta property="og:site_name" content="hyman">
+<meta property="og:description" content="官方文档：https:&#x2F;&#x2F;kubernetes.io&#x2F;docs&#x2F;setup&#x2F;independent&#x2F;high-availability&#x2F; 关闭防火墙12systemctl stop firewalldsystemctl disable firewalld">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2019-01-07T01:26:17.000Z">
+<meta property="article:modified_time" content="2020-05-17T23:58:41.109Z">
+<meta property="article:author" content="hyman">
+<meta property="article:tag" content="kubernetes">
+<meta property="article:tag" content="k8s">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://www.ywthings.com/posts/1fb681a.html">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>利用 kubeadm 部署 Kubernetes v1.13.x | hyman</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+        <span class="toggle-line toggle-line-first"></span>
+        <span class="toggle-line toggle-line-middle"></span>
+        <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">hyman</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">一些简单的记录</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://www.ywthings.com/posts/1fb681a.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="hyman">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="hyman">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          利用 kubeadm 部署 Kubernetes v1.13.x
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2019-01-07 09:26:17" itemprop="dateCreated datePublished" datetime="2019-01-07T09:26:17+08:00">2019-01-07</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-05-18 07:58:41" itemprop="dateModified" datetime="2020-05-18T07:58:41+08:00">2020-05-18</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/kubernetes/" itemprop="url" rel="index"><span itemprop="name">kubernetes</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>官方文档：<a href="https://kubernetes.io/docs/setup/independent/high-availability/">https://kubernetes.io/docs/setup/independent/high-availability/</a></p>
+<h1 id="关闭防火墙"><a href="#关闭防火墙" class="headerlink" title="关闭防火墙"></a>关闭防火墙</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">systemctl stop firewalld</span><br><span class="line">systemctl disable firewalld</span><br></pre></td></tr></table></figure>
+<a id="more"></a>
+<h1 id="禁用selinux"><a href="#禁用selinux" class="headerlink" title="禁用selinux"></a>禁用selinux</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"># Set SELinux in permissive mode (effectively disabling it)</span><br><span class="line">setenforce 0</span><br><span class="line">sed -i &#39;s&#x2F;^SELINUX&#x3D;enforcing$&#x2F;SELINUX&#x3D;permissive&#x2F;&#39; &#x2F;etc&#x2F;selinux&#x2F;config</span><br></pre></td></tr></table></figure>
+
+<h1 id="启用net-bridge-bridge-nf-call-ip6tables和net-bridge-bridge-nf-call-iptables"><a href="#启用net-bridge-bridge-nf-call-ip6tables和net-bridge-bridge-nf-call-iptables" class="headerlink" title="启用net.bridge.bridge-nf-call-ip6tables和net.bridge.bridge-nf-call-iptables"></a>启用net.bridge.bridge-nf-call-ip6tables和net.bridge.bridge-nf-call-iptables</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">cat &lt;&lt;EOF &gt;  &#x2F;etc&#x2F;sysctl.d&#x2F;k8s.conf</span><br><span class="line">net.bridge.bridge-nf-call-ip6tables &#x3D; 1</span><br><span class="line">net.bridge.bridge-nf-call-iptables &#x3D; 1</span><br><span class="line">vm.swappiness&#x3D;0</span><br><span class="line">EOF</span><br><span class="line">sysctl --system</span><br></pre></td></tr></table></figure>
+
+<h1 id="禁用swap"><a href="#禁用swap" class="headerlink" title="禁用swap"></a>禁用swap</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">swapoff -a</span><br><span class="line"></span><br><span class="line">修改&#x2F;etc&#x2F;fstab 文件，注释掉 SWAP 的自动挂载. </span><br><span class="line">使用free -m确认swap已经关闭。</span><br></pre></td></tr></table></figure>
+
+<h1 id="加载ipvs相关模块"><a href="#加载ipvs相关模块" class="headerlink" title="加载ipvs相关模块"></a>加载ipvs相关模块</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">cat &gt; &#x2F;etc&#x2F;sysconfig&#x2F;modules&#x2F;ipvs.modules &lt;&lt;EOF</span><br><span class="line">#!&#x2F;bin&#x2F;bash</span><br><span class="line">ipvs_mods_dir&#x3D;&quot;&#x2F;usr&#x2F;lib&#x2F;modules&#x2F;$(uname -r)&#x2F;kernel&#x2F;net&#x2F;netfilter&#x2F;ipvs&quot;</span><br><span class="line">for i in $(ls $ipvs_mods_dir | grep -o &quot;^[^.]*&quot;); do</span><br><span class="line">    &#x2F;sbin&#x2F;modinfo -F filename $i &amp;&gt; &#x2F;dev&#x2F;null</span><br><span class="line">    if [ $? -eq 0 ]; then</span><br><span class="line">        &#x2F;sbin&#x2F;modprobe $i</span><br><span class="line">    fi</span><br><span class="line">done</span><br><span class="line">modprobe -- ip_vs</span><br><span class="line">modprobe -- ip_vs_rr</span><br><span class="line">modprobe -- ip_vs_wrr</span><br><span class="line">modprobe -- ip_vs_sh</span><br><span class="line">modprobe -- nf_conntrack_ipv4</span><br><span class="line">EOF</span><br><span class="line">chmod 755 &#x2F;etc&#x2F;sysconfig&#x2F;modules&#x2F;ipvs.modules &amp;&amp; bash &#x2F;etc&#x2F;sysconfig&#x2F;modules&#x2F;ipvs.modules &amp;&amp; lsmod | grep -e ip_vs -e nf_conntrack_ipv4</span><br></pre></td></tr></table></figure>
+<p>上面脚本创建了的/etc/sysconfig/modules/ipvs.modules文件，保证在节点重启后能自动加载所需模块。 使用lsmod | grep -e ip_vs -e nf_conntrack_ipv4命令查看是否已经正确加载所需的内核模块。接下来还需要确保各个节点上已经安装了ipset软件包。 为了便于查看ipvs的代理规则，最好安装一下管理工具ipvsadm。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum install ipset ipvsadm -y</span><br></pre></td></tr></table></figure>
+
+<h1 id="安装-docke"><a href="#安装-docke" class="headerlink" title="安装 docke"></a>安装 docke</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"># 安装docker</span><br><span class="line">yum install -y yum-utils device-mapper-persistent-data lvm2</span><br><span class="line">yum-config-manager --add-repo http:&#x2F;&#x2F;mirrors.aliyun.com&#x2F;docker-ce&#x2F;linux&#x2F;centos&#x2F;docker-ce.repo</span><br><span class="line">yum install -y docker-ce-18.06*</span><br><span class="line"></span><br><span class="line"># 增加加速器</span><br><span class="line">tee &#x2F;etc&#x2F;docker&#x2F;daemon.json &lt;&lt;EOF</span><br><span class="line">&#123;</span><br><span class="line">  &quot;registry-mirrors&quot;: [&quot;https:&#x2F;&#x2F;bv55mwyn.mirror.aliyuncs.com&quot;]</span><br><span class="line">&#125;</span><br><span class="line">EOF</span><br><span class="line"></span><br><span class="line"># 启动docker</span><br><span class="line">systemctl enable docker &amp;&amp; systemctl start docker</span><br></pre></td></tr></table></figure>
+
+<h1 id="安装kubeadm"><a href="#安装kubeadm" class="headerlink" title="安装kubeadm"></a>安装kubeadm</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"># 添加阿里云仓库</span><br><span class="line">cat &lt;&lt;EOF &gt; &#x2F;etc&#x2F;yum.repos.d&#x2F;kubernetes.repo</span><br><span class="line">[kubernetes]</span><br><span class="line">name&#x3D;Kubernetes</span><br><span class="line">baseurl&#x3D;https:&#x2F;&#x2F;mirrors.aliyun.com&#x2F;kubernetes&#x2F;yum&#x2F;repos&#x2F;kubernetes-el7-x86_64&#x2F;</span><br><span class="line">enabled&#x3D;1</span><br><span class="line">gpgcheck&#x3D;1</span><br><span class="line">repo_gpgcheck&#x3D;1</span><br><span class="line">gpgkey&#x3D;https:&#x2F;&#x2F;mirrors.aliyun.com&#x2F;kubernetes&#x2F;yum&#x2F;doc&#x2F;yum-key.gpg https:&#x2F;&#x2F;mirrors.aliyun.com&#x2F;kubernetes&#x2F;yum&#x2F;doc&#x2F;rpm-package-key.gpg</span><br><span class="line">EOF</span><br><span class="line"></span><br><span class="line"># 安装kubeadm</span><br><span class="line">yum install -y kubelet-1.13.4 kubeadm-1.13.4 kubectl-1.13.4</span><br><span class="line"></span><br><span class="line"># 启动kubectl</span><br><span class="line">systemctl enable kubelet &amp;&amp; systemctl start kubelet</span><br></pre></td></tr></table></figure>
+
+<h1 id="部署master节点"><a href="#部署master节点" class="headerlink" title="部署master节点"></a>部署master节点</h1><p>注意这里执行初始化用到了- -image-repository选项，指定初始化需要的镜像源从阿里云镜像仓库拉取。<br>Kubenetes默认Registries地址是 k8s.gcr.io，在国内并不能访问 gcr.io，在1.13版本中我们可以增加–image-repository参数</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">kubeadm init \</span><br><span class="line">    --image-repository registry.cn-shenzhen.aliyuncs.com&#x2F;hyman0603 \</span><br><span class="line">    --kubernetes-version v1.13.4 \</span><br><span class="line">    --pod-network-cidr&#x3D;10.244.0.0&#x2F;16</span><br></pre></td></tr></table></figure>
+
+<h1 id="KUBE-代理使用IPVS转发"><a href="#KUBE-代理使用IPVS转发" class="headerlink" title="KUBE-代理使用IPVS转发"></a>KUBE-代理使用IPVS转发</h1><h2 id="开启路由转发"><a href="#开启路由转发" class="headerlink" title="开启路由转发"></a>开启路由转发</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">cat &gt;&gt; &#x2F;etc&#x2F;sysctl.conf &lt;&lt; EOF</span><br><span class="line">net.ipv4.ip_forward&#x3D;1</span><br><span class="line">EOF</span><br><span class="line">sysctl -p</span><br></pre></td></tr></table></figure>
+
+<h2 id="修改ConfigMap的kube-system-kube-proxy中的config-conf"><a href="#修改ConfigMap的kube-system-kube-proxy中的config-conf" class="headerlink" title="修改ConfigMap的kube-system/kube-proxy中的config.conf"></a>修改ConfigMap的kube-system/kube-proxy中的config.conf</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">kubectl edit cm kube-proxy -n kube-system</span><br><span class="line"># 39行 mode: &quot;&quot; -&gt; mode: &quot;ipvs&quot;</span><br></pre></td></tr></table></figure>
+
+<h2 id="重启所有工作节点的kube-proxy-pod"><a href="#重启所有工作节点的kube-proxy-pod" class="headerlink" title="重启所有工作节点的kube-proxy pod"></a>重启所有工作节点的kube-proxy pod</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kubectl get pod -n kube-system | grep kube-proxy | awk &#39;&#123;system(&quot;kubectl delete pod &quot;$1&quot; -n kube-system&quot;)&#125;&#39;</span><br></pre></td></tr></table></figure>
+
+<h2 id="查看是否生效"><a href="#查看是否生效" class="headerlink" title="查看是否生效"></a>查看是否生效</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kubectl get pod -n kube-system | grep kube-proxy | awk &#39;&#123;system(&quot;kubectl delete pod &quot;$1&quot; -n kube-system&quot;)&#125;&#39;</span><br></pre></td></tr></table></figure>
+
+<h2 id="查看ipvs规则"><a href="#查看ipvs规则" class="headerlink" title="查看ipvs规则"></a>查看ipvs规则</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ipvsadm -Ln</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/kubernetes/" rel="tag"># kubernetes</a>
+              <a href="/tags/k8s/" rel="tag"># k8s</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/posts/4f7efc26.html" rel="prev" title="新增阿里云ECS服务器作为TCP负载均衡访问失败">
+      <i class="fa fa-chevron-left"></i> 新增阿里云ECS服务器作为TCP负载均衡访问失败
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/posts/c4140ae8.html" rel="next" title="视频语音实时可视化部署记录">
+      视频语音实时可视化部署记录 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#关闭防火墙"><span class="nav-number">1.</span> <span class="nav-text">关闭防火墙</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#禁用selinux"><span class="nav-number">2.</span> <span class="nav-text">禁用selinux</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#启用net-bridge-bridge-nf-call-ip6tables和net-bridge-bridge-nf-call-iptables"><span class="nav-number">3.</span> <span class="nav-text">启用net.bridge.bridge-nf-call-ip6tables和net.bridge.bridge-nf-call-iptables</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#禁用swap"><span class="nav-number">4.</span> <span class="nav-text">禁用swap</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#加载ipvs相关模块"><span class="nav-number">5.</span> <span class="nav-text">加载ipvs相关模块</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#安装-docke"><span class="nav-number">6.</span> <span class="nav-text">安装 docke</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#安装kubeadm"><span class="nav-number">7.</span> <span class="nav-text">安装kubeadm</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#部署master节点"><span class="nav-number">8.</span> <span class="nav-text">部署master节点</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#KUBE-代理使用IPVS转发"><span class="nav-number">9.</span> <span class="nav-text">KUBE-代理使用IPVS转发</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#开启路由转发"><span class="nav-number">9.1.</span> <span class="nav-text">开启路由转发</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#修改ConfigMap的kube-system-kube-proxy中的config-conf"><span class="nav-number">9.2.</span> <span class="nav-text">修改ConfigMap的kube-system&#x2F;kube-proxy中的config.conf</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#重启所有工作节点的kube-proxy-pod"><span class="nav-number">9.3.</span> <span class="nav-text">重启所有工作节点的kube-proxy pod</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#查看是否生效"><span class="nav-number">9.4.</span> <span class="nav-text">查看是否生效</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#查看ipvs规则"><span class="nav-number">9.5.</span> <span class="nav-text">查看ipvs规则</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">hyman</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">133</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+        <span class="site-state-item-count">28</span>
+        <span class="site-state-item-name">分类</span>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">96</span>
+        <span class="site-state-item-name">标签</span>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">hyman</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/mist/" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

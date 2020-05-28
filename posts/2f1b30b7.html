@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/favicon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon.png">
+  <link rel="mask-icon" href="/images/favicon.png" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"www.ywthings.com","root":"/","scheme":"Mist","version":"8.0.0-rc.2","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"appID":"UDW7NS797T","apiKey":"c4bb3c2b53b39900e8498ee72e6dc96e","indexName":"hyman","hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="CPU消耗高往往是系统异常的一种表现。因为平常检查系统运行有哪些进程，都是使用ps工具。因此，出现这种情况时，如果能够通过ps工具搜寻出CPU消耗高的线程，则对进一步搜寻线索或者排查应该有帮助。 一个进程可能包含多个线程。但是考察CPU消耗问题，只考虑进程而不考虑线程是不够的。就是说，我们总是得给ps命令加上“-T”选项。 为了便于按照CPU消耗的情况排序，我们也通过“-o”定制ps输出的字段，以">
+<meta property="og:type" content="article">
+<meta property="og:title" content="利用ps工具统计CPU&#x2F;MEM消耗高或者负载高的进程">
+<meta property="og:url" content="https://www.ywthings.com/posts/2f1b30b7.html">
+<meta property="og:site_name" content="hyman">
+<meta property="og:description" content="CPU消耗高往往是系统异常的一种表现。因为平常检查系统运行有哪些进程，都是使用ps工具。因此，出现这种情况时，如果能够通过ps工具搜寻出CPU消耗高的线程，则对进一步搜寻线索或者排查应该有帮助。 一个进程可能包含多个线程。但是考察CPU消耗问题，只考虑进程而不考虑线程是不够的。就是说，我们总是得给ps命令加上“-T”选项。 为了便于按照CPU消耗的情况排序，我们也通过“-o”定制ps输出的字段，以">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2018-09-28T00:46:00.000Z">
+<meta property="article:modified_time" content="2020-05-17T23:58:41.265Z">
+<meta property="article:author" content="hyman">
+<meta property="article:tag" content="cpu">
+<meta property="article:tag" content="mem">
+<meta property="article:tag" content="ps">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://www.ywthings.com/posts/2f1b30b7.html">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>利用ps工具统计CPU/MEM消耗高或者负载高的进程 | hyman</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+        <span class="toggle-line toggle-line-first"></span>
+        <span class="toggle-line toggle-line-middle"></span>
+        <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">hyman</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">一些简单的记录</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://www.ywthings.com/posts/2f1b30b7.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="hyman">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="hyman">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          利用ps工具统计CPU/MEM消耗高或者负载高的进程
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2018-09-28 08:46:00" itemprop="dateCreated datePublished" datetime="2018-09-28T08:46:00+08:00">2018-09-28</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-05-18 07:58:41" itemprop="dateModified" datetime="2020-05-18T07:58:41+08:00">2020-05-18</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%97%A5%E5%B8%B8%E9%97%AE%E9%A2%98%E5%A4%84%E7%90%86/" itemprop="url" rel="index"><span itemprop="name">日常问题处理</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>CPU消耗高往往是系统异常的一种表现。因为平常检查系统运行有哪些进程，都是使用ps工具。因此，出现这种情况时，如果能够通过ps工具搜寻出CPU消耗高的线程，则对进一步搜寻线索或者排查应该有帮助。</p>
+<p>一个进程可能包含多个线程。但是考察CPU消耗问题，只考虑进程而不考虑线程是不够的。就是说，我们总是得给ps命令加上“-T”选项。</p>
+<p>为了便于按照CPU消耗的情况排序，我们也通过“-o”定制ps输出的字段，以确保CPU消耗占比字段是第一个字段，这样便于排序。</p>
+<a id="more"></a>
+<h1 id="列出消耗高的线程"><a href="#列出消耗高的线程" class="headerlink" title="列出消耗高的线程"></a>列出消耗高的线程</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">LANG&#x3D;C ps -eT -o%cpu,pid,tid,ppid,comm | grep -v CPU | sort -n -r | head -20</span><br><span class="line"></span><br><span class="line">#效果如下</span><br><span class="line">[root@es ~]# LANG&#x3D;C ps -eT -o%cpu,pid,tid,ppid,comm | grep -v CPU | sort -n -r | head -20</span><br><span class="line">26.0  1760  1782     1 java</span><br><span class="line">17.6  1760 22003     1 java</span><br><span class="line">17.0  1760 22006     1 java</span><br><span class="line">16.2  1760 21986     1 java</span><br><span class="line">16.0  1760 22024     1 java</span><br><span class="line">15.0  1760 22025     1 java</span><br><span class="line">14.8 13825 21917     1 java</span><br><span class="line">14.7 13825 21992     1 java</span><br><span class="line">14.2  1760 21989     1 java</span><br><span class="line">14.0  1760 22042     1 java</span><br><span class="line">13.2 13825 21993     1 java</span><br><span class="line">12.6  1760 22008     1 java</span><br><span class="line">12.0  1760 22027     1 java</span><br><span class="line">12.0 13825 22043     1 java</span><br><span class="line">11.0 13825 22047     1 java</span><br><span class="line">10.5  1760  1783     1 java</span><br><span class="line"> 8.3 13825 22016     1 java</span><br><span class="line"> 8.0  1760  5966     1 java</span><br><span class="line"> 8.0  1760  5897     1 java</span><br><span class="line"> 8.0 13825 14598     1 java</span><br></pre></td></tr></table></figure>
+
+<h1 id="统计线程消耗的总的CPU"><a href="#统计线程消耗的总的CPU" class="headerlink" title="统计线程消耗的总的CPU"></a>统计线程消耗的总的CPU</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&#123; LANG&#x3D;C ps -eT -o%cpu,pid,tid,ppid,comm | sed -e &#39;s&#x2F;^ *&#x2F;&#x2F;&#39; | tr -s &#39; &#39; | grep -v CPU | sort -n -r | cut -d &#39; &#39; -f 1 | xargs -I&#123;&#125; echo -n &quot;&#123;&#125; + &quot; &amp;&amp; echo &#39; 0&#39;; &#125; | bc -l</span><br><span class="line"></span><br><span class="line">#效果如下</span><br><span class="line">[root@es ~]# &#123; LANG&#x3D;C ps -eT -o%cpu,pid,tid,ppid,comm | sed -e &#39;s&#x2F;^ *&#x2F;&#x2F;&#39; | tr -s &#39; &#39; | grep -v CPU | sort -n -r | cut -d &#39; &#39; -f 1 | xargs -I&#123;&#125; echo -n &quot;&#123;&#125; + &quot; &amp;&amp; echo &#39; 0&#39;; &#125; | bc -l</span><br><span class="line"></span><br><span class="line">356.1</span><br><span class="line">[root@es ~]#</span><br></pre></td></tr></table></figure>
+<h1 id="应用"><a href="#应用" class="headerlink" title="应用"></a>应用</h1><p>设想我们需要追踪CPU占用最高的线程，则可以这样</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">export LANG&#x3D;C;d&#x3D;$(mktemp -d) &amp;&amp; cd $d # 建并进入临时目录</span><br><span class="line"># 捕捉之</span><br><span class="line">strace -f -ff -s 256 -tt -T -o strace.log -p $(ps -eT -o%cpu,pid,tid,ppid,comm | grep -v CPU | sort -n -r | head -1 | sed -e &#39;s&#x2F;^ *&#x2F;&#x2F;&#39; | tr -s &#39; &#39;  | cut -d &#39; &#39; -f 3)</span><br></pre></td></tr></table></figure>
+
+<h1 id="内存"><a href="#内存" class="headerlink" title="内存"></a>内存</h1><p>线程是共享内存空间的。所以，一般情况下，没有必要使用“-T”选项。</p>
+<p>列出内存消耗高的进程</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">LANG&#x3D;C ps -e -o%mem,pid,tid,ppid,comm | grep -v MEM | sort -n -r | head -20</span><br></pre></td></tr></table></figure>
+
+<p>统计内存消耗情况</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123; LANG&#x3D;C ps -e -o%mem,pid,tid,ppid,comm | sed -e &#39;s&#x2F;^ *&#x2F;&#x2F;&#39; | tr -s &#39; &#39; | grep -v MEM | sort -n -r | cut -d &#39; &#39; -f 1 | xargs -I&#123;&#125; echo -n &quot;&#123;&#125; + &quot; &amp;&amp; echo &#39; 0&#39;; &#125; | bc -l</span><br></pre></td></tr></table></figure>
+
+<h1 id="列出导致CPU负载高的线程"><a href="#列出导致CPU负载高的线程" class="headerlink" title="列出导致CPU负载高的线程"></a>列出导致CPU负载高的线程</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">LANG&#x3D;C ps -eTo stat,pid,tid,ppid,comm,args | perl -ne &#39;chomp;if (m!^\s*(\S*[RD]+\S*.*)!) &#123;print qq[$1\n];&#125;&#39;</span><br></pre></td></tr></table></figure>
+
+<h1 id="tomcat-cpu过高"><a href="#tomcat-cpu过高" class="headerlink" title="tomcat cpu过高"></a>tomcat cpu过高</h1><p>1，根据top命令，发现PID为2633的Java进程占用CPU高达300%，出现故障。</p>
+<p>2，找到该进程后，如何定位具体线程或代码呢，首先显示线程列表,并按照CPU占用高的线程排序</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">ps -mp 2633 -o THREAD,tid,time | sort -rn</span><br><span class="line"></span><br><span class="line">显示结果如下：</span><br><span class="line">USER     %CPU PRI SCNT WCHAN  USER SYSTEM   TID     TIME</span><br><span class="line">root     10.5  19    - -         -      -  3626 00:12:48</span><br><span class="line">root     10.1  19    - -         -      -  3593 00:12:16</span><br></pre></td></tr></table></figure>
+<p>找到了耗时最高的线程3626，占用CPU时间有12分钟了！</p>
+<p>3.将需要的线程ID转换为16进制格式</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">printf &quot;%x\n&quot; 3626</span><br><span class="line">e18</span><br></pre></td></tr></table></figure>
+
+<p>4.最后打印线程的堆栈信息</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">jstack 2633 |grep e18 -A 30</span><br></pre></td></tr></table></figure>
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/cpu/" rel="tag"># cpu</a>
+              <a href="/tags/mem/" rel="tag"># mem</a>
+              <a href="/tags/ps/" rel="tag"># ps</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/posts/a395b63e.html" rel="prev" title="定期删除elasticsearch索引记录">
+      <i class="fa fa-chevron-left"></i> 定期删除elasticsearch索引记录
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/posts/fc409f42.html" rel="next" title="CentOS7 升级内核">
+      CentOS7 升级内核 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#列出消耗高的线程"><span class="nav-number">1.</span> <span class="nav-text">列出消耗高的线程</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#统计线程消耗的总的CPU"><span class="nav-number">2.</span> <span class="nav-text">统计线程消耗的总的CPU</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#应用"><span class="nav-number">3.</span> <span class="nav-text">应用</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#内存"><span class="nav-number">4.</span> <span class="nav-text">内存</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#列出导致CPU负载高的线程"><span class="nav-number">5.</span> <span class="nav-text">列出导致CPU负载高的线程</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#tomcat-cpu过高"><span class="nav-number">6.</span> <span class="nav-text">tomcat cpu过高</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">hyman</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">133</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+        <span class="site-state-item-count">28</span>
+        <span class="site-state-item-name">分类</span>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">96</span>
+        <span class="site-state-item-name">标签</span>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">hyman</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/mist/" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

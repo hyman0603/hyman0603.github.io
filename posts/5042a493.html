@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/favicon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon.png">
+  <link rel="mask-icon" href="/images/favicon.png" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"www.ywthings.com","root":"/","scheme":"Mist","version":"8.0.0-rc.2","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"appID":"UDW7NS797T","apiKey":"c4bb3c2b53b39900e8498ee72e6dc96e","indexName":"hyman","hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="概述介绍consul是一个服务发现和配置共享的服务软件，结合nginx的主动健康检查模块nginx_upstream_check_module和服务发现模块nginx-upsync-module，实现一套服务动态发现机制。nginx的upstream不再通过手动配置，而是定时向consul发送请求，获取consul数据中心的配置文件，动态更新upstream地址池。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Consul集群搭建，配合nginx完成服务动态发现和健康检查">
+<meta property="og:url" content="https://www.ywthings.com/posts/5042a493.html">
+<meta property="og:site_name" content="hyman">
+<meta property="og:description" content="概述介绍consul是一个服务发现和配置共享的服务软件，结合nginx的主动健康检查模块nginx_upstream_check_module和服务发现模块nginx-upsync-module，实现一套服务动态发现机制。nginx的upstream不再通过手动配置，而是定时向consul发送请求，获取consul数据中心的配置文件，动态更新upstream地址池。">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2018-06-13T07:03:40.000Z">
+<meta property="article:modified_time" content="2020-05-17T23:58:41.161Z">
+<meta property="article:author" content="hyman">
+<meta property="article:tag" content="Ngins">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://www.ywthings.com/posts/5042a493.html">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>Consul集群搭建，配合nginx完成服务动态发现和健康检查 | hyman</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+        <span class="toggle-line toggle-line-first"></span>
+        <span class="toggle-line toggle-line-middle"></span>
+        <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">hyman</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">一些简单的记录</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://www.ywthings.com/posts/5042a493.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="hyman">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="hyman">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Consul集群搭建，配合nginx完成服务动态发现和健康检查
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2018-06-13 15:03:40" itemprop="dateCreated datePublished" datetime="2018-06-13T15:03:40+08:00">2018-06-13</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-05-18 07:58:41" itemprop="dateModified" datetime="2020-05-18T07:58:41+08:00">2020-05-18</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E8%BF%90%E7%BB%B4%E9%83%A8%E7%BD%B2%E8%AE%B0%E5%BD%95/" itemprop="url" rel="index"><span itemprop="name">运维部署记录</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h1><h2 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h2><p>consul是一个服务发现和配置共享的服务软件，结合nginx的主动健康检查模块nginx_upstream_check_module和服务发现模块nginx-upsync-module，实现一套服务动态发现机制。nginx的upstream不再通过手动配置，而是定时向consul发送请求，获取consul数据中心的配置文件，动态更新upstream地址池。</p>
+<a id="more"></a>
+<h2 id="术语"><a href="#术语" class="headerlink" title="术语"></a>术语</h2><p>consul：是一个支持多数据中心分布式高可用的服务发现和配置共享的服务软件</p>
+<p>nginx_upstream_check_module：nginx主动健康检查模块</p>
+<p>nginx-upsync-module：nginx服务发现模块</p>
+<h1 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h1><h2 id="nginx"><a href="#nginx" class="headerlink" title="nginx"></a>nginx</h2><p>nginx需要编译两个模块：<br>nginx_upstream_check_module：nginx主动健康检查模块</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">https:&#x2F;&#x2F;github.com&#x2F;xiaokai-wang&#x2F;nginx_upstream_check_module</span><br></pre></td></tr></table></figure>
+<p>nginx-upsync-module：nginx服务发现模块</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">https:&#x2F;&#x2F;github.com&#x2F;weibocom&#x2F;nginx-upsync-module</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">.&#x2F;configure --prefix&#x3D;&#x2F;usr&#x2F;local&#x2F;nginx --user&#x3D;nginx --group&#x3D;nginx --with-http_ssl_module --with-http_flv_module --with-http_stub_status_module --with-http_gzip_static_module --with-http_realip_module --http-client-body-temp-path&#x3D;&#x2F;var&#x2F;tmp&#x2F;nginx&#x2F;client&#x2F; --http-proxy-temp-path&#x3D;&#x2F;var&#x2F;tmp&#x2F;nginx&#x2F;proxy&#x2F; --http-fastcgi-temp-path&#x3D;&#x2F;var&#x2F;tmp&#x2F;nginx&#x2F;fcgi&#x2F; --http-uwsgi-temp-path&#x3D;&#x2F;var&#x2F;tmp&#x2F;nginx&#x2F;uwsgi --http-scgi-temp-path&#x3D;&#x2F;var&#x2F;tmp&#x2F;nginx&#x2F;scgi --with-pcre --add-module&#x3D;..&#x2F;nginx-upsync-module-master --add-module&#x3D;&#x2F;root&#x2F;nginx-module-vts</span><br></pre></td></tr></table></figure>
+
+<h2 id="consul"><a href="#consul" class="headerlink" title="consul"></a>consul</h2><p>官网 <a href="https://www.consul.io">https://www.consul.io</a></p>
+<p>下载consul,linux 64位</p>
+<p>下载解压即可，产生一个consul可执行文件。</p>
+<p>./consul 列出一些常用指令。</p>
+<h2 id="consul启动"><a href="#consul启动" class="headerlink" title="consul启动"></a>consul启动</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">.&#x2F;consul agent -server –bootstrap-expect 1 –data-dir &#x2F;tmp&#x2F;consul –bind&#x3D;172.16.2.30 –ui –client 0.0.0.0 &amp;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">server： 以server身份启动。</span><br><span class="line"></span><br><span class="line">bootstrap-expect：集群要求的最少server数量，当低于这个数量，集群即失效。经测试，低于这个数量也不影响访问</span><br><span class="line"></span><br><span class="line">data-dir：data存放的目录，更多信息请参阅consul数据同步机制</span><br><span class="line"></span><br><span class="line">node：节点id，在同一集群不能重复。</span><br><span class="line"></span><br><span class="line">bind：监听的ip地址。</span><br><span class="line"></span><br><span class="line">client 客户端的ip地址</span><br><span class="line"></span><br><span class="line">&amp;  ：在后台运行，此为linux脚本语法</span><br><span class="line"></span><br><span class="line">ui：启动webui，端口8500</span><br></pre></td></tr></table></figure>
+<p>访问ip:8500/</p>
+<h2 id="consul其它命令"><a href="#consul其它命令" class="headerlink" title="consul其它命令"></a>consul其它命令</h2><h3 id="关闭"><a href="#关闭" class="headerlink" title="关闭"></a>关闭</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">.&#x2F;consul leave</span><br></pre></td></tr></table></figure>
+<h3 id="查看成员"><a href="#查看成员" class="headerlink" title="查看成员"></a>查看成员</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">.&#x2F;consul members</span><br></pre></td></tr></table></figure>
+<h2 id="启动consul集群"><a href="#启动consul集群" class="headerlink" title="启动consul集群"></a>启动consul集群</h2><p>以上介绍的都是以单机模式启动，实战中consul多以集群模式存在，建议server节点数为3~5个。以下以3台为例，分别为ip1、ip2、ip3：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">.&#x2F;consul agent -server -bootstrap-expect 2 -data-dir &#x2F;tmp&#x2F;consul -node&#x3D;consul1 -bind&#x3D;ip1 -ui -client&#x3D;0.0.0.0 &amp;</span><br><span class="line"></span><br><span class="line">.&#x2F;consul agent -server -bootstrap-expect 2 -data-dir &#x2F;tmp&#x2F;consul -node&#x3D;consul2 -bind&#x3D;ip2 -join&#x3D;ip1 -ui -client&#x3D;0.0.0.0 &amp;</span><br><span class="line"></span><br><span class="line">.&#x2F;consul agent -server -bootstrap-expect 2 -data-dir &#x2F;tmp&#x2F;consul -node&#x3D;consul3 -bind&#x3D;ip3 -join&#x3D;ip1 -ui -client&#x3D;0.0.0.0 &amp;</span><br><span class="line"></span><br><span class="line">-join 加入一个集群</span><br></pre></td></tr></table></figure>
+
+<h2 id="加入后端服务器-或可以在界面KEY-VALUE操作"><a href="#加入后端服务器-或可以在界面KEY-VALUE操作" class="headerlink" title="加入后端服务器(或可以在界面KEY/VALUE操作)"></a>加入后端服务器(或可以在界面KEY/VALUE操作)</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">在任一节点上执行如下命令，即可添加2个key-value信息：</span><br><span class="line">curl -X PUT -d &#39;&#123;&quot;weight&quot;:10, &quot;max_fails&quot;:2, &quot;fail_timeout&quot;:10, &quot;down&quot;:0&#125;&#39; http:&#x2F;&#x2F;172.16.2.30:8500&#x2F;v1&#x2F;kv&#x2F;upstreams&#x2F;test&#x2F;172.16.2.31:80</span><br><span class="line"></span><br><span class="line">curl -X PUT -d &#39;&#123;&quot;weight&quot;:10, &quot;max_fails&quot;:2, &quot;fail_timeout&quot;:10, &quot;down&quot;:0&#125;&#39; http:&#x2F;&#x2F;172.16.2.30:8500&#x2F;v1&#x2F;kv&#x2F;upstreams&#x2F;test&#x2F;172.16.2.32:80</span><br></pre></td></tr></table></figure>
+
+<h2 id="删除后端服务器-或可以在界面KEY-VALUE操作"><a href="#删除后端服务器-或可以在界面KEY-VALUE操作" class="headerlink" title="删除后端服务器(或可以在界面KEY/VALUE操作)"></a>删除后端服务器(或可以在界面KEY/VALUE操作)</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">curl -X DELETE http:&#x2F;&#x2F;172.16.2.30:8500&#x2F;v1&#x2F;kv&#x2F;upstreams&#x2F;test&#x2F;172.16.2.31:80</span><br><span class="line"></span><br><span class="line">curl -X DELETE http:&#x2F;&#x2F;172.16.2.30:8500&#x2F;v1&#x2F;kv&#x2F;upstreams&#x2F;test&#x2F;172.16.2.32:80</span><br></pre></td></tr></table></figure>
+
+<h2 id="调整后端服务的参数-或可以在界面KEY-VALUE操作"><a href="#调整后端服务的参数-或可以在界面KEY-VALUE操作" class="headerlink" title="调整后端服务的参数(或可以在界面KEY/VALUE操作)"></a>调整后端服务的参数(或可以在界面KEY/VALUE操作)</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl -X PUT -d &#39;&#123;&quot;weight&quot;:10, &quot;max_fails&quot;:2, &quot;fail_timeout&quot;:10, &quot;down&quot;:0&#125;&#39; http:&#x2F;&#x2F;172.16.2.30:8500&#x2F;v1&#x2F;kv&#x2F;upstreams&#x2F;test&#x2F;172.16.2.31:80</span><br></pre></td></tr></table></figure>
+<h1 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h1><h2 id="nginx-amp-upstream配置"><a href="#nginx-amp-upstream配置" class="headerlink" title="nginx&amp;upstream配置"></a>nginx&amp;upstream配置</h2><p>consul是针对nginx的upstream所做的一项改善，地址池不再需要手动配置，而是从consul的数据中心抓取。新的upstream配置如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">upstream tomcat_http_server &#123;</span><br><span class="line">        server 127.0.0.1:11111;</span><br><span class="line">        upsync 172.16.2.30:8500&#x2F;v1&#x2F;kv&#x2F;upstreams&#x2F;test upsync_timeout&#x3D;6m upsync_interval&#x3D;500ms upsync_type&#x3D;consul strong_dependency&#x3D;off;</span><br><span class="line">        upsync_dump_path &#x2F;usr&#x2F;local&#x2F;nginx&#x2F;conf&#x2F;server&#x2F;server_test.conf;</span><br><span class="line"> </span><br><span class="line">        check interval&#x3D;1000 rise&#x3D;2 fall&#x3D;2 timeout&#x3D;3000 type&#x3D;http default_down&#x3D;false;</span><br><span class="line">        check_http_send &quot;HEAD &#x2F; HTTP&#x2F;1.0\r\n\r\n&quot;;</span><br><span class="line">        check_http_expect_alive http_2xx http_3xx;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>server 127.0.0.1:11111是占位机器，这个配置必须要有不然校验配置文件不通过。</p>
+<p>upsync配置语法：</p>
+<p>upsync $consul/etcd.api.com:$port/v1/kv/upstreams/$upstream_name/ [upsync_type=consul/etcd] [upsync_interval=second/minutes] [upsync_timeout=second/minutes] [strong_dependency=off/on]</p>
+<p>默认upsync_interval=5s upsync_timeout=6m strong_dependency=off</p>
+<p>172.16.2.30:8500/v1/kv/upstreams/tomcat_http_server为同步地址；upsync_timeout同步超时时间；upsync_interval同步间隔；upsync_type同步类型，默认为consul；strong_dependency，配置为on时，每次启动或重启nginx，都会强制去consul拉一次upstream servers。</p>
+<p>upsync_dump_path将拉取到的upstreams地址池写入一个文件；</p>
+<p>此处想要多说两句，即使consul中途挂掉，nginx仍然可以从upsync_dump_path配置的文件中取到数据，继续分发流量，只是此时upstream池变为静态了，跟之前的情形一样，启停重启nginx等操作并没有问题。所以consul单节点配置中心的可用性也是很高的。</p>
+<p>check代表健康检查；interval检查间隔，单位为毫秒；rise成功该次数后，标记为up；fall失败该次数后，标记为down；timeout；type包括tcp、ssl_hello、http、mysql、ajp、fastcgi；default_down设置后端server的初始状态；</p>
+<p>默认配置interval=30000 fall=5 rise=2 timeout=1000 default_down=true type=tcp</p>
+<p>check_http_send 健康检查发送的请求包；</p>
+<p>check_http_expect_alive 这些状态代表后端server是活着的；</p>
+<h2 id="查询健康检查状态"><a href="#查询健康检查状态" class="headerlink" title="查询健康检查状态"></a>查询健康检查状态</h2><p>健康检查模块提供了一个接口check_status，用于检查consul数据中心配置的所有server的健康检查状态。需要在nginx稍作配置：</p>
+<p>在80端口下，配置nstatus的接口：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">location &#x2F;nstatus &#123;</span><br><span class="line">        check_status;</span><br><span class="line">        access_log off;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Ngins/" rel="tag"># Ngins</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/posts/30eb423b.html" rel="prev" title="负载均衡之LVS-基本概念和三种模式">
+      <i class="fa fa-chevron-left"></i> 负载均衡之LVS-基本概念和三种模式
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/posts/a3830fab.html" rel="next" title="Centos7基于ansible批量部署SSH免密钥">
+      Centos7基于ansible批量部署SSH免密钥 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#概述"><span class="nav-number">1.</span> <span class="nav-text">概述</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#介绍"><span class="nav-number">1.1.</span> <span class="nav-text">介绍</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#术语"><span class="nav-number">1.2.</span> <span class="nav-text">术语</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#安装"><span class="nav-number">2.</span> <span class="nav-text">安装</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#nginx"><span class="nav-number">2.1.</span> <span class="nav-text">nginx</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#consul"><span class="nav-number">2.2.</span> <span class="nav-text">consul</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#consul启动"><span class="nav-number">2.3.</span> <span class="nav-text">consul启动</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#consul其它命令"><span class="nav-number">2.4.</span> <span class="nav-text">consul其它命令</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#关闭"><span class="nav-number">2.4.1.</span> <span class="nav-text">关闭</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#查看成员"><span class="nav-number">2.4.2.</span> <span class="nav-text">查看成员</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#启动consul集群"><span class="nav-number">2.5.</span> <span class="nav-text">启动consul集群</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#加入后端服务器-或可以在界面KEY-VALUE操作"><span class="nav-number">2.6.</span> <span class="nav-text">加入后端服务器(或可以在界面KEY&#x2F;VALUE操作)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#删除后端服务器-或可以在界面KEY-VALUE操作"><span class="nav-number">2.7.</span> <span class="nav-text">删除后端服务器(或可以在界面KEY&#x2F;VALUE操作)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#调整后端服务的参数-或可以在界面KEY-VALUE操作"><span class="nav-number">2.8.</span> <span class="nav-text">调整后端服务的参数(或可以在界面KEY&#x2F;VALUE操作)</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#使用"><span class="nav-number">3.</span> <span class="nav-text">使用</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#nginx-amp-upstream配置"><span class="nav-number">3.1.</span> <span class="nav-text">nginx&amp;upstream配置</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#查询健康检查状态"><span class="nav-number">3.2.</span> <span class="nav-text">查询健康检查状态</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">hyman</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">133</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+        <span class="site-state-item-count">28</span>
+        <span class="site-state-item-name">分类</span>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">96</span>
+        <span class="site-state-item-name">标签</span>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">hyman</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/mist/" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

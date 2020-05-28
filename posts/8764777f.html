@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/favicon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon.png">
+  <link rel="mask-icon" href="/images/favicon.png" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"www.ywthings.com","root":"/","scheme":"Mist","version":"8.0.0-rc.2","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"appID":"UDW7NS797T","apiKey":"c4bb3c2b53b39900e8498ee72e6dc96e","indexName":"hyman","hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="SaltStack 介绍salt是一个新的基础平台管理工具, 只需要花费数分钟即可运行起来, 扩展性足以支撑管理上万台服务器, 数秒钟即可完成数据传递。 经常被描述为Func加强版+Puppet精简版。 SaltStack采用C&#x2F;S架构。简单的说: salt是一种全新的基础设施管理方式, 部署轻松, 在几分钟内可运行起来, 扩展性好。很容易管理上万台服务器, 速度快, 服务器之间秒级通信。 sal">
+<meta property="og:type" content="article">
+<meta property="og:title" content="SaltStack学习记录">
+<meta property="og:url" content="https://www.ywthings.com/posts/8764777f.html">
+<meta property="og:site_name" content="hyman">
+<meta property="og:description" content="SaltStack 介绍salt是一个新的基础平台管理工具, 只需要花费数分钟即可运行起来, 扩展性足以支撑管理上万台服务器, 数秒钟即可完成数据传递。 经常被描述为Func加强版+Puppet精简版。 SaltStack采用C&#x2F;S架构。简单的说: salt是一种全新的基础设施管理方式, 部署轻松, 在几分钟内可运行起来, 扩展性好。很容易管理上万台服务器, 速度快, 服务器之间秒级通信。 sal">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2017-05-09T07:58:52.000Z">
+<meta property="article:modified_time" content="2020-05-17T23:58:40.973Z">
+<meta property="article:author" content="hyman">
+<meta property="article:tag" content="saltstack">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://www.ywthings.com/posts/8764777f.html">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>SaltStack学习记录 | hyman</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+        <span class="toggle-line toggle-line-first"></span>
+        <span class="toggle-line toggle-line-middle"></span>
+        <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">hyman</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">一些简单的记录</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://www.ywthings.com/posts/8764777f.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="hyman">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="hyman">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          SaltStack学习记录
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2017-05-09 15:58:52" itemprop="dateCreated datePublished" datetime="2017-05-09T15:58:52+08:00">2017-05-09</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-05-18 07:58:40" itemprop="dateModified" datetime="2020-05-18T07:58:40+08:00">2020-05-18</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h3 id="SaltStack-介绍"><a href="#SaltStack-介绍" class="headerlink" title="SaltStack 介绍"></a>SaltStack 介绍</h3><p>salt是一个新的基础平台管理工具, 只需要花费数分钟即可运行起来, 扩展性足以支撑管理上万台服务器, 数秒钟即可完成数据传递。 经常被描述为Func加强版+Puppet精简版。 SaltStack采用C/S架构。简单的说: salt是一种全新的基础设施管理方式, 部署轻松, 在几分钟内可运行起来, 扩展性好。很容易管理上万台服务器, 速度快, 服务器之间秒级通信。 salt底层采用动态的连接总线, 使其可以用于编配, 远程执行, 配置管理等等。最为重要的一点, salt是开源的。 而且是python实现的自动化运维工具, 这意味着我们可以对其进行一些改动, 在其基础之上加上我们想要的功能, 对其进行二次开发。</p>
+<a id="more"></a>
+<h3 id="环境介绍"><a href="#环境介绍" class="headerlink" title="环境介绍"></a>环境介绍</h3><p>系统Centos7.2 x64两台, 一台为master,另一台为minion。</p>
+<h3 id="SaltStack安装"><a href="#SaltStack安装" class="headerlink" title="SaltStack安装"></a>SaltStack安装</h3><h4 id="两台安装epel"><a href="#两台安装epel" class="headerlink" title="两台安装epel"></a>两台安装epel</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost ~]# rpm -Uvh http:&#x2F;&#x2F;ftp.linux.ncsu.edu&#x2F;pub&#x2F;epel&#x2F;7&#x2F;x86_64&#x2F;e&#x2F;epel-release-7-9.noarch.rpm</span><br></pre></td></tr></table></figure>
+
+<h4 id="在master安装"><a href="#在master安装" class="headerlink" title="在master安装"></a>在master安装</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost ~]# yum -y install salt-master</span><br></pre></td></tr></table></figure>
+
+<h4 id="在minion上运行"><a href="#在minion上运行" class="headerlink" title="在minion上运行"></a>在minion上运行</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost ~]# yum -y install salt-minion</span><br></pre></td></tr></table></figure>
+
+<h3 id="SAltStack配置"><a href="#SAltStack配置" class="headerlink" title="SAltStack配置"></a>SAltStack配置</h3><h4 id="修改master配置文件，并启动服务"><a href="#修改master配置文件，并启动服务" class="headerlink" title="修改master配置文件，并启动服务"></a>修改master配置文件，并启动服务</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost ~]# vim &#x2F;etc&#x2F;salt&#x2F;master</span><br><span class="line">修改interface: 192.168.1.226 #master ip地址</span><br><span class="line"></span><br><span class="line">[root@localhost ~]# systemctl start salt-master</span><br></pre></td></tr></table></figure>
+
+<h4 id="修改被管理端-minion-，并启动服务"><a href="#修改被管理端-minion-，并启动服务" class="headerlink" title="修改被管理端(minion)，并启动服务"></a>修改被管理端(minion)，并启动服务</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost ~]# vim &#x2F;etc&#x2F;salt&#x2F;minion</span><br><span class="line">修改master： 192.168.1.226</span><br><span class="line"></span><br><span class="line">[root@localhost ~]# systemctl start salt-minion</span><br></pre></td></tr></table></figure>
+
+<h4 id="master接受minion的托管请求，在master上操作"><a href="#master接受minion的托管请求，在master上操作" class="headerlink" title="master接受minion的托管请求，在master上操作"></a>master接受minion的托管请求，在master上操作</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost ~]# salt-key -L</span><br><span class="line">Accepted Keys:</span><br><span class="line">Denied Keys:</span><br><span class="line">Unaccepted Keys:</span><br><span class="line">192.168.1.136</span><br><span class="line">Rejected Keys:</span><br><span class="line"></span><br><span class="line">[root@localhost ~]# salt-key -a 192.168.1.136</span><br><span class="line">The following keys are going to be accepted:</span><br><span class="line">Unaccepted Keys:</span><br><span class="line">192.168.1.136</span><br><span class="line">Proceed? [n&#x2F;Y] y</span><br><span class="line">Key for minion 192.168.1.136 accepted.</span><br><span class="line"></span><br><span class="line">[root@localhost ~]# salt-key -L</span><br><span class="line">Accepted Keys:</span><br><span class="line">192.168.1.136</span><br><span class="line">Denied Keys:</span><br><span class="line">Unaccepted Keys:</span><br><span class="line">Rejected Keys:</span><br></pre></td></tr></table></figure>
+
+<h3 id="SAltStack操作"><a href="#SAltStack操作" class="headerlink" title="SAltStack操作"></a>SAltStack操作</h3><h4 id="基本操作命令通用格式"><a href="#基本操作命令通用格式" class="headerlink" title="基本操作命令通用格式"></a>基本操作命令通用格式</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">格式: 命令 对象 执行模块 参数salt ‘*’ cmd.run “ping -c 4 www.baidu.com&quot;</span><br></pre></td></tr></table></figure>
+
+<h3 id="举个例子"><a href="#举个例子" class="headerlink" title="举个例子"></a>举个例子</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost ~]# salt &#39;*&#39; cmd.run &#39;uptime&#39;</span><br><span class="line">192.168.1.136:</span><br><span class="line">     21:14:44 up 1 day,  2:29,  3 users,  load average: 0.10, 0.18, 0.13</span><br><span class="line"></span><br><span class="line">[root@localhost ~]# salt &#39;*&#39; cmd.run &#39;date&#39;</span><br><span class="line">192.168.1.136:</span><br><span class="line">    Fri May  5 21:14:51 CST 2017</span><br><span class="line"></span><br><span class="line">[root@object1 ~]# salt &#39;*&#39; disk.usage</span><br></pre></td></tr></table></figure>
+
+<p><strong>默认情况下master和minion之间使用以下端口进行通信:<br>4505(publish_port)：salt的消息发布系统<br>4506(ret_port)：salt客户端与服务端通信的端口<br>cmd.run 为模块,又称之为超级命令. 可以执行Linux中的任何命令</strong></p>
+<h3 id="Salt-States"><a href="#Salt-States" class="headerlink" title="Salt States"></a>Salt States</h3><p>SLS(代表Salt State文件)是Salt State系统的核心。SLS描述了系统的目标状态, 由格式简单的数据构成。 这经常被称作配置管理。</p>
+<h4 id="默认的数据-YAML"><a href="#默认的数据-YAML" class="headerlink" title="默认的数据 - YAML"></a>默认的数据 - YAML</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/saltstack/" rel="tag"># saltstack</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/posts/b50fd2f7.html" rel="prev" title="记录redis的RDB、AOF持久化">
+      <i class="fa fa-chevron-left"></i> 记录redis的RDB、AOF持久化
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/posts/97722e36.html" rel="next" title="redis4.0配置文件介绍">
+      redis4.0配置文件介绍 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#SaltStack-介绍"><span class="nav-number">1.</span> <span class="nav-text">SaltStack 介绍</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#环境介绍"><span class="nav-number">2.</span> <span class="nav-text">环境介绍</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#SaltStack安装"><span class="nav-number">3.</span> <span class="nav-text">SaltStack安装</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#两台安装epel"><span class="nav-number">3.1.</span> <span class="nav-text">两台安装epel</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#在master安装"><span class="nav-number">3.2.</span> <span class="nav-text">在master安装</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#在minion上运行"><span class="nav-number">3.3.</span> <span class="nav-text">在minion上运行</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#SAltStack配置"><span class="nav-number">4.</span> <span class="nav-text">SAltStack配置</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#修改master配置文件，并启动服务"><span class="nav-number">4.1.</span> <span class="nav-text">修改master配置文件，并启动服务</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#修改被管理端-minion-，并启动服务"><span class="nav-number">4.2.</span> <span class="nav-text">修改被管理端(minion)，并启动服务</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#master接受minion的托管请求，在master上操作"><span class="nav-number">4.3.</span> <span class="nav-text">master接受minion的托管请求，在master上操作</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#SAltStack操作"><span class="nav-number">5.</span> <span class="nav-text">SAltStack操作</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#基本操作命令通用格式"><span class="nav-number">5.1.</span> <span class="nav-text">基本操作命令通用格式</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#举个例子"><span class="nav-number">6.</span> <span class="nav-text">举个例子</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Salt-States"><span class="nav-number">7.</span> <span class="nav-text">Salt States</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#默认的数据-YAML"><span class="nav-number">7.1.</span> <span class="nav-text">默认的数据 - YAML</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">hyman</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">133</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+        <span class="site-state-item-count">28</span>
+        <span class="site-state-item-name">分类</span>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">96</span>
+        <span class="site-state-item-name">标签</span>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">hyman</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/mist/" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

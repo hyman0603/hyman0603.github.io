@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/favicon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon.png">
+  <link rel="mask-icon" href="/images/favicon.png" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"www.ywthings.com","root":"/","scheme":"Mist","version":"8.0.0-rc.2","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"appID":"UDW7NS797T","apiKey":"c4bb3c2b53b39900e8498ee72e6dc96e","indexName":"hyman","hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="安装yum12[root@localhost ~]# yum install -y epel-release[root@localhost ~]# yum install -y pure-ftpd lftp">
+<meta property="og:type" content="article">
+<meta property="og:title" content="使用pure-ftpd部署ftp服务">
+<meta property="og:url" content="https://www.ywthings.com/posts/50f11f24.html">
+<meta property="og:site_name" content="hyman">
+<meta property="og:description" content="安装yum12[root@localhost ~]# yum install -y epel-release[root@localhost ~]# yum install -y pure-ftpd lftp">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2019-11-28T02:04:45.000Z">
+<meta property="article:modified_time" content="2020-05-17T23:58:41.019Z">
+<meta property="article:author" content="hyman">
+<meta property="article:tag" content="ftp">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://www.ywthings.com/posts/50f11f24.html">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>使用pure-ftpd部署ftp服务 | hyman</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+        <span class="toggle-line toggle-line-first"></span>
+        <span class="toggle-line toggle-line-middle"></span>
+        <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">hyman</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">一些简单的记录</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://www.ywthings.com/posts/50f11f24.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="hyman">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="hyman">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          使用pure-ftpd部署ftp服务
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2019-11-28 10:04:45" itemprop="dateCreated datePublished" datetime="2019-11-28T10:04:45+08:00">2019-11-28</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-05-18 07:58:41" itemprop="dateModified" datetime="2020-05-18T07:58:41+08:00">2020-05-18</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E8%BF%90%E7%BB%B4%E9%83%A8%E7%BD%B2%E8%AE%B0%E5%BD%95/" itemprop="url" rel="index"><span itemprop="name">运维部署记录</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h1><h2 id="yum"><a href="#yum" class="headerlink" title="yum"></a>yum</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost ~]# yum install -y epel-release</span><br><span class="line">[root@localhost ~]# yum install -y pure-ftpd lftp</span><br></pre></td></tr></table></figure>
+<a id="more"></a>
+<h2 id="源码"><a href="#源码" class="headerlink" title="源码"></a>源码</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost ~]# yum install -y openssl openssl-devel gcc gcc-c++</span><br><span class="line">[root@localhost ~]# wget https:&#x2F;&#x2F;download.pureftpd.org&#x2F;pub&#x2F;pure-ftpd&#x2F;releases&#x2F;pure-ftpd-1.0.47.tar.gz</span><br><span class="line">[root@localhost ~]# tar zxvf pure-ftpd-1.0.47.tar.gz</span><br><span class="line">[root@localhost ~]# cd pure-ftpd-1.0.47</span><br><span class="line">[root@localhost ~]# .&#x2F;configure \</span><br><span class="line">--prefix&#x3D;&#x2F;usr&#x2F;local&#x2F;pureftpd \</span><br><span class="line">--without-inetd \</span><br><span class="line">--with-altlog \</span><br><span class="line">--with-puredb \</span><br><span class="line">--with-throttling \</span><br><span class="line">--with-peruserlimits \</span><br><span class="line">--with-tls</span><br><span class="line">[root@localhost ~]# make &amp;&amp; make install</span><br></pre></td></tr></table></figure>
+
+<h1 id="配置启动"><a href="#配置启动" class="headerlink" title="配置启动"></a>配置启动</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost ~]# vim &#x2F;etc&#x2F;pure-ftpd&#x2F;pure-ftpd.conf</span><br><span class="line">搜索&#x2F;pureftpd.pdb行首的 #号  删除</span><br><span class="line">PureDB                        &#x2F;etc&#x2F;pure-ftpd&#x2F;pureftpd.pdb</span><br></pre></td></tr></table></figure>
+
+<p>启动服务</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost ~]# systemctl start pure-ftpd</span><br></pre></td></tr></table></figure>
+
+<h1 id="配置权限"><a href="#配置权限" class="headerlink" title="配置权限"></a>配置权限</h1><p>创建测试目录，为了给 pure-ftpd 用户使用，再创建用户</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost ~]# mkdir &#x2F;data&#x2F;ftp</span><br><span class="line">[root@localhost ~]# useradd pure-ftp</span><br></pre></td></tr></table></figure>
+<p>把 /data/ftp 的属主和属组改成 pure-ftp</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost ~]# chown -R pure-ftp:pure-ftp &#x2F;data&#x2F;ftp</span><br></pre></td></tr></table></figure>
+
+<p>用 pure-pw useradd 命令创建一个用户<br>pure-pw useradd [指定用户] -u [指定系统用户] -d [指定虚拟用户的家目录]</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost ~]# pure-pw useradd ftp_usera -u pure-ftp  -d &#x2F;data&#x2F;ftp</span><br></pre></td></tr></table></figure>
+
+<p>可以使用 pure-pw –help 查看该命令支持那些用法<br>命令 pure-pw mkdb，是用来把密码生成系统，也就是 pure-ftpd 服务所识别的一种文件，不执行这一步是无法登录的</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost ~]# pure-pw mkdb</span><br></pre></td></tr></table></figure>
+
+<h1 id="测试-pure-ftpd"><a href="#测试-pure-ftpd" class="headerlink" title="测试 pure-ftpd"></a>测试 pure-ftpd</h1><p>先在 /data/ftp/目录下创建一个文件</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost ~]# touch &#x2F;data&#x2F;ftp&#x2F;123.txt</span><br></pre></td></tr></table></figure>
+
+<p>使用 pure-ftpd</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost ~]# lftp ftp_usera@127.0.0.1</span><br><span class="line">口令: </span><br><span class="line">lftp ftp_usera@127.0.0.1:~&gt;</span><br></pre></td></tr></table></figure>
+
+<h1 id="常用命令"><a href="#常用命令" class="headerlink" title="常用命令"></a>常用命令</h1><p>pure-pw命令的其他参数</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">-t 下载带宽限制</span><br><span class="line">-T 上传带宽限制</span><br><span class="line">-n 最大文件数目</span><br><span class="line">-N 磁盘配额(单位M)</span><br><span class="line">-q 上传速度限制 </span><br><span class="line">-Q 下载速度限制</span><br><span class="line">-r 允许某些ip&#x2F;网段的客户端访问</span><br><span class="line">-R 拒绝某些ip&#x2F;网段的客户端访问</span><br><span class="line">-i 允许本地某些ip&#x2F;网段访问(allow local host)</span><br><span class="line">-I 拒绝本地某些ip&#x2F;网段访问(deny local host)</span><br><span class="line">-y 同时最大连接数目 </span><br><span class="line">-z 允许连接服务器的时间段，格式hhmm-hhmm，如 -z 0412-1618代表用户只能在凌 晨4点12分至下午4点18分连接服务器 </span><br><span class="line">-f passwd_file</span><br><span class="line">-F puredb_file</span><br><span class="line">-m 不必重启Pure-FTPd以及重新生成puredb_file文件</span><br><span class="line">如果进行帐户操作时，没有带-m 参数，那就应该手动更新一下pdb数据：</span><br><span class="line">&#x2F;usr&#x2F;local&#x2F;stow&#x2F;pure-ftpd-1.0.21&#x2F;bin&#x2F;pure-pw mkdb pureftpd.pdb </span><br><span class="line">pure-pw useradd 添加用户</span><br><span class="line">pure-pw userdel 删除用户</span><br><span class="line">pure-pw usermod 修改用户</span><br><span class="line">pure-pw show 查看用户详细信息</span><br><span class="line">pure-pw list 查看所有用户设置</span><br><span class="line">pure-pw mkdb 生成数据文件</span><br></pre></td></tr></table></figure>
+
+<h1 id="配置文件详解"><a href="#配置文件详解" class="headerlink" title="配置文件详解"></a>配置文件详解</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br></pre></td><td class="code"><pre><span class="line"># &#x2F;usr&#x2F;local&#x2F;pureftpd&#x2F;sbin&#x2F;pure-config.pl &#x2F;usr&#x2F;local&#x2F;pureftpd&#x2F;etc&#x2F;pure-ftpd.conf </span><br><span class="line"># </span><br><span class="line"># RPM 缺省使用另外一个配置文件： </span><br><span class="line"># &#x2F;etc&#x2F;sysconfig&#x2F;pure-ftpd </span><br><span class="line"># </span><br><span class="line"># 请不要忘了浏览一下 [url]http:&#x2F;&#x2F;www.pureftpd.org&#x2F;documentation.html[&#x2F;url] 的 </span><br><span class="line"># 文档，查看全部的选项列表。 </span><br><span class="line"># 限制所有用户在其主目录中 </span><br><span class="line">   ChrootEveryone              yes </span><br><span class="line"># 如果前一个指令被设置为了 &quot;no&quot;，下面组的成员(GID)就不受主目录的限制了。而其他的用户还是 </span><br><span class="line"># 会被限制在自己的主目录里。如果你不想把任何用户限制在自己的主目录里，只要注释掉 ChrootEveryone </span><br><span class="line"># 和 TrustedGID 就可以了。 </span><br><span class="line"># TrustedGID                    100 </span><br><span class="line"># 兼容ie等比较非正规化的ftp客户端 </span><br><span class="line">   BrokenClientsCompatibility   no </span><br><span class="line"># 服务器总共允许同时连接的最大用户数 </span><br><span class="line">   MaxClientsNumber          50 </span><br><span class="line"># 做为守护(doemon)进程运行(Fork in background) </span><br><span class="line">   Daemonize                yes </span><br><span class="line"># 同一IP允许同时连接的用户数（Maximum number of sim clients with the same IP address） </span><br><span class="line">   MaxClientsPerIP          8 </span><br><span class="line"># 如果你要记录所有的客户命令，设置这个指令为 &quot;yes&quot;。 </span><br><span class="line"># This directive can be duplicated to also log server responses. </span><br><span class="line">   VerboseLog                no </span><br><span class="line"># 即使客户端没有发送 &#39;-a&#39; 选项也列出隐藏文件( dot-files 。 </span><br><span class="line">   DisplayDotFiles          yes </span><br><span class="line"># 不允许认证用户 - 仅作为一个公共的匿名FTP。 </span><br><span class="line">   AnonymousOnly             no </span><br><span class="line"># 不允许匿名连接，仅允许认证用户使用。 </span><br><span class="line">   NoAnonymous                 no </span><br><span class="line"># Syslog facility (auth, authpriv, daemon, ftp, security, user, local*) </span><br><span class="line"># 缺省的功能( facility 是 &quot;ftp&quot;。 &quot;none&quot; 将禁止日志。 </span><br><span class="line">   SyslogFacility              ftp </span><br><span class="line"># 定制用户登陆后的显示信息（Display fortune cookies） </span><br><span class="line"># FortunesFile              &#x2F;usr&#x2F;share&#x2F;fortune&#x2F;zippy </span><br><span class="line"># 在日志文件中不解析主机名。日志没那么详细的话，就使用更少的带宽。在一个访问量很大  </span><br><span class="line"># 的站点中，设置这个指令为 &quot;yes&quot; ，如果你没有一个能工作的DNS的话。 </span><br><span class="line">   DontResolve                 yes </span><br><span class="line"># 客户端允许的最大的空闲时间（分钟，缺省15分钟） </span><br><span class="line">   MaxIdleTime                 15 </span><br><span class="line"># LDAP 配置文件 (参考 README.LDAP) </span><br><span class="line"># LDAPConfigFile             &#x2F;etc&#x2F;pureftpd-ldap.conf </span><br><span class="line"># MySQL 配置文件 (参考 README.MySQL) </span><br><span class="line"># MySQLConfigFile             &#x2F;etc&#x2F;pureftpd-mysql.conf </span><br><span class="line"># Postgres 配置文件 (参考 README.PGSQL) </span><br><span class="line"># PGSQLConfigFile             &#x2F;etc&#x2F;pureftpd-pgsql.conf </span><br><span class="line"># PureDB 用户数据库 (参考 README.Virtual-Users) </span><br><span class="line"># PureDB                      &#x2F;etc&#x2F;pureftpd.pdb </span><br><span class="line"># pure-authd 的socket 路径(参考 README.Authentication-Modules) </span><br><span class="line"># ExtAuth                       &#x2F;var&#x2F;run&#x2F;ftpd.sock </span><br><span class="line"># 如果你要启用 PAM 认证方式, 去掉下面行的注释。 </span><br><span class="line"># PAMAuthentication          yes </span><br><span class="line"># 如果你要启用 简单的 Unix系统 认证方式(&#x2F;etc&#x2F;passwd), 去掉下面行的注释。 </span><br><span class="line"># UnixAuthentication          yes </span><br><span class="line"># 请注意，LDAPConfigFile, MySQLConfigFile, PAMAuthentication 和 </span><br><span class="line"># UnixAuthentication 这些指令只能被使用一次，不过，他们能被混合在一起用。例如：如果你使用了 </span><br><span class="line"># MySQLConfigFile 和 UnixAuthentication，那么 SQL 服务器将被访问。如果因为用户名未找 </span><br><span class="line"># 到而使 SQL 认证失败的话，就会在&#x2F;etc&#x2F;passwd 和 &#x2F;etc&#x2F;shadow 中尝试另外一种认证，如果因 </span><br><span class="line"># 为密码错误而使 SQL 认证失败的话，认证就会在此结束了。认证方式由它们被给出来的顺序而被链 </span><br><span class="line"># 接了起来。 </span><br><span class="line"># &#39;ls&#39; 命令的递归限制。第一个参数给出文件显示的最大数目。第二个参数给出最大的子目录深度。 </span><br><span class="line">   LimitRecursion              2000 8 </span><br><span class="line"># 允许匿名用户创建新目录？ </span><br><span class="line">   AnonymousCanCreateDirs    no </span><br><span class="line"># 如果系统被 loaded 超过下面的值，匿名用户会被禁止下载。 </span><br><span class="line">   MaxLoad                   4 </span><br><span class="line"># 被动连接响应的端口范围。- for firewalling. </span><br><span class="line"># PassivePortRange       30000 50000 </span><br><span class="line"># 强制一个IP地址使用被动响应（ PASV&#x2F;EPSV&#x2F;SPSV replies）。 - for NAT. </span><br><span class="line"># Symbolic host names are also accepted for gateways with dynamic IP </span><br><span class="line"># addresses. </span><br><span class="line"># ForcePassiveIP             192.168.0.1 </span><br><span class="line"># 匿名用户的上传&#x2F;下载的比率。 </span><br><span class="line"># AnonymousRatio             1 10 </span><br><span class="line"># 所有用户的上传&#x2F;下载的比率。 </span><br><span class="line"># This directive superscedes the previous one. </span><br><span class="line"># UserRatio                 1 10 </span><br><span class="line"># 不接受所有者为 &quot;ftp&quot; 的文件的下载。例如：那些匿名用户上传后未被本地管理员验证的文件。 </span><br><span class="line">   AntiWarez                yes </span><br><span class="line"># 服务监听的IP 地址和端口。(缺省是所有IP地址和21端口) </span><br><span class="line"># Bind                   127.0.0.1,21 </span><br><span class="line"># 匿名用户的最大带宽（KB&#x2F;s）。 </span><br><span class="line"># AnonymousBandwidth          8 </span><br><span class="line"># 所有用户的最大带宽（KB&#x2F;s），包括匿名用户。 </span><br><span class="line"># Use AnonymousBandwidth *or* UserBandwidth, both makes no sense. </span><br><span class="line"># UserBandwidth          8 </span><br><span class="line"># 新建目录及文件的属性掩码值。&lt;文件掩码&gt;:&lt;目录掩码&gt; . </span><br><span class="line"># 177:077 if you feel paranoid. </span><br><span class="line">   Umask                       133:022 </span><br><span class="line"># 认证用户允许登陆的最小组ID（UID） 。 </span><br><span class="line">   MinUID                   100 </span><br><span class="line"># 仅允许认证用户进行 FXP 传输。 </span><br><span class="line">   AllowUserFXP             yes </span><br><span class="line"># 对匿名用户和非匿名用户允许进行匿名 FXP 传输。 </span><br><span class="line">   AllowAnonymousFXP           no </span><br><span class="line"># 用户不能删除和写点文件（文件名以 &#39;.&#39; 开头的文件），即使用户是文件的所有者也不行。 </span><br><span class="line"># 如果 TrustedGID 指令是 enabled ，文件所属组用户能够访问点文件(dot-files)。 </span><br><span class="line">   ProhibitDotFilesWrite    no </span><br><span class="line"># 禁止读点文件（文件名以 &#39;.&#39; 开头的文件） (.history, .ssh...) </span><br><span class="line">   ProhibitDotFilesRead        no </span><br><span class="line"># 永不覆盖文件。当上传的文件，其文件名已经存在时，自动重命名，如： file.1, file.2, file.3, ... </span><br><span class="line">   AutoRename                no </span><br><span class="line"># 不接受匿名用户上传新文件( no &#x3D; 允许上传) </span><br><span class="line">   AnonymousCantUpload       no </span><br><span class="line"># 仅允许来自以下IP地址的非匿名用户连接。你可以使用这个指令来打开几个公网IP来提供匿名FTP， </span><br><span class="line"># 而保留一个私有的防火墙保护的IP来进行远程管理。你还可以只允许一内网地址进行认证，而在另外 </span><br><span class="line"># 一个IP上提供纯匿名的FTP服务。 </span><br><span class="line">#TrustedIP                10.1.1.1 </span><br><span class="line"># 如果你要为日志每一行添加 PID   去掉下面行的注释。 </span><br><span class="line"># LogPID                   yes </span><br><span class="line"># 使用类似于Apache的格式创建一个额外的日志文件，如： </span><br><span class="line"># fw.c9x.org - jedi [13&#x2F;Dec&#x2F;1975:19:36:39] &quot;GET &#x2F;ftp&#x2F;linux.tar.bz2&quot; 200 21809338 </span><br><span class="line"># 这个日志文件能被 www 流量分析器处理。 </span><br><span class="line"># AltLog                   clf:&#x2F;var&#x2F;log&#x2F;pureftpd.log </span><br><span class="line"># 使用优化过的格式为统计报告创建一个额外的日志文件。 </span><br><span class="line"># AltLog                   stats:&#x2F;var&#x2F;log&#x2F;pureftpd.log </span><br><span class="line"># 使用标准的W3C格式创建一个额外的日志文件。（与大部分的商业日志分析器兼容） </span><br><span class="line"># AltLog                   w3c:&#x2F;var&#x2F;log&#x2F;pureftpd.log </span><br><span class="line"># 不接受 CHMOD 命令。用户不能更改他们文件的属性。 </span><br><span class="line"># NoChmod                   yes </span><br><span class="line"># 允许用户恢复和上传文件，却不允许删除他们。 </span><br><span class="line"># KeepAllFiles             yes </span><br><span class="line"># 用户主目录不存在的话，自动创建。 </span><br><span class="line"># CreateHomeDir             yes </span><br><span class="line"># 启用虚拟的磁盘限额。第一个数字是最大的文件数。 </span><br><span class="line"># 第二个数字是最大的总的文件大小(单位：Mb)。 </span><br><span class="line"># 所以，1000:10 就限制每一个用户只能使用 1000 个文件，共10Mb。 </span><br><span class="line"># Quota                       1000:10 </span><br><span class="line"># 如果你的 pure-ftpd 编译时加入了独立服务器( standalone 支持，你能够改变 pid 文件 </span><br><span class="line"># 的位置。缺省位置是 &#x2F;var&#x2F;run&#x2F;pure-ftpd.pid 。 </span><br><span class="line"># PIDFile                   &#x2F;var&#x2F;run&#x2F;pure-ftpd.pid </span><br><span class="line"># 如果你的 pure-ftpd 编译时加入了 pure-uploadscrīpt 支持，这个指令将会使 pure-ftpd </span><br><span class="line"># 发送关于新上传的情况信息到 &#x2F;var&#x2F;run&#x2F;pure-ftpd.upload.pipe，这样 pure-uploadscrīpt </span><br><span class="line"># 就能读然后调用一个脚本去处理新的上传。 </span><br><span class="line"># CallUploadscrīpt yes </span><br><span class="line"># 这个选项对允许匿名上传的服务器是有用的。当 &#x2F;var&#x2F;ftp 在 &#x2F;var 里时，需要保留一定磁盘空间 </span><br><span class="line"># 来保护日志文件。当所在磁盘分区使用超过百分之 X 时，将不在接受新的上传。 </span><br><span class="line">   MaxDiskUsage             99 </span><br><span class="line"># 如果你不想要你的用户重命名文件的话，就设置为 &#39;yes&#39; 。 </span><br><span class="line"># NoRename yes </span><br><span class="line"># 是 &#39;customer proof&#39; : 工作区(workaround)反对普通的客户错误，类似于：&#39;chmod 0 public_html&#39; 的错误。 </span><br><span class="line"># 那是一个有效的命令，不过，将导致无知的客户所定他们自己的文件，将使你的技术支持忙于愚蠢的的问题中。 </span><br><span class="line"># 如果你确信你所有的用户都有基本的Unix知识的话，这个特性将没什么用了。不过，如果你是一个主机提供商 </span><br><span class="line"># 的话，启用它。 </span><br><span class="line">CustomerProof yes </span><br><span class="line"># 每一个用户的并发限制。只有在添加了 --with-peruserlimits 编译选项进行编译后，这个指令才起 </span><br><span class="line"># 作用。(大部分的二进制的发布版本就是例子) </span><br><span class="line"># 格式是 : &lt;每一个用户最大允许的进程&gt;:&lt;最大的匿名用户进程&gt; </span><br><span class="line"># 例如： 3:20 意思是同一个认证用户最大可以有3个同时活动的进程。而且同时最多只能有20个匿名用户进程。 </span><br><span class="line"># PerUserLimits 3:20</span><br></pre></td></tr></table></figure>
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/ftp/" rel="tag"># ftp</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/posts/997b2908.html" rel="prev" title="kubernets的健康检测">
+      <i class="fa fa-chevron-left"></i> kubernets的健康检测
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/posts/e8a9292a.html" rel="next" title="Shell脚本项目部署">
+      Shell脚本项目部署 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#安装"><span class="nav-number">1.</span> <span class="nav-text">安装</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#yum"><span class="nav-number">1.1.</span> <span class="nav-text">yum</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#源码"><span class="nav-number">1.2.</span> <span class="nav-text">源码</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#配置启动"><span class="nav-number">2.</span> <span class="nav-text">配置启动</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#配置权限"><span class="nav-number">3.</span> <span class="nav-text">配置权限</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#测试-pure-ftpd"><span class="nav-number">4.</span> <span class="nav-text">测试 pure-ftpd</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#常用命令"><span class="nav-number">5.</span> <span class="nav-text">常用命令</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#配置文件详解"><span class="nav-number">6.</span> <span class="nav-text">配置文件详解</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">hyman</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">133</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+        <span class="site-state-item-count">28</span>
+        <span class="site-state-item-name">分类</span>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">96</span>
+        <span class="site-state-item-name">标签</span>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">hyman</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/mist/" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

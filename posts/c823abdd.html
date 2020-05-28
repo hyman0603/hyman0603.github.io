@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/favicon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon.png">
+  <link rel="mask-icon" href="/images/favicon.png" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"www.ywthings.com","root":"/","scheme":"Mist","version":"8.0.0-rc.2","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"appID":"UDW7NS797T","apiKey":"c4bb3c2b53b39900e8498ee72e6dc96e","indexName":"hyman","hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="利用NFS Server给Kubernetes作为持久存储的后端，并且动态提供PV。前提条件是有已经安装好的NFS服务器，并且NFS服务器与Kubernetes的Slave节点都能网络连通。官方文档：https:&#x2F;&#x2F;github.com&#x2F;kubernetes-incubator&#x2F;external-storage&#x2F;tree&#x2F;master&#x2F;nfs-client">
+<meta property="og:type" content="article">
+<meta property="og:title" content="利用NFS client provisioner动态提供Kubernetes后端存储卷">
+<meta property="og:url" content="https://www.ywthings.com/posts/c823abdd.html">
+<meta property="og:site_name" content="hyman">
+<meta property="og:description" content="利用NFS Server给Kubernetes作为持久存储的后端，并且动态提供PV。前提条件是有已经安装好的NFS服务器，并且NFS服务器与Kubernetes的Slave节点都能网络连通。官方文档：https:&#x2F;&#x2F;github.com&#x2F;kubernetes-incubator&#x2F;external-storage&#x2F;tree&#x2F;master&#x2F;nfs-client">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2018-09-11T01:17:12.000Z">
+<meta property="article:modified_time" content="2020-05-17T23:58:41.262Z">
+<meta property="article:author" content="hyman">
+<meta property="article:tag" content="kubernetes">
+<meta property="article:tag" content="k8s">
+<meta property="article:tag" content="NFS">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://www.ywthings.com/posts/c823abdd.html">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>利用NFS client provisioner动态提供Kubernetes后端存储卷 | hyman</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+        <span class="toggle-line toggle-line-first"></span>
+        <span class="toggle-line toggle-line-middle"></span>
+        <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">hyman</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">一些简单的记录</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://www.ywthings.com/posts/c823abdd.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="hyman">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="hyman">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          利用NFS client provisioner动态提供Kubernetes后端存储卷
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2018-09-11 09:17:12" itemprop="dateCreated datePublished" datetime="2018-09-11T09:17:12+08:00">2018-09-11</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-05-18 07:58:41" itemprop="dateModified" datetime="2020-05-18T07:58:41+08:00">2020-05-18</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/kubernetes/" itemprop="url" rel="index"><span itemprop="name">kubernetes</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>利用NFS Server给Kubernetes作为持久存储的后端，并且动态提供PV。前提条件是有已经安装好的NFS服务器，并且NFS服务器与Kubernetes的Slave节点都能网络连通。<br>官方文档：<a href="https://github.com/kubernetes-incubator/external-storage/tree/master/nfs-client">https://github.com/kubernetes-incubator/external-storage/tree/master/nfs-client</a></p>
+<a id="more"></a>
+<h2 id="nfs-client-provisioner"><a href="#nfs-client-provisioner" class="headerlink" title="nfs-client-provisioner"></a>nfs-client-provisioner</h2><p>nfs-client-provisioner 是一个Kubernetes的简易NFS的外部provisioner，本身不提供NFS，需要现有的NFS服务器提供存储</p>
+<ul>
+<li><p>PV以 ${namespace}-${pvcName}-${pvName}的命名格式提供（在NFS服务器上）</p>
+</li>
+<li><p>PV回收的时候以 archieved-${namespace}-${pvcName}-${pvName} 的命名格式（在NFS服务器上）</p>
+</li>
+</ul>
+<h2 id="安装部署"><a href="#安装部署" class="headerlink" title="安装部署"></a>安装部署</h2><ul>
+<li><p>修改deployment文件并部署 deploy/deployment.yaml<br>需要修改的地方只有NFS服务器所在的IP地址（10.10.10.60），以及NFS服务器共享的路径（/ifs/kubernetes），两处都需要修改为你实际的NFS服务器和共享目录</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"># https:&#x2F;&#x2F;raw.githubusercontent.com&#x2F;kubernetes-incubator&#x2F;external-storage&#x2F;master&#x2F;nfs-client&#x2F;deploy&#x2F;deployment.yaml</span><br><span class="line"></span><br><span class="line">kind: Deployment</span><br><span class="line">apiVersion: extensions&#x2F;v1beta1</span><br><span class="line">metadata:</span><br><span class="line">  name: nfs-client-provisioner</span><br><span class="line">spec:</span><br><span class="line">  replicas: 1</span><br><span class="line">  strategy:</span><br><span class="line">    type: Recreate</span><br><span class="line">  template:</span><br><span class="line">    metadata:</span><br><span class="line">      labels:</span><br><span class="line">        app: nfs-client-provisioner</span><br><span class="line">    spec:</span><br><span class="line">      serviceAccountName: nfs-client-provisioner</span><br><span class="line">      containers:</span><br><span class="line">        - name: nfs-client-provisioner</span><br><span class="line">          image: quay.io&#x2F;external_storage&#x2F;nfs-client-provisioner:latest</span><br><span class="line">          volumeMounts:</span><br><span class="line">            - name: nfs-client-root</span><br><span class="line">              mountPath: &#x2F;persistentvolumes</span><br><span class="line">          env:</span><br><span class="line">            - name: PROVISIONER_NAME</span><br><span class="line">              value: fuseim.pri&#x2F;ifs</span><br><span class="line">            - name: NFS_SERVER</span><br><span class="line">              value: 10.10.10.60</span><br><span class="line">            - name: NFS_PATH</span><br><span class="line">              value: &#x2F;ifs&#x2F;kubernetes</span><br><span class="line">      volumes:</span><br><span class="line">        - name: nfs-client-root</span><br><span class="line">          nfs:</span><br><span class="line">            server: 10.10.10.60</span><br><span class="line">            path: &#x2F;ifs&#x2F;kubernetes</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>修改StorageClass文件并部署 deploy/class.yaml<br>此处可以不修改，或者修改provisioner的名字，需要与上面的deployment的PROVISIONER_NAME名字一致。</p>
+</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"># https:&#x2F;&#x2F;raw.githubusercontent.com&#x2F;kubernetes-incubator&#x2F;external-storage&#x2F;master&#x2F;nfs-client&#x2F;deploy&#x2F;class.yaml</span><br><span class="line"></span><br><span class="line">apiVersion: storage.k8s.io&#x2F;v1</span><br><span class="line">kind: StorageClass</span><br><span class="line">metadata:</span><br><span class="line">  name: managed-nfs-storage</span><br><span class="line">provisioner: fuseim.pri&#x2F;ifs</span><br></pre></td></tr></table></figure>
+
+<h2 id="授权"><a href="#授权" class="headerlink" title="授权"></a>授权</h2><p>kubernetes 1.6以上默认开启了rbac认证。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br></pre></td><td class="code"><pre><span class="line">kind: ClusterRole</span><br><span class="line">apiVersion: rbac.authorization.k8s.io&#x2F;v1</span><br><span class="line">metadata:</span><br><span class="line">  name: nfs-client-provisioner-runner</span><br><span class="line">rules:</span><br><span class="line">  - apiGroups: [&quot;&quot;]</span><br><span class="line">    resources: [&quot;persistentvolumes&quot;]</span><br><span class="line">    verbs: [&quot;get&quot;, &quot;list&quot;, &quot;watch&quot;, &quot;create&quot;, &quot;delete&quot;]</span><br><span class="line">  - apiGroups: [&quot;&quot;]</span><br><span class="line">    resources: [&quot;persistentvolumeclaims&quot;]</span><br><span class="line">    verbs: [&quot;get&quot;, &quot;list&quot;, &quot;watch&quot;, &quot;update&quot;]</span><br><span class="line">  - apiGroups: [&quot;storage.k8s.io&quot;]</span><br><span class="line">    resources: [&quot;storageclasses&quot;]</span><br><span class="line">    verbs: [&quot;get&quot;, &quot;list&quot;, &quot;watch&quot;]</span><br><span class="line">  - apiGroups: [&quot;&quot;]</span><br><span class="line">    resources: [&quot;events&quot;]</span><br><span class="line">    verbs: [&quot;create&quot;, &quot;update&quot;, &quot;patch&quot;]</span><br><span class="line">  - apiGroups: [&quot;&quot;]</span><br><span class="line">    resources: [&quot;services&quot;, &quot;endpoints&quot;]</span><br><span class="line">    verbs: [&quot;get&quot;]</span><br><span class="line">  - apiGroups: [&quot;extensions&quot;]</span><br><span class="line">    resources: [&quot;podsecuritypolicies&quot;]</span><br><span class="line">    resourceNames: [&quot;nfs-client-provisioner&quot;]</span><br><span class="line">    verbs: [&quot;use&quot;]</span><br><span class="line">---</span><br><span class="line">kind: ClusterRoleBinding</span><br><span class="line">apiVersion: rbac.authorization.k8s.io&#x2F;v1</span><br><span class="line">metadata:</span><br><span class="line">  name: run-nfs-client-provisioner</span><br><span class="line">subjects:</span><br><span class="line">  - kind: ServiceAccount</span><br><span class="line">    name: nfs-client-provisioner</span><br><span class="line">    namespace: default</span><br><span class="line">roleRef:</span><br><span class="line">  kind: ClusterRole</span><br><span class="line">  name: nfs-client-provisioner-runner</span><br><span class="line">  apiGroup: rbac.authorization.k8s.io</span><br><span class="line">---</span><br><span class="line">kind: Role</span><br><span class="line">apiVersion: rbac.authorization.k8s.io&#x2F;v1</span><br><span class="line">metadata:</span><br><span class="line">  name: leader-locking-nfs-client-provisioner</span><br><span class="line">rules:</span><br><span class="line">  - apiGroups: [&quot;&quot;]</span><br><span class="line">    resources: [&quot;endpoints&quot;]</span><br><span class="line">    verbs: [&quot;get&quot;, &quot;list&quot;, &quot;watch&quot;, &quot;create&quot;, &quot;update&quot;, &quot;patch&quot;]</span><br><span class="line">---</span><br><span class="line">kind: RoleBinding</span><br><span class="line">apiVersion: rbac.authorization.k8s.io&#x2F;v1</span><br><span class="line">metadata:</span><br><span class="line">  name: leader-locking-nfs-client-provisioner</span><br><span class="line">subjects:</span><br><span class="line">  - kind: ServiceAccount</span><br><span class="line">    name: nfs-client-provisioner</span><br><span class="line">    namespace: default</span><br><span class="line">roleRef:</span><br><span class="line">  kind: Role</span><br><span class="line">  name: leader-locking-nfs-client-provisioner</span><br><span class="line">  apiGroup: rbac.authorization.k8s.io</span><br></pre></td></tr></table></figure>
+
+<h2 id="测试"><a href="#测试" class="headerlink" title="测试"></a>测试</h2><h3 id="测试创建PVC"><a href="#测试创建PVC" class="headerlink" title="测试创建PVC"></a>测试创建PVC</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">https:&#x2F;&#x2F;raw.githubusercontent.com&#x2F;kubernetes-incubator&#x2F;external-storage&#x2F;master&#x2F;nfs-client&#x2F;deploy&#x2F;test-claim.yaml</span><br><span class="line"></span><br><span class="line">kind: PersistentVolumeClaim</span><br><span class="line">apiVersion: v1</span><br><span class="line">metadata:</span><br><span class="line">  name: test-claim</span><br><span class="line">  annotations:</span><br><span class="line">    volume.beta.kubernetes.io&#x2F;storage-class: &quot;managed-nfs-storage&quot;</span><br><span class="line">spec:</span><br><span class="line">  accessModes:</span><br><span class="line">    - ReadWriteMany</span><br><span class="line">  resources:</span><br><span class="line">    requests:</span><br><span class="line">      storage: 1Mi</span><br></pre></td></tr></table></figure>
+
+<h3 id="测试创建POD"><a href="#测试创建POD" class="headerlink" title="测试创建POD"></a>测试创建POD</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">https:&#x2F;&#x2F;raw.githubusercontent.com&#x2F;kubernetes-incubator&#x2F;external-storage&#x2F;master&#x2F;nfs-client&#x2F;deploy&#x2F;test-pod.yaml</span><br><span class="line"></span><br><span class="line">kind: Pod</span><br><span class="line">apiVersion: v1</span><br><span class="line">metadata:</span><br><span class="line">  name: test-pod</span><br><span class="line">spec:</span><br><span class="line">  containers:</span><br><span class="line">  - name: test-pod</span><br><span class="line">    image: gcr.io&#x2F;google_containers&#x2F;busybox:1.24  #如访问缘故可以直接采用busybox镜像</span><br><span class="line">    command:</span><br><span class="line">      - &quot;&#x2F;bin&#x2F;sh&quot;</span><br><span class="line">    args:</span><br><span class="line">      - &quot;-c&quot;</span><br><span class="line">      - &quot;touch &#x2F;mnt&#x2F;SUCCESS &amp;&amp; exit 0 || exit 1&quot;</span><br><span class="line">    volumeMounts:</span><br><span class="line">      - name: nfs-pvc</span><br><span class="line">        mountPath: &quot;&#x2F;mnt&quot;</span><br><span class="line">  restartPolicy: &quot;Never&quot;</span><br><span class="line">  volumes:</span><br><span class="line">    - name: nfs-pvc</span><br><span class="line">      persistentVolumeClaim:</span><br><span class="line">        claimName: test-claim</span><br></pre></td></tr></table></figure>
+
+<p>在NFS服务器上的共享目录下的卷子目录中检查创建的NFS PV卷下是否有”SUCCESS” 文件。</p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/kubernetes/" rel="tag"># kubernetes</a>
+              <a href="/tags/k8s/" rel="tag"># k8s</a>
+              <a href="/tags/NFS/" rel="tag"># NFS</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/posts/484d1c8d.html" rel="prev" title="Kubernetes应用程序部署工作流程">
+      <i class="fa fa-chevron-left"></i> Kubernetes应用程序部署工作流程
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/posts/7d0560c7.html" rel="next" title="kubernetes 中拉取私有仓库(腾讯云)">
+      kubernetes 中拉取私有仓库(腾讯云) <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#nfs-client-provisioner"><span class="nav-number">1.</span> <span class="nav-text">nfs-client-provisioner</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#安装部署"><span class="nav-number">2.</span> <span class="nav-text">安装部署</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#授权"><span class="nav-number">3.</span> <span class="nav-text">授权</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#测试"><span class="nav-number">4.</span> <span class="nav-text">测试</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#测试创建PVC"><span class="nav-number">4.1.</span> <span class="nav-text">测试创建PVC</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#测试创建POD"><span class="nav-number">4.2.</span> <span class="nav-text">测试创建POD</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">hyman</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">133</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+        <span class="site-state-item-count">28</span>
+        <span class="site-state-item-name">分类</span>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">96</span>
+        <span class="site-state-item-name">标签</span>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">hyman</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/mist/" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

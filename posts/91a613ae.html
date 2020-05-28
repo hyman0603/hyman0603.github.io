@@ -1,0 +1,517 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/favicon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon.png">
+  <link rel="mask-icon" href="/images/favicon.png" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"www.ywthings.com","root":"/","scheme":"Mist","version":"8.0.0-rc.2","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"appID":"UDW7NS797T","apiKey":"c4bb3c2b53b39900e8498ee72e6dc96e","indexName":"hyman","hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="原文链接：https:&#x2F;&#x2F;www.nginx.com&#x2F;blog&#x2F;rate-limiting-nginx&#x2F; 限流（rate limiting）是NGINX众多特性中最有用的，也是经常容易被误解和错误配置的，特性之一。该特性可以限制某个用户在一个给定时间段内能够产生的HTTP请求数。请求可以简单到就是一个对于主页的GET请求或者一个登陆表格的POST请求。 限流也可以用于安全目的上，比如减慢暴力密码破">
+<meta property="og:type" content="article">
+<meta property="og:title" content="nginx上的限流">
+<meta property="og:url" content="https://www.ywthings.com/posts/91a613ae.html">
+<meta property="og:site_name" content="hyman">
+<meta property="og:description" content="原文链接：https:&#x2F;&#x2F;www.nginx.com&#x2F;blog&#x2F;rate-limiting-nginx&#x2F; 限流（rate limiting）是NGINX众多特性中最有用的，也是经常容易被误解和错误配置的，特性之一。该特性可以限制某个用户在一个给定时间段内能够产生的HTTP请求数。请求可以简单到就是一个对于主页的GET请求或者一个登陆表格的POST请求。 限流也可以用于安全目的上，比如减慢暴力密码破">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2020-04-08T03:34:27.000Z">
+<meta property="article:modified_time" content="2020-05-17T23:58:41.190Z">
+<meta property="article:author" content="hyman">
+<meta property="article:tag" content="nginx">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://www.ywthings.com/posts/91a613ae.html">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>nginx上的限流 | hyman</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+        <span class="toggle-line toggle-line-first"></span>
+        <span class="toggle-line toggle-line-middle"></span>
+        <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">hyman</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">一些简单的记录</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://www.ywthings.com/posts/91a613ae.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="hyman">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="hyman">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          nginx上的限流
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-04-08 11:34:27" itemprop="dateCreated datePublished" datetime="2020-04-08T11:34:27+08:00">2020-04-08</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-05-18 07:58:41" itemprop="dateModified" datetime="2020-05-18T07:58:41+08:00">2020-05-18</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/nginx/" itemprop="url" rel="index"><span itemprop="name">nginx</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>原文链接：<br><a href="https://www.nginx.com/blog/rate-limiting-nginx/">https://www.nginx.com/blog/rate-limiting-nginx/</a></p>
+<p>限流（rate limiting）是NGINX众多特性中最有用的，也是经常容易被误解和错误配置的，特性之一。该特性可以限制某个用户在一个给定时间段内能够产生的HTTP请求数。请求可以简单到就是一个对于主页的GET请求或者一个登陆表格的POST请求。</p>
+<p>限流也可以用于安全目的上，比如减慢暴力密码破解攻击。通过限制进来的请求速率，并且（结合日志）标记出目标URLs来帮助防范DDoS攻击。一般地说，限流是用在保护上游应用服务器不被在同一时刻的大量用户请求湮没。</p>
+<a id="more"></a>
+<p>下面介绍NGINX限流的基本用法。</p>
+<h1 id="NGINX限流是如何工作的"><a href="#NGINX限流是如何工作的" class="headerlink" title="NGINX限流是如何工作的"></a>NGINX限流是如何工作的</h1><p>NGINX限流使用漏桶算法（leaky bucket algorithm），该算法广泛应用于通信和基于包交换计算机网络中，用来处理当带宽被限制时的突发情况。和一个从上面进水，从下面漏水的桶的原理很相似；如果进水的速率大于漏水的速率，这个桶就会发生溢出。</p>
+<p>在请求处理过程中，水代表从客户端来的请求，而桶代表了一个队列，请求在该队列中依据先进先出（FIFO）算法等待被处理。漏的水代表请求离开缓冲区并被服务器处理，溢出代表了请求被丢弃并且永不被服务。</p>
+<h1 id="配置基本的限流功能"><a href="#配置基本的限流功能" class="headerlink" title="配置基本的限流功能"></a>配置基本的限流功能</h1><p>有两个主要的指令可以用来配置限流：limit_req_zone和limit_req，例子：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">limit_req_zone $binary_remote_addr zone&#x3D;mylimit:10m rate&#x3D;10r&#x2F;s;</span><br><span class="line"></span><br><span class="line">server &#123;</span><br><span class="line">    location &#x2F;login&#x2F; &#123;</span><br><span class="line">        limit_req zone&#x3D;mylimit;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">        proxy_pass http:&#x2F;&#x2F;my_upstream;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>当limit_req 在它出现的环境中启用了限流（在上面的例子中，作用在所有对于/login/的请求上），则limit_req_zone指令定义了限流的参数。</p>
+<p>limit_req_zone指令一般定义在http块内部，使得该指令可以在多个环境中使用。该指令有下面三个参数：</p>
+<ul>
+<li>Key — 在限流应用之前定义了请求的特征。在上面例子中，它是$binary_remote_addr（NGINX变量），该变量代表了某个客户端IP地址的二进制形式。这意味着我们可以将每个特定的IP地址的请求速率限制为第三个参数所定义的值。（使用这个变量的原因是因为它比用string代表客户端IP地址的$remote_addr变量消耗更少的空间。）</li>
+</ul>
+<ul>
+<li><p>Zone — 定义了存储每个IP地址状态和它访问受限请求URL的频率的共享内存区域。将这些信息保存在共享内存中，意味着这些信息能够在NGINX工作进程之间共享。定义有两个部分：由zone=关键字标识的区域名称，以及冒号后面的区域大小。约16000个IP地址的状态信息消耗1M内存大小，因此我们的区域（zone）大概可以存储约160000个地址。<br>当NGINX需要添加新的记录时，如果此时存储耗尽了，最老的记录会被移除。如果释放的存储空间还是无法容纳新的记录，NGINX返回503 (Service Temporarily Unavailable)状态码。此外，为了防止内存被耗尽，每次NGINX创建一个新的记录的同时移除多达两条前60秒内没有被使用的记录。</p>
+</li>
+<li><p>Rate — 设置最大的请求速率。在上面的例子中，速率不能超过10个请求每秒。NGINX事实上可以在毫秒级别追踪请求，因此这个限制对应了1个请求每100毫秒。因为我们不允许突刺（bursts，短时间内的突发流量，详细见下一部分。），这意味着如果某个请求到达的时间离前一个被允许的请求小于100毫秒，它会被拒绝。</p>
+</li>
+</ul>
+<p>limit_req_zone指令设置限流和共享内存区域的参数，但是该指令实际上并不限制请求速率。为了限制起作用，需要将该限制应用到某个特定的location或server块（block），通过包含一个limit_req指令的方式。在上面的例子中，我们将请求限制在/login/上。</p>
+<p>所以现在对于/login/，每个特定的IP地址被限制为10个请求每秒— 或者更准确地说，不能在与前一个请求间隔100毫秒时间内发送请求。</p>
+<h1 id="处理流量突刺（Bursts）"><a href="#处理流量突刺（Bursts）" class="headerlink" title="处理流量突刺（Bursts）"></a>处理流量突刺（Bursts）</h1><p>如果在100毫秒内得到2个请求会怎么样？对于第2个请求，NGINX返回503状态码给客户端。这可能不是我们想要的，因为事实上，应用是趋向于突发性的。相反，我们想要缓存任何过多的请求并且及时地服务它们。下面是我们使用limit_req的burst参数来更新配置：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">location &#x2F;login&#x2F; &#123;</span><br><span class="line">      limit_req zone&#x3D;mylimit burst&#x3D;20;</span><br><span class="line"></span><br><span class="line">      proxy_pass http:&#x2F;&#x2F;my_upstream;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>burst参数定义了一个客户端能够产生超出区域（zone）规定的速率的请求数量（在我们示例mylimit区域中，速率限制是10个请求每秒，或1个请求每100毫秒）。一个请求在前一个请求后的100毫秒间隔内达到，该请求会被放入一个队列，并且该队列大小被设置为20.</p>
+<p>这意味着如果从某个特定IP地址来的21个请求同时地达到，NGINX立即转发第一个请求到上游的服务器组，并且将剩余的20个请求放入队列中。然后，NGINX每100毫秒转发一个队列中的请求，并且只有当某个新进来的请求使得队列中的请求数目超过了20，则返回503给客户端。</p>
+<h1 id="无延迟排队"><a href="#无延迟排队" class="headerlink" title="无延迟排队"></a>无延迟排队</h1><p>带有burst的配置产生平滑的网络流量，但是不实用，因为该配置会使得你的网站表现的很慢。在上面的例子中，队列中第20个数据包等待2秒才能被转发，这时该数据包的响应可能对于客户端已经没有了意义。为了处理这种情况，除了burst参数外，添加nodelay参数。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">location &#x2F;login&#x2F; &#123;</span><br><span class="line">      limit_req zone&#x3D;mylimit burst&#x3D;20 nodelay;</span><br><span class="line"></span><br><span class="line">      proxy_pass http:&#x2F;&#x2F;my_upstream</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>带有nodelay参数，NGINX仍然会按照burst参数在队列中分配插槽（slot）以及利用已配置的限流，但是不是通过间隔地转发队列中的请求。相反，当某个请求来的太快，只要队列中有可用的空间（slot），NGINX会立即转发它。该插槽（slot）被标记为“已使用”，并且不会被释放给另一个请求，一直到经过适当的时间（在上面的例子中，是100毫秒）。</p>
+<p>像之前一样假设有20个插槽的队列是空的，并且来自于给定的IP地址的21个请求同时地到达。NGINX立即转发这21个请求以及将队列中的20个插槽标记为“已使用”，然后每隔100毫秒释放一个插槽。（相反，如果有25个请求，NGINX会立即转发25个中的21个请求，标记20个插槽为“已使用”，并且用503状态拒绝4个请求。）</p>
+<p>现在假设在转发第一个请求集合之后的101毫秒，有另外的20个请求同时地到达。队列中只有1个插槽被释放，因此NGINX转发1个请求，并且用503状态拒绝其它的19个请求。相反，如果在这20个新请求到达之前过去了501毫秒，则有5个插槽被释放，因此NGINX立即转发5个请求，并且拒绝其它15个请求。</p>
+<p>效果等同于10个请求每秒的限流。如果你想利用请求之间的无限制性间隔的限流，nodelay选项则是非常有用的。</p>
+<p>注意：对于大多数的部署，我们推荐在limit_req指令中包含burst和nodelay参数。</p>
+<h1 id="高级设置的例子"><a href="#高级设置的例子" class="headerlink" title="高级设置的例子"></a>高级设置的例子</h1><p>通过结合基本的限流和其它的NGINX特性，你可以实现更多的细微的流量限制。</p>
+<h2 id="白名单"><a href="#白名单" class="headerlink" title="白名单"></a>白名单</h2><p>下面的例子展示了如何将限流作用在任何一个不在“白名单”中的请求上。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">geo $limit &#123;</span><br><span class="line">        default 1;</span><br><span class="line">        10.0.0.0&#x2F;8 0;</span><br><span class="line">        192.168.0.0&#x2F;24 0;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">map $limit $limit_key &#123;</span><br><span class="line">        0 &quot;&quot;;</span><br><span class="line">        1 $binary_remote_addr;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">limit_req_zone $limit_key zone&#x3D;req_zone:10m rate&#x3D;5r&#x2F;s;</span><br><span class="line"></span><br><span class="line">server &#123;</span><br><span class="line">        location &#x2F; &#123;</span><br><span class="line">                limit_req zone&#x3D;req_zone burst&#x3D;10 nodelay;</span><br><span class="line">                </span><br><span class="line">                # ...</span><br><span class="line">        &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这个例子同时使用了geo和map指令。对于IP地址在白名单中的，geo块分配0值给$limit；其它所有不在白名单中的IP地址，分配1值。然后我们使用一个map去将这些值映射到某个key中，例如：</p>
+<ul>
+<li>如果$limit是0，$limit_key被设置为空字符串</li>
+<li>如果$limit是1，$limit_key被设置为客户端的IP地址的二进制格式</li>
+</ul>
+<p>这个两个结合起来，对于白名单中的IP地址，$limit_key被设置为空字符串；否则，被设置为客户端的IP地址。当limit_req_zone指令的第一个参数是一个空字符串，限制不起作用，因此白名单的IP地址（在10.0.0.0/8和192.168.0.0/24子网中）没有被限制。其它所有的IP地址都被限制为5个请求每秒。</p>
+<p>limit_req指令将限制作用在/定位中，并且允许在没有转发延迟的情况下，转发多达10个数据包。</p>
+<h2 id="在一个定位中包含多个limit-req指令"><a href="#在一个定位中包含多个limit-req指令" class="headerlink" title="在一个定位中包含多个limit_req指令"></a>在一个定位中包含多个limit_req指令</h2><p>可以在单个定位（location）中包含多个limit_req指令。匹配给定的请求限制都会被使用，这意味着采用最严格的限制。例如，如果多于一个的指令使用了延迟，最终使用最长的延迟。类似地，如果某个指令使得请求被拒绝，即使其它的指令允许请求通过，最终还是被拒绝。</p>
+<p>我们可以在白名单中的IP地址上应用某个限流来扩展之前的例子：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">http &#123;</span><br><span class="line">      # ...</span><br><span class="line"></span><br><span class="line">      limit_req_zone $limit_key zone&#x3D;req_zone:10m rate&#x3D;5r&#x2F;s;</span><br><span class="line">      limit_req_zone $binary_remote_addr zone&#x3D;req_zone_wl:10m rate&#x3D;15r&#x2F;s;</span><br><span class="line"></span><br><span class="line">      server &#123;</span><br><span class="line">            # ...</span><br><span class="line">            location &#x2F; &#123;</span><br><span class="line">                  limit_req zone&#x3D;req_zone burst&#x3D;10 nodelay;</span><br><span class="line">                  limit_req zone&#x3D;req_zone_wl burst&#x3D;20 nodelay;</span><br><span class="line">                  # ...            </span><br><span class="line">            &#125;</span><br><span class="line">      &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>在白名单上的IP地址不匹配第一个限流（req_zone），但是能匹配第二个（req_zone_wl），因此这些IP地址被限制为15个请求每秒。不在白名单上的IP地址两个限流都能匹配上，因此最严格的那个限流起作用：5个请求每秒。</p>
+<h1 id="配置相关的特性"><a href="#配置相关的特性" class="headerlink" title="配置相关的特性"></a>配置相关的特性</h1><h2 id="日志（Logging）"><a href="#日志（Logging）" class="headerlink" title="日志（Logging）"></a>日志（Logging）</h2><p>默认，NGNIX记录由于限流导致的延迟或丢弃的请求的日志，如下面的例子：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">2015&#x2F;06&#x2F;13 04:20:00 [error] 120315#0: *32086 limiting requests, excess: 1.000 by zone &quot;mylimit&quot;, client: 192.168.1.2, server: nginx.com, request: &quot;GET &#x2F; HTTP&#x2F;1.0&quot;, host: &quot;nginx.com&quot;</span><br></pre></td></tr></table></figure>
+
+<p>该日志记录包含的字段：</p>
+<ul>
+<li>limiting requests — 日志条目记录了某个限流的标志</li>
+<li>excess — 超过这个请求代表的配置的速率的每毫秒请求数目</li>
+<li>zone — 定义了启用了限流的区域</li>
+<li>client — 产生请求的客户端IP地址</li>
+<li>server — 服务器的IP地址或主机名</li>
+<li>request — 客户端产生的实际的HTTP请求</li>
+<li>host — HTTP头部主机名的值</li>
+</ul>
+<p>默认，NGINX日志在error级别拒绝请求，如上面例子中的[error]所示。（它在低一个级别上记录延迟的请求，因此默认是info。）用limit_req_log_level指令来改变日志级别。下面我们设置在warn级别上记录被拒绝的请求的日志：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">location &#x2F;login&#x2F; &#123;</span><br><span class="line">      limit_req zone&#x3D;mylimit burst&#x3D;20 nodelay;</span><br><span class="line">      limit_req_log_level warn;</span><br><span class="line"></span><br><span class="line">      proxy_pass http:&#x2F;&#x2F;my_upstream;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="发送给客户端的错误码"><a href="#发送给客户端的错误码" class="headerlink" title="发送给客户端的错误码"></a>发送给客户端的错误码</h2><p>默认，当某个客户端超过它的限流，NGINX用503（Service Temporarily Unavailable）状态码来响应。使用limit_req_status指令设置一个不同的状态码（在下面的例子是444）：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">location &#x2F;login&#x2F; &#123;</span><br><span class="line">      limit_req zone&#x3D;mylimit burst&#x3D;20 nodelay;</span><br><span class="line">      limit_req_status 444;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="拒绝对特定位置的所有请求"><a href="#拒绝对特定位置的所有请求" class="headerlink" title="拒绝对特定位置的所有请求"></a>拒绝对特定位置的所有请求</h2><p>如果你想拒绝对于某个特定URL的所有请求，而不是仅仅的限制它们，可以为这个URL配置一个location块，并且在其中包含deny all指令：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">location &#x2F;foo.php &#123;</span><br><span class="line">      deny all;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/nginx/" rel="tag"># nginx</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/posts/99efb1a6.html" rel="prev" title="Dockerfile 最佳实践准则">
+      <i class="fa fa-chevron-left"></i> Dockerfile 最佳实践准则
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/posts/c2afc167.html" rel="next" title="Centos7配置本地的yum源">
+      Centos7配置本地的yum源 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#NGINX限流是如何工作的"><span class="nav-number">1.</span> <span class="nav-text">NGINX限流是如何工作的</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#配置基本的限流功能"><span class="nav-number">2.</span> <span class="nav-text">配置基本的限流功能</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#处理流量突刺（Bursts）"><span class="nav-number">3.</span> <span class="nav-text">处理流量突刺（Bursts）</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#无延迟排队"><span class="nav-number">4.</span> <span class="nav-text">无延迟排队</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#高级设置的例子"><span class="nav-number">5.</span> <span class="nav-text">高级设置的例子</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#白名单"><span class="nav-number">5.1.</span> <span class="nav-text">白名单</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#在一个定位中包含多个limit-req指令"><span class="nav-number">5.2.</span> <span class="nav-text">在一个定位中包含多个limit_req指令</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#配置相关的特性"><span class="nav-number">6.</span> <span class="nav-text">配置相关的特性</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#日志（Logging）"><span class="nav-number">6.1.</span> <span class="nav-text">日志（Logging）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#发送给客户端的错误码"><span class="nav-number">6.2.</span> <span class="nav-text">发送给客户端的错误码</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#拒绝对特定位置的所有请求"><span class="nav-number">6.3.</span> <span class="nav-text">拒绝对特定位置的所有请求</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">hyman</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">133</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+        <span class="site-state-item-count">28</span>
+        <span class="site-state-item-name">分类</span>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">96</span>
+        <span class="site-state-item-name">标签</span>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">hyman</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/mist/" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>
