@@ -20,15 +20,15 @@
     var CONFIG = {"hostname":"www.ywthings.com","root":"/","scheme":"Mist","version":"8.0.0-rc.2","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"appID":"UDW7NS797T","apiKey":"c4bb3c2b53b39900e8498ee72e6dc96e","indexName":"hyman","hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
-  <meta name="description" content="下载 MySQL Yum Repository1wget http:&#x2F;&#x2F;dev.mysql.com&#x2F;get&#x2F;mysql-community-release-el7-5.noarch.rpm">
+  <meta name="description" content="下载 MySQL Yum Repository1wget https:&#x2F;&#x2F;dev.mysql.com&#x2F;get&#x2F;mysql80-community-release-el7-1.noarch.rpm">
 <meta property="og:type" content="article">
-<meta property="og:title" content="CentOS7 yum 安装mysql 5.6">
+<meta property="og:title" content="CentOS7 yum 安装mysql 5.7">
 <meta property="og:url" content="https://www.ywthings.com/posts/d67fa6b1.html">
 <meta property="og:site_name" content="hyman">
-<meta property="og:description" content="下载 MySQL Yum Repository1wget http:&#x2F;&#x2F;dev.mysql.com&#x2F;get&#x2F;mysql-community-release-el7-5.noarch.rpm">
+<meta property="og:description" content="下载 MySQL Yum Repository1wget https:&#x2F;&#x2F;dev.mysql.com&#x2F;get&#x2F;mysql80-community-release-el7-1.noarch.rpm">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2018-11-24T01:34:57.000Z">
-<meta property="article:modified_time" content="2020-05-17T23:58:41.278Z">
+<meta property="article:modified_time" content="2020-06-03T02:48:03.080Z">
 <meta property="article:author" content="hyman">
 <meta property="article:tag" content="mysql">
 <meta name="twitter:card" content="summary">
@@ -46,7 +46,7 @@
   };
 </script>
 
-  <title>CentOS7 yum 安装mysql 5.6 | hyman</title>
+  <title>CentOS7 yum 安装mysql 5.7 | hyman</title>
   
 
 
@@ -207,7 +207,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          CentOS7 yum 安装mysql 5.6
+          CentOS7 yum 安装mysql 5.7
         </h1>
 
         <div class="post-meta">
@@ -224,7 +224,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-05-18 07:58:41" itemprop="dateModified" datetime="2020-05-18T07:58:41+08:00">2020-05-18</time>
+                <time title="修改时间：2020-06-03 10:48:03" itemprop="dateModified" datetime="2020-06-03T10:48:03+08:00">2020-06-03</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -247,27 +247,41 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h1 id="下载-MySQL-Yum-Repository"><a href="#下载-MySQL-Yum-Repository" class="headerlink" title="下载 MySQL Yum Repository"></a>下载 MySQL Yum Repository</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wget http:&#x2F;&#x2F;dev.mysql.com&#x2F;get&#x2F;mysql-community-release-el7-5.noarch.rpm</span><br></pre></td></tr></table></figure>
+        <h1 id="下载-MySQL-Yum-Repository"><a href="#下载-MySQL-Yum-Repository" class="headerlink" title="下载 MySQL Yum Repository"></a>下载 MySQL Yum Repository</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wget https:&#x2F;&#x2F;dev.mysql.com&#x2F;get&#x2F;mysql80-community-release-el7-1.noarch.rpm</span><br></pre></td></tr></table></figure>
 <a id="more"></a>
-<h1 id="添加-MySQL-Yum-Repository"><a href="#添加-MySQL-Yum-Repository" class="headerlink" title="添加 MySQL Yum Repository"></a>添加 MySQL Yum Repository</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rpm -ivh mysql-community-release-el7-5.noarch.rpm</span><br></pre></td></tr></table></figure>
+<h1 id="添加-MySQL-Yum-Repository"><a href="#添加-MySQL-Yum-Repository" class="headerlink" title="添加 MySQL Yum Repository"></a>添加 MySQL Yum Repository</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">rpm -ivh mysql80-community-release-el7-1.noarch.rpm</span><br><span class="line">或者</span><br><span class="line">yum localinstall mysql80-community-release-el7-1.noarch.rpm</span><br></pre></td></tr></table></figure>
 
-<h1 id="验证下是否添加成功"><a href="#验证下是否添加成功" class="headerlink" title="验证下是否添加成功"></a>验证下是否添加成功</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum repolist enabled | grep &quot;mysql.*-community.*&quot;</span><br></pre></td></tr></table></figure>
+<h1 id="验证下是否添加成功"><a href="#验证下是否添加成功" class="headerlink" title="验证下是否添加成功"></a>验证下是否添加成功</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">yum repolist enabled | grep &quot;mysql.*-community.*&quot;</span><br><span class="line">&#x2F;&#x2F; 查看 YUM 仓库关于 MySQL 的所有仓库列表</span><br><span class="line">yum repolist all | grep mysql</span><br><span class="line">&#x2F;&#x2F; 只查看启用的</span><br><span class="line">yum repolist enabled | grep mysql</span><br></pre></td></tr></table></figure>
 
 <h1 id="选择要启用-MySQL-版本"><a href="#选择要启用-MySQL-版本" class="headerlink" title="选择要启用 MySQL 版本"></a>选择要启用 MySQL 版本</h1><p>查看 MySQL 版本，执行</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum repolist all | grep mysql</span><br></pre></td></tr></table></figure>
 
-<p>可以看到 5.5， 5.7 版本是默认禁用的，因为现在最新的稳定版是 5.6</p>
 <p>可以通过类似下面的语句来启动某些版本</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">yum-config-manager --disable mysql56-community</span><br><span class="line">yum-config-manager --enable mysql57-community-dmr</span><br></pre></td></tr></table></figure>
-<p>或者通过修改 /etc/yum.repos.d/mysql-community.repo 文件</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"># Enable to use MySQL 5.6</span><br><span class="line">[mysql56-community]</span><br><span class="line">name&#x3D;MySQL 5.6 Community Server</span><br><span class="line">baseurl&#x3D;http:&#x2F;&#x2F;repo.mysql.com&#x2F;yum&#x2F;mysql-5.6-community&#x2F;el&#x2F;7&#x2F;$basearch&#x2F;</span><br><span class="line">enabled&#x3D;1</span><br><span class="line">gpgcheck&#x3D;1</span><br><span class="line">gpgkey&#x3D;file:&#x2F;etc&#x2F;pki&#x2F;rpm-gpg&#x2F;RPM-GPG-KEY-mysql</span><br></pre></td></tr></table></figure>
-<p>其中 enabled=0 是指禁用，enabled=1 指启用。<br>注意： 任何时候，只能启用一个版本。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F; 安装 YUM 管理工具包，此包提供了 yum-config-manager 命令工具</span><br><span class="line">yum install yum-utils</span><br><span class="line">禁用 8.0</span><br><span class="line">yum-config-manager --disable mysql80-community</span><br><span class="line">启用 5.7</span><br><span class="line">yum-config-manager --enable mysql57-community</span><br></pre></td></tr></table></figure>
 <h1 id="通过-Yum-来安装-MySQL"><a href="#通过-Yum-来安装-MySQL" class="headerlink" title="通过 Yum 来安装 MySQL"></a>通过 Yum 来安装 MySQL</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum install mysql-community-server</span><br></pre></td></tr></table></figure>
 
-<h1 id="启动mysql"><a href="#启动mysql" class="headerlink" title="启动mysql"></a>启动mysql</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">systemctl start mysqld</span><br></pre></td></tr></table></figure>
+<h1 id="管理mysql"><a href="#管理mysql" class="headerlink" title="管理mysql"></a>管理mysql</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F; 启动</span><br><span class="line">systemctl start mysqld.service</span><br><span class="line">&#x2F;&#x2F; 查看状态</span><br><span class="line">systemctl status mysqld.service</span><br><span class="line">&#x2F;&#x2F; 开机自启动</span><br><span class="line">systemctl enable mysqld.server</span><br><span class="line">&#x2F;&#x2F; 查看监听端口，默认 3306</span><br><span class="line">ss -natl |grep 3306</span><br></pre></td></tr></table></figure>
 
-<h1 id="MySQL-安全设置（设置密码）"><a href="#MySQL-安全设置（设置密码）" class="headerlink" title="MySQL 安全设置（设置密码）"></a>MySQL 安全设置（设置密码）</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysql_secure_installation</span><br></pre></td></tr></table></figure>
+<h1 id="MySQL-安全设置（设置密码）或者跳过"><a href="#MySQL-安全设置（设置密码）或者跳过" class="headerlink" title="MySQL 安全设置（设置密码）或者跳过"></a>MySQL 安全设置（设置密码）或者跳过</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysql_secure_installation</span><br></pre></td></tr></table></figure>
 
+
+
+<h1 id="初始化-Mysql"><a href="#初始化-Mysql" class="headerlink" title="初始化 Mysql"></a>初始化 Mysql</h1><p>在 MySQL 服务器初始启动时，如果服务器的数据目录为空，则会发生以下情况：</p>
+<ul>
+<li>MySQL 服务器已初始化。</li>
+<li>在数据目录中生成SSL证书和密钥文件。</li>
+<li>该<a href="https://dev.mysql.com/doc/refman/8.0/en/validate-password.html">validate_password插件</a>安装并启用。</li>
+<li>将创建一个超级用户 帐户<code>&#39;root&#39;@&#39;localhost&#39;</code>。并会设置超级用户的密码，将其存储在错误日志文件中。要显示它，请使用以下命令：<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">grep &#39;temporary password&#39; &#x2F;var&#x2F;log&#x2F;mysqld.log</span><br></pre></td></tr></table></figure></li>
+<li>通过上面日志中的临时密码登录并为超级用户帐户设置自定义密码：</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysqladmin -p&#39;%#ootFm%a80&#39; password  &#39;%#ootFm%a801&#39;</span><br></pre></td></tr></table></figure>
+
+<p><strong>取消密码复杂度</strong></p>
+<ul>
+<li>编辑 <code>my.cnf</code>配置文件, 在 <code>[mysqld]</code>配置块儿中添加如下内容<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">plugin-load&#x3D;validate_password.so </span><br><span class="line">validate-password&#x3D;OFF</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
 <h1 id="远程访问设置"><a href="#远程访问设置" class="headerlink" title="远程访问设置"></a>远程访问设置</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt;use mysql;  </span><br><span class="line">mysql&gt; GRANT ALL PRIVILEGES ON *.* TO root@&quot;%&quot; IDENTIFIED BY &quot;root&quot;;    &#x2F;&#x2F;为root添加远程连接的能力  </span><br><span class="line">mysql&gt; flush privileges;</span><br></pre></td></tr></table></figure>
 
 <h1 id="数据存储位置更改"><a href="#数据存储位置更改" class="headerlink" title="数据存储位置更改"></a>数据存储位置更改</h1><p>先关闭数据库</p>
@@ -357,7 +371,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#下载-MySQL-Yum-Repository"><span class="nav-number">1.</span> <span class="nav-text">下载 MySQL Yum Repository</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#添加-MySQL-Yum-Repository"><span class="nav-number">2.</span> <span class="nav-text">添加 MySQL Yum Repository</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#验证下是否添加成功"><span class="nav-number">3.</span> <span class="nav-text">验证下是否添加成功</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#选择要启用-MySQL-版本"><span class="nav-number">4.</span> <span class="nav-text">选择要启用 MySQL 版本</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#通过-Yum-来安装-MySQL"><span class="nav-number">5.</span> <span class="nav-text">通过 Yum 来安装 MySQL</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#启动mysql"><span class="nav-number">6.</span> <span class="nav-text">启动mysql</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#MySQL-安全设置（设置密码）"><span class="nav-number">7.</span> <span class="nav-text">MySQL 安全设置（设置密码）</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#远程访问设置"><span class="nav-number">8.</span> <span class="nav-text">远程访问设置</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#数据存储位置更改"><span class="nav-number">9.</span> <span class="nav-text">数据存储位置更改</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#下载-MySQL-Yum-Repository"><span class="nav-number">1.</span> <span class="nav-text">下载 MySQL Yum Repository</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#添加-MySQL-Yum-Repository"><span class="nav-number">2.</span> <span class="nav-text">添加 MySQL Yum Repository</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#验证下是否添加成功"><span class="nav-number">3.</span> <span class="nav-text">验证下是否添加成功</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#选择要启用-MySQL-版本"><span class="nav-number">4.</span> <span class="nav-text">选择要启用 MySQL 版本</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#通过-Yum-来安装-MySQL"><span class="nav-number">5.</span> <span class="nav-text">通过 Yum 来安装 MySQL</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#管理mysql"><span class="nav-number">6.</span> <span class="nav-text">管理mysql</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#MySQL-安全设置（设置密码）或者跳过"><span class="nav-number">7.</span> <span class="nav-text">MySQL 安全设置（设置密码）或者跳过</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#初始化-Mysql"><span class="nav-number">8.</span> <span class="nav-text">初始化 Mysql</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#远程访问设置"><span class="nav-number">9.</span> <span class="nav-text">远程访问设置</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#数据存储位置更改"><span class="nav-number">10.</span> <span class="nav-text">数据存储位置更改</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -371,20 +385,20 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">133</span>
+          <span class="site-state-item-count">135</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">28</span>
+        <span class="site-state-item-count">29</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">96</span>
+        <span class="site-state-item-count">100</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>

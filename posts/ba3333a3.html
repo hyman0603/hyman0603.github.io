@@ -29,7 +29,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://www.ywthings.com/images/202005280854.png">
 <meta property="article:published_time" content="2020-05-28T00:44:41.000Z">
-<meta property="article:modified_time" content="2020-05-28T03:51:47.333Z">
+<meta property="article:modified_time" content="2020-06-03T01:49:34.022Z">
 <meta property="article:author" content="hyman">
 <meta property="article:tag" content="zabbix">
 <meta name="twitter:card" content="summary">
@@ -218,10 +218,16 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
-              
 
-              <time title="创建时间：2020-05-28 08:44:41 / 修改时间：11:51:47" itemprop="dateCreated datePublished" datetime="2020-05-28T08:44:41+08:00">2020-05-28</time>
+              <time title="创建时间：2020-05-28 08:44:41" itemprop="dateCreated datePublished" datetime="2020-05-28T08:44:41+08:00">2020-05-28</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-06-03 09:49:34" itemprop="dateModified" datetime="2020-06-03T09:49:34+08:00">2020-06-03</time>
+              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="far fa-folder"></i>
@@ -266,7 +272,7 @@
 
 <h3 id="特性之Hysteresis（迟滞-滞后）"><a href="#特性之Hysteresis（迟滞-滞后）" class="headerlink" title="特性之Hysteresis（迟滞,滞后）"></a>特性之Hysteresis（迟滞,滞后）</h3><p>简单的说触发器状态转变为problem需要一个条件，从problem转变回来还需要一个条件才行。一般触发器只需要不满足触发器为problem条件即可恢复。明白了么？不明白就看例子吧。 有时候触发器需要使用不同的条件来表示不同的状态，举个官网很有趣的例子：机房温度正常稳定为15-20°，当温度超过20°，触发器值为problem，当前情况下，只有温度处在这个温度之间触发器值才会为FALSE。（慢慢理解，这个表达式有点绕） 为了达到这个效果，我们需要使用如下触发器表达式:</p>
 <h4 id="示例1-1"><a href="#示例1-1" class="headerlink" title="示例1"></a>示例1</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">触发器名称：Temperature in server room is too high</span><br><span class="line">(&#123;TRIGGER.VALUE&#125;&#x3D;0&amp;&#123;server:temp.last(0)&#125;&gt;20) | (&#123;TRIGGER.VALUE&#125;&#x3D;1&amp;&#123;server:temp.last(0)&#125;&lt;15) </span><br><span class="line">注意：宏变量 &#123;TRIGGER.VALUE&#125;将会返回当前触发器的值</span><br></pre></td></tr></table></figure>
-<h4 id="实例2"><a href="#实例2" class="headerlink" title="实例2"></a>实例2</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">触发器名称：Free disk space is too low Problem: 最近5分钟内剩余磁盘空间小于10GB。 Recovery: 最近10分钟内磁盘空间大于40GB</span><br><span class="line">(&#123;TRIGGER.VALUE&#125;&#x3D;0&amp;&#123;server:vfs.fs.size[&#x2F;,free].max(5m)&#125;&lt;10G) | (&#123;TRIGGER.VALUE&#125;&#x3D;1&amp;&#123;server:vfs.fs.size[&#x2F;,free].min(10m)&#125;&lt;40G)</span><br></pre></td></tr></table></figure>
+<h4 id="实例2"><a href="#实例2" class="headerlink" title="实例2"></a>实例2</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">触发器名称：Free disk space is too low </span><br><span class="line">Problem: 最近5分钟内剩余磁盘空间小于10GB。 </span><br><span class="line">Recovery: 最近10分钟内磁盘空间大于40GB</span><br><span class="line">简单说便是一旦剩余空间小于10G就触发异常，然后接下来剩余空间必须大于40G才能解除这个异常，就算你剩余空间达到了39G（不在报警条件里）。</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">(&#123;TRIGGER.VALUE&#125;&#x3D;0&amp;&#123;server:vfs.fs.size[&#x2F;,free].max(5m)&#125;&lt;10G) | (&#123;TRIGGER.VALUE&#125;&#x3D;1&amp;&#123;server:vfs.fs.size[&#x2F;,free].min(10m)&#125;&lt;40G)</span><br></pre></td></tr></table></figure>
 
     </div>
 
@@ -364,20 +370,20 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">133</span>
+          <span class="site-state-item-count">135</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">28</span>
+        <span class="site-state-item-count">29</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">96</span>
+        <span class="site-state-item-count">100</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
