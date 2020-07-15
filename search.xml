@@ -6029,4 +6029,25 @@ GRANT SELECT, REPLICATION SLAVE, REPLICATION CLIENT ON *.* TO </code></pre><p><s
         <tag>pip</tag>
       </tags>
   </entry>
+  <entry>
+    <title>linux查看哪个进程占用磁盘IO</title>
+    <url>/posts/4c372563.html</url>
+    <content><![CDATA[<h2 id="方法一"><a href="#方法一" class="headerlink" title="方法一"></a>方法一</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ iotop -oP</span><br><span class="line"></span><br><span class="line">命令的含义：只显示有I&#x2F;O行为的进程</span><br></pre></td></tr></table></figure>
+<a id="more"></a>
+
+<ul>
+<li>CentOS/Fedora/RHEL版本的linux中则使用下面的命令：</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">yum install iotop -y</span><br></pre></td></tr></table></figure>
+
+<h2 id="方法二"><a href="#方法二" class="headerlink" title="方法二"></a>方法二</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ pidstat -d 1</span><br><span class="line"></span><br><span class="line">命令的含义：展示I&#x2F;O统计，每秒更新一次</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>CentOS/Fedora/RHEL版本的linux中则使用下面的命令</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">yum install sysstat -y</span><br></pre></td></tr></table></figure>]]></content>
+      <categories>
+        <category>运维部署记录</category>
+      </categories>
+  </entry>
 </search>
