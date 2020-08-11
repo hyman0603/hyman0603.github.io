@@ -1,0 +1,524 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/favicon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon.png">
+  <link rel="mask-icon" href="/images/favicon.png" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"www.ywthings.com","root":"/","scheme":"Mist","version":"8.0.0-rc.2","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"appID":"UDW7NS797T","apiKey":"c4bb3c2b53b39900e8498ee72e6dc96e","indexName":"hyman","hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="K3S简述 K3s (轻量级 Kubernetes)： 和 RKE 类似，也是经过认证的 Kubernetes 发行版。它比 RKE 更新，更易用且更轻量化，全部组件都在一个小于 100 MB 的二进制文件中。从 Rancher v2.4 开始，Rancher 可以安装在 K3s 集群上。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="基于K3S构建高可用Rancher集群">
+<meta property="og:url" content="https://www.ywthings.com/posts/8f007ba3.html">
+<meta property="og:site_name" content="hyman">
+<meta property="og:description" content="K3S简述 K3s (轻量级 Kubernetes)： 和 RKE 类似，也是经过认证的 Kubernetes 发行版。它比 RKE 更新，更易用且更轻量化，全部组件都在一个小于 100 MB 的二进制文件中。从 Rancher v2.4 开始，Rancher 可以安装在 K3s 集群上。">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2020-08-05T08:15:47.000Z">
+<meta property="article:modified_time" content="2020-08-06T00:36:07.820Z">
+<meta property="article:author" content="hyman">
+<meta property="article:tag" content="helm">
+<meta property="article:tag" content="k3s">
+<meta property="article:tag" content="rancher">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://www.ywthings.com/posts/8f007ba3.html">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>基于K3S构建高可用Rancher集群 | hyman</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+        <span class="toggle-line toggle-line-first"></span>
+        <span class="toggle-line toggle-line-middle"></span>
+        <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">hyman</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">一些简单的记录</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+        <li class="menu-item menu-item-sitemap">
+
+    <a href="/sitemap.xml" rel="section"><i class="fa fa-sitemap fa-fw"></i>站点地图</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://www.ywthings.com/posts/8f007ba3.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="hyman">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="hyman">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          基于K3S构建高可用Rancher集群
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-08-05 16:15:47" itemprop="dateCreated datePublished" datetime="2020-08-05T16:15:47+08:00">2020-08-05</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-08-06 08:36:07" itemprop="dateModified" datetime="2020-08-06T08:36:07+08:00">2020-08-06</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E8%BF%90%E7%BB%B4%E9%83%A8%E7%BD%B2%E8%AE%B0%E5%BD%95/" itemprop="url" rel="index"><span itemprop="name">运维部署记录</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p><strong>K3S简述</strong></p>
+<p>K3s (轻量级 Kubernetes)： 和 RKE 类似，也是经过认证的 Kubernetes 发行版。它比 RKE 更新，更易用且更轻量化，全部组件都在一个小于 100 MB 的二进制文件中。从 Rancher v2.4 开始，Rancher 可以安装在 K3s 集群上。</p>
+<a id="more"></a>
+<p>详情见：<code>https://rancher2.docs.rancher.cn/docs/installation/_index</code></p>
+<p><strong>Rancher简述</strong></p>
+<p>Rancher 是为使用容器的公司打造的容器管理平台。Rancher 简化了使用 Kubernetes 的流程，开发者可以随处运行 Kubernetes（Run Kubernetes Everywhere），满足 IT 需求规范，赋能 DevOps 团队。</p>
+<p>详情见：<code>https://rancher2.docs.rancher.cn/docs/overview/_index</code></p>
+<h2 id="部署前系统环境准备"><a href="#部署前系统环境准备" class="headerlink" title="部署前系统环境准备"></a>部署前系统环境准备</h2><h3 id="关闭防火墙和SeLinux"><a href="#关闭防火墙和SeLinux" class="headerlink" title="关闭防火墙和SeLinux"></a>关闭防火墙和SeLinux</h3><ul>
+<li><p>centos ：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">systemctl stop firewalld</span><br><span class="line">systemctl disable firewalld</span><br><span class="line">setenforce 0</span><br><span class="line">sed -i &#39;s&#x2F;SELINUX&#x3D;enforcing&#x2F;SELINUX&#x3D;disabled&#x2F;&#39; &#x2F;etc&#x2F;selinux&#x2F;config</span><br></pre></td></tr></table></figure></li>
+<li><p>Ubuntu：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo ufw disable</span><br></pre></td></tr></table></figure></li>
+<li><p>节点及Docker功能调优</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">https:&#x2F;&#x2F;rancher2.docs.rancher.cn&#x2F;docs&#x2F;best-practices&#x2F;optimize&#x2F;os&#x2F;_index</span><br></pre></td></tr></table></figure>
+<h3 id="配置host文件"><a href="#配置host文件" class="headerlink" title="配置host文件"></a>配置host文件</h3></li>
+<li><p>设置永久主机名称</p>
+</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">hostnamectl set-hostname node1</span><br><span class="line">hostnamectl set-hostname node2</span><br></pre></td></tr></table></figure>
+<ul>
+<li>配置host文件，并确保每台机器上都可以通过主机名互通</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">10.0.0.10 node1</span><br><span class="line">10.0.0.11 node2</span><br></pre></td></tr></table></figure>
+<h2 id="部署"><a href="#部署" class="headerlink" title="部署"></a>部署</h2><h3 id="Kubectl"><a href="#Kubectl" class="headerlink" title="Kubectl"></a>Kubectl</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">cat &lt;&lt;EOF &gt; &#x2F;etc&#x2F;yum.repos.d&#x2F;kubernetes.repo</span><br><span class="line">[kubernetes]</span><br><span class="line">name&#x3D;Kubernetes</span><br><span class="line">baseurl&#x3D;https:&#x2F;&#x2F;mirrors.aliyun.com&#x2F;kubernetes&#x2F;yum&#x2F;repos&#x2F;kubernetes-el7-x86_64</span><br><span class="line">enabled&#x3D;1</span><br><span class="line">gpgcheck&#x3D;1</span><br><span class="line">repo_gpgcheck&#x3D;1</span><br><span class="line">gpgkey&#x3D;https:&#x2F;&#x2F;mirrors.aliyun.com&#x2F;kubernetes&#x2F;yum&#x2F;doc&#x2F;yum-key.gpg https:&#x2F;&#x2F;mirrors.aliyun.com&#x2F;kubernetes&#x2F;yum&#x2F;doc&#x2F;rpm-package-key.gpg</span><br><span class="line">EOF</span><br><span class="line"></span><br><span class="line">yum clean all</span><br><span class="line">yum makecache fast</span><br><span class="line"></span><br><span class="line">yum install -y kubectl</span><br></pre></td></tr></table></figure>
+
+<h3 id="Helm"><a href="#Helm" class="headerlink" title="Helm"></a>Helm</h3><ul>
+<li>安装参考Helm官网，Helm是Kubernetes的包管理器，Helm的版本需要高于v3</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"># 下载安装包</span><br><span class="line">wget https:&#x2F;&#x2F;get.helm.sh&#x2F;helm-v3.2.1-linux-amd64.tar.gz</span><br><span class="line"># 解压</span><br><span class="line">tar zxvf helm-v3.2.1-linux-amd64.tar.gz</span><br><span class="line"># 将二进制文件移动至&#x2F;usr&#x2F;local&#x2F;bin&#x2F;</span><br><span class="line">sudo mv linux-amd64&#x2F;helm &#x2F;usr&#x2F;local&#x2F;bin&#x2F;helm</span><br><span class="line"># 验证安装</span><br><span class="line">helm help</span><br></pre></td></tr></table></figure>
+
+<h3 id="docker-ce"><a href="#docker-ce" class="headerlink" title="docker-ce"></a>docker-ce</h3><ul>
+<li><p>安装repo源</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum-config-manager --add-repo http:&#x2F;&#x2F;mirrors.aliyun.com&#x2F;docker-ce&#x2F;linux&#x2F;centos&#x2F;docker-ce.repo</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>移除旧版本Docker</p>
+</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">yum remove -y docker \</span><br><span class="line">              docker-client \</span><br><span class="line">              docker-client-latest \</span><br><span class="line">              docker-common \</span><br><span class="line">              docker-latest \</span><br><span class="line">              docker-latest-logrotate \</span><br><span class="line">              docker-logrotate \</span><br><span class="line">              docker-selinux \</span><br><span class="line">              docker-engine-selinux \</span><br><span class="line">              docker-engine \</span><br><span class="line">              container*</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>安装docker-ce</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">export docker_version&#x3D;17.03.2</span><br><span class="line">version&#x3D;$(yum list docker-ce.x86_64 --showduplicates | sort -r|grep $&#123;docker_version&#125;|awk &#39;&#123;print $2&#125;&#39;)</span><br><span class="line">yum -y install --setopt&#x3D;obsoletes&#x3D;0 docker-ce-$&#123;version&#125; docker-ce-selinux-$&#123;version&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>启动docker</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">systemctl enable docker</span><br><span class="line">systemctl start docker</span><br><span class="line">systemctl status docker</span><br></pre></td></tr></table></figure>
+
+<h3 id="MySQL-5-7"><a href="#MySQL-5-7" class="headerlink" title="MySQL 5.7"></a>MySQL 5.7</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">docker run -p 3306:3306 --name mysql \</span><br><span class="line">-v &#x2F;usr&#x2F;local&#x2F;docker&#x2F;mysql&#x2F;conf:&#x2F;etc&#x2F;mysql \</span><br><span class="line">-v &#x2F;usr&#x2F;local&#x2F;docker&#x2F;mysql&#x2F;logs:&#x2F;var&#x2F;log&#x2F;mysql \</span><br><span class="line">-v &#x2F;usr&#x2F;local&#x2F;docker&#x2F;mysql&#x2F;data:&#x2F;var&#x2F;lib&#x2F;mysql \</span><br><span class="line">-e MYSQL_ROOT_PASSWORD&#x3D;123456 \</span><br><span class="line">-d mysql:5.7</span><br></pre></td></tr></table></figure>
+
+<h3 id="k3s"><a href="#k3s" class="headerlink" title="k3s"></a>k3s</h3><ul>
+<li>所有k3s节点上都要运行此命令</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"># 启动 k3s Server</span><br><span class="line">curl -sfL https:&#x2F;&#x2F;docs.rancher.cn&#x2F;k3s&#x2F;k3s-install.sh | INSTALL_K3S_MIRROR&#x3D;cn sh -s - server \</span><br><span class="line">--datastore-endpoint&#x3D;&quot;mysql:&#x2F;&#x2F;root:123456@tcp(10.0.0.12:3306)&#x2F;k3s&quot;</span><br><span class="line"># 验证</span><br><span class="line">sudo k3s kubectl get nodes</span><br><span class="line"># 在每个 Rancher Server 节点上安装 K3s 时，会在节点上&#x2F;etc&#x2F;rancher&#x2F;k3s&#x2F;k3s.yaml位置创建一个kubeconfig文件。该文件包含用于完全访问集群的凭据。# 复制 k3s.yaml 到 ~&#x2F;.kube&#x2F;config</span><br><span class="line">sudo cp &#x2F;etc&#x2F;rancher&#x2F;k3s&#x2F;k3s.yaml ~&#x2F;.kube&#x2F;config</span><br><span class="line"># 验证 kubectl</span><br><span class="line">sudo kubectl get pods --all-namespaces</span><br></pre></td></tr></table></figure>
+<h3 id="Rancher"><a href="#Rancher" class="headerlink" title="Rancher"></a>Rancher</h3><h4 id="添加-Helm-Chart-仓库"><a href="#添加-Helm-Chart-仓库" class="headerlink" title="添加 Helm Chart 仓库"></a>添加 Helm Chart 仓库</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">helm repo add rancher-stable http:&#x2F;&#x2F;rancher-mirror.oss-cn-beijing.aliyuncs.com&#x2F;server-charts&#x2F;stable</span><br></pre></td></tr></table></figure>
+<h4 id="为-Rancher-创建-Namespace"><a href="#为-Rancher-创建-Namespace" class="headerlink" title="为 Rancher 创建 Namespace"></a>为 Rancher 创建 Namespace</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo kubectl create namespace cattle-system</span><br></pre></td></tr></table></figure>
+<h4 id="生成证书-使用自签发证书，其他参考官网"><a href="#生成证书-使用自签发证书，其他参考官网" class="headerlink" title="生成证书(使用自签发证书，其他参考官网)"></a>生成证书(使用自签发证书，其他参考官网)</h4><ul>
+<li>一键生成ssl自签名证书脚本<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br></pre></td><td class="code"><pre><span class="line">#!&#x2F;bin&#x2F;bash -e</span><br><span class="line"></span><br><span class="line"># * 为必改项</span><br><span class="line"># * 更换为你自己的域名</span><br><span class="line">CN&#x3D;&#39;&#39; # 例如: demo.rancher.com</span><br><span class="line"></span><br><span class="line"># 扩展信任IP或域名</span><br><span class="line">## 一般ssl证书只信任域名的访问请求，有时候需要使用ip去访问server，那么需要给ssl证书添加扩展IP，</span><br><span class="line">## 多个IP用逗号隔开。如果想多个域名访问，则添加扩展域名（SSL_DNS）,多个SSL_DNS用逗号隔开</span><br><span class="line">SSL_IP&#x3D;&#39;&#39; # 例如: 1.2.3.4</span><br><span class="line">SSL_DNS&#x3D;&#39;&#39; # 例如: demo.rancher.com</span><br><span class="line"></span><br><span class="line"># 国家名(2个字母的代号)</span><br><span class="line">C&#x3D;CN</span><br><span class="line"></span><br><span class="line"># 证书加密位数</span><br><span class="line">SSL_SIZE&#x3D;2048</span><br><span class="line"></span><br><span class="line"># 证书有效期</span><br><span class="line">DATE&#x3D;$&#123;DATE:-3650&#125;</span><br><span class="line"></span><br><span class="line"># 配置文件</span><br><span class="line">SSL_CONFIG&#x3D;&#39;openssl.cnf&#39;</span><br><span class="line"></span><br><span class="line">if [[ -z $SILENT ]]; then</span><br><span class="line">echo &quot;----------------------------&quot;</span><br><span class="line">echo &quot;| SSL Cert Generator |&quot;</span><br><span class="line">echo &quot;----------------------------&quot;</span><br><span class="line">echo</span><br><span class="line">fi</span><br><span class="line"></span><br><span class="line">export CA_KEY&#x3D;$&#123;CA_KEY-&quot;cakey.pem&quot;&#125;</span><br><span class="line">export CA_CERT&#x3D;$&#123;CA_CERT-&quot;cacerts.pem&quot;&#125;</span><br><span class="line">export CA_SUBJECT&#x3D;ca-$CN</span><br><span class="line">export CA_EXPIRE&#x3D;$&#123;DATE&#125;</span><br><span class="line"></span><br><span class="line">export SSL_CONFIG&#x3D;$&#123;SSL_CONFIG&#125;</span><br><span class="line">export SSL_KEY&#x3D;$CN.key</span><br><span class="line">export SSL_CSR&#x3D;$CN.csr</span><br><span class="line">export SSL_CERT&#x3D;$CN.crt</span><br><span class="line">export SSL_EXPIRE&#x3D;$&#123;DATE&#125;</span><br><span class="line"></span><br><span class="line">export SSL_SUBJECT&#x3D;$&#123;CN&#125;</span><br><span class="line">export SSL_DNS&#x3D;$&#123;SSL_DNS&#125;</span><br><span class="line">export SSL_IP&#x3D;$&#123;SSL_IP&#125;</span><br><span class="line"></span><br><span class="line">export K8S_SECRET_COMBINE_CA&#x3D;$&#123;K8S_SECRET_COMBINE_CA:-&#39;true&#39;&#125;</span><br><span class="line"></span><br><span class="line">[[ -z $SILENT ]] &amp;&amp; echo &quot;--&gt; Certificate Authority&quot;</span><br><span class="line"></span><br><span class="line">if [[ -e .&#x2F;$&#123;CA_KEY&#125; ]]; then</span><br><span class="line">    [[ -z $SILENT ]] &amp;&amp; echo &quot;&#x3D;&#x3D;&#x3D;&#x3D;&gt; Using existing CA Key $&#123;CA_KEY&#125;&quot;</span><br><span class="line">else</span><br><span class="line">    [[ -z $SILENT ]] &amp;&amp; echo &quot;&#x3D;&#x3D;&#x3D;&#x3D;&gt; Generating new CA key $&#123;CA_KEY&#125;&quot;</span><br><span class="line">    openssl genrsa -out $&#123;CA_KEY&#125; $&#123;SSL_SIZE&#125; &gt; &#x2F;dev&#x2F;null</span><br><span class="line">fi</span><br><span class="line"></span><br><span class="line">if [[ -e .&#x2F;$&#123;CA_CERT&#125; ]]; then</span><br><span class="line">    [[ -z $SILENT ]] &amp;&amp; echo &quot;&#x3D;&#x3D;&#x3D;&#x3D;&gt; Using existing CA Certificate $&#123;CA_CERT&#125;&quot;</span><br><span class="line">else</span><br><span class="line">    [[ -z $SILENT ]] &amp;&amp; echo &quot;&#x3D;&#x3D;&#x3D;&#x3D;&gt; Generating new CA Certificate $&#123;CA_CERT&#125;&quot;</span><br><span class="line">    openssl req -x509 -sha256 -new -nodes -key $&#123;CA_KEY&#125; \</span><br><span class="line">    -days $&#123;CA_EXPIRE&#125; -out $&#123;CA_CERT&#125; -subj &quot;&#x2F;CN&#x3D;$&#123;CA_SUBJECT&#125;&quot; &gt; &#x2F;dev&#x2F;null || exit 1</span><br><span class="line">fi</span><br><span class="line"></span><br><span class="line">echo &quot;&#x3D;&#x3D;&#x3D;&#x3D;&gt; Generating new config file $&#123;SSL_CONFIG&#125;&quot;</span><br><span class="line">cat &gt; $&#123;SSL_CONFIG&#125; &lt;&lt;EOM</span><br><span class="line">[req]</span><br><span class="line">req_extensions &#x3D; v3_req</span><br><span class="line">distinguished_name &#x3D; req_distinguished_name</span><br><span class="line">[req_distinguished_name]</span><br><span class="line">[ v3_req ]</span><br><span class="line">basicConstraints &#x3D; CA:FALSE</span><br><span class="line">keyUsage &#x3D; nonRepudiation, digitalSignature, keyEncipherment</span><br><span class="line">extendedKeyUsage &#x3D; clientAuth, serverAuth</span><br><span class="line">EOM</span><br><span class="line"></span><br><span class="line">if [[ -n $&#123;SSL_DNS&#125; || -n $&#123;SSL_IP&#125; ]]; then</span><br><span class="line">    cat &gt;&gt; $&#123;SSL_CONFIG&#125; &lt;&lt;EOM</span><br><span class="line">subjectAltName &#x3D; @alt_names</span><br><span class="line">[alt_names]</span><br><span class="line">EOM</span><br><span class="line">    IFS&#x3D;&quot;,&quot;</span><br><span class="line">    dns&#x3D;($&#123;SSL_DNS&#125;)</span><br><span class="line">    dns+&#x3D;($&#123;SSL_SUBJECT&#125;)</span><br><span class="line">    for i in &quot;$&#123;!dns[@]&#125;&quot;; do</span><br><span class="line">      echo DNS.$((i+1)) &#x3D; $&#123;dns[$i]&#125; &gt;&gt; $&#123;SSL_CONFIG&#125;</span><br><span class="line">    done</span><br><span class="line"></span><br><span class="line">    if [[ -n $&#123;SSL_IP&#125; ]]; then</span><br><span class="line">        ip&#x3D;($&#123;SSL_IP&#125;)</span><br><span class="line">        for i in &quot;$&#123;!ip[@]&#125;&quot;; do</span><br><span class="line">          echo IP.$((i+1)) &#x3D; $&#123;ip[$i]&#125; &gt;&gt; $&#123;SSL_CONFIG&#125;</span><br><span class="line">        done</span><br><span class="line">    fi</span><br><span class="line">fi</span><br><span class="line"></span><br><span class="line">[[ -z $SILENT ]] &amp;&amp; echo &quot;&#x3D;&#x3D;&#x3D;&#x3D;&gt; Generating new SSL KEY $&#123;SSL_KEY&#125;&quot;</span><br><span class="line">openssl genrsa -out $&#123;SSL_KEY&#125; $&#123;SSL_SIZE&#125; &gt; &#x2F;dev&#x2F;null || exit 1</span><br><span class="line"></span><br><span class="line">[[ -z $SILENT ]] &amp;&amp; echo &quot;&#x3D;&#x3D;&#x3D;&#x3D;&gt; Generating new SSL CSR $&#123;SSL_CSR&#125;&quot;</span><br><span class="line">openssl req -sha256 -new -key $&#123;SSL_KEY&#125; -out $&#123;SSL_CSR&#125; \</span><br><span class="line">-subj &quot;&#x2F;CN&#x3D;$&#123;SSL_SUBJECT&#125;&quot; -config $&#123;SSL_CONFIG&#125; &gt; &#x2F;dev&#x2F;null || exit 1</span><br><span class="line"></span><br><span class="line">[[ -z $SILENT ]] &amp;&amp; echo &quot;&#x3D;&#x3D;&#x3D;&#x3D;&gt; Generating new SSL CERT $&#123;SSL_CERT&#125;&quot;</span><br><span class="line">openssl x509 -sha256 -req -in $&#123;SSL_CSR&#125; -CA $&#123;CA_CERT&#125; \</span><br><span class="line">    -CAkey $&#123;CA_KEY&#125; -CAcreateserial -out $&#123;SSL_CERT&#125; \</span><br><span class="line">    -days $&#123;SSL_EXPIRE&#125; -extensions v3_req \</span><br><span class="line">    -extfile $&#123;SSL_CONFIG&#125; &gt; &#x2F;dev&#x2F;null || exit 1</span><br><span class="line"></span><br><span class="line">if [[ -z $SILENT ]]; then</span><br><span class="line">echo &quot;&#x3D;&#x3D;&#x3D;&#x3D;&gt; Complete&quot;</span><br><span class="line">echo &quot;keys can be found in volume mapped to $(pwd)&quot;</span><br><span class="line">echo</span><br><span class="line">echo &quot;&#x3D;&#x3D;&#x3D;&#x3D;&gt; Output results as YAML&quot;</span><br><span class="line">echo &quot;---&quot;</span><br><span class="line">echo &quot;ca_key: |&quot;</span><br><span class="line">cat $CA_KEY | sed &#39;s&#x2F;^&#x2F;  &#x2F;&#39;</span><br><span class="line">echo</span><br><span class="line">echo &quot;ca_cert: |&quot;</span><br><span class="line">cat $CA_CERT | sed &#39;s&#x2F;^&#x2F;  &#x2F;&#39;</span><br><span class="line">echo</span><br><span class="line">echo &quot;ssl_key: |&quot;</span><br><span class="line">cat $SSL_KEY | sed &#39;s&#x2F;^&#x2F;  &#x2F;&#39;</span><br><span class="line">echo</span><br><span class="line">echo &quot;ssl_csr: |&quot;</span><br><span class="line">cat $SSL_CSR | sed &#39;s&#x2F;^&#x2F;  &#x2F;&#39;</span><br><span class="line">echo</span><br><span class="line">echo &quot;ssl_cert: |&quot;</span><br><span class="line">cat $SSL_CERT | sed &#39;s&#x2F;^&#x2F;  &#x2F;&#39;</span><br><span class="line">echo</span><br><span class="line">fi</span><br><span class="line"></span><br><span class="line">if [[ -n $K8S_SECRET_NAME ]]; then</span><br><span class="line"></span><br><span class="line">  if [[ -n $K8S_SECRET_COMBINE_CA ]]; then</span><br><span class="line">    [[ -z $SILENT ]] &amp;&amp; echo &quot;&#x3D;&#x3D;&#x3D;&#x3D;&gt; Adding CA to Cert file&quot;</span><br><span class="line">    cat $&#123;CA_CERT&#125; &gt;&gt; $&#123;SSL_CERT&#125;</span><br><span class="line">  fi</span><br><span class="line"></span><br><span class="line">  [[ -z $SILENT ]] &amp;&amp; echo &quot;&#x3D;&#x3D;&#x3D;&#x3D;&gt; Creating Kubernetes secret: $K8S_SECRET_NAME&quot;</span><br><span class="line">  kubectl delete secret $K8S_SECRET_NAME --ignore-not-found</span><br><span class="line"></span><br><span class="line">  if [[ -n $K8S_SECRET_SEPARATE_CA ]]; then</span><br><span class="line">    kubectl create secret generic \</span><br><span class="line">    $K8S_SECRET_NAME \</span><br><span class="line">    --from-file&#x3D;&quot;tls.crt&#x3D;$&#123;SSL_CERT&#125;&quot; \</span><br><span class="line">    --from-file&#x3D;&quot;tls.key&#x3D;$&#123;SSL_KEY&#125;&quot; \</span><br><span class="line">    --from-file&#x3D;&quot;ca.crt&#x3D;$&#123;CA_CERT&#125;&quot;</span><br><span class="line">  else</span><br><span class="line">    kubectl create secret tls \</span><br><span class="line">    $K8S_SECRET_NAME \</span><br><span class="line">    --cert&#x3D;$&#123;SSL_CERT&#125; \</span><br><span class="line">    --key&#x3D;$&#123;SSL_KEY&#125;</span><br><span class="line">  fi</span><br><span class="line"></span><br><span class="line">  if [[ -n $K8S_SECRET_LABELS ]]; then</span><br><span class="line">    [[ -z $SILENT ]] &amp;&amp; echo &quot;&#x3D;&#x3D;&#x3D;&#x3D;&gt; Labeling Kubernetes secret&quot;</span><br><span class="line">    IFS&#x3D;$&#39; \n\t&#39; # We have to reset IFS or label secret will misbehave on some systems</span><br><span class="line">    kubectl label secret \</span><br><span class="line">      $K8S_SECRET_NAME \</span><br><span class="line">      $K8S_SECRET_LABELS</span><br><span class="line">  fi</span><br><span class="line">fi</span><br><span class="line"></span><br><span class="line">echo &quot;4. 重命名服务证书&quot;</span><br><span class="line">mv $&#123;CN&#125;.key tls.key</span><br><span class="line">mv $&#123;CN&#125;.crt tls.crt</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h4 id="ca证书secret"><a href="#ca证书secret" class="headerlink" title="ca证书secret"></a>ca证书secret</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">kubectl -n cattle-system create secret tls tls-rancher-ingress \</span><br><span class="line">--cert&#x3D;.&#x2F;tls.crt --key&#x3D;.&#x2F;tls.key</span><br><span class="line"></span><br><span class="line">kubectl -n cattle-system create secret generic tls-ca \</span><br><span class="line">--from-file&#x3D;.&#x2F;cacerts.pem</span><br></pre></td></tr></table></figure>
+<h4 id="部署-Rancher-集群"><a href="#部署-Rancher-集群" class="headerlink" title="部署 Rancher 集群"></a>部署 Rancher 集群</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">sudo helm install rancher rancher-stable&#x2F;rancher \</span><br><span class="line"> --namespace cattle-system \</span><br><span class="line"> --set hostname&#x3D;rancher.local.com \</span><br><span class="line"> --set ingress.tls.source&#x3D;secret \</span><br><span class="line"> --set privateCA&#x3D;true</span><br></pre></td></tr></table></figure>
+<p>执行helm，如提示</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Error: Kubernetes cluster unreachable</span><br></pre></td></tr></table></figure>
+<p>因为使用的是k3s的集群，只需执行如下命令手动指定KUBECONFIG的位置即可。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">执行命令：export KUBECONFIG&#x3D;&#x2F;etc&#x2F;rancher&#x2F;k3s&#x2F;k3s.yaml</span><br></pre></td></tr></table></figure>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/helm/" rel="tag"># helm</a>
+              <a href="/tags/k3s/" rel="tag"># k3s</a>
+              <a href="/tags/rancher/" rel="tag"># rancher</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/posts/f31744b2.html" rel="prev" title="Linux探测端口">
+      <i class="fa fa-chevron-left"></i> Linux探测端口
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/posts/91b31f60.html" rel="next" title="nginx 增加健康检查模块 nginx_upstream_check_modules">
+      nginx 增加健康检查模块 nginx_upstream_check_modules <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#部署前系统环境准备"><span class="nav-number">1.</span> <span class="nav-text">部署前系统环境准备</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#关闭防火墙和SeLinux"><span class="nav-number">1.1.</span> <span class="nav-text">关闭防火墙和SeLinux</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#配置host文件"><span class="nav-number">1.2.</span> <span class="nav-text">配置host文件</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#部署"><span class="nav-number">2.</span> <span class="nav-text">部署</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Kubectl"><span class="nav-number">2.1.</span> <span class="nav-text">Kubectl</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Helm"><span class="nav-number">2.2.</span> <span class="nav-text">Helm</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#docker-ce"><span class="nav-number">2.3.</span> <span class="nav-text">docker-ce</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#MySQL-5-7"><span class="nav-number">2.4.</span> <span class="nav-text">MySQL 5.7</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#k3s"><span class="nav-number">2.5.</span> <span class="nav-text">k3s</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Rancher"><span class="nav-number">2.6.</span> <span class="nav-text">Rancher</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#添加-Helm-Chart-仓库"><span class="nav-number">2.6.1.</span> <span class="nav-text">添加 Helm Chart 仓库</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#为-Rancher-创建-Namespace"><span class="nav-number">2.6.2.</span> <span class="nav-text">为 Rancher 创建 Namespace</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#生成证书-使用自签发证书，其他参考官网"><span class="nav-number">2.6.3.</span> <span class="nav-text">生成证书(使用自签发证书，其他参考官网)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#ca证书secret"><span class="nav-number">2.6.4.</span> <span class="nav-text">ca证书secret</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#部署-Rancher-集群"><span class="nav-number">2.6.5.</span> <span class="nav-text">部署 Rancher 集群</span></a></li></ol></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">hyman</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">139</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">29</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">103</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">hyman</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/mist/" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>
