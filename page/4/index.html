@@ -188,6 +188,585 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://www.ywthings.com/posts/99efb1a6.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="hyman">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="hyman">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/posts/99efb1a6.html" class="post-title-link" itemprop="url">Dockerfile 最佳实践准则</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-04-08 09:08:18" itemprop="dateCreated datePublished" datetime="2020-04-08T09:08:18+08:00">2020-04-08</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-05-18 07:58:41" itemprop="dateModified" datetime="2020-05-18T07:58:41+08:00">2020-05-18</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/docker/" itemprop="url" rel="index"><span itemprop="name">docker</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>原文链接：<br><a href="https://www.docker.com/blog/intro-guide-to-dockerfile-best-practices/">https://www.docker.com/blog/intro-guide-to-dockerfile-best-practices/</a></p>
+<p><strong>注意</strong></p>
+<p>本文使用一个基于 Maven 的 Java 项目作为示例，然后不断改进 Dockerfile 的写法，直到最后写出一个最优雅的 Dockerfile。中间的所有步骤都是为了说明某一方面的最佳实践。</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/posts/99efb1a6.html#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://www.ywthings.com/posts/62b928e0.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="hyman">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="hyman">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/posts/62b928e0.html" class="post-title-link" itemprop="url">Calico 网络通信原理</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-04-08 08:51:54" itemprop="dateCreated datePublished" datetime="2020-04-08T08:51:54+08:00">2020-04-08</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-05-18 07:58:41" itemprop="dateModified" datetime="2020-05-18T07:58:41+08:00">2020-05-18</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/kubernetes/" itemprop="url" rel="index"><span itemprop="name">kubernetes</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>Calico 是一个纯三层的数据中心网络方案，而且无缝集成像 OpenStack 这种 Iaas 云架构，能够提供可控的 VM、容器、裸机之间的 IP 通信。为什么说它是纯三层呢？因为所有的数据包都是通过路由的形式找到对应的主机和容器的，然后通过 BGP 协议来将所有路由同步到所有的机器或数据中心，从而完成整个网络的互联。</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/posts/62b928e0.html#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://www.ywthings.com/posts/b9c57dba.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="hyman">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="hyman">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/posts/b9c57dba.html" class="post-title-link" itemprop="url">k8s实现优雅关闭pod，实现真正的零宕机迁移</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-04-07 16:50:05" itemprop="dateCreated datePublished" datetime="2020-04-07T16:50:05+08:00">2020-04-07</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-05-18 07:58:41" itemprop="dateModified" datetime="2020-05-18T07:58:41+08:00">2020-05-18</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/kubernetes/" itemprop="url" rel="index"><span itemprop="name">kubernetes</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>首先，要实现这个目标的先决条件是我们的容器要正确处理终止信号，在 SIGTERM 信号上实现优雅关闭。下一步需要添加 readiness 可读探针，来检查我们的应用程序是否已经准备好来处理流量了。</p>
+<p>可读探针只是我们平滑滚动更新的起点，为了解决 Pod 停止的时候不会阻塞并等到负载均衡器重新配置的问题，我们需要使用 preStop 这个生命周期的钩子，在容器终止之前调用该钩子。</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/posts/b9c57dba.html#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://www.ywthings.com/posts/9f2bb797.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="hyman">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="hyman">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/posts/9f2bb797.html" class="post-title-link" itemprop="url">k8s获取客户端访问真实 IP</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-04-07 16:05:03" itemprop="dateCreated datePublished" datetime="2020-04-07T16:05:03+08:00">2020-04-07</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-05-18 07:58:41" itemprop="dateModified" datetime="2020-05-18T07:58:41+08:00">2020-05-18</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/kubernetes/" itemprop="url" rel="index"><span itemprop="name">kubernetes</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>通常，当集群内的客户端连接到服务的时候，是支持服务的 Pod 可以获取到客户端的 IP 地址的，但是，当通过节点端口接收到连接时，由于对数据包执行了源网络地址转换（SNAT），因此数据包的源 IP 地址会发生变化，后端的 Pod 无法看到实际的客户端 IP，对于某些应用来说是个问题，比如，nginx 的请求日志就无法获取准确的客户端访问 IP 了。</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/posts/9f2bb797.html#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://www.ywthings.com/posts/a828f573.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="hyman">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="hyman">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/posts/a828f573.html" class="post-title-link" itemprop="url">k8s的几种部署策略</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-04-07 12:19:44" itemprop="dateCreated datePublished" datetime="2020-04-07T12:19:44+08:00">2020-04-07</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-05-18 07:58:41" itemprop="dateModified" datetime="2020-05-18T07:58:41+08:00">2020-05-18</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/kubernetes/" itemprop="url" rel="index"><span itemprop="name">kubernetes</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>在Kubernetes中有几种不同的方式发布应用，所以为了让应用在升级期间依然平稳提供服务，选择一个正确的发布策略就非常重要了。</p>
+<p>选择正确的部署策略是要依赖于我们的业务需求的，下面我们列出了一些可能会使用到的策略：</p>
+<ul>
+<li>重建(recreate)：停止旧版本部署新版本</li>
+</ul>
+<ul>
+<li>滚动更新(rolling-update)：一个接一个地以滚动更新方式发布新版本</li>
+</ul>
+<ul>
+<li>蓝绿(blue/green)：新版本与旧版本一起存在，然后切换流量</li>
+</ul>
+<ul>
+<li>金丝雀(canary)：将新版本面向一部分用户发布，然后继续全量发布</li>
+</ul>
+<ul>
+<li>A/B测(a/b testing)：以精确的方式（HTTP 头、cookie、权重等）向部分用户发布新版本。A/B测实际上是一种基于数据统计做出业务决策的技术。在 Kubernetes 中并不原生支持，需要额外的一些高级组件来完成改设置（比如Istio、Linkerd、Traefik、或者自定义 Nginx/Haproxy 等）。
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/posts/a828f573.html#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://www.ywthings.com/posts/e64d06ef.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="hyman">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="hyman">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/posts/e64d06ef.html" class="post-title-link" itemprop="url">备份etcd</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-04-03 15:20:33" itemprop="dateCreated datePublished" datetime="2020-04-03T15:20:33+08:00">2020-04-03</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-05-18 07:58:41" itemprop="dateModified" datetime="2020-05-18T07:58:41+08:00">2020-05-18</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>整个k8s诸多组件几乎都是无状态的，所有的数据保存在etcd里，可以说etcd是整个k8s集群的数据库。</p>
+<h1 id="具体方案"><a href="#具体方案" class="headerlink" title="具体方案"></a>具体方案</h1><h2 id="etcd-backup"><a href="#etcd-backup" class="headerlink" title="etcd-backup"></a>etcd-backup</h2><p><a href="https://github.com/giantswarm/etcd-backup">https://github.com/giantswarm/etcd-backup</a></p>
+<p>将etcdctl 修改为线上实际的版本。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">FROM alpine:3.8</span><br><span class="line"></span><br><span class="line">RUN apk add --no-cache curl</span><br><span class="line"></span><br><span class="line"># Get etcdctl</span><br><span class="line">ENV ETCD_VER&#x3D;v3.2.24</span><br><span class="line">RUN \</span><br><span class="line">  cd &#x2F;tmp &amp;&amp; \</span><br><span class="line">  curl -L https:&#x2F;&#x2F;storage.googleapis.com&#x2F;etcd&#x2F;$&#123;ETCD_VER&#125;&#x2F;etcd-$&#123;ETCD_VER&#125;-linux-amd64.tar.gz | \</span><br><span class="line">  tar xz -C &#x2F;usr&#x2F;local&#x2F;bin --strip-components&#x3D;1</span><br><span class="line"></span><br><span class="line">COPY .&#x2F;etcd-backup &#x2F;</span><br><span class="line">ENTRYPOINT [&quot;&#x2F;etcd-backup&quot;]</span><br><span class="line">CMD [&quot;-h&quot;]</span><br></pre></td></tr></table></figure>
+
+<h2 id="k8s"><a href="#k8s" class="headerlink" title="k8s"></a>k8s</h2><p>选择k8s中的cronjob比较合适，备份策略是每三小时备份一次。</p>
+<p>cronjob.yaml</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br></pre></td><td class="code"><pre><span class="line">apiVersion: batch&#x2F;v1beta1</span><br><span class="line">kind: CronJob</span><br><span class="line">metadata:</span><br><span class="line">  name: etcd-backup</span><br><span class="line">  namespace: kube-system</span><br><span class="line">spec:</span><br><span class="line">  schedule: &quot;0 *&#x2F;4 * * *&quot;</span><br><span class="line">  successfulJobsHistoryLimit: 2</span><br><span class="line">  failedJobsHistoryLimit: 2</span><br><span class="line">  jobTemplate:</span><br><span class="line">    spec:</span><br><span class="line">      # Job timeout</span><br><span class="line">      activeDeadlineSeconds: 300</span><br><span class="line">      template:</span><br><span class="line">        spec:</span><br><span class="line">          tolerations:</span><br><span class="line">          # Tolerate master taint</span><br><span class="line">          - key: node-role.kubernetes.io&#x2F;master</span><br><span class="line">            operator: Exists</span><br><span class="line">            effect: NoSchedule</span><br><span class="line">          # Container creates etcd backups.</span><br><span class="line">          # Run container in host network mode on G8s masters</span><br><span class="line">          # to be able to use 127.0.0.1 as etcd address.</span><br><span class="line">          # For etcd v2 backups container should have access</span><br><span class="line">          # to etcd data directory. To achive that,</span><br><span class="line">          # mount &#x2F;var&#x2F;lib&#x2F;etcd3 as a volume.</span><br><span class="line">          nodeSelector:</span><br><span class="line">            node-role.kubernetes.io&#x2F;master: &quot;&quot;</span><br><span class="line">          containers:</span><br><span class="line">          - name: etcd-backup</span><br><span class="line">            image: iyacontrol&#x2F;etcd-backup:0.1</span><br><span class="line">            args:</span><br><span class="line">            # backup guest clusters only on production instalations</span><br><span class="line">            # testing installation can have many broken guest clusters</span><br><span class="line">            - -prefix&#x3D;k8s-prod-1</span><br><span class="line">            - -etcd-v2-datadir&#x3D;&#x2F;var&#x2F;lib&#x2F;etcd</span><br><span class="line">            - -etcd-v3-endpoints&#x3D;https:&#x2F;&#x2F;172.xx.xx.221:2379,https:&#x2F;&#x2F;172.xx.xx.83:2379,https:&#x2F;&#x2F;172.xx.xx.246:2379</span><br><span class="line">            - -etcd-v3-cacert&#x3D;&#x2F;certs&#x2F;ca.crt</span><br><span class="line">            - -etcd-v3-cert&#x3D;&#x2F;certs&#x2F;server.crt</span><br><span class="line">            - -etcd-v3-key&#x3D;&#x2F;certs&#x2F;server.key</span><br><span class="line">            - -aws-s3-bucket&#x3D;mybucket</span><br><span class="line">            - -aws-s3-region&#x3D;us-east-1</span><br><span class="line">            volumeMounts:</span><br><span class="line">            - mountPath: &#x2F;var&#x2F;lib&#x2F;etcd</span><br><span class="line">              name: etcd-datadir</span><br><span class="line">            - mountPath: &#x2F;certs</span><br><span class="line">              name: etcd-certs</span><br><span class="line">            env:</span><br><span class="line">              - name: ETCDBACKUP_AWS_ACCESS_KEY</span><br><span class="line">                valueFrom:</span><br><span class="line">                  secretKeyRef:</span><br><span class="line">                    name: etcd-backup</span><br><span class="line">                    key: ETCDBACKUP_AWS_ACCESS_KEY</span><br><span class="line">              - name: ETCDBACKUP_AWS_SECRET_KEY</span><br><span class="line">                valueFrom:</span><br><span class="line">                  secretKeyRef:</span><br><span class="line">                    name: etcd-backup</span><br><span class="line">                    key: ETCDBACKUP_AWS_SECRET_KEY</span><br><span class="line">              - name: ETCDBACKUP_PASSPHRASE</span><br><span class="line">                valueFrom:</span><br><span class="line">                  secretKeyRef:</span><br><span class="line">                    name: etcd-backup</span><br><span class="line">                    key: ETCDBACKUP_PASSPHRASE</span><br><span class="line">          volumes:</span><br><span class="line">          - name: etcd-datadir</span><br><span class="line">            hostPath:</span><br><span class="line">              path: &#x2F;var&#x2F;lib&#x2F;etcd</span><br><span class="line">          - name: etcd-certs</span><br><span class="line">            hostPath:</span><br><span class="line">              path: &#x2F;etc&#x2F;kubernetes&#x2F;pki&#x2F;etcd&#x2F;</span><br><span class="line">          # Do not restart pod, job takes care on restarting failed pod.</span><br><span class="line">          restartPolicy: Never</span><br><span class="line">          hostNetwork: true</span><br></pre></td></tr></table></figure>
+
+<p><strong>注意：容忍 和 nodeselector配合，让pod调度到master节点上。</strong></p>
+<p>secret.yaml</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">apiVersion: v1</span><br><span class="line">kind: Secret</span><br><span class="line">metadata:</span><br><span class="line">  name: etcd-backup</span><br><span class="line">  namespace: kube-system</span><br><span class="line">type: Opaque</span><br><span class="line">data:</span><br><span class="line">  ETCDBACKUP_AWS_ACCESS_KEY: QUtJTI0TktCT0xQRlEK</span><br><span class="line">  ETCDBACKUP_AWS_SECRET_KEY: aXJ6eThjQnM2MVRaSkdGMGxDeHhoeFZNUDU4ZGRNbgo&#x3D;</span><br><span class="line">  ETCDBACKUP_PASSPHRASE: &quot;&quot;</span><br></pre></td></tr></table></figure>
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://www.ywthings.com/posts/514dbaf1.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="hyman">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="hyman">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/posts/514dbaf1.html" class="post-title-link" itemprop="url">Kubernetes集群中添加node节点导致flannel因网卡名不一致启动失败</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-03-30 09:56:00" itemprop="dateCreated datePublished" datetime="2020-03-30T09:56:00+08:00">2020-03-30</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-05-18 07:58:41" itemprop="dateModified" datetime="2020-05-18T07:58:41+08:00">2020-05-18</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%97%A5%E5%B8%B8%E9%97%AE%E9%A2%98%E5%A4%84%E7%90%86/" itemprop="url" rel="index"><span itemprop="name">日常问题处理</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h1><p>加入一节点到k8s中，发现新节点的守护容器kube-flannel-ds启动失败。</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/posts/514dbaf1.html#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://www.ywthings.com/posts/891a4efc.html">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -423,570 +1002,10 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://www.ywthings.com/posts/407ebcc2.html">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="hyman">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="hyman">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/posts/407ebcc2.html" class="post-title-link" itemprop="url">故障问题收集</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-03-25 13:48:19" itemprop="dateCreated datePublished" datetime="2020-03-25T13:48:19+08:00">2020-03-25</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-05-18 07:58:41" itemprop="dateModified" datetime="2020-05-18T07:58:41+08:00">2020-05-18</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E9%9D%A2%E8%AF%95%E6%94%B6%E9%9B%86/" itemprop="url" rel="index"><span itemprop="name">面试收集</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="java-lang-OutOfMemoryError"><a href="#java-lang-OutOfMemoryError" class="headerlink" title="java.lang.OutOfMemoryError"></a>java.lang.OutOfMemoryError</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">这个服务有一个线程池，在代码里面设置的最小是8，最大限制是2147483647 ，用完的线程要1分钟之后才能回收。这就存在两个问题：</span><br><span class="line">一、业务在持续不断的发送请求，这个服务就会一直创建线程，而因为给定的线程最大值过大，相当于可以无限制的创建线程了，会一直消耗资源；</span><br><span class="line">二、用完的线程1分钟之后才会回收，时间过长。</span><br><span class="line">在这两点的影响下，程序跑一段时间，就会出现创建大量的线程，过度的消耗内存资源.</span><br><span class="line"></span><br><span class="line">由于docker容器在最初的时候没有做容器的内存限制，所以默认情况下容器使用的资源是不受限制的。</span><br><span class="line">也就是可以使用主机内核调度器所允许的最大资源，因此当主机发现内存不够用的时候，也会抛出内存溢出的错误。而且会开始杀死一些进程用于释放内存空间。可怕的是任何进程都可能成为内核猎杀的对象，包括 docker daemon 和宿主机上的其它一些重要的程序。更危险的是如果某个支持系统运行的重要进程被kill掉了，整个系统也就宕掉了。</span><br><span class="line"></span><br><span class="line">1、开发优化代码，包括限制线程池的最大线程数量和线程回收的时间，重新发布代码打补丁，后面观察到目前，没有再出现类这个问题了；</span><br><span class="line">2、限制docker内存。重新优化了docker容器，限制了docker内存的使用量，减少docker容器过度占用宿主机资源的风险；</span><br><span class="line">3、加强对docker容器的监控与告警；</span><br></pre></td></tr></table></figure>
-
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://www.ywthings.com/posts/23e04480.html">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="hyman">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="hyman">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/posts/23e04480.html" class="post-title-link" itemprop="url">linux面试收集</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-03-25 08:59:35" itemprop="dateCreated datePublished" datetime="2020-03-25T08:59:35+08:00">2020-03-25</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-05-18 07:58:41" itemprop="dateModified" datetime="2020-05-18T07:58:41+08:00">2020-05-18</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E9%9D%A2%E8%AF%95%E6%94%B6%E9%9B%86/" itemprop="url" rel="index"><span itemprop="name">面试收集</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="Linux系统的开机启动顺序"><a href="#Linux系统的开机启动顺序" class="headerlink" title="Linux系统的开机启动顺序"></a>Linux系统的开机启动顺序</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">加载BIOS–&gt;读取MBR–&gt;Boot Loader–&gt;加载内核–&gt;用户层init用inittab文件来设定系统运行的等级(一般3或者5，3是多用户命令行，5是界面)–&gt;init进程执行rc.syninit–&gt;启动内核模块–&gt;执行不同级别运行的脚本程序–&gt;执行&#x2F;etc&#x2F;rc.d&#x2F;rc.local(本地运行服务)–&gt;执行&#x2F;bin&#x2F;login,就可以登录了。</span><br></pre></td></tr></table></figure>
-
-<h2 id="FTP的主动模式和被动模式"><a href="#FTP的主动模式和被动模式" class="headerlink" title="FTP的主动模式和被动模式"></a>FTP的主动模式和被动模式</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">FTP协议有两种工作方式：PORT方式和PASV方式，中文意思为主动式和被动式。</span><br><span class="line"></span><br><span class="line">PORT（主动）方式的连接过程是：客户端向服务器的FTP端口（默认是21）发送连接请求，服务器接受连接，建立一条命令链路。当需要传送数据时，客户端在命令链路上用 PORT 命令告诉服务器：“我打开了XX端口，你过来连接我”。于是服务器从20端口向客户端的 XX 端口发送连接请求，建立一条数据链路来传送数据。</span><br><span class="line"></span><br><span class="line">PASV（被动）方式的连接过程是：客户端向服务器的FTP端口（默认是21）发送连接请求，服务器接受连接，建立一条命令链路。当需要传送数据时，服务器在命令链路上用PASV 命令告诉客户端：“我打开了XX端口，你过来连接我”。于是客户端向服务器的 XX 端口发送连接请求，建立一条数据链路来传送数据。</span><br><span class="line"></span><br><span class="line">从上面可以看出，两种方式的命令链路连接方法是一样的，而数据链路的建立方法就完 全不同。</span><br></pre></td></tr></table></figure>
-
-<h2 id="系统中出现大量不可中断进程和僵尸进程怎么办"><a href="#系统中出现大量不可中断进程和僵尸进程怎么办" class="headerlink" title="系统中出现大量不可中断进程和僵尸进程怎么办"></a>系统中出现大量不可中断进程和僵尸进程怎么办</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br></pre></td><td class="code"><pre><span class="line">进程常见的五种状态：</span><br><span class="line">（1）R 是 Running 或 Runnable 的缩写，表示进程在 CPU 的就绪队列中，正在运行或者正在等待运行。</span><br><span class="line"></span><br><span class="line">（2）D 是 Disk Sleep 的缩写，也就是不可中断状态睡眠（Uninterruptible Sleep），一般表示进程正在跟硬件交互，并且交互过程不允许被其他进程或中断打断。</span><br><span class="line"></span><br><span class="line">注意：进程长时间处于不可中断状态，通常表示系统有 I&#x2F;O 性能问题。</span><br><span class="line"></span><br><span class="line">（3）Z 是 Zombie 的缩写，如果你玩过“植物大战僵尸”这款游戏，应该知道它的意思。它表示僵尸进程，也就是进程实际上已经结束了，但是父进程还没有回收它的资源（比如进程的描述符、PID 等）。</span><br><span class="line"></span><br><span class="line">（4）S 是 Interruptible Sleep 的缩写，也就是可中断状态睡眠，表示进程因为等待某个事件而被系统挂起。当进程等待的事件发生时，它会被唤醒并进入 R 状态。</span><br><span class="line"></span><br><span class="line">（5）I 是 Idle 的缩写，也就是空闲状态，用在不可中断睡眠的内核线程上。前面说了，硬件交互导致的不可中断进程用 D 表示，但对某些内核线程来说，它们有可能实际上并没有任何负载，用 Idle 正是为了区分这种情况。要注意，D 状态的进程会导致平均负载升高，I 状态的进程却不会。</span><br><span class="line"></span><br><span class="line">进程不常见的两种状态:</span><br><span class="line">1）T 或者 t，也就是 Stopped 或 Traced 的缩写，表示进程处于暂停或者跟踪状态。</span><br><span class="line"></span><br><span class="line">向一个进程发送 SIGSTOP 信号，它就会因响应这个信号变成暂停状态（Stopped）；再向它发送 SIGCONT 信号，进程又会恢复运行（如果进程是终端里直接启动的，则需要你用 fg 命令，恢复到前台运行）。</span><br><span class="line"></span><br><span class="line">而当你用调试器（如 gdb）调试一个进程时，在使用断点中断进程后，进程就会变成跟踪状态，这其实也是一种特殊的暂停状态，只不过你可以用调试器来跟踪并按需要控制进程的运行。</span><br><span class="line"></span><br><span class="line">（2）X，也就是 Dead 的缩写，表示进程已经消亡，所以你不会在top 或者 ps 命令中看到它。</span><br><span class="line"></span><br><span class="line">注意：Ss+：S表示可中断睡眠状态，s表示这个进程是一个会话的领导进程，而+表示前台进程组。</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">安装dstat</span><br><span class="line">（1）CentOS：yum install -y dstat</span><br><span class="line"></span><br><span class="line">（2）Ubuntu：apt install dstat</span><br><span class="line">dstat是一个新的性能工具，它吸收了vmstat、iostat、ifstat等几种工具的优点，可以同时观察系统的CPU、磁盘I&#x2F;O、网络以及内存使用情况。</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">（1）dstat 1 10 （间隔1秒输出10组数据）</span><br><span class="line"></span><br><span class="line">（2）pidstat -d -p 4344 1 3 （-d 展示 I&#x2F;O 统计数据，-p 指定进程号，间隔 1 秒输出 3 组数据）</span><br><span class="line"></span><br><span class="line">（3）strace -p 6082 （-p指定进程号）Strace最常用的跟踪进程系统调用的工具。</span><br><span class="line"></span><br><span class="line">（4）perf record -g（终端运行十五分钟左右，再ctrl+c）</span><br><span class="line"></span><br><span class="line">（5）perf report</span><br><span class="line"></span><br><span class="line">僵尸进程的处理</span><br><span class="line">要解决僵尸进程，就要找到它的根儿，也就是找出父进程，然后在父进程里解决。</span><br><span class="line"></span><br><span class="line">（1）pstree -aps 3084（-a表示输出命令行选项，p表示PID，s表示指定进程的父进程）</span><br><span class="line"></span><br><span class="line">（2）接着查看 app 应用程序的代码，看看子进程结束的处理是否正确，比如有没有调用wait() 或 waitpid() ，抑或是，有没有注册 SIGCHLD 信号的处理函数。</span><br></pre></td></tr></table></figure>
-
-
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://www.ywthings.com/posts/2ed8fca5.html">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="hyman">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="hyman">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/posts/2ed8fca5.html" class="post-title-link" itemprop="url">network面试收集</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-03-24 16:55:02" itemprop="dateCreated datePublished" datetime="2020-03-24T16:55:02+08:00">2020-03-24</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-05-18 07:58:41" itemprop="dateModified" datetime="2020-05-18T07:58:41+08:00">2020-05-18</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E9%9D%A2%E8%AF%95%E6%94%B6%E9%9B%86/" itemprop="url" rel="index"><span itemprop="name">面试收集</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="如何查看http的并发请求数与其TCP连接状态？"><a href="#如何查看http的并发请求数与其TCP连接状态？" class="headerlink" title="如何查看http的并发请求数与其TCP连接状态？"></a>如何查看http的并发请求数与其TCP连接状态？</h2>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/posts/2ed8fca5.html#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://www.ywthings.com/posts/6401f101.html">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="hyman">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="hyman">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/posts/6401f101.html" class="post-title-link" itemprop="url">k8s Deployment 字段解释</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-03-24 16:10:07" itemprop="dateCreated datePublished" datetime="2020-03-24T16:10:07+08:00">2020-03-24</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-05-18 07:58:41" itemprop="dateModified" datetime="2020-05-18T07:58:41+08:00">2020-05-18</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/kubernetes/" itemprop="url" rel="index"><span itemprop="name">kubernetes</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="Deployment"><a href="#Deployment" class="headerlink" title="Deployment"></a>Deployment</h1><p>apiVersion: 表示版本<br>kind: 表示资源<br>metadata: 表示元信息<br>spec: 资源规范字段</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/posts/6401f101.html#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://www.ywthings.com/posts/365dbdc6.html">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="hyman">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="hyman">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/posts/365dbdc6.html" class="post-title-link" itemprop="url">k8s 1.17.x 高可用部署：keepalived + haproxy</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-03-24 09:36:05" itemprop="dateCreated datePublished" datetime="2020-03-24T09:36:05+08:00">2020-03-24</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-05-18 07:58:41" itemprop="dateModified" datetime="2020-05-18T07:58:41+08:00">2020-05-18</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/kubernetes/" itemprop="url" rel="index"><span itemprop="name">kubernetes</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="部署说明"><a href="#部署说明" class="headerlink" title="部署说明"></a>部署说明</h1><h2 id="堆叠ETCD"><a href="#堆叠ETCD" class="headerlink" title="堆叠ETCD"></a>堆叠ETCD</h2><p>每个master节点上运行一个apiserver和etcd, etcd只与本节点apiserver通信。</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/posts/365dbdc6.html#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://www.ywthings.com/posts/1e369957.html">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="hyman">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="hyman">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/posts/1e369957.html" class="post-title-link" itemprop="url">Redis学习笔记--Redis一些问题详解</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-03-23 16:47:29" itemprop="dateCreated datePublished" datetime="2020-03-23T16:47:29+08:00">2020-03-23</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-05-18 07:58:41" itemprop="dateModified" datetime="2020-05-18T07:58:41+08:00">2020-05-18</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/redis/" itemprop="url" rel="index"><span itemprop="name">redis</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="redis"><a href="#redis" class="headerlink" title="redis"></a>redis</h1><h2 id="Redis的同步机制"><a href="#Redis的同步机制" class="headerlink" title="Redis的同步机制"></a>Redis的同步机制</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Redis可以使用主从同步，从从同步。第一次同步时，主节点做一次bgsave，并同时将后续修改操作记录到内存buffer，待完成后将RDB文件全量同步到复制节点，复制节点接受完成后将RDB镜像加载到内存。加载完成后，再通知主节点将期间修改的操作记录同步到复制节点进行重放就完成了同步过程。后续的增量数据通过AOF日志同步即可，有点类似数据库的binlog。</span><br></pre></td></tr></table></figure>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/posts/1e369957.html#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://www.ywthings.com/posts/45b4ba0b.html">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="hyman">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="hyman">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/posts/45b4ba0b.html" class="post-title-link" itemprop="url">mongodb面试收集</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-03-23 16:39:22" itemprop="dateCreated datePublished" datetime="2020-03-23T16:39:22+08:00">2020-03-23</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-05-18 07:58:41" itemprop="dateModified" datetime="2020-05-18T07:58:41+08:00">2020-05-18</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E9%9D%A2%E8%AF%95%E6%94%B6%E9%9B%86/" itemprop="url" rel="index"><span itemprop="name">面试收集</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="mongodb"><a href="#mongodb" class="headerlink" title="mongodb"></a>mongodb</h1><h2 id="为什么需要-compact"><a href="#为什么需要-compact" class="headerlink" title="为什么需要 compact"></a>为什么需要 compact</h2><img src="/images/mongodb-compact.jpg" width="100%" height="100%">
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/posts/45b4ba0b.html#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/3/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/3/">3</a><span class="page-number current">4</span><a class="page-number" href="/page/5/">5</a><span class="space">&hellip;</span><a class="page-number" href="/page/14/">14</a><a class="extend next" rel="next" href="/page/5/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+    <a class="extend prev" rel="prev" href="/page/3/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/3/">3</a><span class="page-number current">4</span><a class="page-number" href="/page/5/">5</a><span class="space">&hellip;</span><a class="page-number" href="/page/15/">15</a><a class="extend next" rel="next" href="/page/5/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
   </nav>
 
 
@@ -1052,20 +1071,20 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">139</span>
+          <span class="site-state-item-count">146</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">29</span>
+        <span class="site-state-item-count">30</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">103</span>
+        <span class="site-state-item-count">108</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>

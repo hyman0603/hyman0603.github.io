@@ -6197,4 +6197,218 @@ GRANT SELECT, REPLICATION SLAVE, REPLICATION CLIENT ON *.* TO </code></pre><p><s
         <tag>nginx</tag>
       </tags>
   </entry>
+  <entry>
+    <title>Centos 7 配置本地yum源</title>
+    <url>/posts/353cb7e9.html</url>
+    <content><![CDATA[<h3 id="创建挂载路径"><a href="#创建挂载路径" class="headerlink" title="创建挂载路径"></a>创建挂载路径</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">sudo mkdir &#x2F;mnt&#x2F;iso</span><br></pre></td></tr></table></figure>
+<a id="more"></a>
+
+<h3 id="挂载ISO镜像到目录"><a href="#挂载ISO镜像到目录" class="headerlink" title="挂载ISO镜像到目录"></a>挂载ISO镜像到目录</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">sudo mount -o loop CentOS-7-x86_64-DVD-2003.iso &#x2F;mnt&#x2F;iso</span><br><span class="line"></span><br><span class="line">系统提示： mount &#x2F;dev&#x2F;sr0 is write-protected, mounting read-only  则表示挂载成功</span><br></pre></td></tr></table></figure>
+
+<p>下载地址：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">http:&#x2F;&#x2F;mirrors.huaweicloud.com&#x2F;centos&#x2F;7.8.2003&#x2F;isos&#x2F;x86_64&#x2F;</span><br><span class="line">http:&#x2F;&#x2F;mirrors.cn99.com&#x2F;centos&#x2F;7.8.2003&#x2F;isos&#x2F;x86_64&#x2F;</span><br><span class="line">http:&#x2F;&#x2F;mirrors.tuna.tsinghua.edu.cn&#x2F;centos&#x2F;7.8.2003&#x2F;isos&#x2F;x86_64&#x2F;</span><br><span class="line">http:&#x2F;&#x2F;ftp.sjtu.edu.cn&#x2F;centos&#x2F;7.8.2003&#x2F;isos&#x2F;x86_64&#x2F;</span><br><span class="line">http:&#x2F;&#x2F;mirrors.163.com&#x2F;centos&#x2F;7.8.2003&#x2F;isos&#x2F;x86_64&#x2F;</span><br><span class="line">http:&#x2F;&#x2F;mirrors.neusoft.edu.cn&#x2F;centos&#x2F;7.8.2003&#x2F;isos&#x2F;x86_64&#x2F;</span><br><span class="line">http:&#x2F;&#x2F;mirrors.aliyun.com&#x2F;centos&#x2F;7.8.2003&#x2F;isos&#x2F;x86_64&#x2F;</span><br><span class="line">http:&#x2F;&#x2F;mirrors.njupt.edu.cn&#x2F;centos&#x2F;7.8.2003&#x2F;isos&#x2F;x86_64&#x2F;</span><br><span class="line">http:&#x2F;&#x2F;mirror.bit.edu.cn&#x2F;centos&#x2F;7.8.2003&#x2F;isos&#x2F;x86_64&#x2F;</span><br><span class="line">http:&#x2F;&#x2F;mirrors.bfsu.edu.cn&#x2F;centos&#x2F;7.8.2003&#x2F;isos&#x2F;x86_64&#x2F;</span><br><span class="line">http:&#x2F;&#x2F;mirrors.nju.edu.cn&#x2F;centos&#x2F;7.8.2003&#x2F;isos&#x2F;x86_64&#x2F;</span><br><span class="line">http:&#x2F;&#x2F;mirrors.cqu.edu.cn&#x2F;CentOS&#x2F;7.8.2003&#x2F;isos&#x2F;x86_64&#x2F;</span><br></pre></td></tr></table></figure>
+
+<h3 id="验证挂载"><a href="#验证挂载" class="headerlink" title="验证挂载"></a>验证挂载</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">df -h</span><br></pre></td></tr></table></figure>
+
+<h3 id="创建本地yum源配置文件"><a href="#创建本地yum源配置文件" class="headerlink" title="创建本地yum源配置文件"></a>创建本地yum源配置文件</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">sudo touch &#x2F;etc&#x2F;yum.repos.d&#x2F;local.repo</span><br><span class="line"></span><br><span class="line">编辑local.repo文件内容</span><br><span class="line"></span><br><span class="line">[local_server]</span><br><span class="line">name&#x3D;Thisis a local repo</span><br><span class="line">baseurl&#x3D;file:&#x2F;&#x2F;&#x2F;mnt&#x2F;iso</span><br><span class="line">enabled&#x3D;1   #启用yum源，0为不启用，1为启用</span><br><span class="line">gpgcheck&#x3D;0  #检查GPG-KEY，0为不检查，1为检查</span><br></pre></td></tr></table></figure>
+
+<h3 id="更新yum源"><a href="#更新yum源" class="headerlink" title="更新yum源"></a>更新yum源</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">yum clean all </span><br><span class="line">yum makecache</span><br></pre></td></tr></table></figure>
+
+]]></content>
+      <categories>
+        <category>运维部署记录</category>
+      </categories>
+      <tags>
+        <tag>yum</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Prometheus+Grafana监控系统搭建</title>
+    <url>/posts/e62c4815.html</url>
+    <content><![CDATA[<p>相关文档：</p>
+<a id="more"></a>
+
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">Prometheus官网：https:&#x2F;&#x2F;prometheus.io&#x2F;download&#x2F;</span><br><span class="line">Grafana官网：https:&#x2F;&#x2F;grafana.com&#x2F;grafana&#x2F;download</span><br><span class="line">Grafana 模板官网：https:&#x2F;&#x2F;grafana.com&#x2F;grafana&#x2F;dashboards</span><br><span class="line">Rules 规则：https:&#x2F;&#x2F;awesome-prometheus-alerts.grep.to&#x2F;</span><br><span class="line">发送告警模板：https:&#x2F;&#x2F;github.com&#x2F;prometheus&#x2F;alertmanager&#x2F;blob&#x2F;master&#x2F;template&#x2F;default.tmpl</span><br><span class="line">官方文档中文版: https:&#x2F;&#x2F;github.com&#x2F;Alrights&#x2F;prometheus</span><br><span class="line">官方监控agent列表: https:&#x2F;&#x2F;prometheus.io&#x2F;docs&#x2F;instrumenting&#x2F;exporters&#x2F;</span><br></pre></td></tr></table></figure>
+
+<h2 id="安装-Prometheus-Server"><a href="#安装-Prometheus-Server" class="headerlink" title="安装 Prometheus Server"></a>安装 Prometheus Server</h2><h3 id="下载"><a href="#下载" class="headerlink" title="下载"></a>下载</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">wget https:&#x2F;&#x2F;github.com&#x2F;prometheus&#x2F;prometheus&#x2F;releases&#x2F;download&#x2F;v2.20.1&#x2F;prometheus-2.20.1.linux-amd64.tar.gz</span><br><span class="line">tar xzf prometheus-2.20.1.linux-amd64.tar.gz -C &#x2F;usr&#x2F;local&#x2F;prometheus</span><br></pre></td></tr></table></figure>
+
+<h3 id="配置语法校验"><a href="#配置语法校验" class="headerlink" title="配置语法校验"></a>配置语法校验</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">.&#x2F;promtool check config prometheus.yml</span><br></pre></td></tr></table></figure>
+
+<h3 id="设置prometheus系统服务"><a href="#设置prometheus系统服务" class="headerlink" title="设置prometheus系统服务"></a>设置prometheus系统服务</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">vim &#x2F;usr&#x2F;lib&#x2F;systemd&#x2F;system&#x2F;prometheus.service</span><br><span class="line"></span><br><span class="line">[Unit]</span><br><span class="line">Description&#x3D;Prometheus</span><br><span class="line">Documentation&#x3D;https:&#x2F;&#x2F;prometheus.io&#x2F;</span><br><span class="line">After&#x3D;network.target</span><br><span class="line"></span><br><span class="line">[Service]</span><br><span class="line">Type&#x3D;simple</span><br><span class="line"># --storage.tsdb.path是可选项，默认数据目录在运行目录的.&#x2F;dada目录中</span><br><span class="line">ExecStart&#x3D;&#x2F;usr&#x2F;local&#x2F;prometheus&#x2F;prometheus --config.file&#x3D;&#x2F;usr&#x2F;local&#x2F;prometheus&#x2F;prometheus.yml --web.enable-lifecycle --storage.tsdb.path&#x3D;&#x2F;data&#x2F;prometheus --storage.tsdb.retention&#x3D;30d</span><br><span class="line">Restart&#x3D;on-failure</span><br><span class="line"></span><br><span class="line">[Install]</span><br><span class="line">WantedBy&#x3D;multi-user.target</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">#Prometheus启动参数说明</span><br><span class="line">--config.file -- 指明prometheus的配置文件路径</span><br><span class="line">--web.enable-lifecycle -- 指明prometheus配置更改后可以进行热加载</span><br><span class="line">--storage.tsdb.path -- 指明监控数据存储路径</span><br><span class="line">--storage.tsdb.retention --指明数据保留时间</span><br></pre></td></tr></table></figure>
+
+<h3 id="设置开机启动"><a href="#设置开机启动" class="headerlink" title="设置开机启动"></a>设置开机启动</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">systemctl daemon-reload</span><br><span class="line">systemctl enable prometheus.service</span><br><span class="line">systemctl status prometheus.service</span><br><span class="line">systemctl restart prometheus.service</span><br></pre></td></tr></table></figure>
+
+<p>备注：在启动prometheus时加上参数 web.enable-lifecycle , 可以启用配置的热加载, 配置修改后, 热加载配置</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">curl -X POST  http:&#x2F;&#x2F;localhost:9090&#x2F;-&#x2F;reload</span><br></pre></td></tr></table></figure>
+
+<h2 id="安装Grafana"><a href="#安装Grafana" class="headerlink" title="安装Grafana"></a>安装Grafana</h2><h3 id="下载安装"><a href="#下载安装" class="headerlink" title="下载安装"></a>下载安装</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">wget https:&#x2F;&#x2F;dl.grafana.com&#x2F;enterprise&#x2F;release&#x2F;grafana-enterprise-7.1.3-1.x86_64.rpm</span><br><span class="line">sudo yum install grafana-enterprise-7.1.3-1.x86_64.rpm</span><br></pre></td></tr></table></figure>
+
+<p>granafa首次登录账户名和密码admin/admin</p>
+<h2 id="安装alertmanager"><a href="#安装alertmanager" class="headerlink" title="安装alertmanager"></a>安装alertmanager</h2><h3 id="下载-1"><a href="#下载-1" class="headerlink" title="下载"></a>下载</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">wget https:&#x2F;&#x2F;github.com&#x2F;prometheus&#x2F;alertmanager&#x2F;releases&#x2F;download&#x2F;v0.21.0&#x2F;alertmanager-0.21.0.linux-amd64.tar.gz</span><br><span class="line">tar xzf alertmanager-0.21.0.linux-amd64.tar.gz -C &#x2F;usr&#x2F;local&#x2F;alertmanager</span><br></pre></td></tr></table></figure>
+
+<h3 id="配置服务"><a href="#配置服务" class="headerlink" title="配置服务"></a>配置服务</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">vim &#x2F;usr&#x2F;lib&#x2F;systemd&#x2F;system&#x2F;alertmanager.service</span><br><span class="line"></span><br><span class="line">[Unit] </span><br><span class="line">Description&#x3D;Alertmanager </span><br><span class="line">After&#x3D;network.target </span><br><span class="line">[Service] </span><br><span class="line">Type&#x3D;simple </span><br><span class="line">User&#x3D;root</span><br><span class="line">ExecStart&#x3D;&#x2F;usr&#x2F;local&#x2F;alertmanager&#x2F;alertmanager --config.file&#x3D;&#x2F;usr&#x2F;local&#x2F;alertmanager&#x2F;alertmanager.yml --storage.path&#x3D;&#x2F;data&#x2F;alertmanager&#x2F;</span><br><span class="line">Restart&#x3D;on-failure</span><br><span class="line">[Install] </span><br><span class="line">WantedBy&#x3D;multi-user.target</span><br></pre></td></tr></table></figure>
+
+<h3 id="设置服务开机自启动"><a href="#设置服务开机自启动" class="headerlink" title="设置服务开机自启动"></a>设置服务开机自启动</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">systemctl enable alertmanager</span><br><span class="line">systemctl start alertmanager</span><br></pre></td></tr></table></figure>
+
+<h2 id="安装node-exporter"><a href="#安装node-exporter" class="headerlink" title="安装node_exporter"></a>安装node_exporter</h2><h3 id="下载-2"><a href="#下载-2" class="headerlink" title="下载"></a>下载</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">wget https:&#x2F;&#x2F;github.com&#x2F;prometheus&#x2F;node_exporter&#x2F;releases&#x2F;download&#x2F;v1.0.1&#x2F;node_exporter-1.0.1.linux-amd64.tar.gz</span><br><span class="line">tar xzf node_exporter-1.0.1.linux-amd64.tar.gz -C &#x2F;usr&#x2F;local&#x2F;node_exporter</span><br></pre></td></tr></table></figure>
+
+<h3 id="配置服务-1"><a href="#配置服务-1" class="headerlink" title="配置服务"></a>配置服务</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">vim &#x2F;usr&#x2F;lib&#x2F;systemd&#x2F;system&#x2F;node_exporter.service</span><br><span class="line"></span><br><span class="line">[Unit]</span><br><span class="line">Description&#x3D;node_exporter</span><br><span class="line">Documentation&#x3D;https:&#x2F;&#x2F;prometheus.io&#x2F;</span><br><span class="line">After&#x3D;network.target</span><br><span class="line"></span><br><span class="line">[Service]</span><br><span class="line">Type&#x3D;simple</span><br><span class="line">ExecStart&#x3D;&#x2F;usr&#x2F;local&#x2F;node_exporter&#x2F;node_exporter</span><br><span class="line">Restart&#x3D;on-failure</span><br><span class="line"></span><br><span class="line">[Install]</span><br><span class="line">WantedBy&#x3D;multi-user.target</span><br></pre></td></tr></table></figure>
+
+<h3 id="设置服务开机自启动-1"><a href="#设置服务开机自启动-1" class="headerlink" title="设置服务开机自启动"></a>设置服务开机自启动</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">systemctl enable node_exporter</span><br><span class="line">systemctl start node_exporter</span><br></pre></td></tr></table></figure>
+
+<h2 id="安装pushgateway"><a href="#安装pushgateway" class="headerlink" title="安装pushgateway"></a>安装pushgateway</h2><h3 id="下载-3"><a href="#下载-3" class="headerlink" title="下载"></a>下载</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">wget https:&#x2F;&#x2F;github.com&#x2F;prometheus&#x2F;pushgateway&#x2F;releases&#x2F;download&#x2F;v1.2.0&#x2F;pushgateway-1.2.0.linux-amd64.tar.gz</span><br><span class="line">tar xzf pushgateway-1.2.0.linux-amd64.tar.gz -C &#x2F;usr&#x2F;local&#x2F;pushgateway</span><br></pre></td></tr></table></figure>
+
+<h3 id="配置服务-2"><a href="#配置服务-2" class="headerlink" title="配置服务"></a>配置服务</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">vim &#x2F;usr&#x2F;lib&#x2F;systemd&#x2F;system&#x2F;pushgateway.service</span><br><span class="line"></span><br><span class="line">[Unit]</span><br><span class="line">Description&#x3D;pushgateway</span><br><span class="line">Documentation&#x3D;https:&#x2F;&#x2F;prometheus.io&#x2F;</span><br><span class="line">After&#x3D;network.target</span><br><span class="line"></span><br><span class="line">[Service]</span><br><span class="line">Type&#x3D;simple</span><br><span class="line">ExecStart&#x3D;&#x2F;usr&#x2F;local&#x2F;pushgateway&#x2F;pushgateway</span><br><span class="line">Restart&#x3D;on-failure</span><br><span class="line"></span><br><span class="line">[Install]</span><br><span class="line">WantedBy&#x3D;multi-user.target</span><br></pre></td></tr></table></figure>
+
+<h3 id="设置服务开机自启动-2"><a href="#设置服务开机自启动-2" class="headerlink" title="设置服务开机自启动"></a>设置服务开机自启动</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">systemctl enable pushgateway</span><br><span class="line">systemctl start pushgateway</span><br></pre></td></tr></table></figure>
+
+<h2 id="安装redis-exporter"><a href="#安装redis-exporter" class="headerlink" title="安装redis_exporter"></a>安装redis_exporter</h2><h3 id="下载-4"><a href="#下载-4" class="headerlink" title="下载"></a>下载</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#x2F;&#x2F; 下载地址：https:&#x2F;&#x2F;github.com&#x2F;oliver006&#x2F;redis_exporter&#x2F;releases</span><br><span class="line">tar xzf redis_exporter-v1.10.0.linux-amd64.tar.gz -C &#x2F;usr&#x2F;local&#x2F;redis_exporter</span><br></pre></td></tr></table></figure>
+
+<h3 id="配置服务-3"><a href="#配置服务-3" class="headerlink" title="配置服务"></a>配置服务</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"># vim &#x2F;usr&#x2F;lib&#x2F;systemd&#x2F;system&#x2F;redis_exporter.service</span><br><span class="line"></span><br><span class="line">[Unit]</span><br><span class="line">Description&#x3D;redis_exporter</span><br><span class="line">After&#x3D;network.target</span><br><span class="line"></span><br><span class="line">[Service]</span><br><span class="line">Restart&#x3D;on-failure</span><br><span class="line">ExecStart&#x3D;&#x2F;usr&#x2F;local&#x2F;redis_exporter&#x2F;redis_exporter -redis.addr 127.0.0.1:6379 -redis.password 123456</span><br><span class="line"></span><br><span class="line">[Install]</span><br><span class="line">WantedBy&#x3D;multi-user.target</span><br></pre></td></tr></table></figure>
+
+<h3 id="设置服务开机自启动-3"><a href="#设置服务开机自启动-3" class="headerlink" title="设置服务开机自启动"></a>设置服务开机自启动</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">systemctl enable redis_exporter</span><br><span class="line">systemctl start redis_exporter</span><br></pre></td></tr></table></figure>
+
+<h2 id="安装blackbox-exporter"><a href="#安装blackbox-exporter" class="headerlink" title="安装blackbox_exporter"></a>安装blackbox_exporter</h2><h3 id="下载-5"><a href="#下载-5" class="headerlink" title="下载"></a>下载</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">wget https:&#x2F;&#x2F;github.com&#x2F;prometheus&#x2F;blackbox_exporter&#x2F;releases&#x2F;download&#x2F;v0.17.0&#x2F;blackbox_exporter-0.17.0.linux-amd64.tar.gz</span><br><span class="line">tar xzf blackbox_exporter-0.17.0.linux-amd64.tar.gz -C &#x2F;usr&#x2F;local&#x2F;blackbox_exporter</span><br></pre></td></tr></table></figure>
+
+<h3 id="配置服务-4"><a href="#配置服务-4" class="headerlink" title="配置服务"></a>配置服务</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ vim &#x2F;usr&#x2F;lib&#x2F;systemd&#x2F;system&#x2F;blackbox_exporter.service</span><br><span class="line"></span><br><span class="line">[Unit]</span><br><span class="line">Description&#x3D;blackbox_exporter</span><br><span class="line">After&#x3D;network.target</span><br><span class="line"></span><br><span class="line">[Service]</span><br><span class="line">User&#x3D;root</span><br><span class="line">Type&#x3D;simple</span><br><span class="line">ExecStart&#x3D;&#x2F;usr&#x2F;local&#x2F;blackbox_exporter&#x2F;blackbox_exporter --config.file&#x3D;&#x2F;usr&#x2F;local&#x2F;blackbox_exporter&#x2F;blackbox.yml</span><br><span class="line">Restart&#x3D;on-failure</span><br><span class="line"></span><br><span class="line">[Install]</span><br><span class="line">WantedBy&#x3D;multi-user.target</span><br></pre></td></tr></table></figure>
+
+<h3 id="设置服务开机自启动-4"><a href="#设置服务开机自启动-4" class="headerlink" title="设置服务开机自启动"></a>设置服务开机自启动</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">systemctl enable blackbox_exporter</span><br><span class="line">systemctl start blackbox_exporter</span><br></pre></td></tr></table></figure>
+
+]]></content>
+      <categories>
+        <category>运维部署记录</category>
+      </categories>
+      <tags>
+        <tag>prometheus</tag>
+        <tag>grafana</tag>
+        <tag>alertmanager</tag>
+        <tag>node_export</tag>
+        <tag>pushgateway</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>nginx反向代理出现502错误，日志显示no live upstreams</title>
+    <url>/posts/e938a162.html</url>
+    <content><![CDATA[<p>出现oa单在签核的时候出现502错误，查看nginx错误日志出现no live upstreams while connecting to upstream</p>
+<a id="more"></a>
+
+<p><strong>解决方案：</strong></p>
+<p>原upstream配置</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"> upstream oa&#123;</span><br><span class="line">    ip_hash;</span><br><span class="line">    server   10.0.2.30:80;</span><br><span class="line">    server   10.0.2.17:80;</span><br><span class="line">    check interval&#x3D;3000 rise&#x3D;2 fall&#x3D;2 timeout&#x3D;1000 type&#x3D;http;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>修改后upstream配置</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">upstream oa&#123;</span><br><span class="line">    ip_hash;</span><br><span class="line">    server   10.0.2.30:80 max_fails&#x3D;3 fail_timeout&#x3D;5s;</span><br><span class="line">    server   10.0.2.17:80 max_fails&#x3D;3 fail_timeout&#x3D;5s;</span><br><span class="line">    check interval&#x3D;3000 rise&#x3D;2 fall&#x3D;2 timeout&#x3D;1000 type&#x3D;http;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>日常问题处理</category>
+      </categories>
+      <tags>
+        <tag>nginx</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Ansible 批量创建用户</title>
+    <url>/posts/b993d222.html</url>
+    <content><![CDATA[<p>Ansible创建多个用户与密码</p>
+<a id="more"></a>
+
+
+<ul>
+<li>create_user.yaml</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">---</span><br><span class="line">- hosts: local</span><br><span class="line">  gather_facts: no</span><br><span class="line">  become: yes</span><br><span class="line">  become_method: sudo</span><br><span class="line">  become_user: root</span><br><span class="line"></span><br><span class="line">  tasks:</span><br><span class="line">  - include_vars: users.yml</span><br><span class="line">  - name: create users</span><br><span class="line">    user:</span><br><span class="line">      name: &quot;&#123;&#123; item.username &#125;&#125;&quot;</span><br><span class="line">      state: present</span><br><span class="line">      password: &quot;&#123;&#123; &#39;123456&#39;|password_hash(&#39;sha512&#39;) &#125;&#125;&quot;</span><br><span class="line">    with_items: &quot;&#123;&#123; users &#125;&#125;&quot;</span><br><span class="line"></span><br><span class="line">  - name: add users to &#x2F;etc&#x2F;sudoers</span><br><span class="line">    lineinfile:</span><br><span class="line">      dest: &#x2F;etc&#x2F;sudoers</span><br><span class="line">      #regexp: &#39;^root    ALL&#x3D;(ALL)       ALL&#39;</span><br><span class="line">      insertafter: &#39;^root    ALL&#x3D;(ALL)       ALL&#39;</span><br><span class="line">      line: &#39;&#123;&#123; item.username &#125;&#125; ALL&#x3D;(ALL) NOPASSWD:ALL&#39;</span><br><span class="line">      validate: &#39;visudo -cf %s&#39;</span><br><span class="line">    with_items: &quot;&#123;&#123; users &#125;&#125;&quot;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>users.yml</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">users:</span><br><span class="line">  - username: hyman01</span><br><span class="line">  - username: hyman02</span><br><span class="line">  - username: hyman03</span><br></pre></td></tr></table></figure>]]></content>
+      <categories>
+        <category>Ansible</category>
+      </categories>
+      <tags>
+        <tag>ansible</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>容错运行报错iptables No chain/target/match by that name</title>
+    <url>/posts/d58e85ca.html</url>
+    <content><![CDATA[<h3 id="产生原因"><a href="#产生原因" class="headerlink" title="产生原因"></a>产生原因</h3><p>docker服务启动时定义的自定义链</p>
+<p>DOCKER由于某种原因被清掉重启docker服务及可重新生成自定义链DOCKER</p>
+<a id="more"></a>
+
+
+<h3 id="解决方法"><a href="#解决方法" class="headerlink" title="解决方法"></a>解决方法</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">iptables -t filter -F</span><br><span class="line"></span><br><span class="line">iptables -t filter -X</span><br><span class="line"></span><br><span class="line">systemctl restart docker</span><br></pre></td></tr></table></figure>]]></content>
+      <categories>
+        <category>日常问题处理</category>
+      </categories>
+      <tags>
+        <tag>iptables</tag>
+        <tag>docker</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>如何在CentOS中下载RPM软件以及依赖项</title>
+    <url>/posts/446fc5f3.html</url>
+    <content><![CDATA[<p> 解决本地下载rpm问题以及依赖包下载</p>
+<a id="more"></a>
+
+
+
+<h3 id="方法一"><a href="#方法一" class="headerlink" title="方法一"></a>方法一</h3><p>该方法本地安装了不会继续下载rpm包</p>
+<ul>
+<li><p>要安装Downloadonly插件，请以root用户身份运行以下命令。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">yum install -y yum-plugin-downloadonly</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>指定下载路劲</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">yum install --downloadonly --downloaddir&#x3D;&lt;directory&gt; &lt;package-name&gt;</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h3 id="方法二"><a href="#方法二" class="headerlink" title="方法二"></a>方法二</h3><p>  该方法本地安装了还可以继续下载rpm包</p>
+<ul>
+<li><p>下载和安装软件包及其依赖项的另一种方法是使用yumdownloader命令</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">yum install -y yum-utils</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>安装软件包后，运行以下命令以下载软件包：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">yumdownloader &lt;程序包名称&gt;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>还可以使用以下标志来强制软件包解析其依赖关系</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">yumdownloader --resolve &lt;程序包名称&gt;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>可以使用以下 –destdir标志将软件包文件下载到自定义位置</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">yumdownloader --resolve --destdir&#x3D;&lt;directory&gt; &lt;程序包名称&gt;</span><br></pre></td></tr></table></figure></li>
+</ul>
+]]></content>
+      <categories>
+        <category>日常问题处理</category>
+      </categories>
+      <tags>
+        <tag>yum</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>CentOS 7升级gcc版本</title>
+    <url>/posts/9bf9048f.html</url>
+    <content><![CDATA[<p>Centos 7默认gcc版本为4.8，而安装某些软件需要大于4.8版本，如redis6.0.7版本</p>
+<a id="more"></a>
+
+<h3 id="安装centos-release-scl"><a href="#安装centos-release-scl" class="headerlink" title="安装centos-release-scl"></a>安装centos-release-scl</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">sudo yum install centos-release-scl</span><br></pre></td></tr></table></figure>
+
+<h3 id="安装devtoolset"><a href="#安装devtoolset" class="headerlink" title="安装devtoolset"></a>安装devtoolset</h3><p>注意，如果想安装7.<em>版本的，就改成devtoolset-7-gcc</em>，以此类推</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">sudo yum install devtoolset-9-gcc*</span><br></pre></td></tr></table></figure>
+
+<h3 id="激活对应的devtoolset"><a href="#激活对应的devtoolset" class="headerlink" title="激活对应的devtoolset"></a>激活对应的devtoolset</h3><p>可以一次安装多个版本的devtoolset，需要的时候用下面这条命令切换到对应的版本</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">scl enable devtoolset-8 bash</span><br></pre></td></tr></table></figure>
+
+<p>激活命令只对本次会话有效，重启会话后还是会变回原来的4.8.5版本</p>
+<p>安装的devtoolset是在 /opt/sh 目录</p>
+<p>如果需要启用某个版本，只需要进入需要版本执行</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">source .&#x2F;enable</span><br></pre></td></tr></table></figure>]]></content>
+      <categories>
+        <category>运维部署记录</category>
+      </categories>
+      <tags>
+        <tag>gcc</tag>
+      </tags>
+  </entry>
 </search>
