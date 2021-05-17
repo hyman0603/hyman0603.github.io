@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/favicon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon.png">
+  <link rel="mask-icon" href="/images/favicon.png" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"www.ywthings.com","root":"/","scheme":"Mist","version":"8.0.0-rc.2","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"appID":"UDW7NS797T","apiKey":"c4bb3c2b53b39900e8498ee72e6dc96e","indexName":"hyman","hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="使用k8s搭建一个三节点的zookeeper集群">
+<meta property="og:type" content="article">
+<meta property="og:title" content="k8s部署zookeeper集群">
+<meta property="og:url" content="https://www.ywthings.com/posts/3fc9fa77.html">
+<meta property="og:site_name" content="hyman">
+<meta property="og:description" content="使用k8s搭建一个三节点的zookeeper集群">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2021-01-07T08:52:51.000Z">
+<meta property="article:modified_time" content="2021-04-07T06:48:38.079Z">
+<meta property="article:author" content="hyman">
+<meta property="article:tag" content="k8s">
+<meta property="article:tag" content="kubernetes">
+<meta property="article:tag" content="zookeeper">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://www.ywthings.com/posts/3fc9fa77.html">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>k8s部署zookeeper集群 | hyman</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+        <span class="toggle-line toggle-line-first"></span>
+        <span class="toggle-line toggle-line-middle"></span>
+        <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">hyman</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">一些简单的记录</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+        <li class="menu-item menu-item-sitemap">
+
+    <a href="/sitemap.xml" rel="section"><i class="fa fa-sitemap fa-fw"></i>站点地图</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://www.ywthings.com/posts/3fc9fa77.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="hyman">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="hyman">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          k8s部署zookeeper集群
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2021-01-07 16:52:51" itemprop="dateCreated datePublished" datetime="2021-01-07T16:52:51+08:00">2021-01-07</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2021-04-07 14:48:38" itemprop="dateModified" datetime="2021-04-07T14:48:38+08:00">2021-04-07</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/kubernetes/" itemprop="url" rel="index"><span itemprop="name">kubernetes</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>使用k8s搭建一个三节点的<code>zookeeper</code>集群</p>
+<a id="more"></a>
+
+<h2 id="创建zk-pv"><a href="#创建zk-pv" class="headerlink" title="创建zk-pv"></a>创建zk-pv</h2><h3 id="首先通过nfs创建三个共享目录"><a href="#首先通过nfs创建三个共享目录" class="headerlink" title="首先通过nfs创建三个共享目录"></a>首先通过nfs创建三个共享目录</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mkdir -p &#x2F;data&#x2F;zk&#x2F;&#123;zk01,zk02,zk03&#125;</span><br></pre></td></tr></table></figure>
+
+<p>分别对应三节点zk集群中的三个pod的持久化目录，创建好目录之后编写yaml创建zk-pv.yaml</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br></pre></td><td class="code"><pre><span class="line">apiVersion: v1</span><br><span class="line">kind: PersistentVolume</span><br><span class="line">metadata:</span><br><span class="line">  name: dfs-pv-zk01</span><br><span class="line">  namespace: middleware</span><br><span class="line">  labels:</span><br><span class="line">    app: zk</span><br><span class="line">  annotations:</span><br><span class="line">    volume.beta.kubernetes.io&#x2F;storage-class: &quot;jusda&quot;</span><br><span class="line">spec:</span><br><span class="line">  capacity:</span><br><span class="line">    storage: 50Gi</span><br><span class="line">  accessModes:</span><br><span class="line">  - ReadWriteMany</span><br><span class="line">  nfs:</span><br><span class="line">    server: 10.0.15.1</span><br><span class="line">    path: &#x2F;jusdaglobal&#x2F;zk&#x2F;zk01</span><br><span class="line">  persistentVolumeReclaimPolicy: Retain</span><br><span class="line">---</span><br><span class="line">apiVersion: v1</span><br><span class="line">kind: PersistentVolume</span><br><span class="line">metadata:</span><br><span class="line">  name: dfs-pv-zk02</span><br><span class="line">  namespace: middleware</span><br><span class="line">  labels:</span><br><span class="line">    app: zk</span><br><span class="line">  annotations:</span><br><span class="line">    volume.beta.kubernetes.io&#x2F;storage-class: &quot;jusda&quot;</span><br><span class="line">spec:</span><br><span class="line">  capacity:</span><br><span class="line">    storage: 50Gi</span><br><span class="line">  accessModes:</span><br><span class="line">  - ReadWriteMany</span><br><span class="line">  nfs:</span><br><span class="line">    server: 10.0.15.1</span><br><span class="line">    path: &#x2F;jusdaglobal&#x2F;zk&#x2F;zk02</span><br><span class="line">  persistentVolumeReclaimPolicy: Retain</span><br><span class="line">---</span><br><span class="line">apiVersion: v1</span><br><span class="line">kind: PersistentVolume</span><br><span class="line">metadata:</span><br><span class="line">  name: dfs-pv-zk03</span><br><span class="line">  namespace: middleware</span><br><span class="line">  labels:</span><br><span class="line">    app: zk</span><br><span class="line">  annotations:</span><br><span class="line">    volume.beta.kubernetes.io&#x2F;storage-class: &quot;jusda&quot;</span><br><span class="line">spec:</span><br><span class="line">  capacity:</span><br><span class="line">    storage: 50Gi</span><br><span class="line">  accessModes:</span><br><span class="line">  - ReadWriteMany</span><br><span class="line">  nfs:</span><br><span class="line">    server: 10.0.15.1</span><br><span class="line">    path: &#x2F;jusdaglobal&#x2F;zk&#x2F;zk03</span><br><span class="line">  persistentVolumeReclaimPolicy: Retain</span><br></pre></td></tr></table></figure>
+
+<p>使用如下命令创建zk-pk</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kubectl create -f zk-pv.yaml</span><br></pre></td></tr></table></figure>
+
+<h2 id="创建ZK集群"><a href="#创建ZK集群" class="headerlink" title="创建ZK集群"></a>创建ZK集群</h2><p>我们选择使用<code>statefulset</code>去部署zk集群的三节点,并且使用刚刚创建的pv作为存储设备。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br></pre></td><td class="code"><pre><span class="line">apiVersion: v1</span><br><span class="line">kind: Service</span><br><span class="line">metadata:</span><br><span class="line">  name: zk-hs</span><br><span class="line">  namespace: middleware</span><br><span class="line">  labels:</span><br><span class="line">    app: zk</span><br><span class="line">spec:</span><br><span class="line">  selector:</span><br><span class="line">    app: zk</span><br><span class="line">  clusterIP: None</span><br><span class="line">  ports:</span><br><span class="line">  - name: server</span><br><span class="line">    port: 2888</span><br><span class="line">  - name: leader-election</span><br><span class="line">    port: 3888</span><br><span class="line">--- </span><br><span class="line">apiVersion: v1</span><br><span class="line">kind: Service</span><br><span class="line">metadata:</span><br><span class="line">  name: zk-cs</span><br><span class="line">  namespace: middleware</span><br><span class="line">  labels:</span><br><span class="line">    app: zk</span><br><span class="line">spec:</span><br><span class="line">  selector:</span><br><span class="line">    app: zk</span><br><span class="line">  type: NodePort</span><br><span class="line">  ports:</span><br><span class="line">  - name: client</span><br><span class="line">    port: 2181</span><br><span class="line">---</span><br><span class="line">apiVersion: policy&#x2F;v1beta1</span><br><span class="line">kind: PodDisruptionBudget</span><br><span class="line">metadata:</span><br><span class="line">  name: zk-pdb</span><br><span class="line">  namespace: middleware</span><br><span class="line">spec:</span><br><span class="line">  selector:</span><br><span class="line">    matchLabels:</span><br><span class="line">      app: zk</span><br><span class="line">  maxUnavailable: 1</span><br><span class="line">---</span><br><span class="line">apiVersion: apps&#x2F;v1</span><br><span class="line">kind: StatefulSet</span><br><span class="line">metadata:</span><br><span class="line">  name: zk</span><br><span class="line">  namespace: middleware</span><br><span class="line">spec:</span><br><span class="line">  selector:</span><br><span class="line">    matchLabels:</span><br><span class="line">      app: zk # has to match .spec.template.metadata.labels</span><br><span class="line">  serviceName: &quot;zk-hs&quot;</span><br><span class="line">  replicas: 3 # by default is 1</span><br><span class="line">  updateStrategy:</span><br><span class="line">    type: RollingUpdate</span><br><span class="line">  podManagementPolicy: Parallel</span><br><span class="line">  template:</span><br><span class="line">    metadata:</span><br><span class="line">      labels:</span><br><span class="line">        app: zk # has to match .spec.selector.matchLabels</span><br><span class="line">    spec:</span><br><span class="line">      containers:</span><br><span class="line">      - name: zk</span><br><span class="line">        imagePullPolicy: IfNotPresent</span><br><span class="line">        image: 10.0.7.130&#x2F;middleware&#x2F;zookeeper:3.4.10</span><br><span class="line">        resources:</span><br><span class="line">          requests:</span><br><span class="line">            memory: &quot;500Mi&quot;</span><br><span class="line">            cpu: &quot;0.5&quot;</span><br><span class="line">        ports:</span><br><span class="line">        - containerPort: 2181</span><br><span class="line">          name: client</span><br><span class="line">        - containerPort: 2888</span><br><span class="line">          name: server</span><br><span class="line">        - containerPort: 3888</span><br><span class="line">          name: leader-election</span><br><span class="line">        command:</span><br><span class="line">        - sh</span><br><span class="line">        - -c</span><br><span class="line">        - &quot;start-zookeeper \</span><br><span class="line">        --servers&#x3D;3 \</span><br><span class="line">        --data_dir&#x3D;&#x2F;var&#x2F;lib&#x2F;zookeeper&#x2F;data \</span><br><span class="line">        --data_log_dir&#x3D;&#x2F;var&#x2F;lib&#x2F;zookeeper&#x2F;data&#x2F;log \</span><br><span class="line">        --conf_dir&#x3D;&#x2F;opt&#x2F;zookeeper&#x2F;conf \</span><br><span class="line">        --client_port&#x3D;2181 \</span><br><span class="line">        --election_port&#x3D;3888 \</span><br><span class="line">        --server_port&#x3D;2888 \</span><br><span class="line">        --tick_time&#x3D;2000 \</span><br><span class="line">        --init_limit&#x3D;10 \</span><br><span class="line">        --sync_limit&#x3D;5 \</span><br><span class="line">        --heap&#x3D;512M \</span><br><span class="line">        --max_client_cnxns&#x3D;60 \</span><br><span class="line">        --snap_retain_count&#x3D;3 \</span><br><span class="line">        --purge_interval&#x3D;12 \</span><br><span class="line">        --max_session_timeout&#x3D;40000 \</span><br><span class="line">        --min_session_timeout&#x3D;4000 \</span><br><span class="line">        --log_level&#x3D;INFO&quot;</span><br><span class="line">        readinessProbe:</span><br><span class="line">          exec:</span><br><span class="line">            command:</span><br><span class="line">            - sh</span><br><span class="line">            - -c</span><br><span class="line">            - &quot;zookeeper-ready 2181&quot;</span><br><span class="line">          initialDelaySeconds: 10</span><br><span class="line">          timeoutSeconds: 5</span><br><span class="line">        livenessProbe:</span><br><span class="line">          exec:</span><br><span class="line">            command:</span><br><span class="line">            - sh</span><br><span class="line">            - -c</span><br><span class="line">            - &quot;zookeeper-ready 2181&quot;</span><br><span class="line">          initialDelaySeconds: 10</span><br><span class="line">          timeoutSeconds: 5</span><br><span class="line">        volumeMounts:</span><br><span class="line">        - name: dfs</span><br><span class="line">          mountPath: &#x2F;var&#x2F;lib&#x2F;zookeeper</span><br><span class="line">  volumeClaimTemplates:</span><br><span class="line">  - metadata:</span><br><span class="line">      name: dfs</span><br><span class="line">      annotations:</span><br><span class="line">        volume.beta.kubernetes.io&#x2F;storage-class: &quot;jusda&quot;</span><br><span class="line">    spec:</span><br><span class="line">      accessModes: [ &quot;ReadWriteMany&quot; ]</span><br><span class="line">      resources:</span><br><span class="line">        requests:</span><br><span class="line">          storage: 50Gi</span><br></pre></td></tr></table></figure>
+
+<p>使用如下命令创建statefulset</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kubectl apply -f zk.yaml</span><br></pre></td></tr></table></figure>
+
+<h2 id="验证Zk集群是否启动成功"><a href="#验证Zk集群是否启动成功" class="headerlink" title="验证Zk集群是否启动成功"></a>验证Zk集群是否启动成功</h2><p>使用如下命令查看容器</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kubectl -n middleware get pods,svc</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">NAME                                     READY     STATUS    RESTARTS   AGE</span><br><span class="line">pod&#x2F;zk-0                                 1&#x2F;1       Running   0          15h</span><br><span class="line">pod&#x2F;zk-1                                 1&#x2F;1       Running   0          15h</span><br><span class="line">pod&#x2F;zk-2                                 1&#x2F;1       Running   0          15h</span><br><span class="line"></span><br><span class="line">NAME            TYPE        CLUSTER-IP      EXTERNAL-IP   PORT(S)            AGE</span><br><span class="line">service&#x2F;zk-cs   NodePort    10.108.131.44   &lt;none&gt;        2181:31792&#x2F;TCP     15h</span><br><span class="line">service&#x2F;zk-hs   ClusterIP   None            &lt;none&gt;        2888&#x2F;TCP,3888&#x2F;TCP  15h</span><br></pre></td></tr></table></figure>
+
+
+
+<p>使用如下命令进入容器</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kubectl exec -it zk-1 -n middleware &#x2F;bin&#x2F;sh</span><br></pre></td></tr></table></figure>
+
+<p>使用如下命令查看所有zk节点的状态</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">for i in 0 1 2; do kubectl exec zk-$i -n middleware zkServer.sh status; done</span><br></pre></td></tr></table></figure>
+
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/k8s/" rel="tag"># k8s</a>
+              <a href="/tags/kubernetes/" rel="tag"># kubernetes</a>
+              <a href="/tags/zookeeper/" rel="tag"># zookeeper</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/posts/d5d64b7c.html" rel="prev" title="Jenkins 2.x 触发Pipeline执行">
+      <i class="fa fa-chevron-left"></i> Jenkins 2.x 触发Pipeline执行
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/posts/11561d36.html" rel="next" title="k8s部署redis集群">
+      k8s部署redis集群 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#创建zk-pv"><span class="nav-number">1.</span> <span class="nav-text">创建zk-pv</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#首先通过nfs创建三个共享目录"><span class="nav-number">1.1.</span> <span class="nav-text">首先通过nfs创建三个共享目录</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#创建ZK集群"><span class="nav-number">2.</span> <span class="nav-text">创建ZK集群</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#验证Zk集群是否启动成功"><span class="nav-number">3.</span> <span class="nav-text">验证Zk集群是否启动成功</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">hyman</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">169</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">35</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">122</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">hyman</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/mist/" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

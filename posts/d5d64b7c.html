@@ -1,0 +1,530 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/favicon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon.png">
+  <link rel="mask-icon" href="/images/favicon.png" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"www.ywthings.com","root":"/","scheme":"Mist","version":"8.0.0-rc.2","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"appID":"UDW7NS797T","apiKey":"c4bb3c2b53b39900e8498ee72e6dc96e","indexName":"hyman","hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="时间触发时间触发是指定义一个时间，时间到了就触发pipeline执行。在Jenkins pipeline中使用trigger指令来定义时间触发。 trigger指令只能被定义在pipeline块下，Jenkins内置支持cron、pollSCM，upstream三种方式。其他方式可以通过插件来实现。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Jenkins 2.x 触发Pipeline执行">
+<meta property="og:url" content="https://www.ywthings.com/posts/d5d64b7c.html">
+<meta property="og:site_name" content="hyman">
+<meta property="og:description" content="时间触发时间触发是指定义一个时间，时间到了就触发pipeline执行。在Jenkins pipeline中使用trigger指令来定义时间触发。 trigger指令只能被定义在pipeline块下，Jenkins内置支持cron、pollSCM，upstream三种方式。其他方式可以通过插件来实现。">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2021-01-05T09:30:58.000Z">
+<meta property="article:modified_time" content="2021-04-07T06:48:38.053Z">
+<meta property="article:author" content="hyman">
+<meta property="article:tag" content="Jenkins">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://www.ywthings.com/posts/d5d64b7c.html">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>Jenkins 2.x 触发Pipeline执行 | hyman</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+        <span class="toggle-line toggle-line-first"></span>
+        <span class="toggle-line toggle-line-middle"></span>
+        <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">hyman</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">一些简单的记录</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+        <li class="menu-item menu-item-sitemap">
+
+    <a href="/sitemap.xml" rel="section"><i class="fa fa-sitemap fa-fw"></i>站点地图</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://www.ywthings.com/posts/d5d64b7c.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="hyman">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="hyman">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Jenkins 2.x 触发Pipeline执行
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2021-01-05 17:30:58" itemprop="dateCreated datePublished" datetime="2021-01-05T17:30:58+08:00">2021-01-05</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2021-04-07 14:48:38" itemprop="dateModified" datetime="2021-04-07T14:48:38+08:00">2021-04-07</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Jenkins/" itemprop="url" rel="index"><span itemprop="name">Jenkins</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="时间触发"><a href="#时间触发" class="headerlink" title="时间触发"></a>时间触发</h2><p>时间触发是指定义一个时间，时间到了就触发pipeline执行。在Jenkins pipeline中使用trigger指令来定义时间触发。</p>
+<p>trigger指令只能被定义在pipeline块下，Jenkins内置支持cron、pollSCM，upstream三种方式。其他方式可以通过插件来实现。</p>
+<a id="more"></a>
+
+<h3 id="定时执行：cron"><a href="#定时执行：cron" class="headerlink" title="定时执行：cron"></a>定时执行：cron</h3><p>定时执行就像cronjob，一到时间点就执行。它的使用场景通常是执行一些周期性的job，如每夜构建。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">pipeline &#123;</span><br><span class="line">    agent any</span><br><span class="line">    triggers &#123;</span><br><span class="line">        cron(&#39;0 0 * * *&#39;)</span><br><span class="line">    &#125;</span><br><span class="line">    stages &#123;</span><br><span class="line">        stage(&#39;Nightly build&#39;) &#123;</span><br><span class="line">            steps &#123;</span><br><span class="line">                echo &quot;这是一个耗时的构建，每天凌晨执行&quot;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">     &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>enkins trigger cron语法采用的是UNIX cron语法（有些细微的区别）。一条cron包含5个字段，使用空格或Tab分隔，格式为：MINUTE HOUR DOM MONTH DOW。每个字段的含义为：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">MINUTE：一小时内的分钟，取值范围为0∼59。</span><br><span class="line">HOUR：一天内的小时，取值范围为0∼23。</span><br><span class="line">DOM：一个月的某一天，取值范围为1∼31。</span><br><span class="line">MONTH：月份，取值范围为1∼12。</span><br><span class="line">DOW：星期几，取值范围为0∼7。0和7代表星期天。</span><br><span class="line">还可以使用以下特殊字符，一次性指定多个值。</span><br><span class="line">*：匹配所有的值</span><br><span class="line">M-N：匹配M 到N 之间的值。</span><br><span class="line">M-N&#x2F;X or*&#x2F;X：指定在M 到N 范围内，以X值为步长。</span><br><span class="line">A，B，· · ·，Z：使用逗号枚举多个值。</span><br></pre></td></tr></table></figure>
+
+<p>在一些大型组织中，会同时存在大量的同一时刻执行的定时任务，比如N 个半夜零点（<code>0 0 * * *</code>）执行的任务。这样会产生负载不均衡。在Jenkins trigger cron语法中使用“H”字符来解决这一问题，H代表hash。对于没必要准确到零点0分执行的任务，cron可以这样写：<code>H 0 * * *</code>，代表在零点0分至，H代表hash。代表在零点0分至零点59分之间任何一个时间点执行。</p>
+<p>需要注意的是，H应用在DOM（一个月的某一天）字段时会有不准确的情况，因为10月有31天，而2月却是28天。</p>
+<p>Jenkins trigger cron还设计了一些人性化的别名：<code>@yearly</code>、<code>@annually</code>、<code>@monthly</code>、<code>@weekly</code>、<code>@daily</code>、<code>@midnight</code>和<code>@hourly</code>。例如，<code>@hourly</code>与<code>H * * * *</code>相同，代表一小时内的任何时间；<code>@midnight</code>实际上代表在半夜12：00到凌晨2：59之间的某个时间。其他别名很少有应用场景。</p>
+<h3 id="轮询代码仓库：pollSCM"><a href="#轮询代码仓库：pollSCM" class="headerlink" title="轮询代码仓库：pollSCM"></a>轮询代码仓库：pollSCM</h3><p>轮询代码仓库是指定期到代码仓库询问代码是否有变化，如果有变化就执行。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">pipeline &#123;</span><br><span class="line">    agent any</span><br><span class="line">    triggers &#123;</span><br><span class="line">        &#x2F;&#x2F; 每分钟判断一次代码是否有变化</span><br><span class="line">        pollSCM(&quot;H&#x2F;1 * * * *&quot;)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>事实上，如果代码有变化，最好的方式是代码仓库主动通知Jenkins，而不是Jenkins频繁去代码仓库检查。那这种方式存在的意义是什么？<br>在一些特殊情况下，比如外网的代码仓库无法调用内网的Jenkins，或者反过来，则会采用这种方式。</p>
+<h2 id="事件触发"><a href="#事件触发" class="headerlink" title="事件触发"></a>事件触发</h2><p>事件触发就是发生了某个事件就触发pipeline执行。这个事件可以是你能想到的任何事件。比如手动在界面上触发、其他Job主动触发、HTTP API Webhook触发等。</p>
+<h3 id="由上游任务触发：upstream"><a href="#由上游任务触发：upstream" class="headerlink" title="由上游任务触发：upstream"></a>由上游任务触发：upstream</h3><p>当B任务的执行依赖A任务的执行结果时，A就被称为B的上游任务。在Jenkins 2.22及以上版本中，trigger指令开始支持upstream类型的触发条件。upstream的作用就是能让B pipeline自行决定依赖哪些上游任务。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F; job1和job2都是任务名</span><br><span class="line">triggers &#123;</span><br><span class="line">    upstream(upstreamProjects: &quot;job1,job2&quot;, threshold: hudson.model.Result.SUCCESS)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>当upstreamProjects参数接收多个任务时，使用，分隔。threshold参数是指上游任务的执行结果是什么值时触发。hudson.model.Result是一个枚举，包括以下值：</p>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">ABORTED：任务被手动中止。</span><br><span class="line">FAILURE：构建失败。</span><br><span class="line">SUCCESS：构建成功。</span><br><span class="line">UNSTABLE：存在一些错误，但不至于构建失败。</span><br><span class="line">NOT_BUILT：在多阶段构建时，前面阶段的问题导致后面阶段无法执行。</span><br><span class="line"></span><br><span class="line">注意：需要手动触发一次任务，让Jenkins加载pipeline后，trigger指令才会生效。</span><br></pre></td></tr></table></figure>
+
+<h3 id="GitLab通知触发"><a href="#GitLab通知触发" class="headerlink" title="GitLab通知触发"></a>GitLab通知触发</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">GitLab通知触发是指当GitLab发现源代码有变化时，触发Jenkins执行构建。</span><br><span class="line"></span><br><span class="line">由GitLab主动通知进行构建的好处是显而易见的，这样很容易就解决了我们之前提到的轮询代码仓库时“多久轮询一次”的问题，实现每一次代码的变化都对应一次构建。</span><br></pre></td></tr></table></figure>
+
+<h4 id="在pipeline中实现GitLab-trigger"><a href="#在pipeline中实现GitLab-trigger" class="headerlink" title="在pipeline中实现GitLab trigger"></a>在pipeline中实现GitLab trigger</h4><p>GitLab插件上实现了基于GitLab的trigger。以下是具体使用方法。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">pipeline &#123;</span><br><span class="line">    agent any</span><br><span class="line">    triggers &#123;</span><br><span class="line">        gitlab(triggerOnPush: true,</span><br><span class="line">            triggerOnMergeRequest: true,</span><br><span class="line">            branchFilterType: &quot;All&quot;,</span><br><span class="line">            secretToken: &quot;t8vcxwuza023ehzcftzr5a74vkpto6xr&quot;)</span><br><span class="line">    &#125;</span><br><span class="line">    stages &#123;</span><br><span class="line">        stage(&#39;build&#39;) &#123;</span><br><span class="line">            steps &#123;</span><br><span class="line">                echo &#39;Hello World from gitlab trigger&#39;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>secretToken使用随机字符串生成器生成即可。如果Jenkins在内网使用，并且安全性有一定的保障，我们可以将secretToken定义为一个Jenkins全局变量，供所有的项目使用。这样做就不用为每个项目重新生成token了。<br>GitLab trigger方法有很多参数可配置，下面简单介绍一些常用的参数。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">triggerOnPush：当GitLab触发push事件时，是否执行构建。</span><br><span class="line">triggerOnMergeRequest：当GitLab触发mergeRequest事件时，是否执行构建。</span><br><span class="line">branchFilterType：只有符合条件的分支才会被触发。必选，否则无法实现触发。可以设置的值有：</span><br><span class="line">	NameBasedFilter：基于分支名进行过滤，多个分支名使用逗号分隔。</span><br><span class="line">	RegexBasedFilter：基于正则表达对分支名进行过滤。</span><br><span class="line">	All：所有分支都会被触发。</span><br><span class="line">includeBranchesSpec：基于branchFilterType值，输入期望包括的分支的规则。</span><br><span class="line">excludeBranchesSpec：基于branchFilterType值，输入期望排除的分支的规则。</span><br></pre></td></tr></table></figure>
+
+<h4 id="使用Generic-Webhook-Trigger插件实现触发"><a href="#使用Generic-Webhook-Trigger插件实现触发" class="headerlink" title="使用Generic Webhook Trigger插件实现触发"></a>使用Generic Webhook Trigger插件实现触发</h4><p>安装 Generic Webhook Trigger 插件（下文使用 GWT 简称）后，Jenkins 会暴露一个 API：<br><code>＜JENKINS URL&gt;/generic-webhook-trigger/invoke</code>，即由GWT插件来处理此API的请求。</p>
+<p>以下为使用<code>token</code>示例：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">pipeline &#123;</span><br><span class="line">    agent any</span><br><span class="line">    triggers &#123;</span><br><span class="line">        GenericTrigger(</span><br><span class="line">            genericVariables: [</span><br><span class="line">                [</span><br><span class="line">                    key: &#39;ref&#39;, </span><br><span class="line">                    value: &#39;$.ref&#39;</span><br><span class="line">                ]</span><br><span class="line">            ],</span><br><span class="line"></span><br><span class="line">            token: &#39;secret&#39;,</span><br><span class="line"></span><br><span class="line">            causeString: &#39;Triggered on $ref&#39;,</span><br><span class="line">            printContributedVariables: true,</span><br><span class="line">            printPostContent: true</span><br><span class="line">        )</span><br><span class="line">    &#125;</span><br><span class="line">    stages &#123;</span><br><span class="line">        stage(&quot;Some step&quot;) &#123;</span><br><span class="line">            steps &#123;</span><br><span class="line">                sh &quot;echo $ref&quot;</span><br><span class="line">                sh &quot;printenv&quot;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>curl -X POST -H “Content-Type: application/json” -d ‘{“ref”: “ref/heads/master”}’ -s <a href="https://jenkins.utcook.com/generic-webhook-trigger/invoke?token=secret">https://jenkins.utcook.com/generic-webhook-trigger/invoke?token=secret</a></p>
+<p>GenericTrigger触发条件由GWT插件提供。此触发条件可以说是GWT的所有内容。<br>可以将GenericTrigger触发条件分为5部分，这样更易于理解各参数的作用。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">从HTTP POST请求中提取参数值。</span><br><span class="line">token，GWT插件用于标识Jenkins项目的唯一性。</span><br><span class="line">根据请求参数值判断是否触发Jenkins项目的执行。</span><br><span class="line">日志打印控制。</span><br><span class="line">Webhook响应控制。</span><br></pre></td></tr></table></figure>
+
+<p><strong>一个HTTP POST请求可以从三个维度提取参数，即POST body、URL参数和header</strong><br>GWT插件提供了三个参数分别对这三个维度的数据进行提取。</p>
+<ol>
+<li><p>genericVariables：提取POST body中的参数。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">genericVariables: [</span><br><span class="line">                [key: &#39;ref&#39;, value: &#39;$.ref&#39;],</span><br><span class="line">                [key: &#39;before&#39;,</span><br><span class="line">                 value: &#39;$.before&#39;,</span><br><span class="line">                 expressionType: &#39;JSONPath&#39;,</span><br><span class="line">                 regexpFilter: &#39;&#39;,</span><br><span class="line">                 defaultValue: &#39;&#39;</span><br><span class="line">                ]</span><br><span class="line">            ]</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">value：JSONPath表达式，或者XPath表达式，取决于expressionType参数值，用于从POST body中提取值。</span><br><span class="line">key：从POST body中提取出的值的新变量名，可用于pipeline其他步骤。</span><br><span class="line">expressionType：可选，value的表达式类型，默认为JSONPath。当请求为XML内容时，必须指定XPath值。</span><br><span class="line">defaultValue：可选，当提取不到值，且defaultValue不为空时，则使用defaultValue作为返回值。</span><br><span class="line">regexpFilter：可选，过滤表达式，对提取出来的值进行过滤。regexpFilter做的事情其实就是string.replaceAll(regexpFilter，&quot;&quot;)；。string是从HTTP请求中提取出来的值。</span><br></pre></td></tr></table></figure>
+
+<ol>
+<li><p>genericRequestVariables`：从URL参数中提取值。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">genericRequestVariables: [</span><br><span class="line">              [key: &#39;requestWithNumber&#39;, regexpFilter: &#39;[^0-9]&#39;],</span><br><span class="line">              [key: &#39;requestWithString&#39;, regexpFilter: &#39;&#39;]</span><br><span class="line">          ]</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">key：提取出的值的新变量名，可用于pipeline其他步骤。</span><br><span class="line">regexpFilter：对提取出的值进行过滤。</span><br></pre></td></tr></table></figure>
+
+<p><code>genericHeaderVariables</code>：从HTTP header中提取值。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">genericHeaderVariables: [</span><br><span class="line">            [key: &#39;headerWithNumber&#39;, regexpFilter: &#39;[^0-9]&#39;],</span><br><span class="line">            [key: &#39;headerWithString&#39;, regexpFilter: &#39;&#39;]</span><br><span class="line">        ]</span><br></pre></td></tr></table></figure>
+
+<p><code>genericHeaderVariables</code>的用法与<code>genericRequestVariables</code>一样，区别是它是从HTTP header中提取值的。</p>
+<p><strong>根据请求参数值判断是否触发Jenkins项目执行</strong></p>
+<p>GWT并不只是根据<code>token</code>值来判断是否触发，还可以根据我们提取出的值进行判断。示例如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">GenericTrigger(</span><br><span class="line">            genericVariables: [</span><br><span class="line">                [key: &#39;refValue&#39;, value: &#39;$.ref&#39;],</span><br><span class="line">            ],</span><br><span class="line"></span><br><span class="line">            token: env.JOB_NAME,</span><br><span class="line"></span><br><span class="line">            regexpFilterText: &#39;$refValue&#39;,</span><br><span class="line">            regexpFilterExpression: &#39;refs&#x2F;heads&#x2F;(master|dev)&#39;</span><br><span class="line">        )</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">regexpFilterText：需要进行匹配的key。例子中，我们使用从POST body中提取出的refValue变量值。</span><br><span class="line">regexpFilterExpression：正则表达式。</span><br><span class="line">如果regexpFilterText参数的值符合regexpFilterExpression参数的正则表达式，则触发执行。</span><br></pre></td></tr></table></figure>
+
+<p><strong>控制打印内容</strong></p>
+<p>打印日志有助于调试。GWT插件提供了三个参数。</p>
+<ul>
+<li><code>printPostContent</code>：布尔值，将Webhook请求信息打印到日志上。</li>
+<li><code>printContributedVariables</code>：布尔值，将提取后的变量名及变量值打印出来。</li>
+<li><code>causeString</code>：字符串类型，触发原因，可以直接引用提取后的变量，如 <code>causeString：&#39;Triggered on $msg&#39;</code>。</li>
+</ul>
+<p><strong>控制响应</strong></p>
+<ul>
+<li><code>silentResponse</code>：布尔类型，在正常情况下，当Webhook请求成功后，GWT插件会返回HTTP 200状态码和触发结果给调用方。但是当<code>silentResponse</code>设置为<code>true</code>时，就只返回HTTP 200状态码，不返回触发结果。</li>
+</ul>
+</li>
+</ol>
+</li>
+</ol>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Jenkins/" rel="tag"># Jenkins</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/posts/d6e2db61.html" rel="prev" title="Centos7 切换DELL存储服务器NFS异常">
+      <i class="fa fa-chevron-left"></i> Centos7 切换DELL存储服务器NFS异常
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/posts/3fc9fa77.html" rel="next" title="k8s部署zookeeper集群">
+      k8s部署zookeeper集群 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#时间触发"><span class="nav-number">1.</span> <span class="nav-text">时间触发</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#定时执行：cron"><span class="nav-number">1.1.</span> <span class="nav-text">定时执行：cron</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#轮询代码仓库：pollSCM"><span class="nav-number">1.2.</span> <span class="nav-text">轮询代码仓库：pollSCM</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#事件触发"><span class="nav-number">2.</span> <span class="nav-text">事件触发</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#由上游任务触发：upstream"><span class="nav-number">2.1.</span> <span class="nav-text">由上游任务触发：upstream</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#GitLab通知触发"><span class="nav-number">2.2.</span> <span class="nav-text">GitLab通知触发</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#在pipeline中实现GitLab-trigger"><span class="nav-number">2.2.1.</span> <span class="nav-text">在pipeline中实现GitLab trigger</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#使用Generic-Webhook-Trigger插件实现触发"><span class="nav-number">2.2.2.</span> <span class="nav-text">使用Generic Webhook Trigger插件实现触发</span></a></li></ol></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">hyman</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">169</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">35</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">122</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">hyman</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/mist/" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>
