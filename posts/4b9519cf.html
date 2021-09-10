@@ -2,25 +2,25 @@
 <html lang="zh-CN">
 <head>
   <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="viewport" content="width=device-width">
 <meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 4.2.1">
+<meta name="generator" content="Hexo 5.4.0">
+
+
   <link rel="apple-touch-icon" sizes="180x180" href="/images/favicon.png">
   <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon.png">
-  <link rel="mask-icon" href="/images/favicon.png" color="#222">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
 
 <link rel="stylesheet" href="/css/main.css">
 
 
-<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
 
-<script id="hexo-configurations">
-    var NexT = window.NexT || {};
-    var CONFIG = {"hostname":"www.ywthings.com","root":"/","scheme":"Mist","version":"8.0.0-rc.2","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"appID":"UDW7NS797T","apiKey":"c4bb3c2b53b39900e8498ee72e6dc96e","indexName":"hyman","hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
-  </script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.3/css/all.min.css" integrity="sha256-2H3fkXt6FEmrReK448mDVGKb3WW2ZZw35gI7vqHOE4Y=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
 
-  <meta name="description" content="问题生产执行df -h时，卡住不动，无法返回结果">
+<script class="next-config" data-name="main" type="application/json">{"hostname":"www.ywthings.com","root":"/","images":"/images","scheme":"Mist","version":"8.5.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":true,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+<meta name="description" content="问题生产执行df -h时，卡住不动，无法返回结果">
 <meta property="og:type" content="article">
 <meta property="og:title" content="服务器执行df -h卡住问题解决">
 <meta property="og:url" content="https://www.ywthings.com/posts/4b9519cf.html">
@@ -33,72 +33,47 @@
 <meta property="article:tag" content="df">
 <meta name="twitter:card" content="summary">
 
+
 <link rel="canonical" href="https://www.ywthings.com/posts/4b9519cf.html">
 
 
-<script id="page-configurations">
-  // https://hexo.io/docs/variables.html
-  CONFIG.page = {
-    sidebar: "",
-    isHome : false,
-    isPost : true,
-    lang   : 'zh-CN'
-  };
-</script>
 
-  <title>服务器执行df -h卡住问题解决 | hyman</title>
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://www.ywthings.com/posts/4b9519cf.html","path":"posts/4b9519cf.html","title":"服务器执行df -h卡住问题解决"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>服务器执行df -h卡住问题解决 | hyman</title>
   
 
-
-
+  <script src="/js/third-party/analytics/baidu-analytics.js"></script>
+  <script async src="https://hm.baidu.com/hm.js?97e285060b95594e74e4d3562a50a717"></script>
 
 
 
   <noscript>
-  <style>
-  .use-motion .brand,
-  .use-motion .menu-item,
-  .sidebar-inner,
-  .use-motion .post-block,
-  .use-motion .pagination,
-  .use-motion .comments,
-  .use-motion .post-header,
-  .use-motion .post-body,
-  .use-motion .collection-header { opacity: initial; }
-
-  .use-motion .site-title,
-  .use-motion .site-subtitle {
-    opacity: initial;
-    top: initial;
-  }
-
-  .use-motion .logo-line-before i { left: initial; }
-  .use-motion .logo-line-after i { right: initial; }
-  </style>
-</noscript>
-
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
 </head>
 
-<body itemscope itemtype="http://schema.org/WebPage">
-  <div class="container use-motion">
-    <div class="headband"></div>
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
 
+  <main class="main">
     <header class="header" itemscope itemtype="http://schema.org/WPHeader">
       <div class="header-inner"><div class="site-brand-container">
   <div class="site-nav-toggle">
-    <div class="toggle" aria-label="切换导航栏">
-        <span class="toggle-line toggle-line-first"></span>
-        <span class="toggle-line toggle-line-middle"></span>
-        <span class="toggle-line toggle-line-last"></span>
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
     </div>
   </div>
 
   <div class="site-meta">
 
     <a href="/" class="brand" rel="start">
-      <span class="logo-line-before"><i></i></span>
+      <i class="logo-line"></i>
       <h1 class="site-title">hyman</h1>
-      <span class="logo-line-after"><i></i></span>
+      <i class="logo-line"></i>
     </a>
       <p class="site-subtitle" itemprop="description">一些简单的记录</p>
   </div>
@@ -113,32 +88,12 @@
 
 
 <nav class="site-nav">
-  <ul id="menu" class="main-menu menu">
-        <li class="menu-item menu-item-home">
-
-    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
-
-  </li>
-        <li class="menu-item menu-item-tags">
-
-    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
-
-  </li>
-        <li class="menu-item menu-item-categories">
-
-    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
-
-  </li>
-        <li class="menu-item menu-item-archives">
-
-    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
-
-  </li>
-        <li class="menu-item menu-item-sitemap">
-
-    <a href="/sitemap.xml" rel="section"><i class="fa fa-sitemap fa-fw"></i>站点地图</a>
-
-  </li>
+  <ul class="main-menu menu">
+        <li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li>
+        <li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li>
+        <li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li>
+        <li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li>
+        <li class="menu-item menu-item-sitemap"><a href="/sitemap.xml" rel="section"><i class="fa fa-sitemap fa-fw"></i>站点地图</a></li>
       <li class="menu-item menu-item-search">
         <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
         </a>
@@ -149,23 +104,22 @@
 
 
   <div class="search-pop-overlay">
-    <div class="popup search-popup">
-        <div class="search-header">
+    <div class="popup search-popup"><div class="search-header">
   <span class="search-icon">
     <i class="fa fa-search"></i>
   </span>
   <div class="search-input-container">
-    <input autocomplete="off" autocapitalize="off"
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
            placeholder="搜索..." spellcheck="false"
            type="search" class="search-input">
   </div>
-  <span class="popup-btn-close">
+  <span class="popup-btn-close" role="button">
     <i class="fa fa-times-circle"></i>
   </span>
 </div>
-<div id="search-result">
-  <div id="no-result">
-    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
   </div>
 </div>
 
@@ -173,33 +127,98 @@
   </div>
 
 </div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%97%AE%E9%A2%98"><span class="nav-number">1.</span> <span class="nav-text">问题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%A7%A3%E5%86%B3"><span class="nav-number">2.</span> <span class="nav-text">解决</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-overview">
+            <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">hyman</p>
+  <div class="site-description" itemprop="description">一些简单的记录</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">187</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+        <span class="site-state-item-count">39</span>
+        <span class="site-state-item-name">分类</span>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">129</span>
+        <span class="site-state-item-name">标签</span>
+      </div>
+  </nav>
+</div>
+
+
+
+          </div>
+        </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
     </header>
 
     
-  <div class="back-to-top">
+  <div class="back-to-top" role="button" aria-label="返回顶部">
     <i class="fa fa-arrow-up"></i>
     <span>0%</span>
   </div>
 
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
 
-    <main class="main">
-      <div class="main-inner">
-        <div class="content-wrap">
-          
 
-          <div class="content post posts-expand">
-            
+    <div class="main-inner post posts-expand">
 
-    
+
+  
+
+
+<div class="post-block">
   
   
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://www.ywthings.com/posts/4b9519cf.html">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
       <meta itemprop="name" content="hyman">
-      <meta itemprop="description" content="">
+      <meta itemprop="description" content="一些简单的记录">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
@@ -210,33 +229,35 @@
           服务器执行df -h卡住问题解决
         </h1>
 
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
 
-              <time title="创建时间：2019-09-17 14:53:41" itemprop="dateCreated datePublished" datetime="2019-09-17T14:53:41+08:00">2019-09-17</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-05-18 07:58:40" itemprop="dateModified" datetime="2020-05-18T07:58:40+08:00">2020-05-18</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E6%97%A5%E5%B8%B8%E9%97%AE%E9%A2%98%E5%A4%84%E7%90%86/" itemprop="url" rel="index"><span itemprop="name">日常问题处理</span></a>
-                </span>
-            </span>
+      <time title="创建时间：2019-09-17 14:53:41" itemprop="dateCreated datePublished" datetime="2019-09-17T14:53:41+08:00">2019-09-17</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">更新于</span>
+        <time title="修改时间：2020-05-18 07:58:40" itemprop="dateModified" datetime="2020-05-18T07:58:40+08:00">2020-05-18</time>
+      </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E6%97%A5%E5%B8%B8%E9%97%AE%E9%A2%98%E5%A4%84%E7%90%86/" itemprop="url" rel="index"><span itemprop="name">日常问题处理</span></a>
+        </span>
+    </span>
 
-          
+  
+</div>
 
         </div>
       </header>
@@ -245,200 +266,87 @@
     
     
     <div class="post-body" itemprop="articleBody">
-
-      
         <h2 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h2><p>生产执行df -h时，卡住不动，无法返回结果</p>
-<a id="more"></a>
+<span id="more"></span>
 
 <h2 id="解决"><a href="#解决" class="headerlink" title="解决"></a>解决</h2><p>使用strace去追踪到底在哪里卡住了，执行</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">strace df -h</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">strace df -h	</span><br></pre></td></tr></table></figure>
 
 <p>显示出卡住的地方</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">stat(&quot;&#x2F;data&#x2F;nfs&quot;,</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">stat(&quot;/data/nfs&quot;,</span><br></pre></td></tr></table></figure>
 
 <p>看目录应该是mount出现问题，执行mount，查看挂载情况</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line">[root@aly-99 bin]# mount</span><br><span class="line">sysfs on &#x2F;sys type sysfs (rw,nosuid,nodev,noexec,relatime)</span><br><span class="line">proc on &#x2F;proc type proc (rw,nosuid,nodev,noexec,relatime)</span><br><span class="line">devtmpfs on &#x2F;dev type devtmpfs (rw,nosuid,size&#x3D;32893592k,nr_inodes&#x3D;8223398,mode&#x3D;755)</span><br><span class="line">securityfs on &#x2F;sys&#x2F;kernel&#x2F;security type securityfs (rw,nosuid,nodev,noexec,relatime)</span><br><span class="line">tmpfs on &#x2F;dev&#x2F;shm type tmpfs (rw,nosuid,nodev)</span><br><span class="line">devpts on &#x2F;dev&#x2F;pts type devpts (rw,nosuid,noexec,relatime,gid&#x3D;5,mode&#x3D;620,ptmxmode&#x3D;000)</span><br><span class="line">tmpfs on &#x2F;run type tmpfs (rw,nosuid,nodev,mode&#x3D;755)</span><br><span class="line">tmpfs on &#x2F;sys&#x2F;fs&#x2F;cgroup type tmpfs (ro,nosuid,nodev,noexec,mode&#x3D;755)</span><br><span class="line">cgroup on &#x2F;sys&#x2F;fs&#x2F;cgroup&#x2F;systemd type cgroup (rw,nosuid,nodev,noexec,relatime,xattr,release_agent&#x3D;&#x2F;usr&#x2F;lib&#x2F;systemd&#x2F;systemd-cgroups-agent,name&#x3D;systemd)</span><br><span class="line">pstore on &#x2F;sys&#x2F;fs&#x2F;pstore type pstore (rw,nosuid,nodev,noexec,relatime)</span><br><span class="line">cgroup on &#x2F;sys&#x2F;fs&#x2F;cgroup&#x2F;pids type cgroup (rw,nosuid,nodev,noexec,relatime,pids)</span><br><span class="line">cgroup on &#x2F;sys&#x2F;fs&#x2F;cgroup&#x2F;blkio type cgroup (rw,nosuid,nodev,noexec,relatime,blkio)</span><br><span class="line">cgroup on &#x2F;sys&#x2F;fs&#x2F;cgroup&#x2F;net_cls,net_prio type cgroup (rw,nosuid,nodev,noexec,relatime,net_prio,net_cls)</span><br><span class="line">cgroup on &#x2F;sys&#x2F;fs&#x2F;cgroup&#x2F;freezer type cgroup (rw,nosuid,nodev,noexec,relatime,freezer)</span><br><span class="line">cgroup on &#x2F;sys&#x2F;fs&#x2F;cgroup&#x2F;perf_event type cgroup (rw,nosuid,nodev,noexec,relatime,perf_event)</span><br><span class="line">cgroup on &#x2F;sys&#x2F;fs&#x2F;cgroup&#x2F;memory type cgroup (rw,nosuid,nodev,noexec,relatime,memory)</span><br><span class="line">cgroup on &#x2F;sys&#x2F;fs&#x2F;cgroup&#x2F;cpu,cpuacct type cgroup (rw,nosuid,nodev,noexec,relatime,cpuacct,cpu)</span><br><span class="line">cgroup on &#x2F;sys&#x2F;fs&#x2F;cgroup&#x2F;hugetlb type cgroup (rw,nosuid,nodev,noexec,relatime,hugetlb)</span><br><span class="line">cgroup on &#x2F;sys&#x2F;fs&#x2F;cgroup&#x2F;devices type cgroup (rw,nosuid,nodev,noexec,relatime,devices)</span><br><span class="line">cgroup on &#x2F;sys&#x2F;fs&#x2F;cgroup&#x2F;cpuset type cgroup (rw,nosuid,nodev,noexec,relatime,cpuset)</span><br><span class="line">configfs on &#x2F;sys&#x2F;kernel&#x2F;config type configfs (rw,relatime)</span><br><span class="line">&#x2F;dev&#x2F;vda1 on &#x2F; type ext4 (rw,relatime,data&#x3D;ordered)</span><br><span class="line">debugfs on &#x2F;sys&#x2F;kernel&#x2F;debug type debugfs (rw,relatime)</span><br><span class="line">mqueue on &#x2F;dev&#x2F;mqueue type mqueue (rw,relatime)</span><br><span class="line">hugetlbfs on &#x2F;dev&#x2F;hugepages type hugetlbfs (rw,relatime)</span><br><span class="line">nfsd on &#x2F;proc&#x2F;fs&#x2F;nfsd type nfsd (rw,relatime)</span><br><span class="line">&#x2F;dev&#x2F;vdb on &#x2F;data type ext4 (rw,relatime,data&#x3D;ordered)</span><br><span class="line">sunrpc on &#x2F;var&#x2F;lib&#x2F;nfs&#x2F;rpc_pipefs type rpc_pipefs (rw,relatime)</span><br><span class="line">0badf4a571-jye50.cn-hangzhou.nas.aliyuncs.com:&#x2F; on &#x2F;data&#x2F;nfs type nfs4 (rw,relatime,vers&#x3D;4.0,rsize&#x3D;1048576,wsize&#x3D;1048576,namlen&#x3D;255,hard,proto&#x3D;tcp,timeo&#x3D;600,retrans&#x3D;2,sec&#x3D;sys,clientaddr&#x3D;10.80.226.189,local_lock&#x3D;none,addr&#x3D;100.99.252.70)</span><br><span class="line">tmpfs on &#x2F;run&#x2F;user&#x2F;0 type tmpfs (rw,nosuid,nodev,relatime,size&#x3D;6580616k,mode&#x3D;700)</span><br><span class="line">systemd-1 on &#x2F;proc&#x2F;sys&#x2F;fs&#x2F;binfmt_misc type autofs (rw,relatime,fd&#x3D;36,pgrp&#x3D;1,timeout&#x3D;0,minproto&#x3D;5,maxproto&#x3D;5,direct,pipe_ino&#x3D;517790550)</span><br><span class="line">tmpfs on &#x2F;run&#x2F;user&#x2F;1003 type tmpfs (rw,nosuid,nodev,relatime,size&#x3D;6580616k,mode&#x3D;700,uid&#x3D;1003,gid&#x3D;1003)</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line">[root@aly-99 bin]# mount</span><br><span class="line">sysfs on /sys type sysfs (rw,nosuid,nodev,noexec,relatime)</span><br><span class="line">proc on /proc type proc (rw,nosuid,nodev,noexec,relatime)</span><br><span class="line">devtmpfs on /dev type devtmpfs (rw,nosuid,size=32893592k,nr_inodes=8223398,mode=755)</span><br><span class="line">securityfs on /sys/kernel/security type securityfs (rw,nosuid,nodev,noexec,relatime)</span><br><span class="line">tmpfs on /dev/shm type tmpfs (rw,nosuid,nodev)</span><br><span class="line">devpts on /dev/pts type devpts (rw,nosuid,noexec,relatime,gid=5,mode=620,ptmxmode=000)</span><br><span class="line">tmpfs on /run type tmpfs (rw,nosuid,nodev,mode=755)</span><br><span class="line">tmpfs on /sys/fs/cgroup type tmpfs (ro,nosuid,nodev,noexec,mode=755)</span><br><span class="line">cgroup on /sys/fs/cgroup/systemd type cgroup (rw,nosuid,nodev,noexec,relatime,xattr,release_agent=/usr/lib/systemd/systemd-cgroups-agent,name=systemd)</span><br><span class="line">pstore on /sys/fs/pstore type pstore (rw,nosuid,nodev,noexec,relatime)</span><br><span class="line">cgroup on /sys/fs/cgroup/pids type cgroup (rw,nosuid,nodev,noexec,relatime,pids)</span><br><span class="line">cgroup on /sys/fs/cgroup/blkio type cgroup (rw,nosuid,nodev,noexec,relatime,blkio)</span><br><span class="line">cgroup on /sys/fs/cgroup/net_cls,net_prio type cgroup (rw,nosuid,nodev,noexec,relatime,net_prio,net_cls)</span><br><span class="line">cgroup on /sys/fs/cgroup/freezer type cgroup (rw,nosuid,nodev,noexec,relatime,freezer)</span><br><span class="line">cgroup on /sys/fs/cgroup/perf_event type cgroup (rw,nosuid,nodev,noexec,relatime,perf_event)</span><br><span class="line">cgroup on /sys/fs/cgroup/memory type cgroup (rw,nosuid,nodev,noexec,relatime,memory)</span><br><span class="line">cgroup on /sys/fs/cgroup/cpu,cpuacct type cgroup (rw,nosuid,nodev,noexec,relatime,cpuacct,cpu)</span><br><span class="line">cgroup on /sys/fs/cgroup/hugetlb type cgroup (rw,nosuid,nodev,noexec,relatime,hugetlb)</span><br><span class="line">cgroup on /sys/fs/cgroup/devices type cgroup (rw,nosuid,nodev,noexec,relatime,devices)</span><br><span class="line">cgroup on /sys/fs/cgroup/cpuset type cgroup (rw,nosuid,nodev,noexec,relatime,cpuset)</span><br><span class="line">configfs on /sys/kernel/config type configfs (rw,relatime)</span><br><span class="line">/dev/vda1 on / type ext4 (rw,relatime,data=ordered)</span><br><span class="line">debugfs on /sys/kernel/debug type debugfs (rw,relatime)</span><br><span class="line">mqueue on /dev/mqueue type mqueue (rw,relatime)</span><br><span class="line">hugetlbfs on /dev/hugepages type hugetlbfs (rw,relatime)</span><br><span class="line">nfsd on /proc/fs/nfsd type nfsd (rw,relatime)</span><br><span class="line">/dev/vdb on /data type ext4 (rw,relatime,data=ordered)</span><br><span class="line">sunrpc on /var/lib/nfs/rpc_pipefs type rpc_pipefs (rw,relatime)</span><br><span class="line">0badf4a571-jye50.cn-hangzhou.nas.aliyuncs.com:/ on /data/nfs type nfs4 (rw,relatime,vers=4.0,rsize=1048576,wsize=1048576,namlen=255,hard,proto=tcp,timeo=600,retrans=2,sec=sys,clientaddr=10.80.226.189,local_lock=none,addr=100.99.252.70)</span><br><span class="line">tmpfs on /run/user/0 type tmpfs (rw,nosuid,nodev,relatime,size=6580616k,mode=700)</span><br><span class="line">systemd-1 on /proc/sys/fs/binfmt_misc type autofs (rw,relatime,fd=36,pgrp=1,timeout=0,minproto=5,maxproto=5,direct,pipe_ino=517790550)</span><br><span class="line">tmpfs on /run/user/1003 type tmpfs (rw,nosuid,nodev,relatime,size=6580616k,mode=700,uid=1003,gid=1003)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
 <p>由于阿里云nas地址已释放，故出现不能读取的情况</p>
 <p>执行强制umount</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root@aly-99 bin]# umount -f &#x2F;data&#x2F;nfs</span><br><span class="line">umount.nfs4: &#x2F;data&#x2F;nfs: device is busy</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root@aly-99 bin]# umount -f /data/nfs</span><br><span class="line">umount.nfs4: /data/nfs: device is busy</span><br></pre></td></tr></table></figure>
 
 <p>执行失败，kill掉进程</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@aly-99 bin]# fuser -m -k &#x2F;data&#x2F;nfs</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@aly-99 bin]# fuser -m -k /data/nfs</span><br></pre></td></tr></table></figure>
 
 <p><strong>注：</strong><br>单单执行以下命令，依然会卡住不动，原因不明</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">fuser -m &#x2F;data&#x2F;nfs</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">fuser -m /data/nfs</span><br></pre></td></tr></table></figure>
     </div>
 
     
     
     
 
-      <footer class="post-footer">
+    <footer class="post-footer">
           <div class="post-tags">
               <a href="/tags/df/" rel="tag"># df</a>
           </div>
 
         
 
-
-        
-    <div class="post-nav">
-      <div class="post-nav-item">
-    <a href="/posts/6d01a25c.html" rel="prev" title="记一次阿里云更新回滚操作">
-      <i class="fa fa-chevron-left"></i> 记一次阿里云更新回滚操作
-    </a></div>
-      <div class="post-nav-item">
-    <a href="/posts/5b135e8d.html" rel="next" title="部署ELK日志分析7.3.x">
-      部署ELK日志分析7.3.x <i class="fa fa-chevron-right"></i>
-    </a></div>
-    </div>
-      </footer>
-    
-  </article>
-  
-  
-  
-
-
-
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/posts/6d01a25c.html" rel="prev" title="记一次阿里云更新回滚操作">
+                  <i class="fa fa-chevron-left"></i> 记一次阿里云更新回滚操作
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/posts/5b135e8d.html" rel="next" title="部署ELK日志分析7.3.x">
+                  部署ELK日志分析7.3.x <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
           </div>
-          
-
-<script>
-  window.addEventListener('tabs:register', () => {
-    let { activeClass } = CONFIG.comments;
-    if (CONFIG.comments.storage) {
-      activeClass = localStorage.getItem('comments_active') || activeClass;
-    }
-    if (activeClass) {
-      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
-      if (activeTab) {
-        activeTab.click();
-      }
-    }
-  });
-  if (CONFIG.comments.storage) {
-    window.addEventListener('tabs:click', event => {
-      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
-      let commentClass = event.target.classList[1];
-      localStorage.setItem('comments_active', commentClass);
-    });
-  }
-</script>
-
-        </div>
-          
-  
-  <div class="toggle sidebar-toggle">
-    <span class="toggle-line toggle-line-first"></span>
-    <span class="toggle-line toggle-line-middle"></span>
-    <span class="toggle-line toggle-line-last"></span>
-  </div>
-
-  <aside class="sidebar">
-    <div class="sidebar-inner">
-
-      <ul class="sidebar-nav motion-element">
-        <li class="sidebar-nav-toc">
-          文章目录
-        </li>
-        <li class="sidebar-nav-overview">
-          站点概览
-        </li>
-      </ul>
-
-      <!--noindex-->
-      <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#问题"><span class="nav-number">1.</span> <span class="nav-text">问题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#解决"><span class="nav-number">2.</span> <span class="nav-text">解决</span></a></li></ol></div>
-      </div>
-      <!--/noindex-->
-
-      <div class="site-overview-wrap sidebar-panel">
-        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
-  <p class="site-author-name" itemprop="name">hyman</p>
-  <div class="site-description" itemprop="description"></div>
-</div>
-<div class="site-state-wrap motion-element">
-  <nav class="site-state">
-      <div class="site-state-item site-state-posts">
-          <a href="/archives/">
-        
-          <span class="site-state-item-count">169</span>
-          <span class="site-state-item-name">日志</span>
-        </a>
-      </div>
-      <div class="site-state-item site-state-categories">
-            <a href="/categories/">
-          
-        <span class="site-state-item-count">35</span>
-        <span class="site-state-item-name">分类</span></a>
-      </div>
-      <div class="site-state-item site-state-tags">
-            <a href="/tags/">
-          
-        <span class="site-state-item-count">122</span>
-        <span class="site-state-item-name">标签</span></a>
-      </div>
-  </nav>
+    </footer>
+  </article>
 </div>
 
 
 
-      </div>
-
-    </div>
-  </aside>
-  <div id="sidebar-dimmer"></div>
 
 
-      </div>
-    </main>
 
-    <footer class="footer">
-      <div class="footer-inner">
-        
+</div>
+  </main>
 
-        
+  <footer class="footer">
+    <div class="footer-inner">
+
 
 <div class="copyright">
-  
-  &copy; 
+  &copy; 2017 – 
   <span itemprop="copyrightYear">2021</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>
   <span class="author" itemprop="copyrightHolder">hyman</span>
 </div>
-  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/mist/" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a> 强力驱动
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/mist/" rel="noopener" target="_blank">NexT.Mist</a> 强力驱动
   </div>
 
-        
-
-
-
-
-
-
-
-
-      </div>
-    </footer>
-  </div>
+    </div>
+  </footer>
 
   
-  <script src="/lib/anime.min.js"></script>
-  <script src="/lib/velocity/velocity.min.js"></script>
-  <script src="/lib/velocity/velocity.ui.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/next-boot.js"></script>
 
-<script src="/js/utils.js"></script>
-
-<script src="/js/motion.js"></script>
-
-
-<script src="/js/schemes/muse.js"></script>
-
-
-<script src="/js/next-boot.js"></script>
+  
+<script src="/js/third-party/search/local-search.js"></script>
 
 
 
@@ -448,24 +356,6 @@
 
 
 
-  
-<script src="/js/local-search.js"></script>
-
-
-
-
-
-
-
-
-
-
-
-
-
-  
-
-  
 
 </body>
 </html>

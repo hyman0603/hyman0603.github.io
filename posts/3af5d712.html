@@ -2,25 +2,25 @@
 <html lang="zh-CN">
 <head>
   <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="viewport" content="width=device-width">
 <meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 4.2.1">
+<meta name="generator" content="Hexo 5.4.0">
+
+
   <link rel="apple-touch-icon" sizes="180x180" href="/images/favicon.png">
   <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon.png">
-  <link rel="mask-icon" href="/images/favicon.png" color="#222">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
 
 <link rel="stylesheet" href="/css/main.css">
 
 
-<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
 
-<script id="hexo-configurations">
-    var NexT = window.NexT || {};
-    var CONFIG = {"hostname":"www.ywthings.com","root":"/","scheme":"Mist","version":"8.0.0-rc.2","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"appID":"UDW7NS797T","apiKey":"c4bb3c2b53b39900e8498ee72e6dc96e","indexName":"hyman","hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
-  </script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.3/css/all.min.css" integrity="sha256-2H3fkXt6FEmrReK448mDVGKb3WW2ZZw35gI7vqHOE4Y=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
 
-  <meta name="description" content="使用规范实例级备份恢复使用innobackupex，在业务空闲期执行，考虑到IO影响及 FLUSH TABLE WITH READ LOCAK 拷贝非INNODB文件的锁表时间。 常规备份中，使用innobackupex在从库备份执行，在无从库的情况下，允许在业务低峰期对整个实例拷贝。">
+<script class="next-config" data-name="main" type="application/json">{"hostname":"www.ywthings.com","root":"/","images":"/images","scheme":"Mist","version":"8.5.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":true,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+<meta name="description" content="使用规范实例级备份恢复使用innobackupex，在业务空闲期执行，考虑到IO影响及 FLUSH TABLE WITH READ LOCAK 拷贝非INNODB文件的锁表时间。 常规备份中，使用innobackupex在从库备份执行，在无从库的情况下，允许在业务低峰期对整个实例拷贝。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="MySQL备份说明">
 <meta property="og:url" content="https://www.ywthings.com/posts/3af5d712.html">
@@ -36,72 +36,47 @@
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="http://images2015.cnblogs.com/blog/608061/201612/608061-20161228162608179-421054534.png">
 
+
 <link rel="canonical" href="https://www.ywthings.com/posts/3af5d712.html">
 
 
-<script id="page-configurations">
-  // https://hexo.io/docs/variables.html
-  CONFIG.page = {
-    sidebar: "",
-    isHome : false,
-    isPost : true,
-    lang   : 'zh-CN'
-  };
-</script>
 
-  <title>MySQL备份说明 | hyman</title>
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://www.ywthings.com/posts/3af5d712.html","path":"posts/3af5d712.html","title":"MySQL备份说明"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>MySQL备份说明 | hyman</title>
   
 
-
-
+  <script src="/js/third-party/analytics/baidu-analytics.js"></script>
+  <script async src="https://hm.baidu.com/hm.js?97e285060b95594e74e4d3562a50a717"></script>
 
 
 
   <noscript>
-  <style>
-  .use-motion .brand,
-  .use-motion .menu-item,
-  .sidebar-inner,
-  .use-motion .post-block,
-  .use-motion .pagination,
-  .use-motion .comments,
-  .use-motion .post-header,
-  .use-motion .post-body,
-  .use-motion .collection-header { opacity: initial; }
-
-  .use-motion .site-title,
-  .use-motion .site-subtitle {
-    opacity: initial;
-    top: initial;
-  }
-
-  .use-motion .logo-line-before i { left: initial; }
-  .use-motion .logo-line-after i { right: initial; }
-  </style>
-</noscript>
-
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
 </head>
 
-<body itemscope itemtype="http://schema.org/WebPage">
-  <div class="container use-motion">
-    <div class="headband"></div>
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
 
+  <main class="main">
     <header class="header" itemscope itemtype="http://schema.org/WPHeader">
       <div class="header-inner"><div class="site-brand-container">
   <div class="site-nav-toggle">
-    <div class="toggle" aria-label="切换导航栏">
-        <span class="toggle-line toggle-line-first"></span>
-        <span class="toggle-line toggle-line-middle"></span>
-        <span class="toggle-line toggle-line-last"></span>
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
     </div>
   </div>
 
   <div class="site-meta">
 
     <a href="/" class="brand" rel="start">
-      <span class="logo-line-before"><i></i></span>
+      <i class="logo-line"></i>
       <h1 class="site-title">hyman</h1>
-      <span class="logo-line-after"><i></i></span>
+      <i class="logo-line"></i>
     </a>
       <p class="site-subtitle" itemprop="description">一些简单的记录</p>
   </div>
@@ -116,32 +91,12 @@
 
 
 <nav class="site-nav">
-  <ul id="menu" class="main-menu menu">
-        <li class="menu-item menu-item-home">
-
-    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
-
-  </li>
-        <li class="menu-item menu-item-tags">
-
-    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
-
-  </li>
-        <li class="menu-item menu-item-categories">
-
-    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
-
-  </li>
-        <li class="menu-item menu-item-archives">
-
-    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
-
-  </li>
-        <li class="menu-item menu-item-sitemap">
-
-    <a href="/sitemap.xml" rel="section"><i class="fa fa-sitemap fa-fw"></i>站点地图</a>
-
-  </li>
+  <ul class="main-menu menu">
+        <li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li>
+        <li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li>
+        <li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li>
+        <li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li>
+        <li class="menu-item menu-item-sitemap"><a href="/sitemap.xml" rel="section"><i class="fa fa-sitemap fa-fw"></i>站点地图</a></li>
       <li class="menu-item menu-item-search">
         <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
         </a>
@@ -152,23 +107,22 @@
 
 
   <div class="search-pop-overlay">
-    <div class="popup search-popup">
-        <div class="search-header">
+    <div class="popup search-popup"><div class="search-header">
   <span class="search-icon">
     <i class="fa fa-search"></i>
   </span>
   <div class="search-input-container">
-    <input autocomplete="off" autocapitalize="off"
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
            placeholder="搜索..." spellcheck="false"
            type="search" class="search-input">
   </div>
-  <span class="popup-btn-close">
+  <span class="popup-btn-close" role="button">
     <i class="fa fa-times-circle"></i>
   </span>
 </div>
-<div id="search-result">
-  <div id="no-result">
-    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
   </div>
 </div>
 
@@ -176,33 +130,98 @@
   </div>
 
 </div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8%E8%A7%84%E8%8C%83"><span class="nav-number">1.</span> <span class="nav-text">使用规范</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%9E%E4%BE%8B%E7%BA%A7%E5%A4%87%E4%BB%BD%E6%81%A2%E5%A4%8D"><span class="nav-number">1.1.</span> <span class="nav-text">实例级备份恢复</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%BA%93%E3%80%81%E8%A1%A8%E7%BA%A7%E5%88%AB%E5%A4%87%E4%BB%BD%E6%81%A2%E5%A4%8D"><span class="nav-number">1.2.</span> <span class="nav-text">库、表级别备份恢复</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#SQL%E7%BB%93%E6%9E%9C%E5%A4%87%E4%BB%BD%E5%8F%8A%E6%81%A2%E5%A4%8D"><span class="nav-number">1.3.</span> <span class="nav-text">SQL结果备份及恢复</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%A1%A8%E7%BB%93%E6%9E%84%E5%A4%87%E4%BB%BD"><span class="nav-number">1.4.</span> <span class="nav-text">表结构备份</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#mysqldump"><span class="nav-number">2.</span> <span class="nav-text">mysqldump</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8E%9F%E7%90%86"><span class="nav-number">2.1.</span> <span class="nav-text">原理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%87%8D%E8%A6%81%E5%8F%82%E6%95%B0"><span class="nav-number">2.2.</span> <span class="nav-text">重要参数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8%E8%AF%B4%E6%98%8E"><span class="nav-number">2.3.</span> <span class="nav-text">使用说明</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%AE%9E%E4%BE%8B%E5%A4%87%E4%BB%BD%E6%81%A2%E5%A4%8D"><span class="nav-number">2.3.1.</span> <span class="nav-text">实例备份恢复</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%83%A8%E5%88%86%E5%A4%87%E4%BB%BD%E6%81%A2%E5%A4%8D"><span class="nav-number">2.3.2.</span> <span class="nav-text">部分备份恢复</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#PerconaXtraBackup"><span class="nav-number">3.</span> <span class="nav-text">PerconaXtraBackup</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#innobackupex%E5%8E%9F%E7%90%86%EF%BC%88%E5%85%A8%E9%87%8F%E8%AF%B4%E6%98%8E%EF%BC%89"><span class="nav-number">3.1.</span> <span class="nav-text">innobackupex原理（全量说明）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%87%8D%E8%A6%81%E5%8F%82%E6%95%B0-1"><span class="nav-number">3.2.</span> <span class="nav-text">重要参数</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%A4%87%E4%BB%BD%E5%8F%82%E6%95%B0"><span class="nav-number">3.2.1.</span> <span class="nav-text">备份参数</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%87%86%E5%A4%87%E8%BF%98%E5%8E%9F%E5%8F%82%E6%95%B0"><span class="nav-number">3.2.2.</span> <span class="nav-text">准备还原参数</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%A4%87%E4%BB%BD%E7%9B%AE%E5%BD%95%E6%8B%B7%E8%B4%9D%E5%8F%82%E6%95%B0"><span class="nav-number">3.2.3.</span> <span class="nav-text">备份目录拷贝参数</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8%E8%AF%B4%E6%98%8E-1"><span class="nav-number">3.3.</span> <span class="nav-text">使用说明</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%AE%9E%E4%BE%8B%E5%A4%87%E4%BB%BD%E5%8F%8A%E6%81%A2%E5%A4%8D"><span class="nav-number">3.3.1.</span> <span class="nav-text">实例备份及恢复</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%85%A8%E9%87%8F%E5%A4%87%E4%BB%BD"><span class="nav-number">3.3.1.1.</span> <span class="nav-text">全量备份</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%A2%9E%E9%87%8F%E5%A4%87%E4%BB%BD%E6%81%A2%E5%A4%8D"><span class="nav-number">3.3.1.2.</span> <span class="nav-text">增量备份恢复</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E9%83%A8%E5%88%86%E5%A4%87%E4%BB%BD"><span class="nav-number">3.3.1.3.</span> <span class="nav-text">部分备份</span></a></li></ol></li></ol></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-overview">
+            <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">hyman</p>
+  <div class="site-description" itemprop="description">一些简单的记录</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">187</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+        <span class="site-state-item-count">39</span>
+        <span class="site-state-item-name">分类</span>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">129</span>
+        <span class="site-state-item-name">标签</span>
+      </div>
+  </nav>
+</div>
+
+
+
+          </div>
+        </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
     </header>
 
     
-  <div class="back-to-top">
+  <div class="back-to-top" role="button" aria-label="返回顶部">
     <i class="fa fa-arrow-up"></i>
     <span>0%</span>
   </div>
 
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
 
-    <main class="main">
-      <div class="main-inner">
-        <div class="content-wrap">
-          
 
-          <div class="content post posts-expand">
-            
+    <div class="main-inner post posts-expand">
 
-    
+
+  
+
+
+<div class="post-block">
   
   
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://www.ywthings.com/posts/3af5d712.html">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
       <meta itemprop="name" content="hyman">
-      <meta itemprop="description" content="">
+      <meta itemprop="description" content="一些简单的记录">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
@@ -213,33 +232,35 @@
           MySQL备份说明
         </h1>
 
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
 
-              <time title="创建时间：2017-10-23 09:39:54" itemprop="dateCreated datePublished" datetime="2017-10-23T09:39:54+08:00">2017-10-23</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-05-18 07:58:40" itemprop="dateModified" datetime="2020-05-18T07:58:40+08:00">2020-05-18</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/mysql/" itemprop="url" rel="index"><span itemprop="name">mysql</span></a>
-                </span>
-            </span>
+      <time title="创建时间：2017-10-23 09:39:54" itemprop="dateCreated datePublished" datetime="2017-10-23T09:39:54+08:00">2017-10-23</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">更新于</span>
+        <time title="修改时间：2020-05-18 07:58:40" itemprop="dateModified" datetime="2020-05-18T07:58:40+08:00">2020-05-18</time>
+      </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/mysql/" itemprop="url" rel="index"><span itemprop="name">mysql</span></a>
+        </span>
+    </span>
 
-          
+  
+</div>
 
         </div>
       </header>
@@ -248,17 +269,15 @@
     
     
     <div class="post-body" itemprop="articleBody">
-
-      
         <h2 id="使用规范"><a href="#使用规范" class="headerlink" title="使用规范"></a>使用规范</h2><h3 id="实例级备份恢复"><a href="#实例级备份恢复" class="headerlink" title="实例级备份恢复"></a>实例级备份恢复</h3><p>使用innobackupex，在业务空闲期执行，考虑到IO影响及 FLUSH TABLE WITH READ LOCAK 拷贝非INNODB文件的锁表时间。</p>
 <p>常规备份中，使用innobackupex在从库备份执行，在无从库的情况下，允许在业务低峰期对整个实例拷贝。    </p>
-<a id="more"></a>
+<span id="more"></span>
 <h3 id="库、表级别备份恢复"><a href="#库、表级别备份恢复" class="headerlink" title="库、表级别备份恢复"></a>库、表级别备份恢复</h3><p>考虑 数据量、磁盘IO情况、恢复难度问题。</p>
 <p>mysqldump锁表时间长，备份时间长，但是导入方便，适合数据量小但是表格多 的库/表级别备份。</p>
 <p>innobackupex锁表时间短，备份时间短，但是恢复较复杂，需要discord tablespace及 import TABLESPACE，除非允许备份文件成立单个实例，适合表数据量大但表格数量少的库/表级别备份。</p>
 <h3 id="SQL结果备份及恢复"><a href="#SQL结果备份及恢复" class="headerlink" title="SQL结果备份及恢复"></a>SQL结果备份及恢复</h3><p>如果是单表简单查询，使用mysqldump，添加where条件，例如：mysqldump -S /tmp/mysql3330.sock -uroot -p –databases db1 –tables tb1 tb2 tb3 -d &gt;/data/backup/3330/mysqldump_20161229.sql 。</p>
 <p>如果是复杂SQL查询结果，使用 INTO OUTFILE，如下：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">#FIELDS TERMINATED BY &#39;,&#39; 字段间分割符</span><br><span class="line">#OPTIONALLY ENCLOSED BY &#39;&quot;&#39; 将字段包围 对数值型无效</span><br><span class="line">#LINES TERMINATED BY &#39;\n&#39; 换行符</span><br><span class="line"> </span><br><span class="line">#查询导出</span><br><span class="line">select * into outfile &#39;&#x2F;tmp&#x2F;pt.txt&#39; FIELDS TERMINATED BY &#39;,&#39; OPTIONALLY ENCLOSED BY &#39;&quot;&#39; LINES TERMINATED BY &#39;\n&#39; from pt where id &gt;3;</span><br><span class="line"> </span><br><span class="line">#加载数据</span><br><span class="line">load data infile &#39;&#x2F;tmp&#x2F;pt1.txt&#39;  into table pt FIELDS TERMINATED BY &#39;,&#39; OPTIONALLY ENCLOSED BY &#39;&quot;&#39; LINES TERMINATED BY &#39;\n&#39;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">#FIELDS TERMINATED BY &#x27;,&#x27; 字段间分割符</span><br><span class="line">#OPTIONALLY ENCLOSED BY &#x27;&quot;&#x27; 将字段包围 对数值型无效</span><br><span class="line">#LINES TERMINATED BY &#x27;\n&#x27; 换行符</span><br><span class="line"> </span><br><span class="line">#查询导出</span><br><span class="line">select * into outfile &#x27;/tmp/pt.txt&#x27; FIELDS TERMINATED BY &#x27;,&#x27; OPTIONALLY ENCLOSED BY &#x27;&quot;&#x27; LINES TERMINATED BY &#x27;\n&#x27; from pt where id &gt;3;</span><br><span class="line"> </span><br><span class="line">#加载数据</span><br><span class="line">load data infile &#x27;/tmp/pt1.txt&#x27;  into table pt FIELDS TERMINATED BY &#x27;,&#x27; OPTIONALLY ENCLOSED BY &#x27;&quot;&#x27; LINES TERMINATED BY &#x27;\n&#x27;</span><br></pre></td></tr></table></figure>
 
 <h3 id="表结构备份"><a href="#表结构备份" class="headerlink" title="表结构备份"></a>表结构备份</h3><p>使用mysqldump，添加-d参数。</p>
 <h2 id="mysqldump"><a href="#mysqldump" class="headerlink" title="mysqldump"></a>mysqldump</h2><p>支持功能多且全面，但是锁表时间是个风险点，使用时注意，同时，若是5.6版本之前的，要充分考虑buffer pool的使用情况。</p>
@@ -284,15 +303,15 @@
 </li>
 </ul>
 <h3 id="使用说明"><a href="#使用说明" class="headerlink" title="使用说明"></a>使用说明</h3><p>语法主要有以下三类：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Usage: mysqldump [OPTIONS] database [tables]</span><br><span class="line">OR     mysqldump [OPTIONS] --databases [OPTIONS] DB1 [DB2 DB3...]</span><br><span class="line">OR     mysqldump [OPTIONS] --all-databases [OPTIONS]</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Usage: mysqldump [OPTIONS] database [tables]</span><br><span class="line">OR     mysqldump [OPTIONS] --databases [OPTIONS] DB1 [DB2 DB3...]</span><br><span class="line">OR     mysqldump [OPTIONS] --all-databases [OPTIONS]</span><br></pre></td></tr></table></figure>
 
-<h4 id="实例备份恢复"><a href="#实例备份恢复" class="headerlink" title="实例备份恢复"></a>实例备份恢复</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">#实例备份</span><br><span class="line">mysqldump -S &#x2F;tmp&#x2F;mysql3330.sock -uroot -p --all-datqabases &gt;&#x2F;data&#x2F;backup&#x2F;3330&#x2F;mysqldump_20161229.sql</span><br><span class="line"> </span><br><span class="line">#实例恢复</span><br><span class="line">#新建实例后，导入脚本</span><br><span class="line">mysql --socket&#x3D;&#x2F;tmp&#x2F;mysql3306.sock -uroot -p &lt; &#x2F;data&#x2F;backup&#x2F;3330&#x2F;mysqldump_20161229.sql</span><br></pre></td></tr></table></figure>
+<h4 id="实例备份恢复"><a href="#实例备份恢复" class="headerlink" title="实例备份恢复"></a>实例备份恢复</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">#实例备份</span><br><span class="line">mysqldump -S /tmp/mysql3330.sock -uroot -p --all-datqabases &gt;/data/backup/3330/mysqldump_20161229.sql</span><br><span class="line"> </span><br><span class="line">#实例恢复</span><br><span class="line">#新建实例后，导入脚本</span><br><span class="line">mysql --socket=/tmp/mysql3306.sock -uroot -p &lt; /data/backup/3330/mysqldump_20161229.sql</span><br></pre></td></tr></table></figure>
 
-<h4 id="部分备份恢复"><a href="#部分备份恢复" class="headerlink" title="部分备份恢复"></a>部分备份恢复</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">#指定单个或者多个DB备份</span><br><span class="line">mysqldump -S &#x2F;tmp&#x2F;mysql3330.sock -uroot -p db1 db2 db3 &gt;&#x2F;data&#x2F;backup&#x2F;3330&#x2F;mysqldump_20161229.sql</span><br><span class="line">mysqldump -S &#x2F;tmp&#x2F;mysql3330.sock -uroot -p --databases db1 db2 db3 &gt;&#x2F;data&#x2F;backup&#x2F;3330&#x2F;mysqldump_20161229.sql</span><br><span class="line"> </span><br><span class="line">#指定单个或者多个表格备份</span><br><span class="line">mysqldump -S &#x2F;tmp&#x2F;mysql3330.sock -uroot -p --databases db1 --tables tb1 tb2 tb3 &gt;&#x2F;data&#x2F;backup&#x2F;3330&#x2F;mysqldump_20161229.sql</span><br><span class="line">mysqldump -S &#x2F;tmp&#x2F;mysql3330.sock -uroot -p db1 tb1 tb2 tb3 &gt;&#x2F;data&#x2F;backup&#x2F;3330&#x2F;mysqldump_20161229.sql</span><br><span class="line"> </span><br><span class="line">#只导出单个表格的某些行数据</span><br><span class="line">mysqldump -S &#x2F;tmp&#x2F;mysql3330.sock -uroot -pycf.com zero pt --where&#x3D;&#39;1&#x3D;1 limit 2&#39; &gt;&#x2F;data&#x2F;backup&#x2F;3330&#x2F;mysqldump_20161229.sql</span><br><span class="line"> </span><br><span class="line">#只备份表结构，不要表数据</span><br><span class="line">mysqldump -S &#x2F;tmp&#x2F;mysql3330.sock -uroot -p --databases db1 --tables tb1 tb2 tb3 -d &gt;&#x2F;data&#x2F;backup&#x2F;3330&#x2F;mysqldump_20161229.sql</span><br><span class="line"> </span><br><span class="line">#只备份表数据，不要表结构</span><br><span class="line">mysqldump -S &#x2F;tmp&#x2F;mysql3330.sock -uroot -pycf.com zero pt --where&#x3D;&#39;id&gt;3&#39; --no-create-info  &gt;&#x2F;data&#x2F;backup&#x2F;3330&#x2F;mysqldump_20161229.sql</span><br><span class="line"> </span><br><span class="line">#恢复数据</span><br><span class="line">source &#x2F;data&#x2F;backup&#x2F;3330&#x2F;mysqldump_20161229.sql</span><br></pre></td></tr></table></figure>
+<h4 id="部分备份恢复"><a href="#部分备份恢复" class="headerlink" title="部分备份恢复"></a>部分备份恢复</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">#指定单个或者多个DB备份</span><br><span class="line">mysqldump -S /tmp/mysql3330.sock -uroot -p db1 db2 db3 &gt;/data/backup/3330/mysqldump_20161229.sql</span><br><span class="line">mysqldump -S /tmp/mysql3330.sock -uroot -p --databases db1 db2 db3 &gt;/data/backup/3330/mysqldump_20161229.sql</span><br><span class="line"> </span><br><span class="line">#指定单个或者多个表格备份</span><br><span class="line">mysqldump -S /tmp/mysql3330.sock -uroot -p --databases db1 --tables tb1 tb2 tb3 &gt;/data/backup/3330/mysqldump_20161229.sql</span><br><span class="line">mysqldump -S /tmp/mysql3330.sock -uroot -p db1 tb1 tb2 tb3 &gt;/data/backup/3330/mysqldump_20161229.sql</span><br><span class="line"> </span><br><span class="line">#只导出单个表格的某些行数据</span><br><span class="line">mysqldump -S /tmp/mysql3330.sock -uroot -pycf.com zero pt --where=&#x27;1=1 limit 2&#x27; &gt;/data/backup/3330/mysqldump_20161229.sql</span><br><span class="line"> </span><br><span class="line">#只备份表结构，不要表数据</span><br><span class="line">mysqldump -S /tmp/mysql3330.sock -uroot -p --databases db1 --tables tb1 tb2 tb3 -d &gt;/data/backup/3330/mysqldump_20161229.sql</span><br><span class="line"> </span><br><span class="line">#只备份表数据，不要表结构</span><br><span class="line">mysqldump -S /tmp/mysql3330.sock -uroot -pycf.com zero pt --where=&#x27;id&gt;3&#x27; --no-create-info  &gt;/data/backup/3330/mysqldump_20161229.sql</span><br><span class="line"> </span><br><span class="line">#恢复数据</span><br><span class="line">source /data/backup/3330/mysqldump_20161229.sql</span><br></pre></td></tr></table></figure>
 
 <h2 id="PerconaXtraBackup"><a href="#PerconaXtraBackup" class="headerlink" title="PerconaXtraBackup"></a>PerconaXtraBackup</h2><p>PerconaXtraBackup软件中，含有xtrabackup跟innobackupex，xtrabackup中不备份表结构，innobackupex调用xtrabackup子线程后再备份表结构，故常用innobackupex，xtraback不做日常使用。目前支持 Myisam,innodb，可以备份 .frm, .MRG, .MYD, .MYI, .MAD, .MAI, .TRG, .TRN, .ARM, .ARZ, .CSM, CSV, .opt, .par, innoDB data 及innobdb log 文件。</p>
 <h3 id="innobackupex原理（全量说明）"><a href="#innobackupex原理（全量说明）" class="headerlink" title="innobackupex原理（全量说明）"></a>innobackupex原理（全量说明）</h3><p>对数据库文件进行copy操作，同时建立多一个xtrabackup log 同步mysql的redo线程，copy数据文件结束时，flush table with read lock，拷贝非innodb数据文件的文件，拷贝结束后解锁。原理图见下图（图片来自知数堂）。通过general log查看mysqldump运行原理，详细流程见代码块 innobackupex。</p>
-<p><img src="http://images2015.cnblogs.com/blog/608061/201612/608061-20161228162608179-421054534.png" alt=""></p>
+<p><img src="http://images2015.cnblogs.com/blog/608061/201612/608061-20161228162608179-421054534.png"></p>
 <p>这里需要注意2个点：</p>
 <ul>
 <li><p>锁表时间<br>innobackupex锁表时间是 data文件及log文件copy结束时，才锁表，锁表时长为拷贝non-InnoDB tables and files的时长，相对时间较短，对业务影响小。</p>
@@ -300,34 +319,36 @@
 <li><p>大事务<br>copy数据文件的过程中，由于是不锁表，允许数据进行DML操作，这里需要注意，如果这个时候，拷贝的过程中有大事务一直没有提交，界面显示log scanned up，持续copy binlog追上数据库的binlog文件，并且该时间点刚好所有事务已提交（这里测试的时候，如果是单条 insert ，delete，update的大事务，则是要等待单条完成才提交，但是如果是begin事务里边的，不用等待是否commit or rollback，begin里边的单条事务执行结束，则就开始提交，恢复的时候，当作是undo 事务，不会提交该事物，回滚该事务）。大事务容易导致备份时长加长，IO占用。</p>
 </li>
 </ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">2016-12-26T15:18:39.627366Z     1659 Connect    root@localhost on  using Socket</span><br><span class="line">2016-12-26T15:18:39.627789Z     1659 Query    SET SESSION wait_timeout&#x3D;2147483</span><br><span class="line">2016-12-26T15:18:39.628193Z     1659 Query    SHOW VARIABLES </span><br><span class="line">#记录LSN号码，开始copy ibd文件</span><br><span class="line">2016-12-26T15:18:55.673740Z     1659 Query    SET SESSION lock_wait_timeout&#x3D;31536000</span><br><span class="line">2016-12-26T15:18:55.674281Z     1659 Query    FLUSH NO_WRITE_TO_BINLOG TABLES</span><br><span class="line">#强制把没有 还没写入binlog 磁盘文件的缓存 强制刷新到磁盘</span><br><span class="line">#开始拷贝数据库文件，这里需要注意，如果这个时候，拷贝的过程中有大事务一直没有提交，则会一直拷贝其产生的 ，界面显示log scanned up，直到copy binlog追上数据库的binlog文件，并且该时间点刚好所有事务已提交（这里测试的时候，如果是单条 insert ，delete，update的大事务，则是要等待单条完成才提交，但是如果是begin事务里边的，不用等待是否commit or rollback，begin里边的单条事务执行结束，则就开始提交，恢复的时候，当作是undo 事务，不会提交该事物，回滚该事务。 ）</span><br><span class="line">2016-12-26T15:18:55.676345Z     1659 Query    FLUSH TABLES WITH READ LOCK</span><br><span class="line">#锁表，只允许读，不允许写及其他架构修改操作</span><br><span class="line">#拷贝除innodb 数据文件外的其他所有文件，包括表结构等，Starting to backup non-InnoDB tables and files</span><br><span class="line">2016-12-26T15:18:59.691409Z     1659 Query    SHOW MASTER STATUS</span><br><span class="line">#记录 备份到的 binlog文件及position位置，这个记录在 xtrabackup_binlog_info 文件，可提供复制使用</span><br><span class="line">2016-12-26T15:18:59.734418Z     1659 Query    SHOW VARIABLES</span><br><span class="line">2016-12-26T15:18:59.754530Z     1659 Query    FLUSH NO_WRITE_TO_BINLOG ENGINE LOGS</span><br><span class="line">2016-12-26T15:18:59.968452Z     1659 Query    UNLOCK TABLES</span><br><span class="line">#解锁，表格恢复可写，架构可修改</span><br><span class="line">2016-12-26T15:18:59.991046Z     1659 Query    SELECT UUID()</span><br><span class="line">2016-12-26T15:19:00.005980Z     1659 Query    SELECT VERSION()</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">2016-12-26T15:18:39.627366Z     1659 Connect    root@localhost on  using Socket</span><br><span class="line">2016-12-26T15:18:39.627789Z     1659 Query    SET SESSION wait_timeout=2147483</span><br><span class="line">2016-12-26T15:18:39.628193Z     1659 Query    SHOW VARIABLES </span><br><span class="line">#记录LSN号码，开始copy ibd文件</span><br><span class="line">2016-12-26T15:18:55.673740Z     1659 Query    SET SESSION lock_wait_timeout=31536000</span><br><span class="line">2016-12-26T15:18:55.674281Z     1659 Query    FLUSH NO_WRITE_TO_BINLOG TABLES</span><br><span class="line">#强制把没有 还没写入binlog 磁盘文件的缓存 强制刷新到磁盘</span><br><span class="line">#开始拷贝数据库文件，这里需要注意，如果这个时候，拷贝的过程中有大事务一直没有提交，则会一直拷贝其产生的 ，界面显示log scanned up，直到copy binlog追上数据库的binlog文件，并且该时间点刚好所有事务已提交（这里测试的时候，如果是单条 insert ，delete，update的大事务，则是要等待单条完成才提交，但是如果是begin事务里边的，不用等待是否commit or rollback，begin里边的单条事务执行结束，则就开始提交，恢复的时候，当作是undo 事务，不会提交该事物，回滚该事务。 ）</span><br><span class="line">2016-12-26T15:18:55.676345Z     1659 Query    FLUSH TABLES WITH READ LOCK</span><br><span class="line">#锁表，只允许读，不允许写及其他架构修改操作</span><br><span class="line">#拷贝除innodb 数据文件外的其他所有文件，包括表结构等，Starting to backup non-InnoDB tables and files</span><br><span class="line">2016-12-26T15:18:59.691409Z     1659 Query    SHOW MASTER STATUS</span><br><span class="line">#记录 备份到的 binlog文件及position位置，这个记录在 xtrabackup_binlog_info 文件，可提供复制使用</span><br><span class="line">2016-12-26T15:18:59.734418Z     1659 Query    SHOW VARIABLES</span><br><span class="line">2016-12-26T15:18:59.754530Z     1659 Query    FLUSH NO_WRITE_TO_BINLOG ENGINE LOGS</span><br><span class="line">2016-12-26T15:18:59.968452Z     1659 Query    UNLOCK TABLES</span><br><span class="line">#解锁，表格恢复可写，架构可修改</span><br><span class="line">2016-12-26T15:18:59.991046Z     1659 Query    SELECT UUID()</span><br><span class="line">2016-12-26T15:19:00.005980Z     1659 Query    SELECT VERSION()</span><br></pre></td></tr></table></figure>
 
-<h3 id="重要参数-1"><a href="#重要参数-1" class="headerlink" title="重要参数"></a>重要参数</h3><h4 id="备份参数"><a href="#备份参数" class="headerlink" title="备份参数"></a>备份参数</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">innobackupex [--compress] [--compress-threads&#x3D;NUMBER-OF-THREADS] [--compress-chunk-size&#x3D;CHUNK-SIZE]</span><br><span class="line">             [--encrypt&#x3D;ENCRYPTION-ALGORITHM] [--encrypt-threads&#x3D;NUMBER-OF-THREADS] [--encrypt-chunk-size&#x3D;CHUNK-SIZE]</span><br><span class="line">             [--encrypt-key&#x3D;LITERAL-ENCRYPTION-KEY] | [--encryption-key-file&#x3D;MY.KEY]</span><br><span class="line">             [--include&#x3D;REGEXP]</span><br><span class="line">             [--user&#x3D;NAME]</span><br><span class="line">             [--password&#x3D;WORD] [--port&#x3D;PORT] [--socket&#x3D;SOCKET]</span><br><span class="line">             [--no-timestamp] [--ibbackup&#x3D;IBBACKUP-BINARY]</span><br><span class="line">             [--slave-info] [--galera-info] [--stream&#x3D;tar|xbstream]</span><br><span class="line">             [--defaults-file&#x3D;MY.CNF] [--defaults-group&#x3D;GROUP-NAME]</span><br><span class="line">             [--databases&#x3D;LIST]</span><br><span class="line">             [--no-lock] #不执行FLUSH TABLES WITH READ LOCK，建议不使用，不会拷贝undo及redo文件</span><br><span class="line">             [--no-timestamp]</span><br><span class="line">             [--kill-long-queries-timeout&#x3D;#] </span><br><span class="line">             [--tmpdir&#x3D;DIRECTORY] [--tables-file&#x3D;FILE]</span><br><span class="line">             [--history&#x3D;NAME]</span><br><span class="line">             [--incremental] [--incremental-basedir]</span><br><span class="line">             [--incremental-dir] [--incremental-force-scan] [--incremental-lsn]</span><br><span class="line">             [--incremental-history-name&#x3D;NAME] [--incremental-history-uuid&#x3D;UUID]</span><br><span class="line">             [--close-files] [--compact]  BACKUP-ROOT-DIR</span><br></pre></td></tr></table></figure>
+<h3 id="重要参数-1"><a href="#重要参数-1" class="headerlink" title="重要参数"></a>重要参数</h3><h4 id="备份参数"><a href="#备份参数" class="headerlink" title="备份参数"></a>备份参数</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">innobackupex [--compress] [--compress-threads=NUMBER-OF-THREADS] [--compress-chunk-size=CHUNK-SIZE]</span><br><span class="line">             [--encrypt=ENCRYPTION-ALGORITHM] [--encrypt-threads=NUMBER-OF-THREADS] [--encrypt-chunk-size=CHUNK-SIZE]</span><br><span class="line">             [--encrypt-key=LITERAL-ENCRYPTION-KEY] | [--encryption-key-file=MY.KEY]</span><br><span class="line">             [--include=REGEXP]</span><br><span class="line">             [--user=NAME]</span><br><span class="line">             [--password=WORD] [--port=PORT] [--socket=SOCKET]</span><br><span class="line">             [--no-timestamp] [--ibbackup=IBBACKUP-BINARY]</span><br><span class="line">             [--slave-info] [--galera-info] [--stream=tar|xbstream]</span><br><span class="line">             [--defaults-file=MY.CNF] [--defaults-group=GROUP-NAME]</span><br><span class="line">             [--databases=LIST]</span><br><span class="line">             [--no-lock] #不执行FLUSH TABLES WITH READ LOCK，建议不使用，不会拷贝undo及redo文件</span><br><span class="line">             [--no-timestamp]</span><br><span class="line">             [--kill-long-queries-timeout=#] </span><br><span class="line">             [--tmpdir=DIRECTORY] [--tables-file=FILE]</span><br><span class="line">             [--history=NAME]</span><br><span class="line">             [--incremental] [--incremental-basedir]</span><br><span class="line">             [--incremental-dir] [--incremental-force-scan] [--incremental-lsn]</span><br><span class="line">             [--incremental-history-name=NAME] [--incremental-history-uuid=UUID]</span><br><span class="line">             [--close-files] [--compact]  BACKUP-ROOT-DIR</span><br></pre></td></tr></table></figure>
 
 <h4 id="准备还原参数"><a href="#准备还原参数" class="headerlink" title="准备还原参数"></a>准备还原参数</h4><p>根据 BACKUP-DIR/xtrabackup_logfile创建新的logfile，xtrabackup为子进程，不连接数据库服务.</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">innobackupex --apply-log [--use-memory&#x3D;B]</span><br><span class="line">             [--defaults-file&#x3D;MY.CNF]</span><br><span class="line">             [--export] [--redo-only] [--ibbackup&#x3D;IBBACKUP-BINARY]</span><br><span class="line">             BACKUP-DIR</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">innobackupex --apply-log [--use-memory=B]</span><br><span class="line">             [--defaults-file=MY.CNF]</span><br><span class="line">             [--export] [--redo-only] [--ibbackup=IBBACKUP-BINARY]</span><br><span class="line">             BACKUP-DIR</span><br></pre></td></tr></table></figure>
 
 <h4 id="备份目录拷贝参数"><a href="#备份目录拷贝参数" class="headerlink" title="备份目录拷贝参数"></a>备份目录拷贝参数</h4><p>拷贝备份目录到指定目录，备份目录及拷贝目录文件均存在<br>innobackupex –copy-back [–defaults-file=MY.CNF] [–defaults-group=GROUP-NAME] BACKUP-DIR</p>
 <p>移动备份目录到指定目录，备份目录为空<br>innobackupex –move-back [–defaults-file=MY.CNF] [–defaults-group=GROUP-NAME] BACKUP-DIR</p>
-<h3 id="使用说明-1"><a href="#使用说明-1" class="headerlink" title="使用说明"></a>使用说明</h3><h4 id="实例备份及恢复"><a href="#实例备份及恢复" class="headerlink" title="实例备份及恢复"></a>实例备份及恢复</h4><h5 id="全量备份"><a href="#全量备份" class="headerlink" title="全量备份"></a>全量备份</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">#全量备份 实例备份及恢复</span><br><span class="line">#备份</span><br><span class="line">innobackupex --defaults-file&#x3D;&#x2F;data&#x2F;mysql&#x2F;mysql3330.cnf --user&#x3D;root --password&#x3D;ycf.com --no-timestamp  &#x2F;data&#x2F;backup&#x2F;3330&#x2F;20161229</span><br><span class="line">innobackupex --apply-log  &#x2F;data&#x2F;backup&#x2F;3330&#x2F;20161229</span><br><span class="line"> </span><br><span class="line">#恢复</span><br><span class="line">innobackupex --copy-back --datadir&#x3D;&#x2F;data&#x2F;mysql&#x2F;mysql3350&#x2F;data &#x2F;data&#x2F;backup&#x2F;3330&#x2F;20161229</span><br></pre></td></tr></table></figure>
+<h3 id="使用说明-1"><a href="#使用说明-1" class="headerlink" title="使用说明"></a>使用说明</h3><h4 id="实例备份及恢复"><a href="#实例备份及恢复" class="headerlink" title="实例备份及恢复"></a>实例备份及恢复</h4><h5 id="全量备份"><a href="#全量备份" class="headerlink" title="全量备份"></a>全量备份</h5><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">#全量备份 实例备份及恢复</span><br><span class="line">#备份</span><br><span class="line">innobackupex --defaults-file=/data/mysql/mysql3330.cnf --user=root --password=ycf.com --no-timestamp  /data/backup/3330/20161229</span><br><span class="line">innobackupex --apply-log  /data/backup/3330/20161229</span><br><span class="line"> </span><br><span class="line">#恢复</span><br><span class="line">innobackupex --copy-back --datadir=/data/mysql/mysql3350/data /data/backup/3330/20161229</span><br></pre></td></tr></table></figure>
 
 <h5 id="增量备份恢复"><a href="#增量备份恢复" class="headerlink" title="增量备份恢复"></a>增量备份恢复</h5><p>#增量备份</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">innobackupex --defaults-file&#x3D;&#x2F;data&#x2F;mysql&#x2F;mysql3376.cnf --user&#x3D;root --password&#x3D;ycf.com --no-timestamp --incremental-basedir&#x3D;&#x2F;data&#x2F;backup&#x2F;3330&#x2F;20161229 --incremental &#x2F;data&#x2F;backup&#x2F;mysql3376&#x2F;20161230diff</span><br><span class="line"> </span><br><span class="line">innobackupex --defaults-file&#x3D;&#x2F;data&#x2F;mysql&#x2F;mysql3376.cnf --user&#x3D;root --password&#x3D;ycf.com --no-timestamp --incremental-basedir&#x3D;&#x2F;data&#x2F;backup&#x2F;3330&#x2F;20161230diff --incremental &#x2F;data&#x2F;backup&#x2F;mysql3376&#x2F;20161231diff</span><br><span class="line"> </span><br><span class="line">#增量恢复</span><br><span class="line">#现在完整备份文件中中应用redo日志，记得是redo-only， redo-only， redo-only， redo-only， 不是readonly，打死记得，不要乱来！！！！！！</span><br><span class="line">innobackupex --apply-log --redo-only &#x2F;data&#x2F;backup&#x2F;3330&#x2F;20161229</span><br><span class="line"> </span><br><span class="line">#应用第一个增量备份文件的redo日志到完整备份文件夹中</span><br><span class="line">innobackupex --apply-log --redo-only &#x2F;data&#x2F;backup&#x2F;3330&#x2F;20161229 --incremental-dir&#x3D;&#x2F;data&#x2F;backup&#x2F;mysql3376&#x2F;20161230diff</span><br><span class="line"> </span><br><span class="line">#应用最后一个增量备份文件的redo日志到完整备份文件夹中，可以直接apply-log</span><br><span class="line">innobackupex --apply-log &#x2F;data&#x2F;backup&#x2F;3330&#x2F;20161229 --incremental-dir&#x3D;&#x2F;data&#x2F;backup&#x2F;mysql3376&#x2F;20161231diff</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">innobackupex --defaults-file=/data/mysql/mysql3376.cnf --user=root --password=ycf.com --no-timestamp --incremental-basedir=/data/backup/3330/20161229 --incremental /data/backup/mysql3376/20161230diff</span><br><span class="line"> </span><br><span class="line">innobackupex --defaults-file=/data/mysql/mysql3376.cnf --user=root --password=ycf.com --no-timestamp --incremental-basedir=/data/backup/3330/20161230diff --incremental /data/backup/mysql3376/20161231diff</span><br><span class="line"> </span><br><span class="line">#增量恢复</span><br><span class="line">#现在完整备份文件中中应用redo日志，记得是redo-only， redo-only， redo-only， redo-only， 不是readonly，打死记得，不要乱来！！！！！！</span><br><span class="line">innobackupex --apply-log --redo-only /data/backup/3330/20161229</span><br><span class="line"> </span><br><span class="line">#应用第一个增量备份文件的redo日志到完整备份文件夹中</span><br><span class="line">innobackupex --apply-log --redo-only /data/backup/3330/20161229 --incremental-dir=/data/backup/mysql3376/20161230diff</span><br><span class="line"> </span><br><span class="line">#应用最后一个增量备份文件的redo日志到完整备份文件夹中，可以直接apply-log</span><br><span class="line">innobackupex --apply-log /data/backup/3330/20161229 --incremental-dir=/data/backup/mysql3376/20161231diff</span><br></pre></td></tr></table></figure>
 
-<h5 id="部分备份"><a href="#部分备份" class="headerlink" title="部分备份"></a>部分备份</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">#部分备份</span><br><span class="line">#指定数据库备份</span><br></pre></td></tr></table></figure>
+<h5 id="部分备份"><a href="#部分备份" class="headerlink" title="部分备份"></a>部分备份</h5><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">#部分备份</span><br><span class="line">#指定数据库备份</span><br></pre></td></tr></table></figure>
 <p>innobackupex –defaults-file=/data/mysql/mysql3330.cnf –databases=’zero mysql’ –user=root –password=ycf.com –no-timestamp /data/backup/3330/20161202</p>
 <p>#指定表格备份<br>#3.1 –include 使用正则表达式</p>
 <p>#3.2 –table-file 备份的完整表名写在file文件中<br>vim /tmp/backupfile #每行写一个库名，或者一个表的全名（database.table），写完库名或者表名后，千万不要有空格或者其他空白符号，会导致识别不了该表格或者库名，从而导致跳过<br>innobackupex –defaults-file=/data/mysql/mysql3330.cnf –tables-file=/tmp/backupfile –user=root –password=ycf.com –no-timestamp  /data/backup/3330/20161204</p>
 <p>#3.3 –databases 完整库名和表名写在一起，用空格隔开<br>innobackupex –defaults-file=/data/mysql/mysql3330.cnf –user=root –password=ycf.com –no-timestamp –databases=zero.s1 /data/backup/3330/20161229</p>
 <p>#指定表格恢复(开启独立表空间)<br>#首先要自己现在需要恢复的数据库上，创建该表格，然后discard tablespace,拷贝ibd文件过来，chown 文件所有者及用户组为mysql，再 import tablespace。<br>#如果有大量表格，用这个操作就比较麻烦，需要一个个来创建，包括指定数据库，也是这样处理，整个数据库先创建之后，在一个个表格discard，再import。<br>ALTER TABLE S1 DISCARD TABLESPACE;<br>ALTER TABLE S1 import TABLESPACE;</p>
-<pre><code></code></pre>
+<pre><code>
+</code></pre>
+
     </div>
 
     
     
     
 
-      <footer class="post-footer">
+    <footer class="post-footer">
           <div class="post-tags">
               <a href="/tags/mysql/" rel="tag"># mysql</a>
               <a href="/tags/%E5%A4%87%E4%BB%BD/" rel="tag"># 备份</a>
@@ -335,165 +356,54 @@
 
         
 
-
-        
-    <div class="post-nav">
-      <div class="post-nav-item">
-    <a href="/posts/eaad5d7d.html" rel="prev" title="Python基本算法">
-      <i class="fa fa-chevron-left"></i> Python基本算法
-    </a></div>
-      <div class="post-nav-item">
-    <a href="/posts/2c64f378.html" rel="next" title="Haproxy配置支持https协议转发">
-      Haproxy配置支持https协议转发 <i class="fa fa-chevron-right"></i>
-    </a></div>
-    </div>
-      </footer>
-    
-  </article>
-  
-  
-  
-
-
-
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/posts/eaad5d7d.html" rel="prev" title="Python基本算法">
+                  <i class="fa fa-chevron-left"></i> Python基本算法
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/posts/2c64f378.html" rel="next" title="Haproxy配置支持https协议转发">
+                  Haproxy配置支持https协议转发 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
           </div>
-          
-
-<script>
-  window.addEventListener('tabs:register', () => {
-    let { activeClass } = CONFIG.comments;
-    if (CONFIG.comments.storage) {
-      activeClass = localStorage.getItem('comments_active') || activeClass;
-    }
-    if (activeClass) {
-      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
-      if (activeTab) {
-        activeTab.click();
-      }
-    }
-  });
-  if (CONFIG.comments.storage) {
-    window.addEventListener('tabs:click', event => {
-      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
-      let commentClass = event.target.classList[1];
-      localStorage.setItem('comments_active', commentClass);
-    });
-  }
-</script>
-
-        </div>
-          
-  
-  <div class="toggle sidebar-toggle">
-    <span class="toggle-line toggle-line-first"></span>
-    <span class="toggle-line toggle-line-middle"></span>
-    <span class="toggle-line toggle-line-last"></span>
-  </div>
-
-  <aside class="sidebar">
-    <div class="sidebar-inner">
-
-      <ul class="sidebar-nav motion-element">
-        <li class="sidebar-nav-toc">
-          文章目录
-        </li>
-        <li class="sidebar-nav-overview">
-          站点概览
-        </li>
-      </ul>
-
-      <!--noindex-->
-      <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#使用规范"><span class="nav-number">1.</span> <span class="nav-text">使用规范</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#实例级备份恢复"><span class="nav-number">1.1.</span> <span class="nav-text">实例级备份恢复</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#库、表级别备份恢复"><span class="nav-number">1.2.</span> <span class="nav-text">库、表级别备份恢复</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#SQL结果备份及恢复"><span class="nav-number">1.3.</span> <span class="nav-text">SQL结果备份及恢复</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#表结构备份"><span class="nav-number">1.4.</span> <span class="nav-text">表结构备份</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#mysqldump"><span class="nav-number">2.</span> <span class="nav-text">mysqldump</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#原理"><span class="nav-number">2.1.</span> <span class="nav-text">原理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#重要参数"><span class="nav-number">2.2.</span> <span class="nav-text">重要参数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用说明"><span class="nav-number">2.3.</span> <span class="nav-text">使用说明</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#实例备份恢复"><span class="nav-number">2.3.1.</span> <span class="nav-text">实例备份恢复</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#部分备份恢复"><span class="nav-number">2.3.2.</span> <span class="nav-text">部分备份恢复</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#PerconaXtraBackup"><span class="nav-number">3.</span> <span class="nav-text">PerconaXtraBackup</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#innobackupex原理（全量说明）"><span class="nav-number">3.1.</span> <span class="nav-text">innobackupex原理（全量说明）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#重要参数-1"><span class="nav-number">3.2.</span> <span class="nav-text">重要参数</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#备份参数"><span class="nav-number">3.2.1.</span> <span class="nav-text">备份参数</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#准备还原参数"><span class="nav-number">3.2.2.</span> <span class="nav-text">准备还原参数</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#备份目录拷贝参数"><span class="nav-number">3.2.3.</span> <span class="nav-text">备份目录拷贝参数</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用说明-1"><span class="nav-number">3.3.</span> <span class="nav-text">使用说明</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#实例备份及恢复"><span class="nav-number">3.3.1.</span> <span class="nav-text">实例备份及恢复</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#全量备份"><span class="nav-number">3.3.1.1.</span> <span class="nav-text">全量备份</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#增量备份恢复"><span class="nav-number">3.3.1.2.</span> <span class="nav-text">增量备份恢复</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#部分备份"><span class="nav-number">3.3.1.3.</span> <span class="nav-text">部分备份</span></a></li></ol></li></ol></li></ol></li></ol></div>
-      </div>
-      <!--/noindex-->
-
-      <div class="site-overview-wrap sidebar-panel">
-        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
-  <p class="site-author-name" itemprop="name">hyman</p>
-  <div class="site-description" itemprop="description"></div>
-</div>
-<div class="site-state-wrap motion-element">
-  <nav class="site-state">
-      <div class="site-state-item site-state-posts">
-          <a href="/archives/">
-        
-          <span class="site-state-item-count">169</span>
-          <span class="site-state-item-name">日志</span>
-        </a>
-      </div>
-      <div class="site-state-item site-state-categories">
-            <a href="/categories/">
-          
-        <span class="site-state-item-count">35</span>
-        <span class="site-state-item-name">分类</span></a>
-      </div>
-      <div class="site-state-item site-state-tags">
-            <a href="/tags/">
-          
-        <span class="site-state-item-count">122</span>
-        <span class="site-state-item-name">标签</span></a>
-      </div>
-  </nav>
+    </footer>
+  </article>
 </div>
 
 
 
-      </div>
-
-    </div>
-  </aside>
-  <div id="sidebar-dimmer"></div>
 
 
-      </div>
-    </main>
 
-    <footer class="footer">
-      <div class="footer-inner">
-        
+</div>
+  </main>
 
-        
+  <footer class="footer">
+    <div class="footer-inner">
+
 
 <div class="copyright">
-  
-  &copy; 
+  &copy; 2017 – 
   <span itemprop="copyrightYear">2021</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>
   <span class="author" itemprop="copyrightHolder">hyman</span>
 </div>
-  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/mist/" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a> 强力驱动
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/mist/" rel="noopener" target="_blank">NexT.Mist</a> 强力驱动
   </div>
 
-        
-
-
-
-
-
-
-
-
-      </div>
-    </footer>
-  </div>
+    </div>
+  </footer>
 
   
-  <script src="/lib/anime.min.js"></script>
-  <script src="/lib/velocity/velocity.min.js"></script>
-  <script src="/lib/velocity/velocity.ui.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/next-boot.js"></script>
 
-<script src="/js/utils.js"></script>
-
-<script src="/js/motion.js"></script>
-
-
-<script src="/js/schemes/muse.js"></script>
-
-
-<script src="/js/next-boot.js"></script>
+  
+<script src="/js/third-party/search/local-search.js"></script>
 
 
 
@@ -503,24 +413,6 @@
 
 
 
-  
-<script src="/js/local-search.js"></script>
-
-
-
-
-
-
-
-
-
-
-
-
-
-  
-
-  
 
 </body>
 </html>

@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/favicon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.3/css/all.min.css" integrity="sha256-2H3fkXt6FEmrReK448mDVGKb3WW2ZZw35gI7vqHOE4Y=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"www.ywthings.com","root":"/","images":"/images","scheme":"Mist","version":"8.5.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":true,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+<meta name="description" content="环境准备 1.CentOS7 64位最小化安装  2.Oracle 11gR2 64位 Linux版安装包 12linux.x64_11gR2_database_1of2.ziplinux.x64_11gR2_database_2of2.zip">
+<meta property="og:type" content="article">
+<meta property="og:title" content="CentOS7 命令行安装Oracle 11G R2">
+<meta property="og:url" content="https://www.ywthings.com/posts/8f89a6cb.html">
+<meta property="og:site_name" content="hyman">
+<meta property="og:description" content="环境准备 1.CentOS7 64位最小化安装  2.Oracle 11gR2 64位 Linux版安装包 12linux.x64_11gR2_database_1of2.ziplinux.x64_11gR2_database_2of2.zip">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2021-07-15T03:08:01.000Z">
+<meta property="article:modified_time" content="2021-08-05T07:57:11.641Z">
+<meta property="article:author" content="hyman">
+<meta property="article:tag" content="oracle">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="https://www.ywthings.com/posts/8f89a6cb.html">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://www.ywthings.com/posts/8f89a6cb.html","path":"posts/8f89a6cb.html","title":"CentOS7 命令行安装Oracle 11G R2"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>CentOS7 命令行安装Oracle 11G R2 | hyman</title>
+  
+
+  <script src="/js/third-party/analytics/baidu-analytics.js"></script>
+  <script async src="https://hm.baidu.com/hm.js?97e285060b95594e74e4d3562a50a717"></script>
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <h1 class="site-title">hyman</h1>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">一些简单的记录</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+        <li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li>
+        <li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li>
+        <li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li>
+        <li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li>
+        <li class="menu-item menu-item-sitemap"><a href="/sitemap.xml" rel="section"><i class="fa fa-sitemap fa-fw"></i>站点地图</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%8E%AF%E5%A2%83%E5%87%86%E5%A4%87"><span class="nav-number">1.</span> <span class="nav-text">环境准备</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%89%E8%A3%85%E8%BF%87%E7%A8%8B"><span class="nav-number">2.</span> <span class="nav-text">安装过程</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%85%B3%E9%97%AD%E9%98%B2%E7%81%AB%E5%A2%99"><span class="nav-number">2.1.</span> <span class="nav-text">关闭防火墙</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%89%E8%A3%85%E4%BE%9D%E8%B5%96%E5%8C%85"><span class="nav-number">2.2.</span> <span class="nav-text">安装依赖包</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BF%AE%E6%94%B9%E5%86%85%E6%A0%B8"><span class="nav-number">2.3.</span> <span class="nav-text">修改内核</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%9B%E5%BB%BAoracle%E7%94%A8%E6%88%B7"><span class="nav-number">2.4.</span> <span class="nav-text">创建oracle用户</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%A7%A3%E5%8E%8BOracle%E6%95%B0%E6%8D%AE%E5%BA%93%E5%AE%89%E8%A3%85%E5%8C%85"><span class="nav-number">2.5.</span> <span class="nav-text">解压Oracle数据库安装包</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BF%AE%E6%94%B9%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E9%85%8D%E7%BD%AE"><span class="nav-number">2.6.</span> <span class="nav-text">修改操作系统配置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%9B%E5%BB%BAOracle%E5%AE%89%E8%A3%85%E7%9B%AE%E5%BD%95"><span class="nav-number">2.7.</span> <span class="nav-text">创建Oracle安装目录</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BF%AE%E6%94%B9%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F"><span class="nav-number">2.8.</span> <span class="nav-text">修改环境变量</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BF%AE%E6%94%B9Oracle%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6"><span class="nav-number">2.9.</span> <span class="nav-text">修改Oracle配置文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%9D%99%E9%BB%98%E5%AE%89%E8%A3%85Oracle-11gR2"><span class="nav-number">2.10.</span> <span class="nav-text">静默安装Oracle 11gR2</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%89%E8%A3%85%E5%AE%8C%E6%88%90"><span class="nav-number">2.11.</span> <span class="nav-text">安装完成</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%9B%E5%BB%BA%E8%BF%9E%E6%8E%A5%E7%94%A8%E6%88%B7"><span class="nav-number">2.12.</span> <span class="nav-text">创建连接用户</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%AA%8C%E8%AF%81%E5%AE%89%E8%A3%85%E7%BB%93%E6%9E%9C"><span class="nav-number">3.</span> <span class="nav-text">验证安装结果</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%90%AF%E5%8A%A8%E6%95%B0%E6%8D%AE%E5%BA%93"><span class="nav-number">3.1.</span> <span class="nav-text">启动数据库</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-overview">
+            <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">hyman</p>
+  <div class="site-description" itemprop="description">一些简单的记录</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">187</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+        <span class="site-state-item-count">39</span>
+        <span class="site-state-item-name">分类</span>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">129</span>
+        <span class="site-state-item-name">标签</span>
+      </div>
+  </nav>
+</div>
+
+
+
+          </div>
+        </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://www.ywthings.com/posts/8f89a6cb.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="hyman">
+      <meta itemprop="description" content="一些简单的记录">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="hyman">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          CentOS7 命令行安装Oracle 11G R2
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2021-07-15 11:08:01" itemprop="dateCreated datePublished" datetime="2021-07-15T11:08:01+08:00">2021-07-15</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">更新于</span>
+        <time title="修改时间：2021-08-05 15:57:11" itemprop="dateModified" datetime="2021-08-05T15:57:11+08:00">2021-08-05</time>
+      </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/oracle/" itemprop="url" rel="index"><span itemprop="name">oracle</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h2 id="环境准备"><a href="#环境准备" class="headerlink" title="环境准备"></a>环境准备</h2><ul>
+<li><p>1.CentOS7 64位最小化安装</p>
+</li>
+<li><p>2.Oracle 11gR2 64位 Linux版安装包</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">linux.x64_11gR2_database_1of2.zip</span><br><span class="line">linux.x64_11gR2_database_2of2.zip</span><br></pre></td></tr></table></figure></li>
+</ul>
+<span id="more"></span>
+
+<h2 id="安装过程"><a href="#安装过程" class="headerlink" title="安装过程"></a>安装过程</h2><h3 id="关闭防火墙"><a href="#关闭防火墙" class="headerlink" title="关闭防火墙"></a>关闭防火墙</h3><p>操作用户：root</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">systemctl stop firewalld.service</span><br><span class="line">systemctl disable firewalld.service</span><br></pre></td></tr></table></figure>
+
+<h3 id="安装依赖包"><a href="#安装依赖包" class="headerlink" title="安装依赖包"></a>安装依赖包</h3><p>操作用户为：root</p>
+<p>执行如下命令安装依赖包。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">yum install -y automake autotools-dev binutils bzip2 elfutils expat \</span><br><span class="line">gawk gcc gcc-multilib g++-multilib lib32ncurses5 lib32z1 \</span><br><span class="line">ksh less lib32z1 libaio1 libaio-dev libc6-dev libc6-dev-i386 \</span><br><span class="line">libc6-i386 libelf-dev libltdl-dev libodbcinstq4-1 libodbcinstq4-1:i386 \</span><br><span class="line">libpth-dev libpthread-stubs0-dev libstdc++5 make openssh-server rlwrap \</span><br><span class="line">rpm sysstat unixodbc unixodbc-dev unzip x11-utils zlibc unzip cifs-utils \</span><br><span class="line">libXext.x86_64  glibc.i686</span><br></pre></td></tr></table></figure>
+
+<p>如果上述命令报错，则直接直接下面的命令。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">yum -y install xz wget gcc-c++ ncurses ncurses-devel \</span><br><span class="line">cmake make perl openssl openssl-devel gcc* libxml2 \</span><br><span class="line">libxml2-devel curl-devel libjpeg* libpng* freetype* \</span><br><span class="line">make gcc-c++ cmake bison perl perl-devel  perl perl-devel \</span><br><span class="line">glibc-devel.i686 glibc-devel libaio readline-devel \</span><br><span class="line">zlib.x86_64 zlib-devel.x86_64 libcurl-* net-tool*  \</span><br><span class="line">sysstat lrzsz dos2unix telnet.x86_64 iotop unzip \</span><br><span class="line">ftp.x86_64 xfs* expect vim psmisc openssh-client* \</span><br><span class="line">libaio bzip2  epel-release automake binutils bzip2 \</span><br><span class="line">elfutils expat gawk gcc  ksh less make openssh-server \</span><br><span class="line">rpm sysstat unzip unzip cifs-utils libXext.x86_64  \</span><br><span class="line">glibc.i686 binutils compat-libstdc++-33 \</span><br><span class="line">elfutils-libelf elfutils-libelf-devel \</span><br><span class="line">expat gcc gcc-c++ glibc glibc-common \</span><br><span class="line">glibc-devel glibc-headers libaio \</span><br><span class="line">libaio-devel libgcc libstdc++ libstdc++-devel \</span><br><span class="line">make sysstat unixODBC unixODBC-devel libnsl</span><br></pre></td></tr></table></figure>
+
+<h3 id="修改内核"><a href="#修改内核" class="headerlink" title="修改内核"></a>修改内核</h3><p>操作用户为：root</p>
+<p>修改sysctl.conf文件</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">kernel.shmmax = 277495689510912</span><br><span class="line">kernel.shmmni = 4096</span><br><span class="line">kernel.sem = 250 32000 100 128</span><br><span class="line">net.core.rmem_default = 262144</span><br><span class="line">net.core.rmem_max = 4194304</span><br><span class="line">net.core.wmem_default = 262144</span><br><span class="line">net.core.wmem_max = 1048586</span><br><span class="line">fs.file-max = 6815744</span><br><span class="line"> </span><br><span class="line"># Controls the maximum number of shared memory segments, in pages                                                                                                              </span><br><span class="line">kernel.shmall = 4294967296</span><br><span class="line">net.ipv4.tcp_max_tw_buckets = 6000</span><br><span class="line">net.ipv4.ip_local_port_range = 9000 65500</span><br><span class="line">net.ipv4.tcp_tw_recycle = 0</span><br><span class="line">net.ipv4.tcp_tw_reuse = 1</span><br><span class="line">net.core.somaxconn = 262144</span><br><span class="line">net.core.netdev_max_backlog = 262144</span><br><span class="line">net.ipv4.tcp_max_orphans = 262144</span><br><span class="line">net.ipv4.tcp_max_syn_backlog = 262144</span><br><span class="line">net.ipv4.tcp_synack_retries = 2</span><br><span class="line">net.ipv4.tcp_syn_retries = 1</span><br><span class="line">net.ipv4.tcp_fin_timeout = 1</span><br><span class="line">net.ipv4.tcp_keepalive_time = 30</span><br><span class="line">net.ipv4.tcp_keepalive_probes = 6</span><br><span class="line">net.ipv4.tcp_keepalive_intvl = 5</span><br><span class="line">net.ipv4.tcp_timestamps = 0</span><br><span class="line">fs.aio-max-nr = 1048576</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>使参数生效</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sysctl -p</span><br></pre></td></tr></table></figure>
+
+<h3 id="创建oracle用户"><a href="#创建oracle用户" class="headerlink" title="创建oracle用户"></a>创建oracle用户</h3><p>操作用户为：root</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">groupadd -g 502 oinstall</span><br><span class="line">groupadd -g 503 dba</span><br><span class="line">groupadd -g 504 oper</span><br><span class="line">groupadd -g 505 asmadmin</span><br><span class="line">useradd -u 502 -g oinstall -G oinstall,dba,asmadmin,oper -s /bin/bash -m oracle</span><br><span class="line">passwd oracle</span><br></pre></td></tr></table></figure>
+
+<h3 id="解压Oracle数据库安装包"><a href="#解压Oracle数据库安装包" class="headerlink" title="解压Oracle数据库安装包"></a>解压Oracle数据库安装包</h3><p>操作用户：oracle<br>操作目录：/home/oracle</p>
+<p>将Oracle 11gR2安装文件上传（可以使用sftp上传）到该操作目录下面，然后顺序解压安装文件到该目录。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">unzip linux.x64_11gR2_database_1of2.zip</span><br><span class="line">unzip linux.x64_11gR2_database_2of2.zip</span><br></pre></td></tr></table></figure>
+
+<h3 id="修改操作系统配置"><a href="#修改操作系统配置" class="headerlink" title="修改操作系统配置"></a>修改操作系统配置</h3><p>操作用户：root<br>操作文件：/etc/security/limits.conf</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vim /etc/security/limits.conf</span><br></pre></td></tr></table></figure>
+
+<p>在文件的末尾添加如下配置项。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">oracle          soft      nproc   2047</span><br><span class="line">oracle          hard      nproc   16384</span><br><span class="line">oracle          soft      nofile  1024</span><br><span class="line">oracle          hard      nofile  65536</span><br><span class="line">oracle          soft      stack   10240</span><br></pre></td></tr></table></figure>
+
+<h3 id="创建Oracle安装目录"><a href="#创建Oracle安装目录" class="headerlink" title="创建Oracle安装目录"></a>创建Oracle安装目录</h3><p>操作用户：oracle</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mkdir ~/tools/oracle11g -p</span><br></pre></td></tr></table></figure>
+
+
+<h3 id="修改环境变量"><a href="#修改环境变量" class="headerlink" title="修改环境变量"></a>修改环境变量</h3><p>操作用户：oracle<br>操作目录：/home/oracle</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vim ~/.bash_profile</span><br></pre></td></tr></table></figure>
+
+
+<p>在文件末尾添加如下配置项</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">export ORACLE_BASE=/home/oracle/tools/oracle11g</span><br><span class="line">export ORACLE_HOME=$ORACLE_BASE/product/11.2.0/dbhome_1</span><br><span class="line">export ORACLE_SID=orcl</span><br><span class="line">export ORACLE_UNQNAME=orcl</span><br><span class="line">export NLS_LANG=.AL32UTF8</span><br><span class="line">export PATH=$&#123;PATH&#125;:$&#123;ORACLE_HOME&#125;/bin/:$ORACLE_HOME/lib64</span><br></pre></td></tr></table></figure>
+
+<p>使得环境变量生效。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">source ~/.bash_profile</span><br></pre></td></tr></table></figure>
+
+<h3 id="修改Oracle配置文件"><a href="#修改Oracle配置文件" class="headerlink" title="修改Oracle配置文件"></a>修改Oracle配置文件</h3><p>操作用户：oracle<br>操作目录：/home/oracle</p>
+<p>复制文件模板</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cp /home/oracle/database/response/db_install.rsp .</span><br></pre></td></tr></table></figure>
+
+<p><strong>注意：复制命令的最后一个 . 不能省略，表示将db_install.rsp文件从/home/oracle/database/response目录拷贝到当前目录。</strong></p>
+<p>对db_install.rsp文件进行编辑。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vim db_install.rsp</span><br></pre></td></tr></table></figure>
+
+<p>需要修改的配置项如下所示，这里，我将修改后的配置项列举出来。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">oracle.install.option=INSTALL_DB_AND_CONFIG</span><br><span class="line">ORACLE_HOSTNAME=localhost #实际上可以修改成你自己的主机名或者域名(IP)</span><br><span class="line">UNIX_GROUP_NAME=oinstall</span><br><span class="line">INVENTORY_LOCATION=/home/oracle/tools/oraInventory</span><br><span class="line">SELECTED_LANGUAGES=en,zh_CN</span><br><span class="line">ORACLE_HOME=/home/oracle/tools/oracle11g/product/11.2.0/dbhome_1</span><br><span class="line">ORACLE_BASE=/home/oracle/tools/oracle11g</span><br><span class="line">oracle.install.db.InstallEdition=EE</span><br><span class="line">oracle.install.db.DBA_GROUP=dba</span><br><span class="line">oracle.install.db.OPER_GROUP=oper</span><br><span class="line">oracle.install.db.config.starterdb.type=GENERAL_PURPOSE</span><br><span class="line">oracle.install.db.config.starterdb.globalDBName=orcl</span><br><span class="line">oracle.install.db.config.starterdb.SID=orcl</span><br><span class="line">oracle.install.db.config.starterdb.characterSet=AL32UTF8</span><br><span class="line">oracle.install.db.config.starterdb.memoryOption=true</span><br><span class="line">oracle.install.db.config.starterdb.memoryLimit=1024</span><br><span class="line">oracle.install.db.config.starterdb.installExampleSchemas=false</span><br><span class="line">oracle.install.db.config.starterdb.password.ALL=Oracle#123456</span><br><span class="line">oracle.install.db.config.starterdb.control=DB_CONTROL</span><br><span class="line">oracle.install.db.config.starterdb.dbcontrol.enableEmailNotification=false</span><br><span class="line">oracle.install.db.config.starterdb.dbcontrol.emailAddress=test@qq.com #可以填写你自己的邮箱地址</span><br><span class="line">oracle.install.db.config.starterdb.automatedBackup.enable=false</span><br><span class="line">oracle.install.db.config.starterdb.storageType=FILE_SYSTEM_STORAGE</span><br><span class="line">oracle.install.db.config.starterdb.fileSystemStorage.dataLocation=/home/oracle/tools/oracle11g/oradata</span><br><span class="line">oracle.install.db.config.starterdb.fileSystemStorage.recoveryLocation=/home/oracle/tools/oracle11g/fast_recovery_area</span><br><span class="line">DECLINE_SECURITY_UPDATES=true</span><br></pre></td></tr></table></figure>
+
+<h3 id="静默安装Oracle-11gR2"><a href="#静默安装Oracle-11gR2" class="headerlink" title="静默安装Oracle 11gR2"></a>静默安装Oracle 11gR2</h3><p>操作用户：oracle<br>操作目录：/home/oracle/database</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./runInstaller -silent -ignoreSysPrereqs -responseFile /home/oracle/db_install.rsp</span><br></pre></td></tr></table></figure>
+
+<p>等待一段时间后，如果输出如下信息，则表明Oracle数据库已经安装成功。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">The following configuration scripts need to be executed as the &quot;root&quot; user. </span><br><span class="line"> #!/bin/sh </span><br><span class="line"> #Root scripts to run</span><br><span class="line"></span><br><span class="line">/home/oracle/tools/oraInventory/orainstRoot.sh</span><br><span class="line">/home/oracle/tools/oracle11g/product/11.2.0/dbhome_1/root.sh</span><br><span class="line">To execute the configuration scripts:</span><br><span class="line">	 1. Open a terminal window </span><br><span class="line">	 2. Log in as &quot;root&quot; </span><br><span class="line">	 3. Run the scripts </span><br><span class="line">	 4. Return to this window and hit &quot;Enter&quot; key to continue </span><br><span class="line"></span><br><span class="line">Successfully Setup Software.</span><br></pre></td></tr></table></figure>
+
+<h3 id="安装完成"><a href="#安装完成" class="headerlink" title="安装完成"></a>安装完成</h3><p>操作用户：root</p>
+<p>根据上一步完成信息提示，执行以下两行命令，具体位置需要根据你的安装位置决定：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">/home/oracle/tools/oraInventory/orainstRoot.sh</span><br><span class="line">/home/oracle/tools/oracle11g/product/11.2.0/dbhome_1/root.sh</span><br></pre></td></tr></table></figure>
+
+<h3 id="创建连接用户"><a href="#创建连接用户" class="headerlink" title="创建连接用户"></a>创建连接用户</h3><p>操作用户：oracle</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sqlplus /nolog</span><br><span class="line">conn /as sysdba</span><br></pre></td></tr></table></figure>
+
+
+<p>接下来，执行如下命令。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">alter user system identified by system;</span><br><span class="line">alter user sys identified by sys;</span><br></pre></td></tr></table></figure>
+
+
+<p>创建连接用户。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">create user SYNC identified by SYNC2;</span><br><span class="line">grant connect,resource,dba to SYNC2;</span><br></pre></td></tr></table></figure>
+
+
+<h2 id="验证安装结果"><a href="#验证安装结果" class="headerlink" title="验证安装结果"></a>验证安装结果</h2><h3 id="启动数据库"><a href="#启动数据库" class="headerlink" title="启动数据库"></a>启动数据库</h3><p>启动已经安装的数据库orcl。</p>
+<p>操作用户oracle</p>
+<p>启动监听</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">lsnrctl  start</span><br></pre></td></tr></table></figure>
+
+
+<p>启动数据库过程如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sqlplus /nolog</span><br></pre></td></tr></table></figure>
+
+
+<p>使用dba权限连接Oralce</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">connect / as sysdba</span><br></pre></td></tr></table></figure>
+
+
+<p>启动数据库</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">startup</span><br></pre></td></tr></table></figure>
+
+
+<p>确认启动结果：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">ORACLE instance started.</span><br><span class="line"></span><br><span class="line">Total System Global Area  534462464 bytes</span><br><span class="line">Fixed Size                  2215064 bytes</span><br><span class="line">Variable Size            373293928 bytes</span><br><span class="line">Database Buffers          150994944 bytes</span><br><span class="line">Redo Buffers                7958528 bytes</span><br><span class="line">Database mounted.</span><br><span class="line">Database opened.</span><br></pre></td></tr></table></figure>
+
+
+
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/oracle/" rel="tag"># oracle</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/posts/f6225608.html" rel="prev" title="linux系统服务器安全加固">
+                  <i class="fa fa-chevron-left"></i> linux系统服务器安全加固
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/posts/65cbd9d1.html" rel="next" title="nginx对集团内部ip不进行强制跳转https">
+                  nginx对集团内部ip不进行强制跳转https <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 2017 – 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">hyman</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/mist/" rel="noopener" target="_blank">NexT.Mist</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/next-boot.js"></script>
+
+  
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+
+  
+
+
+
+
+
+</body>
+</html>

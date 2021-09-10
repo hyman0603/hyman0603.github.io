@@ -2,25 +2,25 @@
 <html lang="zh-CN">
 <head>
   <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="viewport" content="width=device-width">
 <meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 4.2.1">
+<meta name="generator" content="Hexo 5.4.0">
+
+
   <link rel="apple-touch-icon" sizes="180x180" href="/images/favicon.png">
   <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon.png">
-  <link rel="mask-icon" href="/images/favicon.png" color="#222">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
 
 <link rel="stylesheet" href="/css/main.css">
 
 
-<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
 
-<script id="hexo-configurations">
-    var NexT = window.NexT || {};
-    var CONFIG = {"hostname":"www.ywthings.com","root":"/","scheme":"Mist","version":"8.0.0-rc.2","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"appID":"UDW7NS797T","apiKey":"c4bb3c2b53b39900e8498ee72e6dc96e","indexName":"hyman","hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
-  </script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.3/css/all.min.css" integrity="sha256-2H3fkXt6FEmrReK448mDVGKb3WW2ZZw35gI7vqHOE4Y=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
 
-  <meta name="description" content="环境系统： windows server 2016内网环境，无外网">
+<script class="next-config" data-name="main" type="application/json">{"hostname":"www.ywthings.com","root":"/","images":"/images","scheme":"Mist","version":"8.5.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":true,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+<meta name="description" content="环境系统： windows server 2016内网环境，无外网">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Windows 环境部署可视化管理系统">
 <meta property="og:url" content="https://www.ywthings.com/posts/33e91186.html">
@@ -36,72 +36,47 @@
 <meta property="article:tag" content="MYSQL">
 <meta name="twitter:card" content="summary">
 
+
 <link rel="canonical" href="https://www.ywthings.com/posts/33e91186.html">
 
 
-<script id="page-configurations">
-  // https://hexo.io/docs/variables.html
-  CONFIG.page = {
-    sidebar: "",
-    isHome : false,
-    isPost : true,
-    lang   : 'zh-CN'
-  };
-</script>
 
-  <title>Windows 环境部署可视化管理系统 | hyman</title>
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://www.ywthings.com/posts/33e91186.html","path":"posts/33e91186.html","title":"Windows 环境部署可视化管理系统"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>Windows 环境部署可视化管理系统 | hyman</title>
   
 
-
-
+  <script src="/js/third-party/analytics/baidu-analytics.js"></script>
+  <script async src="https://hm.baidu.com/hm.js?97e285060b95594e74e4d3562a50a717"></script>
 
 
 
   <noscript>
-  <style>
-  .use-motion .brand,
-  .use-motion .menu-item,
-  .sidebar-inner,
-  .use-motion .post-block,
-  .use-motion .pagination,
-  .use-motion .comments,
-  .use-motion .post-header,
-  .use-motion .post-body,
-  .use-motion .collection-header { opacity: initial; }
-
-  .use-motion .site-title,
-  .use-motion .site-subtitle {
-    opacity: initial;
-    top: initial;
-  }
-
-  .use-motion .logo-line-before i { left: initial; }
-  .use-motion .logo-line-after i { right: initial; }
-  </style>
-</noscript>
-
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
 </head>
 
-<body itemscope itemtype="http://schema.org/WebPage">
-  <div class="container use-motion">
-    <div class="headband"></div>
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
 
+  <main class="main">
     <header class="header" itemscope itemtype="http://schema.org/WPHeader">
       <div class="header-inner"><div class="site-brand-container">
   <div class="site-nav-toggle">
-    <div class="toggle" aria-label="切换导航栏">
-        <span class="toggle-line toggle-line-first"></span>
-        <span class="toggle-line toggle-line-middle"></span>
-        <span class="toggle-line toggle-line-last"></span>
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
     </div>
   </div>
 
   <div class="site-meta">
 
     <a href="/" class="brand" rel="start">
-      <span class="logo-line-before"><i></i></span>
+      <i class="logo-line"></i>
       <h1 class="site-title">hyman</h1>
-      <span class="logo-line-after"><i></i></span>
+      <i class="logo-line"></i>
     </a>
       <p class="site-subtitle" itemprop="description">一些简单的记录</p>
   </div>
@@ -116,32 +91,12 @@
 
 
 <nav class="site-nav">
-  <ul id="menu" class="main-menu menu">
-        <li class="menu-item menu-item-home">
-
-    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
-
-  </li>
-        <li class="menu-item menu-item-tags">
-
-    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
-
-  </li>
-        <li class="menu-item menu-item-categories">
-
-    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
-
-  </li>
-        <li class="menu-item menu-item-archives">
-
-    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
-
-  </li>
-        <li class="menu-item menu-item-sitemap">
-
-    <a href="/sitemap.xml" rel="section"><i class="fa fa-sitemap fa-fw"></i>站点地图</a>
-
-  </li>
+  <ul class="main-menu menu">
+        <li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li>
+        <li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li>
+        <li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li>
+        <li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li>
+        <li class="menu-item menu-item-sitemap"><a href="/sitemap.xml" rel="section"><i class="fa fa-sitemap fa-fw"></i>站点地图</a></li>
       <li class="menu-item menu-item-search">
         <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
         </a>
@@ -152,23 +107,22 @@
 
 
   <div class="search-pop-overlay">
-    <div class="popup search-popup">
-        <div class="search-header">
+    <div class="popup search-popup"><div class="search-header">
   <span class="search-icon">
     <i class="fa fa-search"></i>
   </span>
   <div class="search-input-container">
-    <input autocomplete="off" autocapitalize="off"
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
            placeholder="搜索..." spellcheck="false"
            type="search" class="search-input">
   </div>
-  <span class="popup-btn-close">
+  <span class="popup-btn-close" role="button">
     <i class="fa fa-times-circle"></i>
   </span>
 </div>
-<div id="search-result">
-  <div id="no-result">
-    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
   </div>
 </div>
 
@@ -176,33 +130,98 @@
   </div>
 
 </div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%8E%AF%E5%A2%83"><span class="nav-number">1.</span> <span class="nav-text">环境</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#JDK1-8"><span class="nav-number">2.</span> <span class="nav-text">JDK1.8</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%8B%E8%BD%BD%E5%AE%89%E8%A3%85"><span class="nav-number">2.1.</span> <span class="nav-text">下载安装</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%85%8D%E7%BD%AE%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F"><span class="nav-number">2.2.</span> <span class="nav-text">配置环境变量</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Tomcat8"><span class="nav-number">3.</span> <span class="nav-text">Tomcat8</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%8B%E8%BD%BD%E5%AE%89%E8%A3%85-1"><span class="nav-number">3.1.</span> <span class="nav-text">下载安装</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%B7%BB%E5%8A%A0Tomcat%E6%9C%8D%E5%8A%A1"><span class="nav-number">3.2.</span> <span class="nav-text">添加Tomcat服务</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Mysql5-7"><span class="nav-number">4.</span> <span class="nav-text">Mysql5.7</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9"><span class="nav-number">4.1.</span> <span class="nav-text">注意事项</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%8B%E8%BD%BDmysql5-7-zip%E5%AE%89%E8%A3%85%E5%8C%85"><span class="nav-number">4.2.</span> <span class="nav-text">下载mysql5.7 zip安装包</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%85%8D%E7%BD%AE%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F-1"><span class="nav-number">4.3.</span> <span class="nav-text">配置环境变量</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%85%8D%E7%BD%AEmy-ini"><span class="nav-number">4.4.</span> <span class="nav-text">配置my.ini</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%9D%E5%A7%8B%E5%8C%96mysql"><span class="nav-number">4.5.</span> <span class="nav-text">初始化mysql</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%89%E8%A3%85%EF%BC%88%E5%88%B0windwos%EF%BC%89%E6%9C%8D%E5%8A%A1"><span class="nav-number">4.6.</span> <span class="nav-text">安装（到windwos）服务</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%99%BB%E5%BD%95%E5%92%8C%E9%87%8D%E8%AE%BE%E5%AF%86%E7%A0%81"><span class="nav-number">4.7.</span> <span class="nav-text">登录和重设密码</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%BC%BA%E5%88%B6%E8%B7%B3%E8%BF%87%E5%AF%86%E7%A0%81%E7%99%BB%E5%BD%95"><span class="nav-number">4.8.</span> <span class="nav-text">强制跳过密码登录</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%AE%BE%E7%BD%AE%E5%8F%8B%E5%A5%BD%E6%8F%90%E7%A4%BA%E7%AC%A6"><span class="nav-number">4.9.</span> <span class="nav-text">设置友好提示符</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%BC%80%E5%90%AF%E8%BF%9C%E7%A8%8B%E8%BF%9E%E6%8E%A5"><span class="nav-number">4.10.</span> <span class="nav-text">开启远程连接</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%94%99%E8%AF%AF"><span class="nav-number">4.11.</span> <span class="nav-text">错误</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%A1%B9%E7%9B%AE%E9%83%A8%E7%BD%B2"><span class="nav-number">5.</span> <span class="nav-text">项目部署</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#mysql"><span class="nav-number">5.1.</span> <span class="nav-text">mysql</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#web"><span class="nav-number">5.2.</span> <span class="nav-text">web</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%96%87%E4%BB%B6%E6%9C%8D%E5%8A%A1"><span class="nav-number">5.3.</span> <span class="nav-text">文件服务</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%80%9A%E4%BF%A1%E6%9C%8D%E5%8A%A1"><span class="nav-number">5.4.</span> <span class="nav-text">通信服务</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-overview">
+            <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">hyman</p>
+  <div class="site-description" itemprop="description">一些简单的记录</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">187</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+        <span class="site-state-item-count">39</span>
+        <span class="site-state-item-name">分类</span>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">129</span>
+        <span class="site-state-item-name">标签</span>
+      </div>
+  </nav>
+</div>
+
+
+
+          </div>
+        </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
     </header>
 
     
-  <div class="back-to-top">
+  <div class="back-to-top" role="button" aria-label="返回顶部">
     <i class="fa fa-arrow-up"></i>
     <span>0%</span>
   </div>
 
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
 
-    <main class="main">
-      <div class="main-inner">
-        <div class="content-wrap">
-          
 
-          <div class="content post posts-expand">
-            
+    <div class="main-inner post posts-expand">
 
-    
+
+  
+
+
+<div class="post-block">
   
   
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://www.ywthings.com/posts/33e91186.html">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
       <meta itemprop="name" content="hyman">
-      <meta itemprop="description" content="">
+      <meta itemprop="description" content="一些简单的记录">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
@@ -213,33 +232,35 @@
           Windows 环境部署可视化管理系统
         </h1>
 
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
 
-              <time title="创建时间：2019-08-14 19:15:05" itemprop="dateCreated datePublished" datetime="2019-08-14T19:15:05+08:00">2019-08-14</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-05-18 07:58:41" itemprop="dateModified" datetime="2020-05-18T07:58:41+08:00">2020-05-18</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E8%BF%90%E7%BB%B4%E9%83%A8%E7%BD%B2%E8%AE%B0%E5%BD%95/" itemprop="url" rel="index"><span itemprop="name">运维部署记录</span></a>
-                </span>
-            </span>
+      <time title="创建时间：2019-08-14 19:15:05" itemprop="dateCreated datePublished" datetime="2019-08-14T19:15:05+08:00">2019-08-14</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">更新于</span>
+        <time title="修改时间：2020-05-18 07:58:41" itemprop="dateModified" datetime="2020-05-18T07:58:41+08:00">2020-05-18</time>
+      </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E8%BF%90%E7%BB%B4%E9%83%A8%E7%BD%B2%E8%AE%B0%E5%BD%95/" itemprop="url" rel="index"><span itemprop="name">运维部署记录</span></a>
+        </span>
+    </span>
 
-          
+  
+</div>
 
         </div>
       </header>
@@ -248,32 +269,30 @@
     
     
     <div class="post-body" itemprop="articleBody">
-
-      
         <h1 id="环境"><a href="#环境" class="headerlink" title="环境"></a>环境</h1><p>系统： windows server 2016<br>内网环境，无外网</p>
-<a id="more"></a>
-<h1 id="JDK1-8"><a href="#JDK1-8" class="headerlink" title="JDK1.8"></a>JDK1.8</h1><h2 id="下载安装"><a href="#下载安装" class="headerlink" title="下载安装"></a>下载安装</h2><p>官网下载：<a href="https://www.oracle.com/technetwork/java/javase/downloads/index.html">https://www.oracle.com/technetwork/java/javase/downloads/index.html</a></p>
+<span id="more"></span>
+<h1 id="JDK1-8"><a href="#JDK1-8" class="headerlink" title="JDK1.8"></a>JDK1.8</h1><h2 id="下载安装"><a href="#下载安装" class="headerlink" title="下载安装"></a>下载安装</h2><p>官网下载：<a target="_blank" rel="noopener" href="https://www.oracle.com/technetwork/java/javase/downloads/index.html">https://www.oracle.com/technetwork/java/javase/downloads/index.html</a></p>
 <h2 id="配置环境变量"><a href="#配置环境变量" class="headerlink" title="配置环境变量"></a>配置环境变量</h2><p>配置环境变量：此电脑右击属性–高级系统设置–环境变量</p>
 <p>添加 JAVA_HOME 环境变量</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">C:\Program Files\Java\jdk1.8.0_221</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">C:\Program Files\Java\jdk1.8.0_221</span><br></pre></td></tr></table></figure>
 
 <p>添加 JRE_HOME 环境变量</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">C:\Program Files\Java\jdk1.8.0_221\jre</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">C:\Program Files\Java\jdk1.8.0_221\jre</span><br></pre></td></tr></table></figure>
 
 <p>将变量添加到系统的path目录中</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">%JAVA_HOME%\bin</span><br><span class="line">%JRE_HOME%\bin</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">%JAVA_HOME%\bin</span><br><span class="line">%JRE_HOME%\bin</span><br></pre></td></tr></table></figure>
 
-<h1 id="Tomcat8"><a href="#Tomcat8" class="headerlink" title="Tomcat8"></a>Tomcat8</h1><h2 id="下载安装-1"><a href="#下载安装-1" class="headerlink" title="下载安装"></a>下载安装</h2><p>官网下载：<a href="https://tomcat.apache.org/download-80.cgi">https://tomcat.apache.org/download-80.cgi</a></p>
+<h1 id="Tomcat8"><a href="#Tomcat8" class="headerlink" title="Tomcat8"></a>Tomcat8</h1><h2 id="下载安装-1"><a href="#下载安装-1" class="headerlink" title="下载安装"></a>下载安装</h2><p>官网下载：<a target="_blank" rel="noopener" href="https://tomcat.apache.org/download-80.cgi">https://tomcat.apache.org/download-80.cgi</a></p>
 <p>添加 TOMCAT_HOME 环境变量</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">C:\apache-tomcat-8.5.43</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">C:\apache-tomcat-8.5.43</span><br></pre></td></tr></table></figure>
 
 <p>将变量添加到系统的path目录中</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">%TOMCAT_HOME%\bin</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">%TOMCAT_HOME%\bin</span><br></pre></td></tr></table></figure>
 
 <h2 id="添加Tomcat服务"><a href="#添加Tomcat服务" class="headerlink" title="添加Tomcat服务"></a>添加Tomcat服务</h2><p>cmd命令行界面进入Tomcat解压目录的bin目录 安装tomcat服务运行 </p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">service.bat install</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">service.bat install </span><br></pre></td></tr></table></figure>
 <p>如果要清除掉，之前添加的tamcat </p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">service remove tomcat8</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">service remove tomcat8 </span><br></pre></td></tr></table></figure>
 
 <h1 id="Mysql5-7"><a href="#Mysql5-7" class="headerlink" title="Mysql5.7"></a>Mysql5.7</h1><h2 id="注意事项"><a href="#注意事项" class="headerlink" title="注意事项"></a>注意事项</h2><p>5.7版本和之前的不一样： </p>
 <ul>
@@ -286,13 +305,13 @@
 </ul>
 <p>Windows的路径使用了反斜杠（\），因此，配置中使用时尽量合乎规范将反斜杠改为双反斜杠()或直接使用斜杠（/）。（也有直接使用\而不受影响的）</p>
 <h2 id="下载mysql5-7-zip安装包"><a href="#下载mysql5-7-zip安装包" class="headerlink" title="下载mysql5.7 zip安装包"></a>下载mysql5.7 zip安装包</h2><ul>
-<li>官网下载压缩包链接： <a href="https://dev.mysql.com/downloads/mysql/5.7.html#downloads">https://dev.mysql.com/downloads/mysql/5.7.html#downloads</a></li>
+<li>官网下载压缩包链接： <a target="_blank" rel="noopener" href="https://dev.mysql.com/downloads/mysql/5.7.html#downloads">https://dev.mysql.com/downloads/mysql/5.7.html#downloads</a></li>
 </ul>
 <p>根据电脑配置选择32/64位版本，将下载回来的mysql压缩包解压至适当路径，也就是你打算以后使用的工作目录</p>
 <h2 id="配置环境变量-1"><a href="#配置环境变量-1" class="headerlink" title="配置环境变量"></a>配置环境变量</h2><p>配置环境变量：此电脑右击属性–高级系统设置–环境变量–系统变量–Path</p>
 <p>双击path，新建mysql/bin 所在目录，如C:\mysql-5.7.27-winx64\bin</p>
 <h2 id="配置my-ini"><a href="#配置my-ini" class="headerlink" title="配置my.ini"></a>配置my.ini</h2><p>mysql的目录先新建my.ini</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">[mysqld]</span><br><span class="line"># 服务端配置</span><br><span class="line"></span><br><span class="line"># 设置mysql的工作目录，安装包解压后的路径</span><br><span class="line">basedir&#x3D;E:\\mysql</span><br><span class="line"></span><br><span class="line"># 数据存放目录data，需要自行新建</span><br><span class="line"># 也可以使用mysqld --initialize-insecure 命令后也会自动在根目录中生成data目录</span><br><span class="line">datadir&#x3D;E:\\mysql\data</span><br><span class="line"></span><br><span class="line"># 默认连接端口3306，正式环境一般都会修改</span><br><span class="line">port&#x3D;3306</span><br><span class="line"></span><br><span class="line"># 设置mysql默认字符集为utf-8</span><br><span class="line">character-set-server&#x3D;utf8</span><br><span class="line"></span><br><span class="line"># 限制server接受的数据包的大小</span><br><span class="line">max_allowed_packet&#x3D;500M</span><br><span class="line"></span><br><span class="line"># 设置的最大连接数</span><br><span class="line">max_connections&#x3D;1000</span><br><span class="line"></span><br><span class="line">skip-host-cache</span><br><span class="line">skip-name-resolve</span><br><span class="line"></span><br><span class="line">[client]</span><br><span class="line"># 客户端配置</span><br><span class="line"></span><br><span class="line">default-character-set&#x3D;utf8</span><br><span class="line">#设置mysql默认字符集为utf-8</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">[mysqld]</span><br><span class="line"># 服务端配置</span><br><span class="line"></span><br><span class="line"># 设置mysql的工作目录，安装包解压后的路径</span><br><span class="line">basedir=E:\\mysql</span><br><span class="line"></span><br><span class="line"># 数据存放目录data，需要自行新建</span><br><span class="line"># 也可以使用mysqld --initialize-insecure 命令后也会自动在根目录中生成data目录</span><br><span class="line">datadir=E:\\mysql\data</span><br><span class="line"></span><br><span class="line"># 默认连接端口3306，正式环境一般都会修改</span><br><span class="line">port=3306</span><br><span class="line"></span><br><span class="line"># 设置mysql默认字符集为utf-8</span><br><span class="line">character-set-server=utf8</span><br><span class="line"></span><br><span class="line"># 限制server接受的数据包的大小</span><br><span class="line">max_allowed_packet=500M</span><br><span class="line"></span><br><span class="line"># 设置的最大连接数</span><br><span class="line">max_connections=1000</span><br><span class="line"></span><br><span class="line">skip-host-cache</span><br><span class="line">skip-name-resolve</span><br><span class="line"></span><br><span class="line">[client]</span><br><span class="line"># 客户端配置</span><br><span class="line"></span><br><span class="line">default-character-set=utf8</span><br><span class="line">#设置mysql默认字符集为utf-8</span><br></pre></td></tr></table></figure>
 
 <h2 id="初始化mysql"><a href="#初始化mysql" class="headerlink" title="初始化mysql"></a>初始化mysql</h2><ul>
 <li>以管理员身份运行cmd命令</li>
@@ -351,7 +370,7 @@
 </li>
 <li><p>5.7以前的版本是使用password字段保存密码的，5.7改成了authentication_string，不容易记忆。修改密码后需要输入flush privileges;命令来刷新生效。</p>
 </li>
-<li><p>由于authentication_string不太容易记忆，也有直接改权限的，ALTER USER ‘root’@’localhost’ IDENTIFIED BY ‘123456’ </p>
+<li><p>由于authentication_string不太容易记忆，也有直接改权限的，ALTER USER ‘root‘@’localhost’ IDENTIFIED BY ‘123456’ </p>
 </li>
 </ul>
 <h2 id="强制跳过密码登录"><a href="#强制跳过密码登录" class="headerlink" title="强制跳过密码登录"></a>强制跳过密码登录</h2><ul>
@@ -365,7 +384,7 @@
 <h2 id="设置友好提示符"><a href="#设置友好提示符" class="headerlink" title="设置友好提示符"></a>设置友好提示符</h2><p>连接上去，使用的时候，你会发觉MySQL 客户端的默认提示符是 “mysql&gt;”，基本上没什么实际作用。 修改这个提示符，让它显示一些有用的信息，例如当前所在的数据库等。 修改方法有四种，其中前两种只对当前连接有效，后两种则对所有连接有效。</p>
 <ol>
 <li><p>连接客户端时通过参数指定。<br>mysql –prompt=”(\u@\h) [\d]&gt; “<br>这样提示符就会变成 (user@host) [database]&gt;<br>其中常用的字符参数有：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">\D 完整的日期 </span><br><span class="line">\d 当前数据库 </span><br><span class="line">\h 服务器地址 </span><br><span class="line">\u 用户名</span><br></pre></td></tr></table></figure></li>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">\D 完整的日期 </span><br><span class="line">\d 当前数据库 </span><br><span class="line">\h 服务器地址 </span><br><span class="line">\u 用户名</span><br></pre></td></tr></table></figure></li>
 <li><p>连接上客户端后，通过 prompt命令 PROMPT (\u@\h) [\d]&gt;修改。<br>例：<br>mysql&gt; PROMPT (\u@\h)[\d]&gt;<br>PROMPT set to ‘(\u@\h)[\d]&gt;’</p>
 </li>
 <li><p>在 MySQL 的配置文件中配置。<br>[mysql]<br>prompt=\u@\h [\d]&gt;\</p>
@@ -373,13 +392,13 @@
 <li><p>通过环境变量配置。<br>export MYSQL_PS1=”\u@\h [\d]&gt; “</p>
 </li>
 </ol>
-<h2 id="开启远程连接"><a href="#开启远程连接" class="headerlink" title="开启远程连接"></a>开启远程连接</h2><p>开启远程连接，输入命令GRANT ALL PRIVILEGES ON <em>.</em> TO ‘root’@’%’ IDENTIFIED BY ‘密码’ WITH GRANT OPTION;<br>刷新权限，命令为：FLUSH PRIVILEGES;</p>
+<h2 id="开启远程连接"><a href="#开启远程连接" class="headerlink" title="开启远程连接"></a>开启远程连接</h2><p>开启远程连接，输入命令GRANT ALL PRIVILEGES ON <em>.</em> TO ‘root‘@’%’ IDENTIFIED BY ‘密码’ WITH GRANT OPTION;<br>刷新权限，命令为：FLUSH PRIVILEGES;</p>
 <h2 id="错误"><a href="#错误" class="headerlink" title="错误"></a>错误</h2><p>问题1：<br>在windows 2016 服务器上执行mysql提示MSVCR120.dll缺少的错误</p>
-<p>解决方案：<br>官网<a href="https://support.microsoft.com/en-us/help/2977003/the-latest-supported-visual-c-downloads">https://support.microsoft.com/en-us/help/2977003/the-latest-supported-visual-c-downloads</a> 下载Visual Studio 2013 (VC++ 12.0)安装即可</p>
+<p>解决方案：<br>官网<a target="_blank" rel="noopener" href="https://support.microsoft.com/en-us/help/2977003/the-latest-supported-visual-c-downloads">https://support.microsoft.com/en-us/help/2977003/the-latest-supported-visual-c-downloads</a> 下载Visual Studio 2013 (VC++ 12.0)安装即可</p>
 <p>问题2：<br>重启mysql时出现</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">C:\Users\Administrator&gt;net start mysql</span><br><span class="line">MySQL 服务正在启动 ....................</span><br><span class="line">MySQL 服务无法启动。</span><br><span class="line"></span><br><span class="line">请键入 NET HELPMSG 3523 以获得更多的帮助。</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">C:\Users\Administrator&gt;net start mysql</span><br><span class="line">MySQL 服务正在启动 ....................</span><br><span class="line">MySQL 服务无法启动。</span><br><span class="line"></span><br><span class="line">请键入 NET HELPMSG 3523 以获得更多的帮助。</span><br></pre></td></tr></table></figure>
 
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">C:\Users\Administrator&gt;net start mysql</span><br><span class="line">服务正在启动或停止中，请稍候片刻后再试一次。</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">C:\Users\Administrator&gt;net start mysql</span><br><span class="line">服务正在启动或停止中，请稍候片刻后再试一次。</span><br></pre></td></tr></table></figure>
 
 <p>解决方案:<br>最终发现是由于编码原因导致的。因为在这个过程中用记事本打开过配置文件my.ini，不小心把编码变为了utf-8，所以解决方案就是把my.ini编码重新改回ANSI编码就解决了。</p>
 <h1 id="项目部署"><a href="#项目部署" class="headerlink" title="项目部署"></a>项目部署</h1><h2 id="mysql"><a href="#mysql" class="headerlink" title="mysql"></a>mysql</h2><p>1、导入数据库<br>2、修改数据库，dbglobal***<br>3、由于是本地环境，需创建表t_cmm_server_info，插入字段alter table t_file add column <code>f_dir</code> varchar(128) CHARACTER SET utf8mb4 DEFAULT NULL COMMENT ‘文件所在目录’;</p>
@@ -393,7 +412,7 @@
     
     
 
-      <footer class="post-footer">
+    <footer class="post-footer">
           <div class="post-tags">
               <a href="/tags/JDK/" rel="tag"># JDK</a>
               <a href="/tags/JAVA/" rel="tag"># JAVA</a>
@@ -403,165 +422,54 @@
 
         
 
-
-        
-    <div class="post-nav">
-      <div class="post-nav-item">
-    <a href="/posts/854a2ed6.html" rel="prev" title="部署Jenkins">
-      <i class="fa fa-chevron-left"></i> 部署Jenkins
-    </a></div>
-      <div class="post-nav-item">
-    <a href="/posts/6d01a25c.html" rel="next" title="记一次阿里云更新回滚操作">
-      记一次阿里云更新回滚操作 <i class="fa fa-chevron-right"></i>
-    </a></div>
-    </div>
-      </footer>
-    
-  </article>
-  
-  
-  
-
-
-
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/posts/854a2ed6.html" rel="prev" title="部署Jenkins">
+                  <i class="fa fa-chevron-left"></i> 部署Jenkins
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/posts/6d01a25c.html" rel="next" title="记一次阿里云更新回滚操作">
+                  记一次阿里云更新回滚操作 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
           </div>
-          
-
-<script>
-  window.addEventListener('tabs:register', () => {
-    let { activeClass } = CONFIG.comments;
-    if (CONFIG.comments.storage) {
-      activeClass = localStorage.getItem('comments_active') || activeClass;
-    }
-    if (activeClass) {
-      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
-      if (activeTab) {
-        activeTab.click();
-      }
-    }
-  });
-  if (CONFIG.comments.storage) {
-    window.addEventListener('tabs:click', event => {
-      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
-      let commentClass = event.target.classList[1];
-      localStorage.setItem('comments_active', commentClass);
-    });
-  }
-</script>
-
-        </div>
-          
-  
-  <div class="toggle sidebar-toggle">
-    <span class="toggle-line toggle-line-first"></span>
-    <span class="toggle-line toggle-line-middle"></span>
-    <span class="toggle-line toggle-line-last"></span>
-  </div>
-
-  <aside class="sidebar">
-    <div class="sidebar-inner">
-
-      <ul class="sidebar-nav motion-element">
-        <li class="sidebar-nav-toc">
-          文章目录
-        </li>
-        <li class="sidebar-nav-overview">
-          站点概览
-        </li>
-      </ul>
-
-      <!--noindex-->
-      <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#环境"><span class="nav-number">1.</span> <span class="nav-text">环境</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#JDK1-8"><span class="nav-number">2.</span> <span class="nav-text">JDK1.8</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#下载安装"><span class="nav-number">2.1.</span> <span class="nav-text">下载安装</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#配置环境变量"><span class="nav-number">2.2.</span> <span class="nav-text">配置环境变量</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Tomcat8"><span class="nav-number">3.</span> <span class="nav-text">Tomcat8</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#下载安装-1"><span class="nav-number">3.1.</span> <span class="nav-text">下载安装</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#添加Tomcat服务"><span class="nav-number">3.2.</span> <span class="nav-text">添加Tomcat服务</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Mysql5-7"><span class="nav-number">4.</span> <span class="nav-text">Mysql5.7</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#注意事项"><span class="nav-number">4.1.</span> <span class="nav-text">注意事项</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#下载mysql5-7-zip安装包"><span class="nav-number">4.2.</span> <span class="nav-text">下载mysql5.7 zip安装包</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#配置环境变量-1"><span class="nav-number">4.3.</span> <span class="nav-text">配置环境变量</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#配置my-ini"><span class="nav-number">4.4.</span> <span class="nav-text">配置my.ini</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#初始化mysql"><span class="nav-number">4.5.</span> <span class="nav-text">初始化mysql</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#安装（到windwos）服务"><span class="nav-number">4.6.</span> <span class="nav-text">安装（到windwos）服务</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#登录和重设密码"><span class="nav-number">4.7.</span> <span class="nav-text">登录和重设密码</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#强制跳过密码登录"><span class="nav-number">4.8.</span> <span class="nav-text">强制跳过密码登录</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#设置友好提示符"><span class="nav-number">4.9.</span> <span class="nav-text">设置友好提示符</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#开启远程连接"><span class="nav-number">4.10.</span> <span class="nav-text">开启远程连接</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#错误"><span class="nav-number">4.11.</span> <span class="nav-text">错误</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#项目部署"><span class="nav-number">5.</span> <span class="nav-text">项目部署</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#mysql"><span class="nav-number">5.1.</span> <span class="nav-text">mysql</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#web"><span class="nav-number">5.2.</span> <span class="nav-text">web</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#文件服务"><span class="nav-number">5.3.</span> <span class="nav-text">文件服务</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#通信服务"><span class="nav-number">5.4.</span> <span class="nav-text">通信服务</span></a></li></ol></li></ol></div>
-      </div>
-      <!--/noindex-->
-
-      <div class="site-overview-wrap sidebar-panel">
-        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
-  <p class="site-author-name" itemprop="name">hyman</p>
-  <div class="site-description" itemprop="description"></div>
-</div>
-<div class="site-state-wrap motion-element">
-  <nav class="site-state">
-      <div class="site-state-item site-state-posts">
-          <a href="/archives/">
-        
-          <span class="site-state-item-count">169</span>
-          <span class="site-state-item-name">日志</span>
-        </a>
-      </div>
-      <div class="site-state-item site-state-categories">
-            <a href="/categories/">
-          
-        <span class="site-state-item-count">35</span>
-        <span class="site-state-item-name">分类</span></a>
-      </div>
-      <div class="site-state-item site-state-tags">
-            <a href="/tags/">
-          
-        <span class="site-state-item-count">122</span>
-        <span class="site-state-item-name">标签</span></a>
-      </div>
-  </nav>
+    </footer>
+  </article>
 </div>
 
 
 
-      </div>
-
-    </div>
-  </aside>
-  <div id="sidebar-dimmer"></div>
 
 
-      </div>
-    </main>
 
-    <footer class="footer">
-      <div class="footer-inner">
-        
+</div>
+  </main>
 
-        
+  <footer class="footer">
+    <div class="footer-inner">
+
 
 <div class="copyright">
-  
-  &copy; 
+  &copy; 2017 – 
   <span itemprop="copyrightYear">2021</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>
   <span class="author" itemprop="copyrightHolder">hyman</span>
 </div>
-  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/mist/" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a> 强力驱动
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/mist/" rel="noopener" target="_blank">NexT.Mist</a> 强力驱动
   </div>
 
-        
-
-
-
-
-
-
-
-
-      </div>
-    </footer>
-  </div>
+    </div>
+  </footer>
 
   
-  <script src="/lib/anime.min.js"></script>
-  <script src="/lib/velocity/velocity.min.js"></script>
-  <script src="/lib/velocity/velocity.ui.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/next-boot.js"></script>
 
-<script src="/js/utils.js"></script>
-
-<script src="/js/motion.js"></script>
-
-
-<script src="/js/schemes/muse.js"></script>
-
-
-<script src="/js/next-boot.js"></script>
+  
+<script src="/js/third-party/search/local-search.js"></script>
 
 
 
@@ -571,24 +479,6 @@
 
 
 
-  
-<script src="/js/local-search.js"></script>
-
-
-
-
-
-
-
-
-
-
-
-
-
-  
-
-  
 
 </body>
 </html>

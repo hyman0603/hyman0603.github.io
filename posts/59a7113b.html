@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/favicon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.3/css/all.min.css" integrity="sha256-2H3fkXt6FEmrReK448mDVGKb3WW2ZZw35gI7vqHOE4Y=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"www.ywthings.com","root":"/","images":"/images","scheme":"Mist","version":"8.5.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":true,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+<meta name="description" content="版本1Ceph 10.2.11">
+<meta property="og:type" content="article">
+<meta property="og:title" content="ceph mon 启动失败">
+<meta property="og:url" content="https://www.ywthings.com/posts/59a7113b.html">
+<meta property="og:site_name" content="hyman">
+<meta property="og:description" content="版本1Ceph 10.2.11">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2021-08-10T01:19:10.000Z">
+<meta property="article:modified_time" content="2021-08-18T00:03:47.227Z">
+<meta property="article:author" content="hyman">
+<meta property="article:tag" content="ceph">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="https://www.ywthings.com/posts/59a7113b.html">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://www.ywthings.com/posts/59a7113b.html","path":"posts/59a7113b.html","title":"ceph mon 启动失败"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>ceph mon 启动失败 | hyman</title>
+  
+
+  <script src="/js/third-party/analytics/baidu-analytics.js"></script>
+  <script async src="https://hm.baidu.com/hm.js?97e285060b95594e74e4d3562a50a717"></script>
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <h1 class="site-title">hyman</h1>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">一些简单的记录</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+        <li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li>
+        <li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li>
+        <li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li>
+        <li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li>
+        <li class="menu-item menu-item-sitemap"><a href="/sitemap.xml" rel="section"><i class="fa fa-sitemap fa-fw"></i>站点地图</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%89%88%E6%9C%AC"><span class="nav-number">1.</span> <span class="nav-text">版本</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%95%85%E9%9A%9C%E9%97%AE%E9%A2%98"><span class="nav-number">2.</span> <span class="nav-text">故障问题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%81%A2%E5%A4%8D%E8%BF%87%E7%A8%8B"><span class="nav-number">3.</span> <span class="nav-text">恢复过程</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-overview">
+            <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">hyman</p>
+  <div class="site-description" itemprop="description">一些简单的记录</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">187</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+        <span class="site-state-item-count">39</span>
+        <span class="site-state-item-name">分类</span>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">129</span>
+        <span class="site-state-item-name">标签</span>
+      </div>
+  </nav>
+</div>
+
+
+
+          </div>
+        </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://www.ywthings.com/posts/59a7113b.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="hyman">
+      <meta itemprop="description" content="一些简单的记录">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="hyman">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          ceph mon 启动失败
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2021-08-10 09:19:10" itemprop="dateCreated datePublished" datetime="2021-08-10T09:19:10+08:00">2021-08-10</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">更新于</span>
+        <time title="修改时间：2021-08-18 08:03:47" itemprop="dateModified" datetime="2021-08-18T08:03:47+08:00">2021-08-18</time>
+      </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/ceph/" itemprop="url" rel="index"><span itemprop="name">ceph</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h2 id="版本"><a href="#版本" class="headerlink" title="版本"></a>版本</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Ceph 10.2.11</span><br></pre></td></tr></table></figure>
+
+<span id="more"></span>
+
+<h2 id="故障问题"><a href="#故障问题" class="headerlink" title="故障问题"></a>故障问题</h2><p>服务器重启之后，查看ceph状态，提示如下错误</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">[root@ceph-node1 ~]# ceph -s</span><br><span class="line">2021-08-10 08:40:38.044398 7f62381d8700  0 -- :/851362361 &gt;&gt; 192.168.1.128:6789/0 pipe(0x7f6234063c00 sd=3 :0 s=1 pgs=0 cs=0 l=1 c=0x7f623405c270).fault</span><br><span class="line">2021-08-10 08:40:41.050401 7f6230ff9700  0 -- :/851362361 &gt;&gt; 192.168.1.128:6789/0 pipe(0x7f6228000c80 sd=3 :0 s=1 pgs=0 cs=0 l=1 c=0x7f6228001f90).fault</span><br><span class="line">2021-08-10 08:40:44.062299 7f62381d8700  0 -- :/851362361 &gt;&gt; 192.168.1.128:6789/0 pipe(0x7f62280052b0 sd=3 :0 s=1 pgs=0 cs=0 l=1 c=0x7f6228006570).fault</span><br><span class="line">2021-08-10 08:40:47.071908 7f6230ff9700  0 -- :/851362361 &gt;&gt; 192.168.1.128:6789/0 pipe(0x7f6228000c80 sd=3 :0 s=1 pgs=0 cs=0 l=1 c=0x7f6228002410).fault</span><br><span class="line">2021-08-10 08:40:50.080834 7f62381d8700  0 -- :/851362361 &gt;&gt; 192.168.1.128:6789/0 pipe(0x7f62280052b0 sd=3 :0 s=1 pgs=0 cs=0 l=1 c=0x7f6228002f60).fault</span><br><span class="line">2021-08-10 08:40:53.097169 7f6230ff9700  0 -- :/851362361 &gt;&gt; 192.168.1.128:6789/0 pipe(0x7f6228000c80 sd=3 :0 s=1 pgs=0 cs=0 l=1 c=0x7f62280036d0).fault</span><br></pre></td></tr></table></figure>
+
+<p>重启ceph-mon服务，依然无法正常启动服务</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">[root@ceph-node1 ~]# systemctl status ceph-mon@ceph-node1.service </span><br><span class="line">● ceph-mon@ceph-node1.service - Ceph cluster monitor daemon</span><br><span class="line">   Loaded: loaded (/usr/lib/systemd/system/ceph-mon@.service; enabled; vendor preset: disabled)</span><br><span class="line">   Active: failed (Result: start-limit) since Tue 2021-08-10 08:47:04 CST; 35min ago</span><br><span class="line"> Main PID: 2084 (code=killed, signal=ABRT)</span><br><span class="line"></span><br><span class="line">Aug 10 08:46:53 ceph-node1 ceph-mon[2084]: NOTE: a copy of the executable, or `objdump -rdS &lt;executable&gt;` is needed to interpret this.</span><br><span class="line">Aug 10 08:46:53 ceph-node1 systemd[1]: ceph-mon@ceph-node1.service: main process exited, code=killed, status=6/ABRT</span><br><span class="line">Aug 10 08:46:53 ceph-node1 systemd[1]: Unit ceph-mon@ceph-node1.service entered failed state.</span><br><span class="line">Aug 10 08:46:53 ceph-node1 systemd[1]: ceph-mon@ceph-node1.service failed.</span><br><span class="line">Aug 10 08:47:04 ceph-node1 systemd[1]: ceph-mon@ceph-node1.service holdoff time over, scheduling restart.</span><br><span class="line">Aug 10 08:47:04 ceph-node1 systemd[1]: Stopped Ceph cluster monitor daemon.</span><br><span class="line">Aug 10 08:47:04 ceph-node1 systemd[1]: start request repeated too quickly for ceph-mon@ceph-node1.service</span><br><span class="line">Aug 10 08:47:04 ceph-node1 systemd[1]: Failed to start Ceph cluster monitor daemon.</span><br><span class="line">Aug 10 08:47:04 ceph-node1 systemd[1]: Unit ceph-mon@ceph-node1.service entered failed state.</span><br><span class="line">Aug 10 08:47:04 ceph-node1 systemd[1]: ceph-mon@ceph-node1.service failed.</span><br></pre></td></tr></table></figure>
+
+<p>采用命令行启动服务，提示如下错误</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">[root@ceph-node1 ~]# /usr/bin/ceph-mon -f --cluster ceph --id ceph-node1 --setuser ceph --setgroup ceph</span><br><span class="line">starting mon.ceph-node1 rank 0 at 192.168.1.128:6789/0 mon_data /var/lib/ceph/mon/ceph-ceph-node1 fsid ecc704c4-0f19-4ab1-9738-6a2658fa2387</span><br><span class="line">mon/AuthMonitor.cc: In function &#x27;virtual void AuthMonitor::update_from_paxos(bool*)&#x27; thread 7f18f9e58780 time 2021-08-10 09:22:50.632707</span><br><span class="line">mon/AuthMonitor.cc: 163: FAILED assert(ret == 0)</span><br><span class="line"> ceph version 10.2.11 (e4b061b47f07f583c92a050d9e84b1813a35671e)</span><br><span class="line"> 1: (ceph::__ceph_assert_fail(char const*, char const*, int, char const*)+0x85) [0x55fedf0f6fe5]</span><br><span class="line"> 2: (AuthMonitor::update_from_paxos(bool*)+0x1953) [0x55fedee20073]</span><br><span class="line"> 3: (PaxosService::refresh(bool*)+0x1a5) [0x55feded30735]</span><br><span class="line"> 4: (Monitor::refresh_from_paxos(bool*)+0x15b) [0x55fedecc743b]</span><br><span class="line"> 5: (Monitor::init_paxos()+0x95) [0x55fedecc78d5]</span><br><span class="line"> 6: (Monitor::preinit()+0x949) [0x55fedecda489]</span><br><span class="line"> 7: (main()+0x242d) [0x55fedec1a24d]</span><br><span class="line"> 8: (__libc_start_main()+0xf5) [0x7f18f7039555]</span><br><span class="line"> 9: (()+0x2df77f) [0x55fedecb877f]</span><br><span class="line"> NOTE: a copy of the executable, or `objdump -rdS &lt;executable&gt;` is needed to interpret this.</span><br><span class="line">2021-08-10 09:22:50.634298 7f18f9e58780 -1 mon/AuthMonitor.cc: In function &#x27;virtual void AuthMonitor::update_from_paxos(bool*)&#x27; thread 7f18f9e58780 time 2021-08-10 09:22:50.632707</span><br><span class="line">mon/AuthMonitor.cc: 163: FAILED assert(ret == 0)</span><br></pre></td></tr></table></figure>
+
+<h2 id="恢复过程"><a href="#恢复过程" class="headerlink" title="恢复过程"></a>恢复过程</h2><p>采取重建ceph-mon方式</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">cd /var/lib/ceph/mon/</span><br><span class="line">ceph mon getmap -o /tmp/monmap</span><br><span class="line">cp -a  ceph-ceph-node1/keyring /tmp/</span><br><span class="line">rm -rf ceph-ceph-node1/</span><br><span class="line">ceph-mon --cluster ceph --id ceph-node1 --mkfs --monmap /tmp/monmap --keyring /tmp/keyring</span><br><span class="line">chown -R ceph:ceph ceph-node1/</span><br><span class="line">systemctl start ceph-mon@ceph-node1.service</span><br></pre></td></tr></table></figure>
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/ceph/" rel="tag"># ceph</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/posts/34695423.html" rel="prev" title="K8s环境下Nginx容器自动热更新">
+                  <i class="fa fa-chevron-left"></i> K8s环境下Nginx容器自动热更新
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/posts/430e254b.html" rel="next" title="检查磁盘使用率脚本">
+                  检查磁盘使用率脚本 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 2017 – 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">hyman</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/mist/" rel="noopener" target="_blank">NexT.Mist</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/next-boot.js"></script>
+
+  
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+
+  
+
+
+
+
+
+</body>
+</html>

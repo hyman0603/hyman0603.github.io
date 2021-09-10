@@ -2,25 +2,25 @@
 <html lang="zh-CN">
 <head>
   <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="viewport" content="width=device-width">
 <meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 4.2.1">
+<meta name="generator" content="Hexo 5.4.0">
+
+
   <link rel="apple-touch-icon" sizes="180x180" href="/images/favicon.png">
   <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon.png">
-  <link rel="mask-icon" href="/images/favicon.png" color="#222">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
 
 <link rel="stylesheet" href="/css/main.css">
 
 
-<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
 
-<script id="hexo-configurations">
-    var NexT = window.NexT || {};
-    var CONFIG = {"hostname":"www.ywthings.com","root":"/","scheme":"Mist","version":"8.0.0-rc.2","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"appID":"UDW7NS797T","apiKey":"c4bb3c2b53b39900e8498ee72e6dc96e","indexName":"hyman","hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
-  </script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.3/css/all.min.css" integrity="sha256-2H3fkXt6FEmrReK448mDVGKb3WW2ZZw35gI7vqHOE4Y=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
 
-  <meta name="description" content="使用k8s搭建一个三节点的Kafka集群">
+<script class="next-config" data-name="main" type="application/json">{"hostname":"www.ywthings.com","root":"/","images":"/images","scheme":"Mist","version":"8.5.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":true,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+<meta name="description" content="使用k8s搭建一个三节点的Kafka集群">
 <meta property="og:type" content="article">
 <meta property="og:title" content="k8s部署Kafka集群">
 <meta property="og:url" content="https://www.ywthings.com/posts/d7086ac9.html">
@@ -30,77 +30,52 @@
 <meta property="article:published_time" content="2021-01-11T00:12:45.000Z">
 <meta property="article:modified_time" content="2021-04-07T06:48:38.044Z">
 <meta property="article:author" content="hyman">
-<meta property="article:tag" content="k8s">
 <meta property="article:tag" content="kubernetes">
+<meta property="article:tag" content="k8s">
 <meta property="article:tag" content="Kafka">
 <meta name="twitter:card" content="summary">
+
 
 <link rel="canonical" href="https://www.ywthings.com/posts/d7086ac9.html">
 
 
-<script id="page-configurations">
-  // https://hexo.io/docs/variables.html
-  CONFIG.page = {
-    sidebar: "",
-    isHome : false,
-    isPost : true,
-    lang   : 'zh-CN'
-  };
-</script>
 
-  <title>k8s部署Kafka集群 | hyman</title>
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://www.ywthings.com/posts/d7086ac9.html","path":"posts/d7086ac9.html","title":"k8s部署Kafka集群"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>k8s部署Kafka集群 | hyman</title>
   
 
-
-
+  <script src="/js/third-party/analytics/baidu-analytics.js"></script>
+  <script async src="https://hm.baidu.com/hm.js?97e285060b95594e74e4d3562a50a717"></script>
 
 
 
   <noscript>
-  <style>
-  .use-motion .brand,
-  .use-motion .menu-item,
-  .sidebar-inner,
-  .use-motion .post-block,
-  .use-motion .pagination,
-  .use-motion .comments,
-  .use-motion .post-header,
-  .use-motion .post-body,
-  .use-motion .collection-header { opacity: initial; }
-
-  .use-motion .site-title,
-  .use-motion .site-subtitle {
-    opacity: initial;
-    top: initial;
-  }
-
-  .use-motion .logo-line-before i { left: initial; }
-  .use-motion .logo-line-after i { right: initial; }
-  </style>
-</noscript>
-
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
 </head>
 
-<body itemscope itemtype="http://schema.org/WebPage">
-  <div class="container use-motion">
-    <div class="headband"></div>
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
 
+  <main class="main">
     <header class="header" itemscope itemtype="http://schema.org/WPHeader">
       <div class="header-inner"><div class="site-brand-container">
   <div class="site-nav-toggle">
-    <div class="toggle" aria-label="切换导航栏">
-        <span class="toggle-line toggle-line-first"></span>
-        <span class="toggle-line toggle-line-middle"></span>
-        <span class="toggle-line toggle-line-last"></span>
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
     </div>
   </div>
 
   <div class="site-meta">
 
     <a href="/" class="brand" rel="start">
-      <span class="logo-line-before"><i></i></span>
+      <i class="logo-line"></i>
       <h1 class="site-title">hyman</h1>
-      <span class="logo-line-after"><i></i></span>
+      <i class="logo-line"></i>
     </a>
       <p class="site-subtitle" itemprop="description">一些简单的记录</p>
   </div>
@@ -115,32 +90,12 @@
 
 
 <nav class="site-nav">
-  <ul id="menu" class="main-menu menu">
-        <li class="menu-item menu-item-home">
-
-    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
-
-  </li>
-        <li class="menu-item menu-item-tags">
-
-    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
-
-  </li>
-        <li class="menu-item menu-item-categories">
-
-    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
-
-  </li>
-        <li class="menu-item menu-item-archives">
-
-    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
-
-  </li>
-        <li class="menu-item menu-item-sitemap">
-
-    <a href="/sitemap.xml" rel="section"><i class="fa fa-sitemap fa-fw"></i>站点地图</a>
-
-  </li>
+  <ul class="main-menu menu">
+        <li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li>
+        <li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li>
+        <li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li>
+        <li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li>
+        <li class="menu-item menu-item-sitemap"><a href="/sitemap.xml" rel="section"><i class="fa fa-sitemap fa-fw"></i>站点地图</a></li>
       <li class="menu-item menu-item-search">
         <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
         </a>
@@ -151,23 +106,22 @@
 
 
   <div class="search-pop-overlay">
-    <div class="popup search-popup">
-        <div class="search-header">
+    <div class="popup search-popup"><div class="search-header">
   <span class="search-icon">
     <i class="fa fa-search"></i>
   </span>
   <div class="search-input-container">
-    <input autocomplete="off" autocapitalize="off"
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
            placeholder="搜索..." spellcheck="false"
            type="search" class="search-input">
   </div>
-  <span class="popup-btn-close">
+  <span class="popup-btn-close" role="button">
     <i class="fa fa-times-circle"></i>
   </span>
 </div>
-<div id="search-result">
-  <div id="no-result">
-    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
   </div>
 </div>
 
@@ -175,33 +129,98 @@
   </div>
 
 </div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%9B%E5%BB%BAkafka-pv"><span class="nav-number">1.</span> <span class="nav-text">创建kafka-pv</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%9B%E5%BB%BAKafka%E9%9B%86%E7%BE%A4"><span class="nav-number">2.</span> <span class="nav-text">创建Kafka集群</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-overview">
+            <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">hyman</p>
+  <div class="site-description" itemprop="description">一些简单的记录</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">187</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+        <span class="site-state-item-count">39</span>
+        <span class="site-state-item-name">分类</span>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">129</span>
+        <span class="site-state-item-name">标签</span>
+      </div>
+  </nav>
+</div>
+
+
+
+          </div>
+        </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
     </header>
 
     
-  <div class="back-to-top">
+  <div class="back-to-top" role="button" aria-label="返回顶部">
     <i class="fa fa-arrow-up"></i>
     <span>0%</span>
   </div>
 
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
 
-    <main class="main">
-      <div class="main-inner">
-        <div class="content-wrap">
-          
 
-          <div class="content post posts-expand">
-            
+    <div class="main-inner post posts-expand">
 
-    
+
+  
+
+
+<div class="post-block">
   
   
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://www.ywthings.com/posts/d7086ac9.html">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
       <meta itemprop="name" content="hyman">
-      <meta itemprop="description" content="">
+      <meta itemprop="description" content="一些简单的记录">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
@@ -212,33 +231,35 @@
           k8s部署Kafka集群
         </h1>
 
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
 
-              <time title="创建时间：2021-01-11 08:12:45" itemprop="dateCreated datePublished" datetime="2021-01-11T08:12:45+08:00">2021-01-11</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2021-04-07 14:48:38" itemprop="dateModified" datetime="2021-04-07T14:48:38+08:00">2021-04-07</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/kubernetes/" itemprop="url" rel="index"><span itemprop="name">kubernetes</span></a>
-                </span>
-            </span>
+      <time title="创建时间：2021-01-11 08:12:45" itemprop="dateCreated datePublished" datetime="2021-01-11T08:12:45+08:00">2021-01-11</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">更新于</span>
+        <time title="修改时间：2021-04-07 14:48:38" itemprop="dateModified" datetime="2021-04-07T14:48:38+08:00">2021-04-07</time>
+      </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/kubernetes/" itemprop="url" rel="index"><span itemprop="name">kubernetes</span></a>
+        </span>
+    </span>
 
-          
+  
+</div>
 
         </div>
       </header>
@@ -247,208 +268,95 @@
     
     
     <div class="post-body" itemprop="articleBody">
-
-      
         <p>使用k8s搭建一个三节点的<code>Kafka</code>集群</p>
-<a id="more"></a>
+<span id="more"></span>
 
 <h2 id="创建kafka-pv"><a href="#创建kafka-pv" class="headerlink" title="创建kafka-pv"></a>创建kafka-pv</h2><p>首先通过nfs创建三个共享目录</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mkdir -p &#x2F;data&#x2F;kafka&#x2F;&#123;kafka01,kafka02,kafka03&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mkdir -p /data/kafka/&#123;kafka01,kafka02,kafka03&#125;</span><br></pre></td></tr></table></figure>
 
 <p>分别对应三节点zk集群中的三个pod的持久化目录，创建好目录之后编写yaml创建<code>kafka-pv.yaml</code></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br></pre></td><td class="code"><pre><span class="line">apiVersion: v1</span><br><span class="line">kind: PersistentVolume</span><br><span class="line">metadata:</span><br><span class="line">  name: k8s-pv-kafka01</span><br><span class="line">  namespace: middleware</span><br><span class="line">  labels:</span><br><span class="line">    app: kafka</span><br><span class="line">  annotations:</span><br><span class="line">    volume.beta.kubernetes.io&#x2F;storage-class: &quot;&#96;kafka&quot;</span><br><span class="line">spec:</span><br><span class="line">  capacity:</span><br><span class="line">    storage: 50Gi</span><br><span class="line">  accessModes:</span><br><span class="line">  #- ReadWriteOnce</span><br><span class="line">  - ReadWriteMany</span><br><span class="line">  nfs:</span><br><span class="line">    server: 10.0.15.1</span><br><span class="line">    path: &#x2F;jusdaglobal&#x2F;kafka&#x2F;kafka01</span><br><span class="line">  persistentVolumeReclaimPolicy: Retain  #Recycle 回收  #Retain 保留数据</span><br><span class="line">---</span><br><span class="line">apiVersion: v1</span><br><span class="line">kind: PersistentVolume</span><br><span class="line">metadata:</span><br><span class="line">  name: k8s-pv-kafka02</span><br><span class="line">  namespace: middleware</span><br><span class="line">  labels:</span><br><span class="line">    app: kafka</span><br><span class="line">  annotations:</span><br><span class="line">    volume.beta.kubernetes.io&#x2F;storage-class: &quot;&#96;kafka&quot;</span><br><span class="line">spec:</span><br><span class="line">  capacity:</span><br><span class="line">    storage: 50Gi</span><br><span class="line">  accessModes:</span><br><span class="line">  #- ReadWriteOnce</span><br><span class="line">  - ReadWriteMany</span><br><span class="line">  nfs:</span><br><span class="line">    server: 10.0.15.1</span><br><span class="line">    path: &#x2F;jusdaglobal&#x2F;kafka&#x2F;kafka02</span><br><span class="line">  persistentVolumeReclaimPolicy: Retain</span><br><span class="line">---</span><br><span class="line">apiVersion: v1</span><br><span class="line">kind: PersistentVolume</span><br><span class="line">metadata:</span><br><span class="line">  name: k8s-pv-kafka03</span><br><span class="line">  namespace: middleware</span><br><span class="line">  labels:</span><br><span class="line">    app: kafka</span><br><span class="line">  annotations:</span><br><span class="line">    volume.beta.kubernetes.io&#x2F;storage-class: &quot;&#96;kafka&quot;</span><br><span class="line">spec:</span><br><span class="line">  capacity:</span><br><span class="line">    storage: 50Gi</span><br><span class="line">  accessModes:</span><br><span class="line">  #- ReadWriteOnce</span><br><span class="line">  - ReadWriteMany</span><br><span class="line">  nfs:</span><br><span class="line">    server: 10.0.15.1</span><br><span class="line">    path: &#x2F;jusdaglobal&#x2F;kafka&#x2F;kafka03</span><br><span class="line">  persistentVolumeReclaimPolicy: Retain</span><br><span class="line">---</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br></pre></td><td class="code"><pre><span class="line">apiVersion: v1</span><br><span class="line">kind: PersistentVolume</span><br><span class="line">metadata:</span><br><span class="line">  name: k8s-pv-kafka01</span><br><span class="line">  namespace: middleware</span><br><span class="line">  labels:</span><br><span class="line">    app: kafka</span><br><span class="line">  annotations:</span><br><span class="line">    volume.beta.kubernetes.io/storage-class: &quot;`kafka&quot;</span><br><span class="line">spec:</span><br><span class="line">  capacity:</span><br><span class="line">    storage: 50Gi</span><br><span class="line">  accessModes:</span><br><span class="line">  #- ReadWriteOnce</span><br><span class="line">  - ReadWriteMany</span><br><span class="line">  nfs:</span><br><span class="line">    server: 10.0.15.1</span><br><span class="line">    path: /jusdaglobal/kafka/kafka01</span><br><span class="line">  persistentVolumeReclaimPolicy: Retain  #Recycle 回收  #Retain 保留数据</span><br><span class="line">---</span><br><span class="line">apiVersion: v1</span><br><span class="line">kind: PersistentVolume</span><br><span class="line">metadata:</span><br><span class="line">  name: k8s-pv-kafka02</span><br><span class="line">  namespace: middleware</span><br><span class="line">  labels:</span><br><span class="line">    app: kafka</span><br><span class="line">  annotations:</span><br><span class="line">    volume.beta.kubernetes.io/storage-class: &quot;`kafka&quot;</span><br><span class="line">spec:</span><br><span class="line">  capacity:</span><br><span class="line">    storage: 50Gi</span><br><span class="line">  accessModes:</span><br><span class="line">  #- ReadWriteOnce</span><br><span class="line">  - ReadWriteMany</span><br><span class="line">  nfs:</span><br><span class="line">    server: 10.0.15.1</span><br><span class="line">    path: /jusdaglobal/kafka/kafka02</span><br><span class="line">  persistentVolumeReclaimPolicy: Retain</span><br><span class="line">---</span><br><span class="line">apiVersion: v1</span><br><span class="line">kind: PersistentVolume</span><br><span class="line">metadata:</span><br><span class="line">  name: k8s-pv-kafka03</span><br><span class="line">  namespace: middleware</span><br><span class="line">  labels:</span><br><span class="line">    app: kafka</span><br><span class="line">  annotations:</span><br><span class="line">    volume.beta.kubernetes.io/storage-class: &quot;`kafka&quot;</span><br><span class="line">spec:</span><br><span class="line">  capacity:</span><br><span class="line">    storage: 50Gi</span><br><span class="line">  accessModes:</span><br><span class="line">  #- ReadWriteOnce</span><br><span class="line">  - ReadWriteMany</span><br><span class="line">  nfs:</span><br><span class="line">    server: 10.0.15.1</span><br><span class="line">    path: /jusdaglobal/kafka/kafka03</span><br><span class="line">  persistentVolumeReclaimPolicy: Retain</span><br><span class="line">---</span><br></pre></td></tr></table></figure>
 
 <p>使用如下命令创建kafka-pk</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kubectl create -f kafka-pv.yaml</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kubectl create -f kafka-pv.yaml</span><br></pre></td></tr></table></figure>
 
 <p>这是我们可以通过如下命令去查看创建成功的pv</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kubectl get pv -n middleware -o wide</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kubectl get pv -n middleware -o wide </span><br></pre></td></tr></table></figure>
 
 <h2 id="创建Kafka集群"><a href="#创建Kafka集群" class="headerlink" title="创建Kafka集群"></a>创建Kafka集群</h2><p>我们选择使用<code>statefulset</code>去部署kafka集群的三节点,并且使用刚刚创建的pv作为存储设备。kafka.yaml</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br><span class="line">194</span><br><span class="line">195</span><br><span class="line">196</span><br><span class="line">197</span><br><span class="line">198</span><br><span class="line">199</span><br><span class="line">200</span><br><span class="line">201</span><br><span class="line">202</span><br><span class="line">203</span><br><span class="line">204</span><br><span class="line">205</span><br><span class="line">206</span><br><span class="line">207</span><br><span class="line">208</span><br><span class="line">209</span><br><span class="line">210</span><br></pre></td><td class="code"><pre><span class="line">---</span><br><span class="line">apiVersion: v1</span><br><span class="line">kind: Service</span><br><span class="line">metadata:</span><br><span class="line">  name: kafka-hs</span><br><span class="line">  namespace: middleware</span><br><span class="line">  labels:</span><br><span class="line">    app: kafka</span><br><span class="line">spec:</span><br><span class="line">  ports:</span><br><span class="line">  - port: 9092</span><br><span class="line">    name: server</span><br><span class="line">  clusterIP: None</span><br><span class="line">  selector:</span><br><span class="line">    app: kafka</span><br><span class="line">--- </span><br><span class="line">apiVersion: v1</span><br><span class="line">kind: Service</span><br><span class="line">metadata:</span><br><span class="line">  name: kafka-cs</span><br><span class="line">  namespace: middleware</span><br><span class="line">  labels:</span><br><span class="line">    app: kafka</span><br><span class="line">spec:</span><br><span class="line">  selector:</span><br><span class="line">    app: kafka</span><br><span class="line">  type: NodePort</span><br><span class="line">  ports:</span><br><span class="line">  - name: client</span><br><span class="line">    port: 9092</span><br><span class="line">    nodePort: 19092</span><br><span class="line">---</span><br><span class="line">apiVersion: policy&#x2F;v1beta1</span><br><span class="line">kind: PodDisruptionBudget</span><br><span class="line">metadata:</span><br><span class="line">  name: kafka-pdb</span><br><span class="line">  namespace: middleware</span><br><span class="line">spec:</span><br><span class="line">  selector:</span><br><span class="line">    matchLabels:</span><br><span class="line">      app: kafka</span><br><span class="line">  minAvailable: 2</span><br><span class="line">---</span><br><span class="line">apiVersion: apps&#x2F;v1</span><br><span class="line">kind: StatefulSet</span><br><span class="line">metadata:</span><br><span class="line">  name: kafka</span><br><span class="line">  namespace: middleware</span><br><span class="line">spec:</span><br><span class="line">  serviceName: kafka-hs</span><br><span class="line">  replicas: 3</span><br><span class="line">  selector:</span><br><span class="line">    matchLabels:</span><br><span class="line">      app: kafka</span><br><span class="line">  template:</span><br><span class="line">    metadata:</span><br><span class="line">      labels:</span><br><span class="line">        app: kafka</span><br><span class="line">    spec:</span><br><span class="line">      affinity:</span><br><span class="line">        podAntiAffinity:</span><br><span class="line">          requiredDuringSchedulingIgnoredDuringExecution:</span><br><span class="line">            - labelSelector:</span><br><span class="line">                matchExpressions:</span><br><span class="line">                  - key: &quot;app&quot;</span><br><span class="line">                    operator: In</span><br><span class="line">                    values:</span><br><span class="line">                    - kafka</span><br><span class="line">              topologyKey: &quot;kubernetes.io&#x2F;hostname&quot;</span><br><span class="line">        podAffinity:</span><br><span class="line">          preferredDuringSchedulingIgnoredDuringExecution:</span><br><span class="line">             - weight: 1</span><br><span class="line">               podAffinityTerm:</span><br><span class="line">                 labelSelector:</span><br><span class="line">                    matchExpressions:</span><br><span class="line">                      - key: &quot;app&quot;</span><br><span class="line">                        operator: In</span><br><span class="line">                        values:</span><br><span class="line">                        - zk</span><br><span class="line">                 topologyKey: &quot;kubernetes.io&#x2F;hostname&quot;</span><br><span class="line">      terminationGracePeriodSeconds: 300</span><br><span class="line">      containers:</span><br><span class="line">      - name: kafka</span><br><span class="line">        imagePullPolicy: IfNotPresent</span><br><span class="line">        image: registry.cn-hangzhou.aliyuncs.com&#x2F;jaxzhai&#x2F;k8skafka:v1</span><br><span class="line">        resources:</span><br><span class="line">          requests:</span><br><span class="line">            memory: &quot;1Gi&quot;</span><br><span class="line">            cpu: 500m</span><br><span class="line">        ports:</span><br><span class="line">        - containerPort: 9092</span><br><span class="line">          name: server</span><br><span class="line">        command:</span><br><span class="line">        - sh</span><br><span class="line">        - -c</span><br><span class="line">        - &quot;exec kafka-server-start.sh &#x2F;opt&#x2F;kafka&#x2F;config&#x2F;server.properties --override broker.id&#x3D;$&#123;HOSTNAME##*-&#125; \</span><br><span class="line">          --override listeners&#x3D;PLAINTEXT:&#x2F;&#x2F;:9092 \</span><br><span class="line">          --override zookeeper.connect&#x3D;zk-0.zk-hs.middleware.svc.cluster.local:2181,zk-1.zk-hs.middleware.svc.cluster.local:2181,zk-2.zk-hs.middleware.svc.cluster.local:2181 \</span><br><span class="line">          --override log.dir&#x3D;&#x2F;var&#x2F;lib&#x2F;kafka \</span><br><span class="line">          --override auto.create.topics.enable&#x3D;true \</span><br><span class="line">          --override auto.leader.rebalance.enable&#x3D;true \</span><br><span class="line">          --override background.threads&#x3D;10 \</span><br><span class="line">          --override compression.type&#x3D;producer \</span><br><span class="line">          --override delete.topic.enable&#x3D;true \</span><br><span class="line">          --override leader.imbalance.check.interval.seconds&#x3D;300 \</span><br><span class="line">          --override leader.imbalance.per.broker.percentage&#x3D;10 \</span><br><span class="line">          --override log.flush.interval.messages&#x3D;9223372036854775807 \</span><br><span class="line">          --override log.flush.offset.checkpoint.interval.ms&#x3D;60000 \</span><br><span class="line">          --override log.flush.scheduler.interval.ms&#x3D;9223372036854775807 \</span><br><span class="line">          --override log.retention.bytes&#x3D;-1 \</span><br><span class="line">          --override log.retention.hours&#x3D;168 \</span><br><span class="line">          --override log.roll.hours&#x3D;168 \</span><br><span class="line">          --override log.roll.jitter.hours&#x3D;0 \</span><br><span class="line">          --override log.segment.bytes&#x3D;1073741824 \</span><br><span class="line">          --override log.segment.delete.delay.ms&#x3D;60000 \</span><br><span class="line">          --override message.max.bytes&#x3D;1000012 \</span><br><span class="line">          --override min.insync.replicas&#x3D;1 \</span><br><span class="line">          --override num.io.threads&#x3D;8 \</span><br><span class="line">          --override num.network.threads&#x3D;3 \</span><br><span class="line">          --override num.recovery.threads.per.data.dir&#x3D;1 \</span><br><span class="line">          --override num.replica.fetchers&#x3D;1 \</span><br><span class="line">          --override offset.metadata.max.bytes&#x3D;4096 \</span><br><span class="line">          --override offsets.commit.required.acks&#x3D;-1 \</span><br><span class="line">          --override offsets.commit.timeout.ms&#x3D;5000 \</span><br><span class="line">          --override offsets.load.buffer.size&#x3D;5242880 \</span><br><span class="line">          --override offsets.retention.check.interval.ms&#x3D;600000 \</span><br><span class="line">          --override offsets.retention.minutes&#x3D;1440 \</span><br><span class="line">          --override offsets.topic.compression.codec&#x3D;0 \</span><br><span class="line">          --override offsets.topic.num.partitions&#x3D;50 \</span><br><span class="line">          --override offsets.topic.replication.factor&#x3D;3 \</span><br><span class="line">          --override offsets.topic.segment.bytes&#x3D;104857600 \</span><br><span class="line">          --override queued.max.requests&#x3D;500 \</span><br><span class="line">          --override quota.consumer.default&#x3D;9223372036854775807 \</span><br><span class="line">          --override quota.producer.default&#x3D;9223372036854775807 \</span><br><span class="line">          --override replica.fetch.min.bytes&#x3D;1 \</span><br><span class="line">          --override replica.fetch.wait.max.ms&#x3D;500 \</span><br><span class="line">          --override replica.high.watermark.checkpoint.interval.ms&#x3D;5000 \</span><br><span class="line">          --override replica.lag.time.max.ms&#x3D;10000 \</span><br><span class="line">          --override replica.socket.receive.buffer.bytes&#x3D;65536 \</span><br><span class="line">          --override replica.socket.timeout.ms&#x3D;30000 \</span><br><span class="line">          --override request.timeout.ms&#x3D;30000 \</span><br><span class="line">          --override socket.receive.buffer.bytes&#x3D;102400 \</span><br><span class="line">          --override socket.request.max.bytes&#x3D;104857600 \</span><br><span class="line">          --override socket.send.buffer.bytes&#x3D;102400 \</span><br><span class="line">          --override unclean.leader.election.enable&#x3D;true \</span><br><span class="line">          --override zookeeper.session.timeout.ms&#x3D;6000 \</span><br><span class="line">          --override zookeeper.set.acl&#x3D;false \</span><br><span class="line">          --override broker.id.generation.enable&#x3D;true \</span><br><span class="line">          --override connections.max.idle.ms&#x3D;600000 \</span><br><span class="line">          --override controlled.shutdown.enable&#x3D;true \</span><br><span class="line">          --override controlled.shutdown.max.retries&#x3D;3 \</span><br><span class="line">          --override controlled.shutdown.retry.backoff.ms&#x3D;5000 \</span><br><span class="line">          --override controller.socket.timeout.ms&#x3D;30000 \</span><br><span class="line">          --override default.replication.factor&#x3D;1 \</span><br><span class="line">          --override fetch.purgatory.purge.interval.requests&#x3D;1000 \</span><br><span class="line">          --override group.max.session.timeout.ms&#x3D;300000 \</span><br><span class="line">          --override group.min.session.timeout.ms&#x3D;6000 \</span><br><span class="line">          --override inter.broker.protocol.version&#x3D;0.10.2-IV0 \</span><br><span class="line">          --override log.cleaner.backoff.ms&#x3D;15000 \</span><br><span class="line">          --override log.cleaner.dedupe.buffer.size&#x3D;134217728 \</span><br><span class="line">          --override log.cleaner.delete.retention.ms&#x3D;86400000 \</span><br><span class="line">          --override log.cleaner.enable&#x3D;true \</span><br><span class="line">          --override log.cleaner.io.buffer.load.factor&#x3D;0.9 \</span><br><span class="line">          --override log.cleaner.io.buffer.size&#x3D;524288 \</span><br><span class="line">          --override log.cleaner.io.max.bytes.per.second&#x3D;1.7976931348623157E308 \</span><br><span class="line">          --override log.cleaner.min.cleanable.ratio&#x3D;0.5 \</span><br><span class="line">          --override log.cleaner.min.compaction.lag.ms&#x3D;0 \</span><br><span class="line">          --override log.cleaner.threads&#x3D;1 \</span><br><span class="line">          --override log.cleanup.policy&#x3D;delete \</span><br><span class="line">          --override log.index.interval.bytes&#x3D;4096 \</span><br><span class="line">          --override log.index.size.max.bytes&#x3D;10485760 \</span><br><span class="line">          --override log.message.timestamp.difference.max.ms&#x3D;9223372036854775807 \</span><br><span class="line">          --override log.message.timestamp.type&#x3D;CreateTime \</span><br><span class="line">          --override log.preallocate&#x3D;false \</span><br><span class="line">          --override log.retention.check.interval.ms&#x3D;300000 \</span><br><span class="line">          --override max.connections.per.ip&#x3D;2147483647 \</span><br><span class="line">          --override num.partitions&#x3D;1 \</span><br><span class="line">          --override producer.purgatory.purge.interval.requests&#x3D;1000 \</span><br><span class="line">          --override replica.fetch.backoff.ms&#x3D;1000 \</span><br><span class="line">          --override replica.fetch.max.bytes&#x3D;1048576 \</span><br><span class="line">          --override replica.fetch.response.max.bytes&#x3D;10485760 \</span><br><span class="line">          --override reserved.broker.max.id&#x3D;1000 &quot;</span><br><span class="line">        env:</span><br><span class="line">        - name: KAFKA_HEAP_OPTS</span><br><span class="line">          value : &quot;-Xmx1G -Xms1G&quot;</span><br><span class="line">        - name: KAFKA_OPTS</span><br><span class="line">          value: &quot;-Dlogging.level&#x3D;INFO&quot;</span><br><span class="line">        volumeMounts:</span><br><span class="line">        - name: dfs</span><br><span class="line">          mountPath: &#x2F;var&#x2F;lib&#x2F;kafka</span><br><span class="line">        readinessProbe:</span><br><span class="line">          exec:</span><br><span class="line">           command:</span><br><span class="line">            - sh</span><br><span class="line">            - -c</span><br><span class="line">            - &quot;&#x2F;opt&#x2F;kafka&#x2F;bin&#x2F;kafka-broker-api-versions.sh --bootstrap-server&#x3D;localhost:9092&quot;</span><br><span class="line">      securityContext:</span><br><span class="line">        runAsUser: 1000</span><br><span class="line">        fsGroup: 1000</span><br><span class="line">  volumeClaimTemplates:</span><br><span class="line">  - metadata:</span><br><span class="line">      name: dfs</span><br><span class="line">      annotations:</span><br><span class="line">        volume.beta.kubernetes.io&#x2F;storage-class: &quot;kafka&quot;</span><br><span class="line">    spec:</span><br><span class="line">      #accessModes: [ &quot;ReadWriteOnce&quot; ]</span><br><span class="line">      accessModes: [ &quot;ReadWriteMany&quot; ]</span><br><span class="line">      resources:</span><br><span class="line">        requests:</span><br><span class="line">          storage: 50Gi</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br><span class="line">194</span><br><span class="line">195</span><br><span class="line">196</span><br><span class="line">197</span><br><span class="line">198</span><br><span class="line">199</span><br><span class="line">200</span><br><span class="line">201</span><br><span class="line">202</span><br><span class="line">203</span><br><span class="line">204</span><br><span class="line">205</span><br><span class="line">206</span><br><span class="line">207</span><br><span class="line">208</span><br><span class="line">209</span><br><span class="line">210</span><br></pre></td><td class="code"><pre><span class="line">---</span><br><span class="line">apiVersion: v1</span><br><span class="line">kind: Service</span><br><span class="line">metadata:</span><br><span class="line">  name: kafka-hs</span><br><span class="line">  namespace: middleware</span><br><span class="line">  labels:</span><br><span class="line">    app: kafka</span><br><span class="line">spec:</span><br><span class="line">  ports:</span><br><span class="line">  - port: 9092</span><br><span class="line">    name: server</span><br><span class="line">  clusterIP: None</span><br><span class="line">  selector:</span><br><span class="line">    app: kafka</span><br><span class="line">--- </span><br><span class="line">apiVersion: v1</span><br><span class="line">kind: Service</span><br><span class="line">metadata:</span><br><span class="line">  name: kafka-cs</span><br><span class="line">  namespace: middleware</span><br><span class="line">  labels:</span><br><span class="line">    app: kafka</span><br><span class="line">spec:</span><br><span class="line">  selector:</span><br><span class="line">    app: kafka</span><br><span class="line">  type: NodePort</span><br><span class="line">  ports:</span><br><span class="line">  - name: client</span><br><span class="line">    port: 9092</span><br><span class="line">    nodePort: 19092</span><br><span class="line">---</span><br><span class="line">apiVersion: policy/v1beta1</span><br><span class="line">kind: PodDisruptionBudget</span><br><span class="line">metadata:</span><br><span class="line">  name: kafka-pdb</span><br><span class="line">  namespace: middleware</span><br><span class="line">spec:</span><br><span class="line">  selector:</span><br><span class="line">    matchLabels:</span><br><span class="line">      app: kafka</span><br><span class="line">  minAvailable: 2</span><br><span class="line">---</span><br><span class="line">apiVersion: apps/v1</span><br><span class="line">kind: StatefulSet</span><br><span class="line">metadata:</span><br><span class="line">  name: kafka</span><br><span class="line">  namespace: middleware</span><br><span class="line">spec:</span><br><span class="line">  serviceName: kafka-hs</span><br><span class="line">  replicas: 3</span><br><span class="line">  selector:</span><br><span class="line">    matchLabels:</span><br><span class="line">      app: kafka</span><br><span class="line">  template:</span><br><span class="line">    metadata:</span><br><span class="line">      labels:</span><br><span class="line">        app: kafka</span><br><span class="line">    spec:</span><br><span class="line">      affinity:</span><br><span class="line">        podAntiAffinity:</span><br><span class="line">          requiredDuringSchedulingIgnoredDuringExecution:</span><br><span class="line">            - labelSelector:</span><br><span class="line">                matchExpressions:</span><br><span class="line">                  - key: &quot;app&quot;</span><br><span class="line">                    operator: In</span><br><span class="line">                    values:</span><br><span class="line">                    - kafka</span><br><span class="line">              topologyKey: &quot;kubernetes.io/hostname&quot;</span><br><span class="line">        podAffinity:</span><br><span class="line">          preferredDuringSchedulingIgnoredDuringExecution:</span><br><span class="line">             - weight: 1</span><br><span class="line">               podAffinityTerm:</span><br><span class="line">                 labelSelector:</span><br><span class="line">                    matchExpressions:</span><br><span class="line">                      - key: &quot;app&quot;</span><br><span class="line">                        operator: In</span><br><span class="line">                        values:</span><br><span class="line">                        - zk</span><br><span class="line">                 topologyKey: &quot;kubernetes.io/hostname&quot;</span><br><span class="line">      terminationGracePeriodSeconds: 300</span><br><span class="line">      containers:</span><br><span class="line">      - name: kafka</span><br><span class="line">        imagePullPolicy: IfNotPresent</span><br><span class="line">        image: registry.cn-hangzhou.aliyuncs.com/jaxzhai/k8skafka:v1</span><br><span class="line">        resources:</span><br><span class="line">          requests:</span><br><span class="line">            memory: &quot;1Gi&quot;</span><br><span class="line">            cpu: 500m</span><br><span class="line">        ports:</span><br><span class="line">        - containerPort: 9092</span><br><span class="line">          name: server</span><br><span class="line">        command:</span><br><span class="line">        - sh</span><br><span class="line">        - -c</span><br><span class="line">        - &quot;exec kafka-server-start.sh /opt/kafka/config/server.properties --override broker.id=$&#123;HOSTNAME##*-&#125; \</span><br><span class="line">          --override listeners=PLAINTEXT://:9092 \</span><br><span class="line">          --override zookeeper.connect=zk-0.zk-hs.middleware.svc.cluster.local:2181,zk-1.zk-hs.middleware.svc.cluster.local:2181,zk-2.zk-hs.middleware.svc.cluster.local:2181 \</span><br><span class="line">          --override log.dir=/var/lib/kafka \</span><br><span class="line">          --override auto.create.topics.enable=true \</span><br><span class="line">          --override auto.leader.rebalance.enable=true \</span><br><span class="line">          --override background.threads=10 \</span><br><span class="line">          --override compression.type=producer \</span><br><span class="line">          --override delete.topic.enable=true \</span><br><span class="line">          --override leader.imbalance.check.interval.seconds=300 \</span><br><span class="line">          --override leader.imbalance.per.broker.percentage=10 \</span><br><span class="line">          --override log.flush.interval.messages=9223372036854775807 \</span><br><span class="line">          --override log.flush.offset.checkpoint.interval.ms=60000 \</span><br><span class="line">          --override log.flush.scheduler.interval.ms=9223372036854775807 \</span><br><span class="line">          --override log.retention.bytes=-1 \</span><br><span class="line">          --override log.retention.hours=168 \</span><br><span class="line">          --override log.roll.hours=168 \</span><br><span class="line">          --override log.roll.jitter.hours=0 \</span><br><span class="line">          --override log.segment.bytes=1073741824 \</span><br><span class="line">          --override log.segment.delete.delay.ms=60000 \</span><br><span class="line">          --override message.max.bytes=1000012 \</span><br><span class="line">          --override min.insync.replicas=1 \</span><br><span class="line">          --override num.io.threads=8 \</span><br><span class="line">          --override num.network.threads=3 \</span><br><span class="line">          --override num.recovery.threads.per.data.dir=1 \</span><br><span class="line">          --override num.replica.fetchers=1 \</span><br><span class="line">          --override offset.metadata.max.bytes=4096 \</span><br><span class="line">          --override offsets.commit.required.acks=-1 \</span><br><span class="line">          --override offsets.commit.timeout.ms=5000 \</span><br><span class="line">          --override offsets.load.buffer.size=5242880 \</span><br><span class="line">          --override offsets.retention.check.interval.ms=600000 \</span><br><span class="line">          --override offsets.retention.minutes=1440 \</span><br><span class="line">          --override offsets.topic.compression.codec=0 \</span><br><span class="line">          --override offsets.topic.num.partitions=50 \</span><br><span class="line">          --override offsets.topic.replication.factor=3 \</span><br><span class="line">          --override offsets.topic.segment.bytes=104857600 \</span><br><span class="line">          --override queued.max.requests=500 \</span><br><span class="line">          --override quota.consumer.default=9223372036854775807 \</span><br><span class="line">          --override quota.producer.default=9223372036854775807 \</span><br><span class="line">          --override replica.fetch.min.bytes=1 \</span><br><span class="line">          --override replica.fetch.wait.max.ms=500 \</span><br><span class="line">          --override replica.high.watermark.checkpoint.interval.ms=5000 \</span><br><span class="line">          --override replica.lag.time.max.ms=10000 \</span><br><span class="line">          --override replica.socket.receive.buffer.bytes=65536 \</span><br><span class="line">          --override replica.socket.timeout.ms=30000 \</span><br><span class="line">          --override request.timeout.ms=30000 \</span><br><span class="line">          --override socket.receive.buffer.bytes=102400 \</span><br><span class="line">          --override socket.request.max.bytes=104857600 \</span><br><span class="line">          --override socket.send.buffer.bytes=102400 \</span><br><span class="line">          --override unclean.leader.election.enable=true \</span><br><span class="line">          --override zookeeper.session.timeout.ms=6000 \</span><br><span class="line">          --override zookeeper.set.acl=false \</span><br><span class="line">          --override broker.id.generation.enable=true \</span><br><span class="line">          --override connections.max.idle.ms=600000 \</span><br><span class="line">          --override controlled.shutdown.enable=true \</span><br><span class="line">          --override controlled.shutdown.max.retries=3 \</span><br><span class="line">          --override controlled.shutdown.retry.backoff.ms=5000 \</span><br><span class="line">          --override controller.socket.timeout.ms=30000 \</span><br><span class="line">          --override default.replication.factor=1 \</span><br><span class="line">          --override fetch.purgatory.purge.interval.requests=1000 \</span><br><span class="line">          --override group.max.session.timeout.ms=300000 \</span><br><span class="line">          --override group.min.session.timeout.ms=6000 \</span><br><span class="line">          --override inter.broker.protocol.version=0.10.2-IV0 \</span><br><span class="line">          --override log.cleaner.backoff.ms=15000 \</span><br><span class="line">          --override log.cleaner.dedupe.buffer.size=134217728 \</span><br><span class="line">          --override log.cleaner.delete.retention.ms=86400000 \</span><br><span class="line">          --override log.cleaner.enable=true \</span><br><span class="line">          --override log.cleaner.io.buffer.load.factor=0.9 \</span><br><span class="line">          --override log.cleaner.io.buffer.size=524288 \</span><br><span class="line">          --override log.cleaner.io.max.bytes.per.second=1.7976931348623157E308 \</span><br><span class="line">          --override log.cleaner.min.cleanable.ratio=0.5 \</span><br><span class="line">          --override log.cleaner.min.compaction.lag.ms=0 \</span><br><span class="line">          --override log.cleaner.threads=1 \</span><br><span class="line">          --override log.cleanup.policy=delete \</span><br><span class="line">          --override log.index.interval.bytes=4096 \</span><br><span class="line">          --override log.index.size.max.bytes=10485760 \</span><br><span class="line">          --override log.message.timestamp.difference.max.ms=9223372036854775807 \</span><br><span class="line">          --override log.message.timestamp.type=CreateTime \</span><br><span class="line">          --override log.preallocate=false \</span><br><span class="line">          --override log.retention.check.interval.ms=300000 \</span><br><span class="line">          --override max.connections.per.ip=2147483647 \</span><br><span class="line">          --override num.partitions=1 \</span><br><span class="line">          --override producer.purgatory.purge.interval.requests=1000 \</span><br><span class="line">          --override replica.fetch.backoff.ms=1000 \</span><br><span class="line">          --override replica.fetch.max.bytes=1048576 \</span><br><span class="line">          --override replica.fetch.response.max.bytes=10485760 \</span><br><span class="line">          --override reserved.broker.max.id=1000 &quot;</span><br><span class="line">        env:</span><br><span class="line">        - name: KAFKA_HEAP_OPTS</span><br><span class="line">          value : &quot;-Xmx1G -Xms1G&quot;</span><br><span class="line">        - name: KAFKA_OPTS</span><br><span class="line">          value: &quot;-Dlogging.level=INFO&quot;</span><br><span class="line">        volumeMounts:</span><br><span class="line">        - name: dfs</span><br><span class="line">          mountPath: /var/lib/kafka</span><br><span class="line">        readinessProbe:</span><br><span class="line">          exec:</span><br><span class="line">           command:</span><br><span class="line">            - sh</span><br><span class="line">            - -c</span><br><span class="line">            - &quot;/opt/kafka/bin/kafka-broker-api-versions.sh --bootstrap-server=localhost:9092&quot;</span><br><span class="line">      securityContext:</span><br><span class="line">        runAsUser: 1000</span><br><span class="line">        fsGroup: 1000</span><br><span class="line">  volumeClaimTemplates:</span><br><span class="line">  - metadata:</span><br><span class="line">      name: dfs</span><br><span class="line">      annotations:</span><br><span class="line">        volume.beta.kubernetes.io/storage-class: &quot;kafka&quot;</span><br><span class="line">    spec:</span><br><span class="line">      #accessModes: [ &quot;ReadWriteOnce&quot; ]</span><br><span class="line">      accessModes: [ &quot;ReadWriteMany&quot; ]</span><br><span class="line">      resources:</span><br><span class="line">        requests:</span><br><span class="line">          storage: 50Gi</span><br></pre></td></tr></table></figure>
 
 <p>使用如下命令创建statefulset</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kubectl apply -f kafka.yaml</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kubectl apply -f kafka.yaml</span><br></pre></td></tr></table></figure>
 
 <p>使用如下命令查看容器</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kubectl -n middleware get pods,svc</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kubectl -n middleware get pods,svc</span><br></pre></td></tr></table></figure>
 
 <p>使用如下命令进入容器</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">kubectl exec -it kafka-1 -n middleware &#x2F;bin&#x2F;bash</span><br><span class="line"></span><br><span class="line">创建topic</span><br><span class="line">kafka-topics.sh --create --topic mytest --zookeeper x.x.x.x:2181 --partitions 1 --replication-factor 1</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">kubectl exec -it kafka-1 -n middleware /bin/bash</span><br><span class="line"></span><br><span class="line">创建topic</span><br><span class="line">kafka-topics.sh --create --topic mytest --zookeeper x.x.x.x:2181 --partitions 1 --replication-factor 1</span><br></pre></td></tr></table></figure>
     </div>
 
     
     
     
 
-      <footer class="post-footer">
+    <footer class="post-footer">
           <div class="post-tags">
-              <a href="/tags/k8s/" rel="tag"># k8s</a>
               <a href="/tags/kubernetes/" rel="tag"># kubernetes</a>
+              <a href="/tags/k8s/" rel="tag"># k8s</a>
               <a href="/tags/Kafka/" rel="tag"># Kafka</a>
           </div>
 
         
 
-
-        
-    <div class="post-nav">
-      <div class="post-nav-item">
-    <a href="/posts/11561d36.html" rel="prev" title="k8s部署redis集群">
-      <i class="fa fa-chevron-left"></i> k8s部署redis集群
-    </a></div>
-      <div class="post-nav-item">
-    <a href="/posts/43588f00.html" rel="next" title="Nginx之http转https配置方法">
-      Nginx之http转https配置方法 <i class="fa fa-chevron-right"></i>
-    </a></div>
-    </div>
-      </footer>
-    
-  </article>
-  
-  
-  
-
-
-
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/posts/11561d36.html" rel="prev" title="k8s部署redis集群">
+                  <i class="fa fa-chevron-left"></i> k8s部署redis集群
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/posts/43588f00.html" rel="next" title="Nginx之http转https配置方法">
+                  Nginx之http转https配置方法 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
           </div>
-          
-
-<script>
-  window.addEventListener('tabs:register', () => {
-    let { activeClass } = CONFIG.comments;
-    if (CONFIG.comments.storage) {
-      activeClass = localStorage.getItem('comments_active') || activeClass;
-    }
-    if (activeClass) {
-      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
-      if (activeTab) {
-        activeTab.click();
-      }
-    }
-  });
-  if (CONFIG.comments.storage) {
-    window.addEventListener('tabs:click', event => {
-      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
-      let commentClass = event.target.classList[1];
-      localStorage.setItem('comments_active', commentClass);
-    });
-  }
-</script>
-
-        </div>
-          
-  
-  <div class="toggle sidebar-toggle">
-    <span class="toggle-line toggle-line-first"></span>
-    <span class="toggle-line toggle-line-middle"></span>
-    <span class="toggle-line toggle-line-last"></span>
-  </div>
-
-  <aside class="sidebar">
-    <div class="sidebar-inner">
-
-      <ul class="sidebar-nav motion-element">
-        <li class="sidebar-nav-toc">
-          文章目录
-        </li>
-        <li class="sidebar-nav-overview">
-          站点概览
-        </li>
-      </ul>
-
-      <!--noindex-->
-      <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#创建kafka-pv"><span class="nav-number">1.</span> <span class="nav-text">创建kafka-pv</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#创建Kafka集群"><span class="nav-number">2.</span> <span class="nav-text">创建Kafka集群</span></a></li></ol></div>
-      </div>
-      <!--/noindex-->
-
-      <div class="site-overview-wrap sidebar-panel">
-        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
-  <p class="site-author-name" itemprop="name">hyman</p>
-  <div class="site-description" itemprop="description"></div>
-</div>
-<div class="site-state-wrap motion-element">
-  <nav class="site-state">
-      <div class="site-state-item site-state-posts">
-          <a href="/archives/">
-        
-          <span class="site-state-item-count">169</span>
-          <span class="site-state-item-name">日志</span>
-        </a>
-      </div>
-      <div class="site-state-item site-state-categories">
-            <a href="/categories/">
-          
-        <span class="site-state-item-count">35</span>
-        <span class="site-state-item-name">分类</span></a>
-      </div>
-      <div class="site-state-item site-state-tags">
-            <a href="/tags/">
-          
-        <span class="site-state-item-count">122</span>
-        <span class="site-state-item-name">标签</span></a>
-      </div>
-  </nav>
+    </footer>
+  </article>
 </div>
 
 
 
-      </div>
-
-    </div>
-  </aside>
-  <div id="sidebar-dimmer"></div>
 
 
-      </div>
-    </main>
 
-    <footer class="footer">
-      <div class="footer-inner">
-        
+</div>
+  </main>
 
-        
+  <footer class="footer">
+    <div class="footer-inner">
+
 
 <div class="copyright">
-  
-  &copy; 
+  &copy; 2017 – 
   <span itemprop="copyrightYear">2021</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>
   <span class="author" itemprop="copyrightHolder">hyman</span>
 </div>
-  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/mist/" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a> 强力驱动
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/mist/" rel="noopener" target="_blank">NexT.Mist</a> 强力驱动
   </div>
 
-        
-
-
-
-
-
-
-
-
-      </div>
-    </footer>
-  </div>
+    </div>
+  </footer>
 
   
-  <script src="/lib/anime.min.js"></script>
-  <script src="/lib/velocity/velocity.min.js"></script>
-  <script src="/lib/velocity/velocity.ui.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/next-boot.js"></script>
 
-<script src="/js/utils.js"></script>
-
-<script src="/js/motion.js"></script>
-
-
-<script src="/js/schemes/muse.js"></script>
-
-
-<script src="/js/next-boot.js"></script>
+  
+<script src="/js/third-party/search/local-search.js"></script>
 
 
 
@@ -458,24 +366,6 @@
 
 
 
-  
-<script src="/js/local-search.js"></script>
-
-
-
-
-
-
-
-
-
-
-
-
-
-  
-
-  
 
 </body>
 </html>

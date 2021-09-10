@@ -2,25 +2,25 @@
 <html lang="zh-CN">
 <head>
   <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="viewport" content="width=device-width">
 <meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 4.2.1">
+<meta name="generator" content="Hexo 5.4.0">
+
+
   <link rel="apple-touch-icon" sizes="180x180" href="/images/favicon.png">
   <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon.png">
-  <link rel="mask-icon" href="/images/favicon.png" color="#222">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
 
 <link rel="stylesheet" href="/css/main.css">
 
 
-<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
 
-<script id="hexo-configurations">
-    var NexT = window.NexT || {};
-    var CONFIG = {"hostname":"www.ywthings.com","root":"/","scheme":"Mist","version":"8.0.0-rc.2","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"appID":"UDW7NS797T","apiKey":"c4bb3c2b53b39900e8498ee72e6dc96e","indexName":"hyman","hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
-  </script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.3/css/all.min.css" integrity="sha256-2H3fkXt6FEmrReK448mDVGKb3WW2ZZw35gI7vqHOE4Y=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
 
-  <meta name="description" content="问题状态生产环境使用了开源软件srs服务来调取实时视频，但是调取时提示出现了暂无数据，请稍后再试的错误，一直调取不到视频信息。">
+<script class="next-config" data-name="main" type="application/json">{"hostname":"www.ywthings.com","root":"/","images":"/images","scheme":"Mist","version":"8.5.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":true,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+<meta name="description" content="问题状态生产环境使用了开源软件srs服务来调取实时视频，但是调取时提示出现了暂无数据，请稍后再试的错误，一直调取不到视频信息。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Linux进程出现D状态">
 <meta property="og:url" content="https://www.ywthings.com/posts/89b3d146.html">
@@ -40,72 +40,47 @@
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://www.ywthings.com/images/20181018140643.png">
 
+
 <link rel="canonical" href="https://www.ywthings.com/posts/89b3d146.html">
 
 
-<script id="page-configurations">
-  // https://hexo.io/docs/variables.html
-  CONFIG.page = {
-    sidebar: "",
-    isHome : false,
-    isPost : true,
-    lang   : 'zh-CN'
-  };
-</script>
 
-  <title>Linux进程出现D状态 | hyman</title>
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://www.ywthings.com/posts/89b3d146.html","path":"posts/89b3d146.html","title":"Linux进程出现D状态"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>Linux进程出现D状态 | hyman</title>
   
 
-
-
+  <script src="/js/third-party/analytics/baidu-analytics.js"></script>
+  <script async src="https://hm.baidu.com/hm.js?97e285060b95594e74e4d3562a50a717"></script>
 
 
 
   <noscript>
-  <style>
-  .use-motion .brand,
-  .use-motion .menu-item,
-  .sidebar-inner,
-  .use-motion .post-block,
-  .use-motion .pagination,
-  .use-motion .comments,
-  .use-motion .post-header,
-  .use-motion .post-body,
-  .use-motion .collection-header { opacity: initial; }
-
-  .use-motion .site-title,
-  .use-motion .site-subtitle {
-    opacity: initial;
-    top: initial;
-  }
-
-  .use-motion .logo-line-before i { left: initial; }
-  .use-motion .logo-line-after i { right: initial; }
-  </style>
-</noscript>
-
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
 </head>
 
-<body itemscope itemtype="http://schema.org/WebPage">
-  <div class="container use-motion">
-    <div class="headband"></div>
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
 
+  <main class="main">
     <header class="header" itemscope itemtype="http://schema.org/WPHeader">
       <div class="header-inner"><div class="site-brand-container">
   <div class="site-nav-toggle">
-    <div class="toggle" aria-label="切换导航栏">
-        <span class="toggle-line toggle-line-first"></span>
-        <span class="toggle-line toggle-line-middle"></span>
-        <span class="toggle-line toggle-line-last"></span>
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
     </div>
   </div>
 
   <div class="site-meta">
 
     <a href="/" class="brand" rel="start">
-      <span class="logo-line-before"><i></i></span>
+      <i class="logo-line"></i>
       <h1 class="site-title">hyman</h1>
-      <span class="logo-line-after"><i></i></span>
+      <i class="logo-line"></i>
     </a>
       <p class="site-subtitle" itemprop="description">一些简单的记录</p>
   </div>
@@ -120,32 +95,12 @@
 
 
 <nav class="site-nav">
-  <ul id="menu" class="main-menu menu">
-        <li class="menu-item menu-item-home">
-
-    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
-
-  </li>
-        <li class="menu-item menu-item-tags">
-
-    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
-
-  </li>
-        <li class="menu-item menu-item-categories">
-
-    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
-
-  </li>
-        <li class="menu-item menu-item-archives">
-
-    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
-
-  </li>
-        <li class="menu-item menu-item-sitemap">
-
-    <a href="/sitemap.xml" rel="section"><i class="fa fa-sitemap fa-fw"></i>站点地图</a>
-
-  </li>
+  <ul class="main-menu menu">
+        <li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li>
+        <li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li>
+        <li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li>
+        <li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li>
+        <li class="menu-item menu-item-sitemap"><a href="/sitemap.xml" rel="section"><i class="fa fa-sitemap fa-fw"></i>站点地图</a></li>
       <li class="menu-item menu-item-search">
         <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
         </a>
@@ -156,23 +111,22 @@
 
 
   <div class="search-pop-overlay">
-    <div class="popup search-popup">
-        <div class="search-header">
+    <div class="popup search-popup"><div class="search-header">
   <span class="search-icon">
     <i class="fa fa-search"></i>
   </span>
   <div class="search-input-container">
-    <input autocomplete="off" autocapitalize="off"
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
            placeholder="搜索..." spellcheck="false"
            type="search" class="search-input">
   </div>
-  <span class="popup-btn-close">
+  <span class="popup-btn-close" role="button">
     <i class="fa fa-times-circle"></i>
   </span>
 </div>
-<div id="search-result">
-  <div id="no-result">
-    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
   </div>
 </div>
 
@@ -180,33 +134,98 @@
   </div>
 
 </div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%97%AE%E9%A2%98%E7%8A%B6%E6%80%81"><span class="nav-number">1.</span> <span class="nav-text">问题状态</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%97%AE%E9%A2%98%E6%8E%92%E6%9F%A5"><span class="nav-number">2.</span> <span class="nav-text">问题排查</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9F%A5%E7%9C%8Bmessage%E6%97%A5%E5%BF%97%E6%96%87%E4%BB%B6%E6%89%BE%E5%88%B0%E7%9B%B8%E5%85%B3%E5%86%85%E6%A0%B8%E6%8A%A5%E9%94%99%E6%97%A5%E5%BF%97"><span class="nav-number">2.1.</span> <span class="nav-text">查看message日志文件找到相关内核报错日志</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BB%8E%E7%B3%BB%E7%BB%9F%E4%B8%AD%E7%9C%8B%E4%B8%8B-hung-task-%E7%9B%B8%E5%85%B3%E7%9A%84%E5%8F%82%E6%95%B0%E5%8F%8A%E5%85%B6%E5%8F%82%E6%95%B0%E5%80%BC"><span class="nav-number">2.2.</span> <span class="nav-text">从系统中看下 hung_task 相关的参数及其参数值</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%80%9A%E8%BF%87sar%E6%9F%A5%E7%9C%8B%E4%B8%80%E6%AE%B5%E6%97%B6%E9%97%B4%E5%86%85%E7%9A%84cpu%E4%BD%BF%E7%94%A8%E6%83%85%E5%86%B5%EF%BC%8CCPU%E4%BD%BF%E7%94%A8%E7%8E%87%E4%B8%8D%E9%AB%98%E3%80%82"><span class="nav-number">2.3.</span> <span class="nav-text">通过sar查看一段时间内的cpu使用情况，CPU使用率不高。</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9F%A5%E7%9C%8B%E5%86%85%E5%AD%98%EF%BC%8C%E5%86%85%E5%AD%98%E4%BD%BF%E7%94%A8%E4%B9%9F%E4%B8%8D%E9%AB%98"><span class="nav-number">2.4.</span> <span class="nav-text">查看内存，内存使用也不高</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9F%A5%E7%9C%8B%E7%A1%AC%E7%9B%98IO"><span class="nav-number">2.5.</span> <span class="nav-text">查看硬盘IO</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%A3%80%E6%9F%A5%E7%A3%81%E7%9B%98%E5%88%86%E5%8C%BA%E6%98%AF%E5%90%A6%E5%AD%98%E5%9C%A8%E5%9D%8F%E5%9D%97%EF%BC%8C%E5%8F%91%E7%8E%B0%E6%B2%A1%E6%9C%89%E5%9D%8F%E5%9D%97%E6%83%85%E5%86%B5"><span class="nav-number">2.6.</span> <span class="nav-text">检查磁盘分区是否存在坏块，发现没有坏块情况</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%9F%A5%E6%89%BE%E7%BD%91%E4%B8%8A%E8%A7%A3%E5%86%B3%E6%96%B9%E6%B3%95%E5%A6%82%E4%B8%8B%EF%BC%9A"><span class="nav-number">3.</span> <span class="nav-text">查找网上解决方法如下：</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-overview">
+            <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">hyman</p>
+  <div class="site-description" itemprop="description">一些简单的记录</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">187</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+        <span class="site-state-item-count">39</span>
+        <span class="site-state-item-name">分类</span>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">129</span>
+        <span class="site-state-item-name">标签</span>
+      </div>
+  </nav>
+</div>
+
+
+
+          </div>
+        </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
     </header>
 
     
-  <div class="back-to-top">
+  <div class="back-to-top" role="button" aria-label="返回顶部">
     <i class="fa fa-arrow-up"></i>
     <span>0%</span>
   </div>
 
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
 
-    <main class="main">
-      <div class="main-inner">
-        <div class="content-wrap">
-          
 
-          <div class="content post posts-expand">
-            
+    <div class="main-inner post posts-expand">
 
-    
+
+  
+
+
+<div class="post-block">
   
   
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://www.ywthings.com/posts/89b3d146.html">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
       <meta itemprop="name" content="hyman">
-      <meta itemprop="description" content="">
+      <meta itemprop="description" content="一些简单的记录">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
@@ -217,33 +236,35 @@
           Linux进程出现D状态
         </h1>
 
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
 
-              <time title="创建时间：2018-10-18 09:09:43" itemprop="dateCreated datePublished" datetime="2018-10-18T09:09:43+08:00">2018-10-18</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-05-18 07:58:41" itemprop="dateModified" datetime="2020-05-18T07:58:41+08:00">2020-05-18</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E6%97%A5%E5%B8%B8%E9%97%AE%E9%A2%98%E5%A4%84%E7%90%86/" itemprop="url" rel="index"><span itemprop="name">日常问题处理</span></a>
-                </span>
-            </span>
+      <time title="创建时间：2018-10-18 09:09:43" itemprop="dateCreated datePublished" datetime="2018-10-18T09:09:43+08:00">2018-10-18</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">更新于</span>
+        <time title="修改时间：2020-05-18 07:58:41" itemprop="dateModified" datetime="2020-05-18T07:58:41+08:00">2020-05-18</time>
+      </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E6%97%A5%E5%B8%B8%E9%97%AE%E9%A2%98%E5%A4%84%E7%90%86/" itemprop="url" rel="index"><span itemprop="name">日常问题处理</span></a>
+        </span>
+    </span>
 
-          
+  
+</div>
 
         </div>
       </header>
@@ -252,10 +273,8 @@
     
     
     <div class="post-body" itemprop="articleBody">
-
-      
         <h1 id="问题状态"><a href="#问题状态" class="headerlink" title="问题状态"></a>问题状态</h1><p>生产环境使用了开源软件srs服务来调取实时视频，但是调取时提示出现了暂无数据，请稍后再试的错误，一直调取不到视频信息。<br><img src="/images/20181018140643.png" width="100%" height="100%"></p>
-<a id="more"></a>
+<span id="more"></span>
 <h1 id="问题排查"><a href="#问题排查" class="headerlink" title="问题排查"></a>问题排查</h1><p>查看了srs服务、文件服务、通信服务是否正常，云服务器负载情况，内存使用情况，网络情况，最后发现srs服务器进程状态为D，进程无法用 kill 杀掉，导致了生产环境不可用。<br><img src="/images/20181018141216.png" width="100%" height="100%"></p>
 <p>ps 的手册里说 D 状态是 uninterruptible sleep，Linux 进程有两种睡眠状态，一种 interruptible sleep，处在这种睡眠状态的进程是可以通过给它发信号来唤醒的，比如发 HUP 信号给 nginx 的 master 进程可以让 nginx 重新加载配置文件而不需要重新启动 nginx 进程；另外一种睡眠状态是 uninterruptible sleep，处在这种状态的进程不接受外来的任何信号，这也是为什么之前我无法用 kill 杀掉这些处于 D 状态的进程，无论是 kill, kill -9 还是 kill -15，因为它们压根儿就不受这些信号的支配。</p>
 <p>进程为什么会被置于 uninterruptible sleep 状态呢？处于 uninterruptible sleep 状态的进程通常是在等待 IO，比如磁盘 IO，网络 IO，其他外设 IO，如果进程正在等待的 IO 在较长的时间内都没有响应，那么就很会不幸地被 ps 看到了，同时也就意味着很有可能有 IO 出了问题，可能是外设本身出了故障，也可能是比如挂载的远程文件系统已经不可访问了，我这里遇到的问题就是由 down 掉的 NFS 服务器引起的。</p>
@@ -263,27 +282,27 @@
 <h2 id="查看message日志文件找到相关内核报错日志"><a href="#查看message日志文件找到相关内核报错日志" class="headerlink" title="查看message日志文件找到相关内核报错日志"></a>查看message日志文件找到相关内核报错日志</h2><img src="/images/20181018091126.png" width="100%" height="100%">
 
 <p>默认情况下， Linux会最多使用40%的可用内存作为文件系统缓存。当超过这个阈值后，文件系统会把将缓存中的内存全部写入磁盘， 导致后续的IO请求都是同步的。将缓存写入磁盘时，有一个默认120秒的超时时间。 出现上面的问题的原因是IO子系统的处理速度不够快，不能在120秒将缓存中的数据全部写入磁盘。IO系统响应缓慢，导致越来越多的请求堆积，最终系统内存全部被占用，导致系统失去响应。</p>
-<h2 id="从系统中看下-hung-task-相关的参数及其参数值"><a href="#从系统中看下-hung-task-相关的参数及其参数值" class="headerlink" title="从系统中看下 hung_task 相关的参数及其参数值"></a>从系统中看下 hung_task 相关的参数及其参数值</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">[root@aliy-nt1 ~]# sysctl -a | grep &#39;vm.dirty&#39;</span><br><span class="line">vm.dirty_background_bytes &#x3D; 0</span><br><span class="line">vm.dirty_background_ratio &#x3D; 10</span><br><span class="line">vm.dirty_bytes &#x3D; 0</span><br><span class="line">vm.dirty_expire_centisecs &#x3D; 3000</span><br><span class="line">vm.dirty_ratio &#x3D; 20</span><br><span class="line">vm.dirty_writeback_centisecs &#x3D; 500</span><br><span class="line"></span><br><span class="line">[root@aliy-nt1 ~]# sysctl -a | grep hung</span><br><span class="line">kernel.hung_task_check_count &#x3D; 4194304</span><br><span class="line">kernel.hung_task_panic &#x3D; 0</span><br><span class="line">kernel.hung_task_timeout_secs &#x3D; 120</span><br><span class="line">kernel.hung_task_warnings &#x3D; 0</span><br></pre></td></tr></table></figure>
+<h2 id="从系统中看下-hung-task-相关的参数及其参数值"><a href="#从系统中看下-hung-task-相关的参数及其参数值" class="headerlink" title="从系统中看下 hung_task 相关的参数及其参数值"></a>从系统中看下 hung_task 相关的参数及其参数值</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">[root@aliy-nt1 ~]# sysctl -a | grep &#x27;vm.dirty&#x27;</span><br><span class="line">vm.dirty_background_bytes = 0</span><br><span class="line">vm.dirty_background_ratio = 10</span><br><span class="line">vm.dirty_bytes = 0</span><br><span class="line">vm.dirty_expire_centisecs = 3000</span><br><span class="line">vm.dirty_ratio = 20</span><br><span class="line">vm.dirty_writeback_centisecs = 500</span><br><span class="line"></span><br><span class="line">[root@aliy-nt1 ~]# sysctl -a | grep hung</span><br><span class="line">kernel.hung_task_check_count = 4194304</span><br><span class="line">kernel.hung_task_panic = 0</span><br><span class="line">kernel.hung_task_timeout_secs = 120</span><br><span class="line">kernel.hung_task_warnings = 0</span><br></pre></td></tr></table></figure>
 
-<h2 id="通过sar查看一段时间内的cpu使用情况，CPU使用率不高。"><a href="#通过sar查看一段时间内的cpu使用情况，CPU使用率不高。" class="headerlink" title="通过sar查看一段时间内的cpu使用情况，CPU使用率不高。"></a>通过sar查看一段时间内的cpu使用情况，CPU使用率不高。</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sar -f &#x2F;var&#x2F;log&#x2F;sa&#x2F;sa17</span><br></pre></td></tr></table></figure>
+<h2 id="通过sar查看一段时间内的cpu使用情况，CPU使用率不高。"><a href="#通过sar查看一段时间内的cpu使用情况，CPU使用率不高。" class="headerlink" title="通过sar查看一段时间内的cpu使用情况，CPU使用率不高。"></a>通过sar查看一段时间内的cpu使用情况，CPU使用率不高。</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sar -f /var/log/sa/sa17</span><br></pre></td></tr></table></figure>
 <img src="/images/20181018101248.png" width="100%" height="100%">
 
 
-<h2 id="查看内存，内存使用也不高"><a href="#查看内存，内存使用也不高" class="headerlink" title="查看内存，内存使用也不高"></a>查看内存，内存使用也不高</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sar -r -f &#x2F;var&#x2F;log&#x2F;sa&#x2F;sa17</span><br></pre></td></tr></table></figure>
+<h2 id="查看内存，内存使用也不高"><a href="#查看内存，内存使用也不高" class="headerlink" title="查看内存，内存使用也不高"></a>查看内存，内存使用也不高</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sar -r -f /var/log/sa/sa17</span><br></pre></td></tr></table></figure>
 <img src="/images/20181018101935.png" width="100%" height="100%">
 
-<h2 id="查看硬盘IO"><a href="#查看硬盘IO" class="headerlink" title="查看硬盘IO"></a>查看硬盘IO</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sar -d -f &#x2F;var&#x2F;log&#x2F;sa&#x2F;sa17</span><br></pre></td></tr></table></figure>
+<h2 id="查看硬盘IO"><a href="#查看硬盘IO" class="headerlink" title="查看硬盘IO"></a>查看硬盘IO</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sar -d -f /var/log/sa/sa17</span><br></pre></td></tr></table></figure>
 <img src="/images/20181018103620.png" width="100%" height="100%">
 
-<h2 id="检查磁盘分区是否存在坏块，发现没有坏块情况"><a href="#检查磁盘分区是否存在坏块，发现没有坏块情况" class="headerlink" title="检查磁盘分区是否存在坏块，发现没有坏块情况"></a>检查磁盘分区是否存在坏块，发现没有坏块情况</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">[root@aliy-nt1 ~]# &#x2F;sbin&#x2F;badblocks -v &#x2F;dev&#x2F;vda</span><br><span class="line">正在检查从 0 到 41943039的块</span><br><span class="line">Checking for bad blocks (read-only test): done                                                 </span><br><span class="line">Pass completed, 0 bad blocks found. (0&#x2F;0&#x2F;0 errors)</span><br><span class="line">[root@aliy-nt1 ~]# &#x2F;sbin&#x2F;badblocks -v &#x2F;dev&#x2F;vdb</span><br><span class="line">正在检查从 0 到 41943039的块</span><br><span class="line">Checking for bad blocks (read-only test): done                                                 </span><br><span class="line">Pass completed, 0 bad blocks found. (0&#x2F;0&#x2F;0 errors)</span><br><span class="line">[root@aliy-nt1 ~]# &#x2F;sbin&#x2F;badblocks -v &#x2F;dev&#x2F;vdc</span><br><span class="line">正在检查从 0 到 104857599的块</span><br><span class="line">Checking for bad blocks (read-only test): done                                                 </span><br><span class="line">Pass completed, 0 bad blocks found. (0&#x2F;0&#x2F;0 errors)</span><br></pre></td></tr></table></figure>
+<h2 id="检查磁盘分区是否存在坏块，发现没有坏块情况"><a href="#检查磁盘分区是否存在坏块，发现没有坏块情况" class="headerlink" title="检查磁盘分区是否存在坏块，发现没有坏块情况"></a>检查磁盘分区是否存在坏块，发现没有坏块情况</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">[root@aliy-nt1 ~]# /sbin/badblocks -v /dev/vda</span><br><span class="line">正在检查从 0 到 41943039的块</span><br><span class="line">Checking for bad blocks (read-only test): done                                                 </span><br><span class="line">Pass completed, 0 bad blocks found. (0/0/0 errors)</span><br><span class="line">[root@aliy-nt1 ~]# /sbin/badblocks -v /dev/vdb</span><br><span class="line">正在检查从 0 到 41943039的块</span><br><span class="line">Checking for bad blocks (read-only test): done                                                 </span><br><span class="line">Pass completed, 0 bad blocks found. (0/0/0 errors)</span><br><span class="line">[root@aliy-nt1 ~]# /sbin/badblocks -v /dev/vdc</span><br><span class="line">正在检查从 0 到 104857599的块</span><br><span class="line">Checking for bad blocks (read-only test): done                                                 </span><br><span class="line">Pass completed, 0 bad blocks found. (0/0/0 errors)</span><br></pre></td></tr></table></figure>
 
 <h1 id="查找网上解决方法如下："><a href="#查找网上解决方法如下：" class="headerlink" title="查找网上解决方法如下："></a>查找网上解决方法如下：</h1><p>根据应用程序情况，对vm.dirty_ratio，vm.dirty_background_ratio两个参数进行调优设置。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"># sysctl -w vm.dirty_ratio&#x3D;10</span><br><span class="line"># sysctl -w vm.dirty_background_ratio&#x3D;5</span><br><span class="line"># sysctl -p</span><br><span class="line"></span><br><span class="line">如果系统永久生效，修改&#x2F;etc&#x2F;sysctl.conf文件。加入如下两行：</span><br><span class="line">#vi &#x2F;etc&#x2F;sysctl.conf</span><br><span class="line"></span><br><span class="line">vm.dirty_background_ratio &#x3D; 5</span><br><span class="line">vm.dirty_ratio &#x3D; 10</span><br><span class="line"></span><br><span class="line">sysctl -p</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"># sysctl -w vm.dirty_ratio=10</span><br><span class="line"># sysctl -w vm.dirty_background_ratio=5</span><br><span class="line"># sysctl -p</span><br><span class="line"></span><br><span class="line">如果系统永久生效，修改/etc/sysctl.conf文件。加入如下两行：</span><br><span class="line">#vi /etc/sysctl.conf</span><br><span class="line"></span><br><span class="line">vm.dirty_background_ratio = 5</span><br><span class="line">vm.dirty_ratio = 10</span><br><span class="line"></span><br><span class="line">sysctl -p</span><br></pre></td></tr></table></figure>
 
 <p>但是观察了一段时间，进程依然状态会导致为D，查看了srs配置文件</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br></pre></td><td class="code"><pre><span class="line">listen              1935;</span><br><span class="line">max_connections     1000;</span><br><span class="line">srs_log_tank        file;</span><br><span class="line">srs_log_file        .&#x2F;objs&#x2F;srs.log;</span><br><span class="line">http_api &#123;</span><br><span class="line">    enabled         on;</span><br><span class="line">    listen          1985;</span><br><span class="line">&#125;</span><br><span class="line">http_server &#123;</span><br><span class="line">    enabled         on;</span><br><span class="line">    listen          8080;</span><br><span class="line">    dir             .&#x2F;objs&#x2F;nginx&#x2F;html;</span><br><span class="line">#    crossdomain     on;</span><br><span class="line">&#125;</span><br><span class="line">stats &#123;</span><br><span class="line">    network         0;</span><br><span class="line">    disk            sda sdb xvda xvdb;</span><br><span class="line">&#125;</span><br><span class="line">vhost __defaultVhost__ &#123;</span><br><span class="line">    http_remux &#123;</span><br><span class="line">        enabled     on;</span><br><span class="line">        mount       [vhost]&#x2F;[app]&#x2F;[stream].flv;</span><br><span class="line">        hstrs       on;</span><br><span class="line">    &#125;</span><br><span class="line">#	mix_correct		on;</span><br><span class="line">	http_hooks &#123;</span><br><span class="line">		enabled         on;</span><br><span class="line">        	on_publish      http:&#x2F;&#x2F;10.25.208.243:1241&#x2F;callbackOnPublish;</span><br><span class="line">        	on_unpublish    http:&#x2F;&#x2F;10.25.208.243:1241&#x2F;callbackOnUnpublish;</span><br><span class="line">        	on_play         http:&#x2F;&#x2F;10.25.208.243:1241&#x2F;callbackOnPlay;</span><br><span class="line">        	on_stop         http:&#x2F;&#x2F;10.25.208.243:1241&#x2F;callbackOnStop;</span><br><span class="line">        	on_dvr          http:&#x2F;&#x2F;10.25.208.243:1241&#x2F;callbackOnDvr;</span><br><span class="line">	&#125;</span><br><span class="line">        dvr &#123;</span><br><span class="line">                enabled         on;</span><br><span class="line">                dvr_path        &#x2F;mnt&#x2F;mov&#x2F;[stream]-[timestamp].flv;</span><br><span class="line">                dvr_plan        session;</span><br><span class="line">                dvr_duration    30;</span><br><span class="line">                dvr_wait_keyframe       on;</span><br><span class="line">                time_jitter             full;</span><br><span class="line">        &#125;</span><br><span class="line">        hls &#123;</span><br><span class="line">                enabled         on;</span><br><span class="line">                hls_path        &#x2F;mnt&#x2F;mov;</span><br><span class="line">                hls_m3u8_file   [stream].m3u8;</span><br><span class="line">                hls_ts_file     [stream]-[seq].ts;</span><br><span class="line">                hls_fragment    10;</span><br><span class="line">                hls_window      60000;</span><br><span class="line">        &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>srs录制视频、语音是通过阿里云NFS文件服务挂载到本地/mnt/mov文件，作为临时视频中转服务，后期会自动上传到OSS对象存储服务，是否因为频繁的对该NFS读写IO性能导致srs出现hung呢？<br>查看相关文档，阿里云由此文档<br><a href="https://help.aliyun.com/knowledge_detail/53839.html?spm=a2c4g.11186623.4.7.jXaKcm">https://help.aliyun.com/knowledge_detail/53839.html?spm=a2c4g.11186623.4.7.jXaKcm</a></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">Linux nfs客户端对于同时发起的NFS请求数量进行了控制，若该参数配置较小会导致IO性能较差，请查看该参数：cat &#x2F;proc&#x2F;sys&#x2F;sunrpc&#x2F;tcp_slot_table_entries</span><br><span class="line"></span><br><span class="line">[root@aliy-nt1 srs]# cat &#x2F;proc&#x2F;sys&#x2F;sunrpc&#x2F;tcp_slot_table_entries</span><br><span class="line">2</span><br><span class="line"></span><br><span class="line">默认编译的内核该参数最大值为256，可适当提高该参数的值来取得较好的性能，请以root身份执行以下命令：</span><br><span class="line"></span><br><span class="line">echo &quot;options sunrpc tcp_slot_table_entries&#x3D;128&quot; &gt;&gt; &#x2F;etc&#x2F;modprobe.d&#x2F;sunrpc.conf</span><br><span class="line">echo &quot;options sunrpc tcp_max_slot_table_entries&#x3D;128&quot; &gt;&gt;  &#x2F;etc&#x2F;modprobe.d&#x2F;sunrpc.conf</span><br><span class="line">sysctl -w sunrpc.tcp_slot_table_entries&#x3D;128</span><br><span class="line">修改完成后，您需要重新挂载文件系统或重启机器。</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br></pre></td><td class="code"><pre><span class="line">listen              1935;</span><br><span class="line">max_connections     1000;</span><br><span class="line">srs_log_tank        file;</span><br><span class="line">srs_log_file        ./objs/srs.log;</span><br><span class="line">http_api &#123;</span><br><span class="line">    enabled         on;</span><br><span class="line">    listen          1985;</span><br><span class="line">&#125;</span><br><span class="line">http_server &#123;</span><br><span class="line">    enabled         on;</span><br><span class="line">    listen          8080;</span><br><span class="line">    dir             ./objs/nginx/html;</span><br><span class="line">#    crossdomain     on;</span><br><span class="line">&#125;</span><br><span class="line">stats &#123;</span><br><span class="line">    network         0;</span><br><span class="line">    disk            sda sdb xvda xvdb;</span><br><span class="line">&#125;</span><br><span class="line">vhost __defaultVhost__ &#123;</span><br><span class="line">    http_remux &#123;</span><br><span class="line">        enabled     on;</span><br><span class="line">        mount       [vhost]/[app]/[stream].flv;</span><br><span class="line">        hstrs       on;</span><br><span class="line">    &#125;</span><br><span class="line">#	mix_correct		on;</span><br><span class="line">	http_hooks &#123;</span><br><span class="line">		enabled         on;</span><br><span class="line">        	on_publish      http://10.25.208.243:1241/callbackOnPublish;</span><br><span class="line">        	on_unpublish    http://10.25.208.243:1241/callbackOnUnpublish;</span><br><span class="line">        	on_play         http://10.25.208.243:1241/callbackOnPlay;</span><br><span class="line">        	on_stop         http://10.25.208.243:1241/callbackOnStop;</span><br><span class="line">        	on_dvr          http://10.25.208.243:1241/callbackOnDvr;</span><br><span class="line">	&#125;</span><br><span class="line">        dvr &#123;</span><br><span class="line">                enabled         on;</span><br><span class="line">                dvr_path        /mnt/mov/[stream]-[timestamp].flv;</span><br><span class="line">                dvr_plan        session;</span><br><span class="line">                dvr_duration    30;</span><br><span class="line">                dvr_wait_keyframe       on;</span><br><span class="line">                time_jitter             full;</span><br><span class="line">        &#125;</span><br><span class="line">        hls &#123;</span><br><span class="line">                enabled         on;</span><br><span class="line">                hls_path        /mnt/mov;</span><br><span class="line">                hls_m3u8_file   [stream].m3u8;</span><br><span class="line">                hls_ts_file     [stream]-[seq].ts;</span><br><span class="line">                hls_fragment    10;</span><br><span class="line">                hls_window      60000;</span><br><span class="line">        &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>srs录制视频、语音是通过阿里云NFS文件服务挂载到本地/mnt/mov文件，作为临时视频中转服务，后期会自动上传到OSS对象存储服务，是否因为频繁的对该NFS读写IO性能导致srs出现hung呢？<br>查看相关文档，阿里云由此文档<br><a target="_blank" rel="noopener" href="https://help.aliyun.com/knowledge_detail/53839.html?spm=a2c4g.11186623.4.7.jXaKcm">https://help.aliyun.com/knowledge_detail/53839.html?spm=a2c4g.11186623.4.7.jXaKcm</a></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">Linux nfs客户端对于同时发起的NFS请求数量进行了控制，若该参数配置较小会导致IO性能较差，请查看该参数：cat /proc/sys/sunrpc/tcp_slot_table_entries</span><br><span class="line"></span><br><span class="line">[root@aliy-nt1 srs]# cat /proc/sys/sunrpc/tcp_slot_table_entries</span><br><span class="line">2</span><br><span class="line"></span><br><span class="line">默认编译的内核该参数最大值为256，可适当提高该参数的值来取得较好的性能，请以root身份执行以下命令：</span><br><span class="line"></span><br><span class="line">echo &quot;options sunrpc tcp_slot_table_entries=128&quot; &gt;&gt; /etc/modprobe.d/sunrpc.conf</span><br><span class="line">echo &quot;options sunrpc tcp_max_slot_table_entries=128&quot; &gt;&gt;  /etc/modprobe.d/sunrpc.conf</span><br><span class="line">sysctl -w sunrpc.tcp_slot_table_entries=128</span><br><span class="line">修改完成后，您需要重新挂载文件系统或重启机器。</span><br></pre></td></tr></table></figure>
 
     </div>
 
@@ -291,172 +310,61 @@
     
     
 
-      <footer class="post-footer">
+    <footer class="post-footer">
           <div class="post-tags">
               <a href="/tags/nfs/" rel="tag"># nfs</a>
           </div>
 
         
 
-
-        
-    <div class="post-nav">
-      <div class="post-nav-item">
-    <a href="/posts/148d0252.html" rel="prev" title="部署Elasticsearch集群">
-      <i class="fa fa-chevron-left"></i> 部署Elasticsearch集群
-    </a></div>
-      <div class="post-nav-item">
-    <a href="/posts/e5fa3cb8.html" rel="next" title="FFmpeg静态构建">
-      FFmpeg静态构建 <i class="fa fa-chevron-right"></i>
-    </a></div>
-    </div>
-      </footer>
-    
-  </article>
-  
-  
-  
-
-
-
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/posts/148d0252.html" rel="prev" title="部署Elasticsearch集群">
+                  <i class="fa fa-chevron-left"></i> 部署Elasticsearch集群
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/posts/e5fa3cb8.html" rel="next" title="FFmpeg静态构建">
+                  FFmpeg静态构建 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
           </div>
-          
-
-<script>
-  window.addEventListener('tabs:register', () => {
-    let { activeClass } = CONFIG.comments;
-    if (CONFIG.comments.storage) {
-      activeClass = localStorage.getItem('comments_active') || activeClass;
-    }
-    if (activeClass) {
-      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
-      if (activeTab) {
-        activeTab.click();
-      }
-    }
-  });
-  if (CONFIG.comments.storage) {
-    window.addEventListener('tabs:click', event => {
-      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
-      let commentClass = event.target.classList[1];
-      localStorage.setItem('comments_active', commentClass);
-    });
-  }
-</script>
-
-        </div>
-          
-  
-  <div class="toggle sidebar-toggle">
-    <span class="toggle-line toggle-line-first"></span>
-    <span class="toggle-line toggle-line-middle"></span>
-    <span class="toggle-line toggle-line-last"></span>
-  </div>
-
-  <aside class="sidebar">
-    <div class="sidebar-inner">
-
-      <ul class="sidebar-nav motion-element">
-        <li class="sidebar-nav-toc">
-          文章目录
-        </li>
-        <li class="sidebar-nav-overview">
-          站点概览
-        </li>
-      </ul>
-
-      <!--noindex-->
-      <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#问题状态"><span class="nav-number">1.</span> <span class="nav-text">问题状态</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#问题排查"><span class="nav-number">2.</span> <span class="nav-text">问题排查</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#查看message日志文件找到相关内核报错日志"><span class="nav-number">2.1.</span> <span class="nav-text">查看message日志文件找到相关内核报错日志</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#从系统中看下-hung-task-相关的参数及其参数值"><span class="nav-number">2.2.</span> <span class="nav-text">从系统中看下 hung_task 相关的参数及其参数值</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#通过sar查看一段时间内的cpu使用情况，CPU使用率不高。"><span class="nav-number">2.3.</span> <span class="nav-text">通过sar查看一段时间内的cpu使用情况，CPU使用率不高。</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#查看内存，内存使用也不高"><span class="nav-number">2.4.</span> <span class="nav-text">查看内存，内存使用也不高</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#查看硬盘IO"><span class="nav-number">2.5.</span> <span class="nav-text">查看硬盘IO</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#检查磁盘分区是否存在坏块，发现没有坏块情况"><span class="nav-number">2.6.</span> <span class="nav-text">检查磁盘分区是否存在坏块，发现没有坏块情况</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#查找网上解决方法如下："><span class="nav-number">3.</span> <span class="nav-text">查找网上解决方法如下：</span></a></li></ol></div>
-      </div>
-      <!--/noindex-->
-
-      <div class="site-overview-wrap sidebar-panel">
-        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
-  <p class="site-author-name" itemprop="name">hyman</p>
-  <div class="site-description" itemprop="description"></div>
-</div>
-<div class="site-state-wrap motion-element">
-  <nav class="site-state">
-      <div class="site-state-item site-state-posts">
-          <a href="/archives/">
-        
-          <span class="site-state-item-count">169</span>
-          <span class="site-state-item-name">日志</span>
-        </a>
-      </div>
-      <div class="site-state-item site-state-categories">
-            <a href="/categories/">
-          
-        <span class="site-state-item-count">35</span>
-        <span class="site-state-item-name">分类</span></a>
-      </div>
-      <div class="site-state-item site-state-tags">
-            <a href="/tags/">
-          
-        <span class="site-state-item-count">122</span>
-        <span class="site-state-item-name">标签</span></a>
-      </div>
-  </nav>
+    </footer>
+  </article>
 </div>
 
 
 
-      </div>
-
-    </div>
-  </aside>
-  <div id="sidebar-dimmer"></div>
 
 
-      </div>
-    </main>
 
-    <footer class="footer">
-      <div class="footer-inner">
-        
+</div>
+  </main>
 
-        
+  <footer class="footer">
+    <div class="footer-inner">
+
 
 <div class="copyright">
-  
-  &copy; 
+  &copy; 2017 – 
   <span itemprop="copyrightYear">2021</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>
   <span class="author" itemprop="copyrightHolder">hyman</span>
 </div>
-  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/mist/" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a> 强力驱动
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/mist/" rel="noopener" target="_blank">NexT.Mist</a> 强力驱动
   </div>
 
-        
-
-
-
-
-
-
-
-
-      </div>
-    </footer>
-  </div>
+    </div>
+  </footer>
 
   
-  <script src="/lib/anime.min.js"></script>
-  <script src="/lib/velocity/velocity.min.js"></script>
-  <script src="/lib/velocity/velocity.ui.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/next-boot.js"></script>
 
-<script src="/js/utils.js"></script>
-
-<script src="/js/motion.js"></script>
-
-
-<script src="/js/schemes/muse.js"></script>
-
-
-<script src="/js/next-boot.js"></script>
+  
+<script src="/js/third-party/search/local-search.js"></script>
 
 
 
@@ -466,24 +374,6 @@
 
 
 
-  
-<script src="/js/local-search.js"></script>
-
-
-
-
-
-
-
-
-
-
-
-
-
-  
-
-  
 
 </body>
 </html>

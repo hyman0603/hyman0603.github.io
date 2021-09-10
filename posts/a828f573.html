@@ -2,25 +2,25 @@
 <html lang="zh-CN">
 <head>
   <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="viewport" content="width=device-width">
 <meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 4.2.1">
+<meta name="generator" content="Hexo 5.4.0">
+
+
   <link rel="apple-touch-icon" sizes="180x180" href="/images/favicon.png">
   <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon.png">
-  <link rel="mask-icon" href="/images/favicon.png" color="#222">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
 
 <link rel="stylesheet" href="/css/main.css">
 
 
-<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
 
-<script id="hexo-configurations">
-    var NexT = window.NexT || {};
-    var CONFIG = {"hostname":"www.ywthings.com","root":"/","scheme":"Mist","version":"8.0.0-rc.2","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"appID":"UDW7NS797T","apiKey":"c4bb3c2b53b39900e8498ee72e6dc96e","indexName":"hyman","hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
-  </script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.3/css/all.min.css" integrity="sha256-2H3fkXt6FEmrReK448mDVGKb3WW2ZZw35gI7vqHOE4Y=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
 
-  <meta name="description" content="在Kubernetes中有几种不同的方式发布应用，所以为了让应用在升级期间依然平稳提供服务，选择一个正确的发布策略就非常重要了。 选择正确的部署策略是要依赖于我们的业务需求的，下面我们列出了一些可能会使用到的策略：  重建(recreate)：停止旧版本部署新版本   滚动更新(rolling-update)：一个接一个地以滚动更新方式发布新版本   蓝绿(blue&#x2F;green)：新版本与旧版本一">
+<script class="next-config" data-name="main" type="application/json">{"hostname":"www.ywthings.com","root":"/","images":"/images","scheme":"Mist","version":"8.5.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":true,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+<meta name="description" content="在Kubernetes中有几种不同的方式发布应用，所以为了让应用在升级期间依然平稳提供服务，选择一个正确的发布策略就非常重要了。 选择正确的部署策略是要依赖于我们的业务需求的，下面我们列出了一些可能会使用到的策略：  重建(recreate)：停止旧版本部署新版本   滚动更新(rolling-update)：一个接一个地以滚动更新方式发布新版本   蓝绿(blue&#x2F;green)：新版本与旧版本一">
 <meta property="og:type" content="article">
 <meta property="og:title" content="k8s的几种部署策略">
 <meta property="og:url" content="https://www.ywthings.com/posts/a828f573.html">
@@ -44,72 +44,47 @@
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://www.ywthings.com/images/RCXtdC.jpg">
 
+
 <link rel="canonical" href="https://www.ywthings.com/posts/a828f573.html">
 
 
-<script id="page-configurations">
-  // https://hexo.io/docs/variables.html
-  CONFIG.page = {
-    sidebar: "",
-    isHome : false,
-    isPost : true,
-    lang   : 'zh-CN'
-  };
-</script>
 
-  <title>k8s的几种部署策略 | hyman</title>
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://www.ywthings.com/posts/a828f573.html","path":"posts/a828f573.html","title":"k8s的几种部署策略"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>k8s的几种部署策略 | hyman</title>
   
 
-
-
+  <script src="/js/third-party/analytics/baidu-analytics.js"></script>
+  <script async src="https://hm.baidu.com/hm.js?97e285060b95594e74e4d3562a50a717"></script>
 
 
 
   <noscript>
-  <style>
-  .use-motion .brand,
-  .use-motion .menu-item,
-  .sidebar-inner,
-  .use-motion .post-block,
-  .use-motion .pagination,
-  .use-motion .comments,
-  .use-motion .post-header,
-  .use-motion .post-body,
-  .use-motion .collection-header { opacity: initial; }
-
-  .use-motion .site-title,
-  .use-motion .site-subtitle {
-    opacity: initial;
-    top: initial;
-  }
-
-  .use-motion .logo-line-before i { left: initial; }
-  .use-motion .logo-line-after i { right: initial; }
-  </style>
-</noscript>
-
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
 </head>
 
-<body itemscope itemtype="http://schema.org/WebPage">
-  <div class="container use-motion">
-    <div class="headband"></div>
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
 
+  <main class="main">
     <header class="header" itemscope itemtype="http://schema.org/WPHeader">
       <div class="header-inner"><div class="site-brand-container">
   <div class="site-nav-toggle">
-    <div class="toggle" aria-label="切换导航栏">
-        <span class="toggle-line toggle-line-first"></span>
-        <span class="toggle-line toggle-line-middle"></span>
-        <span class="toggle-line toggle-line-last"></span>
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
     </div>
   </div>
 
   <div class="site-meta">
 
     <a href="/" class="brand" rel="start">
-      <span class="logo-line-before"><i></i></span>
+      <i class="logo-line"></i>
       <h1 class="site-title">hyman</h1>
-      <span class="logo-line-after"><i></i></span>
+      <i class="logo-line"></i>
     </a>
       <p class="site-subtitle" itemprop="description">一些简单的记录</p>
   </div>
@@ -124,32 +99,12 @@
 
 
 <nav class="site-nav">
-  <ul id="menu" class="main-menu menu">
-        <li class="menu-item menu-item-home">
-
-    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
-
-  </li>
-        <li class="menu-item menu-item-tags">
-
-    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
-
-  </li>
-        <li class="menu-item menu-item-categories">
-
-    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
-
-  </li>
-        <li class="menu-item menu-item-archives">
-
-    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
-
-  </li>
-        <li class="menu-item menu-item-sitemap">
-
-    <a href="/sitemap.xml" rel="section"><i class="fa fa-sitemap fa-fw"></i>站点地图</a>
-
-  </li>
+  <ul class="main-menu menu">
+        <li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li>
+        <li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li>
+        <li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li>
+        <li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li>
+        <li class="menu-item menu-item-sitemap"><a href="/sitemap.xml" rel="section"><i class="fa fa-sitemap fa-fw"></i>站点地图</a></li>
       <li class="menu-item menu-item-search">
         <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
         </a>
@@ -160,23 +115,22 @@
 
 
   <div class="search-pop-overlay">
-    <div class="popup search-popup">
-        <div class="search-header">
+    <div class="popup search-popup"><div class="search-header">
   <span class="search-icon">
     <i class="fa fa-search"></i>
   </span>
   <div class="search-input-container">
-    <input autocomplete="off" autocapitalize="off"
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
            placeholder="搜索..." spellcheck="false"
            type="search" class="search-input">
   </div>
-  <span class="popup-btn-close">
+  <span class="popup-btn-close" role="button">
     <i class="fa fa-times-circle"></i>
   </span>
 </div>
-<div id="search-result">
-  <div id="no-result">
-    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
   </div>
 </div>
 
@@ -184,33 +138,98 @@
   </div>
 
 </div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%87%8D%E5%BB%BA-Recreate-%E6%9C%80%E5%A5%BD%E5%9C%A8%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83"><span class="nav-number">1.</span> <span class="nav-text">重建(Recreate) - 最好在开发环境</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%BB%9A%E5%8A%A8%E6%9B%B4%E6%96%B0-rolling-update"><span class="nav-number">2.</span> <span class="nav-text">滚动更新(rolling-update)</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%93%9D-%E7%BB%BF-blue-green-%E6%9C%80%E5%A5%BD%E7%94%A8%E6%9D%A5%E9%AA%8C%E8%AF%81-API-%E7%89%88%E6%9C%AC%E9%97%AE%E9%A2%98"><span class="nav-number">3.</span> <span class="nav-text">蓝&#x2F;绿(blue&#x2F;green) - 最好用来验证 API 版本问题</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%87%91%E4%B8%9D%E9%9B%80-Canary-%E8%AE%A9%E9%83%A8%E5%88%86%E7%94%A8%E6%88%B7%E5%8F%82%E4%B8%8E%E6%B5%8B%E8%AF%95"><span class="nav-number">4.</span> <span class="nav-text">金丝雀(Canary) - 让部分用户参与测试</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#A-B%E6%B5%8B%E8%AF%95-A-B-testing-%E6%9C%80%E9%80%82%E5%90%88%E9%83%A8%E5%88%86%E7%94%A8%E6%88%B7%E7%9A%84%E5%8A%9F%E8%83%BD%E6%B5%8B%E8%AF%95"><span class="nav-number">5.</span> <span class="nav-text">A&#x2F;B测试(A&#x2F;B testing) - 最适合部分用户的功能测试</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%80%BB%E7%BB%93"><span class="nav-number">6.</span> <span class="nav-text">总结</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-overview">
+            <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">hyman</p>
+  <div class="site-description" itemprop="description">一些简单的记录</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">187</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+        <span class="site-state-item-count">39</span>
+        <span class="site-state-item-name">分类</span>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">129</span>
+        <span class="site-state-item-name">标签</span>
+      </div>
+  </nav>
+</div>
+
+
+
+          </div>
+        </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
     </header>
 
     
-  <div class="back-to-top">
+  <div class="back-to-top" role="button" aria-label="返回顶部">
     <i class="fa fa-arrow-up"></i>
     <span>0%</span>
   </div>
 
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
 
-    <main class="main">
-      <div class="main-inner">
-        <div class="content-wrap">
-          
 
-          <div class="content post posts-expand">
-            
+    <div class="main-inner post posts-expand">
 
-    
+
+  
+
+
+<div class="post-block">
   
   
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://www.ywthings.com/posts/a828f573.html">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
       <meta itemprop="name" content="hyman">
-      <meta itemprop="description" content="">
+      <meta itemprop="description" content="一些简单的记录">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
@@ -221,33 +240,35 @@
           k8s的几种部署策略
         </h1>
 
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
 
-              <time title="创建时间：2020-04-07 12:19:44" itemprop="dateCreated datePublished" datetime="2020-04-07T12:19:44+08:00">2020-04-07</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-05-18 07:58:41" itemprop="dateModified" datetime="2020-05-18T07:58:41+08:00">2020-05-18</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/kubernetes/" itemprop="url" rel="index"><span itemprop="name">kubernetes</span></a>
-                </span>
-            </span>
+      <time title="创建时间：2020-04-07 12:19:44" itemprop="dateCreated datePublished" datetime="2020-04-07T12:19:44+08:00">2020-04-07</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">更新于</span>
+        <time title="修改时间：2020-05-18 07:58:41" itemprop="dateModified" datetime="2020-05-18T07:58:41+08:00">2020-05-18</time>
+      </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/kubernetes/" itemprop="url" rel="index"><span itemprop="name">kubernetes</span></a>
+        </span>
+    </span>
 
-          
+  
+</div>
 
         </div>
       </header>
@@ -256,8 +277,6 @@
     
     
     <div class="post-body" itemprop="articleBody">
-
-      
         <p>在Kubernetes中有几种不同的方式发布应用，所以为了让应用在升级期间依然平稳提供服务，选择一个正确的发布策略就非常重要了。</p>
 <p>选择正确的部署策略是要依赖于我们的业务需求的，下面我们列出了一些可能会使用到的策略：</p>
 <ul>
@@ -273,21 +292,21 @@
 <li>金丝雀(canary)：将新版本面向一部分用户发布，然后继续全量发布</li>
 </ul>
 <ul>
-<li>A/B测(a/b testing)：以精确的方式（HTTP 头、cookie、权重等）向部分用户发布新版本。A/B测实际上是一种基于数据统计做出业务决策的技术。在 Kubernetes 中并不原生支持，需要额外的一些高级组件来完成改设置（比如Istio、Linkerd、Traefik、或者自定义 Nginx/Haproxy 等）。<a id="more"></a>
-你可以在Kubernetes集群上来对上面的这些策略进行测试，下面的仓库中有需要使用到的资源清单：<a href="https://github.com/ContainerSolutions/k8s-deployment-strategies">https://github.com/ContainerSolutions/k8s-deployment-strategies</a></li>
+<li>A/B测(a/b testing)：以精确的方式（HTTP 头、cookie、权重等）向部分用户发布新版本。A/B测实际上是一种基于数据统计做出业务决策的技术。在 Kubernetes 中并不原生支持，需要额外的一些高级组件来完成改设置（比如Istio、Linkerd、Traefik、或者自定义 Nginx/Haproxy 等）。<span id="more"></span>
+你可以在Kubernetes集群上来对上面的这些策略进行测试，下面的仓库中有需要使用到的资源清单：<a target="_blank" rel="noopener" href="https://github.com/ContainerSolutions/k8s-deployment-strategies">https://github.com/ContainerSolutions/k8s-deployment-strategies</a></li>
 </ul>
 <p>接下来我们来介绍下每种策略，看看在什么场景下面适合哪种策略。</p>
 <h1 id="重建-Recreate-最好在开发环境"><a href="#重建-Recreate-最好在开发环境" class="headerlink" title="重建(Recreate) - 最好在开发环境"></a>重建(Recreate) - 最好在开发环境</h1><p>策略定义为Recreate的Deployment，会终止所有正在运行的实例，然后用较新的版本来重新创建它们。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">spec:</span><br><span class="line">  replicas: 3</span><br><span class="line">  strategy:</span><br><span class="line">    type: Recreate</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">spec:</span><br><span class="line">  replicas: 3</span><br><span class="line">  strategy:</span><br><span class="line">    type: Recreate</span><br></pre></td></tr></table></figure>
 
 <img src="/images/RCXtdC.jpg" width="100%" height="100%">
 
 <p>重新创建策略是一个虚拟部署，包括关闭版本A，然后在关闭版本A后部署版本B. 此技术意味着服务的停机时间取决于应用程序的关闭和启动持续时间。</p>
 <p>我们这里创建两个相关的资源清单文件，app-v1.yaml：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br></pre></td><td class="code"><pre><span class="line">apiVersion: v1</span><br><span class="line">kind: Service</span><br><span class="line">metadata:</span><br><span class="line">  name: my-app</span><br><span class="line">  labels:</span><br><span class="line">    app: my-app</span><br><span class="line">spec:</span><br><span class="line">  type: NodePort</span><br><span class="line">  ports:</span><br><span class="line">  - name: http</span><br><span class="line">    port: 80</span><br><span class="line">    targetPort: http</span><br><span class="line">  selector:</span><br><span class="line">    app: my-app</span><br><span class="line">---</span><br><span class="line">apiVersion: apps&#x2F;v1</span><br><span class="line">kind: Deployment</span><br><span class="line">metadata:</span><br><span class="line">  name: my-app</span><br><span class="line">  labels:</span><br><span class="line">    app: my-app</span><br><span class="line">spec:</span><br><span class="line">  replicas: 3</span><br><span class="line">  selector:</span><br><span class="line">    matchLabels:</span><br><span class="line">      app: my-app</span><br><span class="line">  strategy:</span><br><span class="line">    type: Recreate</span><br><span class="line">  selector:</span><br><span class="line">    matchLabels:</span><br><span class="line">      app: my-app</span><br><span class="line">  template:</span><br><span class="line">    metadata:</span><br><span class="line">      labels:</span><br><span class="line">        app: my-app</span><br><span class="line">        version: v1.0.0</span><br><span class="line">      annotations:</span><br><span class="line">        prometheus.io&#x2F;scrape: &quot;true&quot;</span><br><span class="line">        prometheus.io&#x2F;port: &quot;9101&quot;</span><br><span class="line">    spec:</span><br><span class="line">      containers:</span><br><span class="line">      - name: my-app</span><br><span class="line">        image: containersol&#x2F;k8s-deployment-strategies</span><br><span class="line">        ports:</span><br><span class="line">        - name: http</span><br><span class="line">          containerPort: 8080</span><br><span class="line">        - name: probe</span><br><span class="line">          containerPort: 8086</span><br><span class="line">        env:</span><br><span class="line">        - name: VERSION</span><br><span class="line">          value: v1.0.0</span><br><span class="line">        livenessProbe:</span><br><span class="line">          httpGet:</span><br><span class="line">            path: &#x2F;live</span><br><span class="line">            port: probe</span><br><span class="line">          initialDelaySeconds: 5</span><br><span class="line">          periodSeconds: 5</span><br><span class="line">        readinessProbe:</span><br><span class="line">          httpGet:</span><br><span class="line">            path: &#x2F;ready</span><br><span class="line">            port: probe</span><br><span class="line">          periodSeconds: 5</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br></pre></td><td class="code"><pre><span class="line">apiVersion: v1</span><br><span class="line">kind: Service</span><br><span class="line">metadata:</span><br><span class="line">  name: my-app</span><br><span class="line">  labels:</span><br><span class="line">    app: my-app</span><br><span class="line">spec:</span><br><span class="line">  type: NodePort</span><br><span class="line">  ports:</span><br><span class="line">  - name: http</span><br><span class="line">    port: 80</span><br><span class="line">    targetPort: http</span><br><span class="line">  selector:</span><br><span class="line">    app: my-app</span><br><span class="line">---</span><br><span class="line">apiVersion: apps/v1</span><br><span class="line">kind: Deployment</span><br><span class="line">metadata:</span><br><span class="line">  name: my-app</span><br><span class="line">  labels:</span><br><span class="line">    app: my-app</span><br><span class="line">spec:</span><br><span class="line">  replicas: 3</span><br><span class="line">  selector:</span><br><span class="line">    matchLabels:</span><br><span class="line">      app: my-app</span><br><span class="line">  strategy:</span><br><span class="line">    type: Recreate</span><br><span class="line">  selector:</span><br><span class="line">    matchLabels:</span><br><span class="line">      app: my-app</span><br><span class="line">  template:</span><br><span class="line">    metadata:</span><br><span class="line">      labels:</span><br><span class="line">        app: my-app</span><br><span class="line">        version: v1.0.0</span><br><span class="line">      annotations:</span><br><span class="line">        prometheus.io/scrape: &quot;true&quot;</span><br><span class="line">        prometheus.io/port: &quot;9101&quot;</span><br><span class="line">    spec:</span><br><span class="line">      containers:</span><br><span class="line">      - name: my-app</span><br><span class="line">        image: containersol/k8s-deployment-strategies</span><br><span class="line">        ports:</span><br><span class="line">        - name: http</span><br><span class="line">          containerPort: 8080</span><br><span class="line">        - name: probe</span><br><span class="line">          containerPort: 8086</span><br><span class="line">        env:</span><br><span class="line">        - name: VERSION</span><br><span class="line">          value: v1.0.0</span><br><span class="line">        livenessProbe:</span><br><span class="line">          httpGet:</span><br><span class="line">            path: /live</span><br><span class="line">            port: probe</span><br><span class="line">          initialDelaySeconds: 5</span><br><span class="line">          periodSeconds: 5</span><br><span class="line">        readinessProbe:</span><br><span class="line">          httpGet:</span><br><span class="line">            path: /ready</span><br><span class="line">            port: probe</span><br><span class="line">          periodSeconds: 5</span><br></pre></td></tr></table></figure>
 
 <p>app-v2.yaml 文件内容如下：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line">apiVersion: apps&#x2F;v1</span><br><span class="line">kind: Deployment</span><br><span class="line">metadata:</span><br><span class="line">  name: my-app</span><br><span class="line">  labels:</span><br><span class="line">    app: my-app</span><br><span class="line">spec:</span><br><span class="line">  replicas: 3</span><br><span class="line">  strategy:</span><br><span class="line">    type: Recreate</span><br><span class="line">  selector:</span><br><span class="line">    matchLabels:</span><br><span class="line">      app: my-app</span><br><span class="line">  template:</span><br><span class="line">    metadata:</span><br><span class="line">      labels:</span><br><span class="line">        app: my-app</span><br><span class="line">        version: v2.0.0</span><br><span class="line">      annotations:</span><br><span class="line">        prometheus.io&#x2F;scrape: &quot;true&quot;</span><br><span class="line">        prometheus.io&#x2F;port: &quot;9101&quot;</span><br><span class="line">    spec:</span><br><span class="line">      containers:</span><br><span class="line">      - name: my-app</span><br><span class="line">        image: containersol&#x2F;k8s-deployment-strategies</span><br><span class="line">        ports:</span><br><span class="line">        - name: http</span><br><span class="line">          containerPort: 8080</span><br><span class="line">        - name: probe</span><br><span class="line">          containerPort: 8086</span><br><span class="line">        env:</span><br><span class="line">        - name: VERSION</span><br><span class="line">          value: v2.0.0</span><br><span class="line">        livenessProbe:</span><br><span class="line">          httpGet:</span><br><span class="line">            path: &#x2F;live</span><br><span class="line">            port: probe</span><br><span class="line">          initialDelaySeconds: 5</span><br><span class="line">          periodSeconds: 5</span><br><span class="line">        readinessProbe:</span><br><span class="line">          httpGet:</span><br><span class="line">            path: &#x2F;ready</span><br><span class="line">            port: probe</span><br><span class="line">          periodSeconds: 5</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line">apiVersion: apps/v1</span><br><span class="line">kind: Deployment</span><br><span class="line">metadata:</span><br><span class="line">  name: my-app</span><br><span class="line">  labels:</span><br><span class="line">    app: my-app</span><br><span class="line">spec:</span><br><span class="line">  replicas: 3</span><br><span class="line">  strategy:</span><br><span class="line">    type: Recreate</span><br><span class="line">  selector:</span><br><span class="line">    matchLabels:</span><br><span class="line">      app: my-app</span><br><span class="line">  template:</span><br><span class="line">    metadata:</span><br><span class="line">      labels:</span><br><span class="line">        app: my-app</span><br><span class="line">        version: v2.0.0</span><br><span class="line">      annotations:</span><br><span class="line">        prometheus.io/scrape: &quot;true&quot;</span><br><span class="line">        prometheus.io/port: &quot;9101&quot;</span><br><span class="line">    spec:</span><br><span class="line">      containers:</span><br><span class="line">      - name: my-app</span><br><span class="line">        image: containersol/k8s-deployment-strategies</span><br><span class="line">        ports:</span><br><span class="line">        - name: http</span><br><span class="line">          containerPort: 8080</span><br><span class="line">        - name: probe</span><br><span class="line">          containerPort: 8086</span><br><span class="line">        env:</span><br><span class="line">        - name: VERSION</span><br><span class="line">          value: v2.0.0</span><br><span class="line">        livenessProbe:</span><br><span class="line">          httpGet:</span><br><span class="line">            path: /live</span><br><span class="line">            port: probe</span><br><span class="line">          initialDelaySeconds: 5</span><br><span class="line">          periodSeconds: 5</span><br><span class="line">        readinessProbe:</span><br><span class="line">          httpGet:</span><br><span class="line">            path: /ready</span><br><span class="line">            port: probe</span><br><span class="line">          periodSeconds: 5</span><br></pre></td></tr></table></figure>
 
 <p>上面两个资源清单文件中的 Deployment 定义几乎是一直的，唯一不同的是定义的环境变量VERSION值不同，接下来按照下面的步骤来验证Recreate策略：</p>
 <ol>
@@ -297,24 +316,24 @@
 <li>等待所有副本准备就绪</li>
 </ol>
 <p>首先部署第一个应用：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ kubectl apply -f app-v1.yaml</span><br><span class="line">service &quot;my-app&quot; created</span><br><span class="line">deployment.apps &quot;my-app&quot; created</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ kubectl apply -f app-v1.yaml</span><br><span class="line">service &quot;my-app&quot; created</span><br><span class="line">deployment.apps &quot;my-app&quot; created</span><br></pre></td></tr></table></figure>
 
 <p>测试版本1是否部署成功：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">$ kubectl get pods -l app&#x3D;my-app</span><br><span class="line">NAME                      READY     STATUS    RESTARTS   AGE</span><br><span class="line">my-app-7b4874cd75-m5kct   1&#x2F;1       Running   0          19m</span><br><span class="line">my-app-7b4874cd75-pc444   1&#x2F;1       Running   0          19m</span><br><span class="line">my-app-7b4874cd75-tlctl   1&#x2F;1       Running   0          19m</span><br><span class="line">$ kubectl get svc my-app</span><br><span class="line">NAME      TYPE       CLUSTER-IP      EXTERNAL-IP   PORT(S)        AGE</span><br><span class="line">my-app    NodePort   10.108.238.76   &lt;none&gt;        80:32532&#x2F;TCP   5m</span><br><span class="line">$ curl http:&#x2F;&#x2F;127.0.0.1:32532</span><br><span class="line">Host: my-app-7b4874cd75-pc444, Version: v1.0.0</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">$ kubectl get pods -l app=my-app</span><br><span class="line">NAME                      READY     STATUS    RESTARTS   AGE</span><br><span class="line">my-app-7b4874cd75-m5kct   1/1       Running   0          19m</span><br><span class="line">my-app-7b4874cd75-pc444   1/1       Running   0          19m</span><br><span class="line">my-app-7b4874cd75-tlctl   1/1       Running   0          19m</span><br><span class="line">$ kubectl get svc my-app</span><br><span class="line">NAME      TYPE       CLUSTER-IP      EXTERNAL-IP   PORT(S)        AGE</span><br><span class="line">my-app    NodePort   10.108.238.76   &lt;none&gt;        80:32532/TCP   5m</span><br><span class="line">$ curl http://127.0.0.1:32532</span><br><span class="line">Host: my-app-7b4874cd75-pc444, Version: v1.0.0</span><br></pre></td></tr></table></figure>
 
 <p>可以看到版本1的应用正常运行了。为了查看部署的运行情况，打开一个新终端并运行以下命令：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ watch kubectl get po -l app&#x3D;my-app</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ watch kubectl get po -l app=my-app</span><br></pre></td></tr></table></figure>
 
 <p>然后部署版本2的应用：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ kubectl apply -f app-v2.yaml</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ kubectl apply -f app-v2.yaml</span><br></pre></td></tr></table></figure>
 
 <p>这个时候可以观察上面新开的终端中的 Pod 列表的变化，可以看到之前的3个 Pod 都会先处于Terminating状态，并且3个 Pod 都被删除后才开始创建新的 Pod。</p>
 <p>然后测试第二个版本应用的部署进度：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">$ while sleep 0.1; do curl http:&#x2F;&#x2F;127.0.0.1:32532; done</span><br><span class="line">curl: (7) Failed connect to 127.0.0.1:32532; Connection refused</span><br><span class="line">curl: (7) Failed connect to 127.0.0.1:32532; Connection refused</span><br><span class="line">......</span><br><span class="line">Host: my-app-f885c8d45-sp44p, Version: v2.0.0</span><br><span class="line">Host: my-app-f885c8d45-t8g7g, Version: v2.0.0</span><br><span class="line">Host: my-app-f885c8d45-sp44p, Version: v2.0.0</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">$ while sleep 0.1; do curl http://127.0.0.1:32532; done</span><br><span class="line">curl: (7) Failed connect to 127.0.0.1:32532; Connection refused</span><br><span class="line">curl: (7) Failed connect to 127.0.0.1:32532; Connection refused</span><br><span class="line">......</span><br><span class="line">Host: my-app-f885c8d45-sp44p, Version: v2.0.0</span><br><span class="line">Host: my-app-f885c8d45-t8g7g, Version: v2.0.0</span><br><span class="line">Host: my-app-f885c8d45-sp44p, Version: v2.0.0</span><br></pre></td></tr></table></figure>
 
 <p>可以看到最开始的阶段服务都是处于不可访问的状态，然后到第二个版本的应用部署成功后才正常访问，可以看到现在访问的数据是版本2了。</p>
 <p>最后，可以执行下面的命令来清空上面的资源对象：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ kubectl delete all -l app&#x3D;my-app</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ kubectl delete all -l app=my-app</span><br></pre></td></tr></table></figure>
 
 <p>结论:</p>
 <ul>
@@ -328,10 +347,10 @@
 <img src="/images/OIhAqJ.jpg" width="100%" height="100%">
 
 <p>下面是 Kubernetes 中通过 Deployment 来进行滚动更新的关键参数：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">spec:</span><br><span class="line">  replicas: 3</span><br><span class="line">  strategy:</span><br><span class="line">    type: RollingUpdate</span><br><span class="line">    rollingUpdate:</span><br><span class="line">      maxSurge: 2        # 一次可以添加多少个Pod</span><br><span class="line">      maxUnavailable: 1  # 滚动更新期间最大多少个Pod不可用</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">spec:</span><br><span class="line">  replicas: 3</span><br><span class="line">  strategy:</span><br><span class="line">    type: RollingUpdate</span><br><span class="line">    rollingUpdate:</span><br><span class="line">      maxSurge: 2        # 一次可以添加多少个Pod</span><br><span class="line">      maxUnavailable: 1  # 滚动更新期间最大多少个Pod不可用</span><br></pre></td></tr></table></figure>
 
 <p>现在仍然使用上面的 app-v1.yaml 这个资源清单文件，新建一个定义滚动更新的资源清单文件 app-v2-rolling-update.yaml，文件内容如下:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br></pre></td><td class="code"><pre><span class="line">apiVersion: apps&#x2F;v1</span><br><span class="line">kind: Deployment</span><br><span class="line">metadata:</span><br><span class="line">  name: my-app</span><br><span class="line">  labels:</span><br><span class="line">    app: my-app</span><br><span class="line">spec:</span><br><span class="line">  replicas: 10</span><br><span class="line">  # maxUnavailable设置为0可以完全确保在滚动更新期间服务不受影响，还可以使用百分比的值来进行设置。</span><br><span class="line">  strategy:</span><br><span class="line">    type: RollingUpdate</span><br><span class="line">    rollingUpdate:</span><br><span class="line">      maxSurge: 1</span><br><span class="line">      maxUnavailable: 0</span><br><span class="line">  selector:</span><br><span class="line">    matchLabels:</span><br><span class="line">      app: my-app</span><br><span class="line">  template:</span><br><span class="line">    metadata:</span><br><span class="line">      labels:</span><br><span class="line">        app: my-app</span><br><span class="line">        version: v2.0.0</span><br><span class="line">      annotations:</span><br><span class="line">        prometheus.io&#x2F;scrape: &quot;true&quot;</span><br><span class="line">        prometheus.io&#x2F;port: &quot;9101&quot;</span><br><span class="line">    spec:</span><br><span class="line">      containers:</span><br><span class="line">      - name: my-app</span><br><span class="line">        image: containersol&#x2F;k8s-deployment-strategies</span><br><span class="line">        ports:</span><br><span class="line">        - name: http</span><br><span class="line">          containerPort: 8080</span><br><span class="line">        - name: probe</span><br><span class="line">          containerPort: 8086</span><br><span class="line">        env:</span><br><span class="line">        - name: VERSION</span><br><span class="line">          value: v2.0.0</span><br><span class="line">        livenessProbe:</span><br><span class="line">          httpGet:</span><br><span class="line">            path: &#x2F;live</span><br><span class="line">            port: probe</span><br><span class="line">          initialDelaySeconds: 5</span><br><span class="line">          periodSeconds: 5</span><br><span class="line">        readinessProbe:</span><br><span class="line">          httpGet:</span><br><span class="line">            path: &#x2F;ready</span><br><span class="line">            port: probe</span><br><span class="line">          # 初始延迟设置高点可以更好地观察滚动更新过程</span><br><span class="line">          initialDelaySeconds: 15</span><br><span class="line">          periodSeconds: 5</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br></pre></td><td class="code"><pre><span class="line">apiVersion: apps/v1</span><br><span class="line">kind: Deployment</span><br><span class="line">metadata:</span><br><span class="line">  name: my-app</span><br><span class="line">  labels:</span><br><span class="line">    app: my-app</span><br><span class="line">spec:</span><br><span class="line">  replicas: 10</span><br><span class="line">  # maxUnavailable设置为0可以完全确保在滚动更新期间服务不受影响，还可以使用百分比的值来进行设置。</span><br><span class="line">  strategy:</span><br><span class="line">    type: RollingUpdate</span><br><span class="line">    rollingUpdate:</span><br><span class="line">      maxSurge: 1</span><br><span class="line">      maxUnavailable: 0</span><br><span class="line">  selector:</span><br><span class="line">    matchLabels:</span><br><span class="line">      app: my-app</span><br><span class="line">  template:</span><br><span class="line">    metadata:</span><br><span class="line">      labels:</span><br><span class="line">        app: my-app</span><br><span class="line">        version: v2.0.0</span><br><span class="line">      annotations:</span><br><span class="line">        prometheus.io/scrape: &quot;true&quot;</span><br><span class="line">        prometheus.io/port: &quot;9101&quot;</span><br><span class="line">    spec:</span><br><span class="line">      containers:</span><br><span class="line">      - name: my-app</span><br><span class="line">        image: containersol/k8s-deployment-strategies</span><br><span class="line">        ports:</span><br><span class="line">        - name: http</span><br><span class="line">          containerPort: 8080</span><br><span class="line">        - name: probe</span><br><span class="line">          containerPort: 8086</span><br><span class="line">        env:</span><br><span class="line">        - name: VERSION</span><br><span class="line">          value: v2.0.0</span><br><span class="line">        livenessProbe:</span><br><span class="line">          httpGet:</span><br><span class="line">            path: /live</span><br><span class="line">            port: probe</span><br><span class="line">          initialDelaySeconds: 5</span><br><span class="line">          periodSeconds: 5</span><br><span class="line">        readinessProbe:</span><br><span class="line">          httpGet:</span><br><span class="line">            path: /ready</span><br><span class="line">            port: probe</span><br><span class="line">          # 初始延迟设置高点可以更好地观察滚动更新过程</span><br><span class="line">          initialDelaySeconds: 15</span><br><span class="line">          periodSeconds: 5</span><br></pre></td></tr></table></figure>
 
 <p>上面的资源清单中我们在环境变量中定义了版本2，然后通过设置strategy.type=RollingUpdate来定义该 Deployment 使用滚动更新的策略来更新应用，接下来我们按下面的步骤来验证滚动更新策略：</p>
 <ol>
@@ -340,33 +359,33 @@
 <li>等待直到所有副本都被版本2替换完成</li>
 </ol>
 <p>同样，首先部署版本1应用：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ kubectl apply -f app-v1.yaml</span><br><span class="line">service &quot;my-app&quot; created</span><br><span class="line">deployment.apps &quot;my-app&quot; created</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ kubectl apply -f app-v1.yaml</span><br><span class="line">service &quot;my-app&quot; created</span><br><span class="line">deployment.apps &quot;my-app&quot; created</span><br></pre></td></tr></table></figure>
 
 <p>测试版本1是否部署成功：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">$ kubectl get pods -l app&#x3D;my-app</span><br><span class="line">NAME                      READY     STATUS    RESTARTS   AGE</span><br><span class="line">my-app-7b4874cd75-h8c4d   1&#x2F;1       Running   0          47s</span><br><span class="line">my-app-7b4874cd75-p4l8f   1&#x2F;1       Running   0          47s</span><br><span class="line">my-app-7b4874cd75-qnt7p   1&#x2F;1       Running   0          47s</span><br><span class="line">$ kubectl get svc my-app</span><br><span class="line">NAME      TYPE       CLUSTER-IP      EXTERNAL-IP   PORT(S)        AGE</span><br><span class="line">my-app    NodePort   10.109.99.184   &lt;none&gt;        80:30486&#x2F;TCP   1m</span><br><span class="line">$ curl http:&#x2F;&#x2F;127.0.0.1:30486</span><br><span class="line">Host: my-app-7b4874cd75-qnt7p, Version: v1.0.0</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">$ kubectl get pods -l app=my-app</span><br><span class="line">NAME                      READY     STATUS    RESTARTS   AGE</span><br><span class="line">my-app-7b4874cd75-h8c4d   1/1       Running   0          47s</span><br><span class="line">my-app-7b4874cd75-p4l8f   1/1       Running   0          47s</span><br><span class="line">my-app-7b4874cd75-qnt7p   1/1       Running   0          47s</span><br><span class="line">$ kubectl get svc my-app</span><br><span class="line">NAME      TYPE       CLUSTER-IP      EXTERNAL-IP   PORT(S)        AGE</span><br><span class="line">my-app    NodePort   10.109.99.184   &lt;none&gt;        80:30486/TCP   1m</span><br><span class="line">$ curl http://127.0.0.1:30486</span><br><span class="line">Host: my-app-7b4874cd75-qnt7p, Version: v1.0.0</span><br></pre></td></tr></table></figure>
 
 <p>同样，在一个新终端中执行下面命令观察 Pod 变化：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ watch kubectl get pod -l app&#x3D;my-app</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ watch kubectl get pod -l app=my-app</span><br></pre></td></tr></table></figure>
 
 <p>然后部署滚动更新版本2应用：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ kubectl apply -f app-v2-rolling-update.yaml</span><br><span class="line">deployment.apps &quot;my-app&quot; configured</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ kubectl apply -f app-v2-rolling-update.yaml</span><br><span class="line">deployment.apps &quot;my-app&quot; configured</span><br></pre></td></tr></table></figure>
 
 <p>这个时候在上面的 watch 终端中可以看到多了很多 Pod，还在创建当中，并没有一开始就删除之前的 Pod，同样，这个时候执行下面命令，测试应用状态：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">$ while sleep 0.1; do curl http:&#x2F;&#x2F;127.0.0.1:30486; done</span><br><span class="line">Host: my-app-7b4874cd75-vrlj7, Version: v1.0.0</span><br><span class="line">......</span><br><span class="line">Host: my-app-7b4874cd75-vrlj7, Version: v1.0.0</span><br><span class="line">Host: my-app-6b5479d97f-2fk24, Version: v2.0.0</span><br><span class="line">Host: my-app-7b4874cd75-p4l8f, Version: v1.0.0</span><br><span class="line">......</span><br><span class="line">Host: my-app-6b5479d97f-s5ctz, Version: v2.0.0</span><br><span class="line">Host: my-app-7b4874cd75-5ldqx, Version: v1.0.0</span><br><span class="line">......</span><br><span class="line">Host: my-app-6b5479d97f-5z6ww, Version: v2.0.0</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">$ while sleep 0.1; do curl http://127.0.0.1:30486; done</span><br><span class="line">Host: my-app-7b4874cd75-vrlj7, Version: v1.0.0</span><br><span class="line">......</span><br><span class="line">Host: my-app-7b4874cd75-vrlj7, Version: v1.0.0</span><br><span class="line">Host: my-app-6b5479d97f-2fk24, Version: v2.0.0</span><br><span class="line">Host: my-app-7b4874cd75-p4l8f, Version: v1.0.0</span><br><span class="line">......</span><br><span class="line">Host: my-app-6b5479d97f-s5ctz, Version: v2.0.0</span><br><span class="line">Host: my-app-7b4874cd75-5ldqx, Version: v1.0.0</span><br><span class="line">......</span><br><span class="line">Host: my-app-6b5479d97f-5z6ww, Version: v2.0.0</span><br></pre></td></tr></table></figure>
 
 <p>我们可以看到上面的应用并没有出现不可用的情况，最开始访问到的都是版本1的应用，然后偶尔会出现版本2的应用，直到最后全都变成了版本2的应用，而这个时候看上面 watch 终端中 Pod 已经全部变成10个版本2的应用了，我们可以看到这就是一个逐步替换的过程。</p>
 <p>如果在滚动更新过程中发现新版本应用有问题，我们可以通过下面的命令来进行一键回滚：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ kubectl rollout undo deploy my-app</span><br><span class="line">deployment.apps &quot;my-app&quot;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ kubectl rollout undo deploy my-app</span><br><span class="line">deployment.apps &quot;my-app&quot;</span><br></pre></td></tr></table></figure>
 
 <p>如果你想保持两个版本的应用都存在，那么我们也可以执行 pause 命令来暂停更新：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ kubectl rollout pause deploy my-app</span><br><span class="line">deployment.apps &quot;my-app&quot; paused</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ kubectl rollout pause deploy my-app</span><br><span class="line">deployment.apps &quot;my-app&quot; paused</span><br></pre></td></tr></table></figure>
 
 <p>这个时候我们再去循环访问我们的应用就可以看到偶尔会出现版本1的应用信息了。</p>
 <p>如果新版本应用程序没问题了，也可以继续恢复更新：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ kubectl rollout resume deploy my-app</span><br><span class="line">deployment.apps &quot;my-app&quot; resumed</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ kubectl rollout resume deploy my-app</span><br><span class="line">deployment.apps &quot;my-app&quot; resumed</span><br></pre></td></tr></table></figure>
 
 <p>最后，可以执行下面的命令来清空上面的资源对象：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ kubectl delete all -l app&#x3D;my-app</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ kubectl delete all -l app=my-app</span><br></pre></td></tr></table></figure>
 
 <p>结论：</p>
 <ul>
@@ -378,13 +397,13 @@
 <p>下面是蓝绿发布策略下应用方法的示例图：<br><img src="/images/FxTxRP.jpg" width="100%" height="100%"></p>
 <p>在 Kubernetes 中，我们可以用两种方法来实现蓝绿发布，通过单个 Service 对象或者 Ingress 控制器来实现蓝绿发布，实际操作都是类似的，都是通过 label 标签去控制。</p>
 <p>实现蓝绿发布的关键点就在于 Service 对象中 label selector 标签的匹配方法，比如我们重新定义版本1 的资源清单文件 app-v1-single-svc.yaml，文件内容如下：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br></pre></td><td class="code"><pre><span class="line">apiVersion: v1</span><br><span class="line">kind: Service</span><br><span class="line">metadata:</span><br><span class="line">  name: my-app</span><br><span class="line">  labels:</span><br><span class="line">    app: my-app</span><br><span class="line">spec:</span><br><span class="line">  type: NodePort</span><br><span class="line">  ports:</span><br><span class="line">  - name: http</span><br><span class="line">    port: 80</span><br><span class="line">    targetPort: http</span><br><span class="line">  # 注意这里我们匹配 app 和 version 标签，当要切换流量的时候，我们更新 version 标签的值，比如：v2.0.0</span><br><span class="line">  selector:</span><br><span class="line">    app: my-app</span><br><span class="line">    version: v1.0.0</span><br><span class="line">---</span><br><span class="line">apiVersion: apps&#x2F;v1</span><br><span class="line">kind: Deployment</span><br><span class="line">metadata:</span><br><span class="line">  name: my-app-v1</span><br><span class="line">  labels:</span><br><span class="line">    app: my-app</span><br><span class="line">spec:</span><br><span class="line">  replicas: 3</span><br><span class="line">  selector:</span><br><span class="line">    matchLabels:</span><br><span class="line">      app: my-app</span><br><span class="line">      version: v1.0.0</span><br><span class="line">  template:</span><br><span class="line">    metadata:</span><br><span class="line">      labels:</span><br><span class="line">        app: my-app</span><br><span class="line">        version: v1.0.0</span><br><span class="line">      annotations:</span><br><span class="line">        prometheus.io&#x2F;scrape: &quot;true&quot;</span><br><span class="line">        prometheus.io&#x2F;port: &quot;9101&quot;</span><br><span class="line">    spec:</span><br><span class="line">      containers:</span><br><span class="line">      - name: my-app</span><br><span class="line">        image: containersol&#x2F;k8s-deployment-strategies</span><br><span class="line">        ports:</span><br><span class="line">        - name: http</span><br><span class="line">          containerPort: 8080</span><br><span class="line">        - name: probe</span><br><span class="line">          containerPort: 8086</span><br><span class="line">        env:</span><br><span class="line">        - name: VERSION</span><br><span class="line">          value: v1.0.0</span><br><span class="line">        livenessProbe:</span><br><span class="line">          httpGet:</span><br><span class="line">            path: &#x2F;live</span><br><span class="line">            port: probe</span><br><span class="line">          initialDelaySeconds: 5</span><br><span class="line">          periodSeconds: 5</span><br><span class="line">        readinessProbe:</span><br><span class="line">          httpGet:</span><br><span class="line">            path: &#x2F;ready</span><br><span class="line">            port: probe</span><br><span class="line">          periodSeconds: 5</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br></pre></td><td class="code"><pre><span class="line">apiVersion: v1</span><br><span class="line">kind: Service</span><br><span class="line">metadata:</span><br><span class="line">  name: my-app</span><br><span class="line">  labels:</span><br><span class="line">    app: my-app</span><br><span class="line">spec:</span><br><span class="line">  type: NodePort</span><br><span class="line">  ports:</span><br><span class="line">  - name: http</span><br><span class="line">    port: 80</span><br><span class="line">    targetPort: http</span><br><span class="line">  # 注意这里我们匹配 app 和 version 标签，当要切换流量的时候，我们更新 version 标签的值，比如：v2.0.0</span><br><span class="line">  selector:</span><br><span class="line">    app: my-app</span><br><span class="line">    version: v1.0.0</span><br><span class="line">---</span><br><span class="line">apiVersion: apps/v1</span><br><span class="line">kind: Deployment</span><br><span class="line">metadata:</span><br><span class="line">  name: my-app-v1</span><br><span class="line">  labels:</span><br><span class="line">    app: my-app</span><br><span class="line">spec:</span><br><span class="line">  replicas: 3</span><br><span class="line">  selector:</span><br><span class="line">    matchLabels:</span><br><span class="line">      app: my-app</span><br><span class="line">      version: v1.0.0</span><br><span class="line">  template:</span><br><span class="line">    metadata:</span><br><span class="line">      labels:</span><br><span class="line">        app: my-app</span><br><span class="line">        version: v1.0.0</span><br><span class="line">      annotations:</span><br><span class="line">        prometheus.io/scrape: &quot;true&quot;</span><br><span class="line">        prometheus.io/port: &quot;9101&quot;</span><br><span class="line">    spec:</span><br><span class="line">      containers:</span><br><span class="line">      - name: my-app</span><br><span class="line">        image: containersol/k8s-deployment-strategies</span><br><span class="line">        ports:</span><br><span class="line">        - name: http</span><br><span class="line">          containerPort: 8080</span><br><span class="line">        - name: probe</span><br><span class="line">          containerPort: 8086</span><br><span class="line">        env:</span><br><span class="line">        - name: VERSION</span><br><span class="line">          value: v1.0.0</span><br><span class="line">        livenessProbe:</span><br><span class="line">          httpGet:</span><br><span class="line">            path: /live</span><br><span class="line">            port: probe</span><br><span class="line">          initialDelaySeconds: 5</span><br><span class="line">          periodSeconds: 5</span><br><span class="line">        readinessProbe:</span><br><span class="line">          httpGet:</span><br><span class="line">            path: /ready</span><br><span class="line">            port: probe</span><br><span class="line">          periodSeconds: 5</span><br></pre></td></tr></table></figure>
 
 <p>上面定义的资源对象中，最重要的就是 Service 中 label selector 的定义：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">selector:</span><br><span class="line">  app: my-app</span><br><span class="line">  version: v1.0.0</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">selector:</span><br><span class="line">  app: my-app</span><br><span class="line">  version: v1.0.0</span><br></pre></td></tr></table></figure>
 
 <p>版本2 的应用定义和以前一样，新建文件 app-v2-single-svc.yaml，文件内容如下：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line">apiVersion: apps&#x2F;v1</span><br><span class="line">kind: Deployment</span><br><span class="line">metadata:</span><br><span class="line">  name: my-app-v2</span><br><span class="line">  labels:</span><br><span class="line">    app: my-app</span><br><span class="line">spec:</span><br><span class="line">  replicas: 3</span><br><span class="line">  selector:</span><br><span class="line">    matchLabels:</span><br><span class="line">      app: my-app</span><br><span class="line">      version: v2.0.0</span><br><span class="line">  template:</span><br><span class="line">    metadata:</span><br><span class="line">      labels:</span><br><span class="line">        app: my-app</span><br><span class="line">        version: v2.0.0</span><br><span class="line">      annotations:</span><br><span class="line">        prometheus.io&#x2F;scrape: &quot;true&quot;</span><br><span class="line">        prometheus.io&#x2F;port: &quot;9101&quot;</span><br><span class="line">    spec:</span><br><span class="line">      containers:</span><br><span class="line">      - name: my-app</span><br><span class="line">        image: containersol&#x2F;k8s-deployment-strategies</span><br><span class="line">        ports:</span><br><span class="line">        - name: http</span><br><span class="line">          containerPort: 8080</span><br><span class="line">        - name: probe</span><br><span class="line">          containerPort: 8086</span><br><span class="line">        env:</span><br><span class="line">        - name: VERSION</span><br><span class="line">          value: v2.0.0</span><br><span class="line">        livenessProbe:</span><br><span class="line">          httpGet:</span><br><span class="line">            path: &#x2F;live</span><br><span class="line">            port: probe</span><br><span class="line">          initialDelaySeconds: 5</span><br><span class="line">          periodSeconds: 5</span><br><span class="line">        readinessProbe:</span><br><span class="line">          httpGet:</span><br><span class="line">            path: &#x2F;ready</span><br><span class="line">            port: probe</span><br><span class="line">          periodSeconds: 5</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line">apiVersion: apps/v1</span><br><span class="line">kind: Deployment</span><br><span class="line">metadata:</span><br><span class="line">  name: my-app-v2</span><br><span class="line">  labels:</span><br><span class="line">    app: my-app</span><br><span class="line">spec:</span><br><span class="line">  replicas: 3</span><br><span class="line">  selector:</span><br><span class="line">    matchLabels:</span><br><span class="line">      app: my-app</span><br><span class="line">      version: v2.0.0</span><br><span class="line">  template:</span><br><span class="line">    metadata:</span><br><span class="line">      labels:</span><br><span class="line">        app: my-app</span><br><span class="line">        version: v2.0.0</span><br><span class="line">      annotations:</span><br><span class="line">        prometheus.io/scrape: &quot;true&quot;</span><br><span class="line">        prometheus.io/port: &quot;9101&quot;</span><br><span class="line">    spec:</span><br><span class="line">      containers:</span><br><span class="line">      - name: my-app</span><br><span class="line">        image: containersol/k8s-deployment-strategies</span><br><span class="line">        ports:</span><br><span class="line">        - name: http</span><br><span class="line">          containerPort: 8080</span><br><span class="line">        - name: probe</span><br><span class="line">          containerPort: 8086</span><br><span class="line">        env:</span><br><span class="line">        - name: VERSION</span><br><span class="line">          value: v2.0.0</span><br><span class="line">        livenessProbe:</span><br><span class="line">          httpGet:</span><br><span class="line">            path: /live</span><br><span class="line">            port: probe</span><br><span class="line">          initialDelaySeconds: 5</span><br><span class="line">          periodSeconds: 5</span><br><span class="line">        readinessProbe:</span><br><span class="line">          httpGet:</span><br><span class="line">            path: /ready</span><br><span class="line">            port: probe</span><br><span class="line">          periodSeconds: 5</span><br></pre></td></tr></table></figure>
 
 <p>然后按照下面的步骤来验证使用单个 Service 对象实现蓝/绿部署的策略：</p>
 <ol>
@@ -395,34 +414,34 @@
 <li>关闭版本1 应用</li>
 </ol>
 <p>首先，部署版本1 应用：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ kubectl apply -f app-v1-single-svc.yaml</span><br><span class="line">service &quot;my-app&quot; created</span><br><span class="line">deployment.apps &quot;my-app-v1&quot; created</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ kubectl apply -f app-v1-single-svc.yaml</span><br><span class="line">service &quot;my-app&quot; created</span><br><span class="line">deployment.apps &quot;my-app-v1&quot; created</span><br></pre></td></tr></table></figure>
 
 <p>测试版本1 应用是否部署成功：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">$ kubectl get pods -l app&#x3D;my-app</span><br><span class="line">NAME                         READY     STATUS    RESTARTS   AGE</span><br><span class="line">my-app-v1-7b4874cd75-7xh6s   1&#x2F;1       Running   0          41s</span><br><span class="line">my-app-v1-7b4874cd75-dmq8f   1&#x2F;1       Running   0          41s</span><br><span class="line">my-app-v1-7b4874cd75-t64z7   1&#x2F;1       Running   0          41s</span><br><span class="line">$ kubectl get svc -l app&#x3D;my-app</span><br><span class="line">NAME      TYPE       CLUSTER-IP       EXTERNAL-IP   PORT(S)        AGE</span><br><span class="line">my-app    NodePort   10.106.184.144   &lt;none&gt;        80:31539&#x2F;TCP   50s</span><br><span class="line">$ curl http:&#x2F;&#x2F;127.0.0.1:31539</span><br><span class="line">Host: my-app-v1-7b4874cd75-7xh6s, Version: v1.0.0</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">$ kubectl get pods -l app=my-app</span><br><span class="line">NAME                         READY     STATUS    RESTARTS   AGE</span><br><span class="line">my-app-v1-7b4874cd75-7xh6s   1/1       Running   0          41s</span><br><span class="line">my-app-v1-7b4874cd75-dmq8f   1/1       Running   0          41s</span><br><span class="line">my-app-v1-7b4874cd75-t64z7   1/1       Running   0          41s</span><br><span class="line">$ kubectl get svc -l app=my-app</span><br><span class="line">NAME      TYPE       CLUSTER-IP       EXTERNAL-IP   PORT(S)        AGE</span><br><span class="line">my-app    NodePort   10.106.184.144   &lt;none&gt;        80:31539/TCP   50s</span><br><span class="line">$ curl http://127.0.0.1:31539</span><br><span class="line">Host: my-app-v1-7b4874cd75-7xh6s, Version: v1.0.0</span><br></pre></td></tr></table></figure>
 
 <p>同样，新开一个终端，执行如下命令观察 Pod 变化：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ watch kubectl get pod -l app&#x3D;my-app</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ watch kubectl get pod -l app=my-app</span><br></pre></td></tr></table></figure>
 
 <p>然后部署版本2 应用：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ kubectl apply -f app-v2-single-svc.yaml</span><br><span class="line">deployment.apps &quot;my-app-v2&quot; created</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ kubectl apply -f app-v2-single-svc.yaml</span><br><span class="line">deployment.apps &quot;my-app-v2&quot; created</span><br></pre></td></tr></table></figure>
 
 <p>然后在上面 watch 终端中可以看到会多3个my-app-v2开头的 Pod，待这些 Pod 部署成功后，我们再去访问当前的应用：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ while sleep 0.1; do curl http:&#x2F;&#x2F;127.0.0.1:31539; done</span><br><span class="line">Host: my-app-v1-7b4874cd75-dmq8f, Version: v1.0.0</span><br><span class="line">Host: my-app-v1-7b4874cd75-dmq8f, Version: v1.0.0</span><br><span class="line">......</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ while sleep 0.1; do curl http://127.0.0.1:31539; done</span><br><span class="line">Host: my-app-v1-7b4874cd75-dmq8f, Version: v1.0.0</span><br><span class="line">Host: my-app-v1-7b4874cd75-dmq8f, Version: v1.0.0</span><br><span class="line">......</span><br></pre></td></tr></table></figure>
 
 <p>我们会发现访问到的都是版本1 的应用，和我们刚刚部署的版本2 没有任何关系，这是因为我们 Service 对象中通过 label selector 匹配的是version=v1.0.0这个标签，我们可以通过修改 Service 对象的匹配标签，将流量路由到标签version=v2.0.0的 Pod 去：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ kubectl patch service my-app -p &#39;&#123;&quot;spec&quot;:&#123;&quot;selector&quot;:&#123;&quot;version&quot;:&quot;v2.0.0&quot;&#125;&#125;&#125;&#39;</span><br><span class="line">service &quot;my-app&quot; patched</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ kubectl patch service my-app -p &#x27;&#123;&quot;spec&quot;:&#123;&quot;selector&quot;:&#123;&quot;version&quot;:&quot;v2.0.0&quot;&#125;&#125;&#125;&#x27;</span><br><span class="line">service &quot;my-app&quot; patched</span><br></pre></td></tr></table></figure>
 
 <p>然后再去访问应用，可以发现现在都是版本2 的信息了：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ while sleep 0.1; do curl http:&#x2F;&#x2F;127.0.0.1:31539; done</span><br><span class="line">Host: my-app-v2-f885c8d45-r5m6z, Version: v2.0.0</span><br><span class="line">Host: my-app-v2-f885c8d45-r5m6z, Version: v2.0.0</span><br><span class="line">......</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ while sleep 0.1; do curl http://127.0.0.1:31539; done</span><br><span class="line">Host: my-app-v2-f885c8d45-r5m6z, Version: v2.0.0</span><br><span class="line">Host: my-app-v2-f885c8d45-r5m6z, Version: v2.0.0</span><br><span class="line">......</span><br></pre></td></tr></table></figure>
 
 <p>如果你需要回滚到版本1，同样只需要更改 Service 的匹配标签即可：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ kubectl patch service my-app -p &#39;&#123;&quot;spec&quot;:&#123;&quot;selector&quot;:&#123;&quot;version&quot;:&quot;v1.0.0&quot;&#125;&#125;&#125;&#39;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ kubectl patch service my-app -p &#x27;&#123;&quot;spec&quot;:&#123;&quot;selector&quot;:&#123;&quot;version&quot;:&quot;v1.0.0&quot;&#125;&#125;&#125;&#x27;</span><br></pre></td></tr></table></figure>
 
 <p>如果新版本已经完全符合我们的需求了，就可以删除版本1 的应用了：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ kubectl delete deploy my-app-v1</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ kubectl delete deploy my-app-v1</span><br></pre></td></tr></table></figure>
 
 <p>最后，同样，执行如下命令清理上述资源对象：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ kubectl delete all -l app&#x3D;my-app</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ kubectl delete all -l app=my-app</span><br></pre></td></tr></table></figure>
 
 <p>结论：</p>
 <ul>
@@ -452,35 +471,35 @@
 <li>关闭版本1 应用</li>
 </ol>
 <p>首先，创建版本1 的应用资源清单，app-v1-canary.yaml，内容如下：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br></pre></td><td class="code"><pre><span class="line">apiVersion: v1</span><br><span class="line">kind: Service</span><br><span class="line">metadata:</span><br><span class="line">  name: my-app</span><br><span class="line">  labels:</span><br><span class="line">    app: my-app</span><br><span class="line">spec:</span><br><span class="line">  type: NodePort</span><br><span class="line">  ports:</span><br><span class="line">  - name: http</span><br><span class="line">    port: 80</span><br><span class="line">    targetPort: http</span><br><span class="line">  selector:</span><br><span class="line">    app: my-app</span><br><span class="line">---</span><br><span class="line">apiVersion: apps&#x2F;v1</span><br><span class="line">kind: Deployment</span><br><span class="line">metadata:</span><br><span class="line">  name: my-app-v1</span><br><span class="line">  labels:</span><br><span class="line">    app: my-app</span><br><span class="line">spec:</span><br><span class="line">  replicas: 10</span><br><span class="line">  selector:</span><br><span class="line">    matchLabels:</span><br><span class="line">      app: my-app</span><br><span class="line">      version: v1.0.0</span><br><span class="line">  template:</span><br><span class="line">    metadata:</span><br><span class="line">      labels:</span><br><span class="line">        app: my-app</span><br><span class="line">        version: v1.0.0</span><br><span class="line">      annotations:</span><br><span class="line">        prometheus.io&#x2F;scrape: &quot;true&quot;</span><br><span class="line">        prometheus.io&#x2F;port: &quot;9101&quot;</span><br><span class="line">    spec:</span><br><span class="line">      containers:</span><br><span class="line">      - name: my-app</span><br><span class="line">        image: containersol&#x2F;k8s-deployment-strategies</span><br><span class="line">        ports:</span><br><span class="line">        - name: http</span><br><span class="line">          containerPort: 8080</span><br><span class="line">        - name: probe</span><br><span class="line">          containerPort: 8086</span><br><span class="line">        env:</span><br><span class="line">        - name: VERSION</span><br><span class="line">          value: v1.0.0</span><br><span class="line">        livenessProbe:</span><br><span class="line">          httpGet:</span><br><span class="line">            path: &#x2F;live</span><br><span class="line">            port: probe</span><br><span class="line">          initialDelaySeconds: 5</span><br><span class="line">          periodSeconds: 5</span><br><span class="line">        readinessProbe:</span><br><span class="line">          httpGet:</span><br><span class="line">            path: &#x2F;ready</span><br><span class="line">            port: probe</span><br><span class="line">          periodSeconds: 5</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br></pre></td><td class="code"><pre><span class="line">apiVersion: v1</span><br><span class="line">kind: Service</span><br><span class="line">metadata:</span><br><span class="line">  name: my-app</span><br><span class="line">  labels:</span><br><span class="line">    app: my-app</span><br><span class="line">spec:</span><br><span class="line">  type: NodePort</span><br><span class="line">  ports:</span><br><span class="line">  - name: http</span><br><span class="line">    port: 80</span><br><span class="line">    targetPort: http</span><br><span class="line">  selector:</span><br><span class="line">    app: my-app</span><br><span class="line">---</span><br><span class="line">apiVersion: apps/v1</span><br><span class="line">kind: Deployment</span><br><span class="line">metadata:</span><br><span class="line">  name: my-app-v1</span><br><span class="line">  labels:</span><br><span class="line">    app: my-app</span><br><span class="line">spec:</span><br><span class="line">  replicas: 10</span><br><span class="line">  selector:</span><br><span class="line">    matchLabels:</span><br><span class="line">      app: my-app</span><br><span class="line">      version: v1.0.0</span><br><span class="line">  template:</span><br><span class="line">    metadata:</span><br><span class="line">      labels:</span><br><span class="line">        app: my-app</span><br><span class="line">        version: v1.0.0</span><br><span class="line">      annotations:</span><br><span class="line">        prometheus.io/scrape: &quot;true&quot;</span><br><span class="line">        prometheus.io/port: &quot;9101&quot;</span><br><span class="line">    spec:</span><br><span class="line">      containers:</span><br><span class="line">      - name: my-app</span><br><span class="line">        image: containersol/k8s-deployment-strategies</span><br><span class="line">        ports:</span><br><span class="line">        - name: http</span><br><span class="line">          containerPort: 8080</span><br><span class="line">        - name: probe</span><br><span class="line">          containerPort: 8086</span><br><span class="line">        env:</span><br><span class="line">        - name: VERSION</span><br><span class="line">          value: v1.0.0</span><br><span class="line">        livenessProbe:</span><br><span class="line">          httpGet:</span><br><span class="line">            path: /live</span><br><span class="line">            port: probe</span><br><span class="line">          initialDelaySeconds: 5</span><br><span class="line">          periodSeconds: 5</span><br><span class="line">        readinessProbe:</span><br><span class="line">          httpGet:</span><br><span class="line">            path: /ready</span><br><span class="line">            port: probe</span><br><span class="line">          periodSeconds: 5</span><br></pre></td></tr></table></figure>
 
 <p>其中核心的部分也是 Service 对象中的 label selector 标签，不在具有版本相关的标签了，然后定义版本2 的资源清单文件，app-v2-canary.yaml，文件内容如下：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line">apiVersion: apps&#x2F;v1</span><br><span class="line">kind: Deployment</span><br><span class="line">metadata:</span><br><span class="line">  name: my-app-v2</span><br><span class="line">  labels:</span><br><span class="line">    app: my-app</span><br><span class="line">spec:</span><br><span class="line">  replicas: 1</span><br><span class="line">  selector:</span><br><span class="line">    matchLabels:</span><br><span class="line">      app: my-app</span><br><span class="line">      version: v2.0.0</span><br><span class="line">  template:</span><br><span class="line">    metadata:</span><br><span class="line">      labels:</span><br><span class="line">        app: my-app</span><br><span class="line">        version: v2.0.0</span><br><span class="line">      annotations:</span><br><span class="line">        prometheus.io&#x2F;scrape: &quot;true&quot;</span><br><span class="line">        prometheus.io&#x2F;port: &quot;9101&quot;</span><br><span class="line">    spec:</span><br><span class="line">      containers:</span><br><span class="line">      - name: my-app</span><br><span class="line">        image: containersol&#x2F;k8s-deployment-strategies</span><br><span class="line">        ports:</span><br><span class="line">        - name: http</span><br><span class="line">          containerPort: 8080</span><br><span class="line">        - name: probe</span><br><span class="line">          containerPort: 8086</span><br><span class="line">        env:</span><br><span class="line">        - name: VERSION</span><br><span class="line">          value: v2.0.0</span><br><span class="line">        livenessProbe:</span><br><span class="line">          httpGet:</span><br><span class="line">            path: &#x2F;live</span><br><span class="line">            port: probe</span><br><span class="line">          initialDelaySeconds: 5</span><br><span class="line">          periodSeconds: 5</span><br><span class="line">        readinessProbe:</span><br><span class="line">          httpGet:</span><br><span class="line">            path: &#x2F;ready</span><br><span class="line">            port: probe</span><br><span class="line">          periodSeconds: 5</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line">apiVersion: apps/v1</span><br><span class="line">kind: Deployment</span><br><span class="line">metadata:</span><br><span class="line">  name: my-app-v2</span><br><span class="line">  labels:</span><br><span class="line">    app: my-app</span><br><span class="line">spec:</span><br><span class="line">  replicas: 1</span><br><span class="line">  selector:</span><br><span class="line">    matchLabels:</span><br><span class="line">      app: my-app</span><br><span class="line">      version: v2.0.0</span><br><span class="line">  template:</span><br><span class="line">    metadata:</span><br><span class="line">      labels:</span><br><span class="line">        app: my-app</span><br><span class="line">        version: v2.0.0</span><br><span class="line">      annotations:</span><br><span class="line">        prometheus.io/scrape: &quot;true&quot;</span><br><span class="line">        prometheus.io/port: &quot;9101&quot;</span><br><span class="line">    spec:</span><br><span class="line">      containers:</span><br><span class="line">      - name: my-app</span><br><span class="line">        image: containersol/k8s-deployment-strategies</span><br><span class="line">        ports:</span><br><span class="line">        - name: http</span><br><span class="line">          containerPort: 8080</span><br><span class="line">        - name: probe</span><br><span class="line">          containerPort: 8086</span><br><span class="line">        env:</span><br><span class="line">        - name: VERSION</span><br><span class="line">          value: v2.0.0</span><br><span class="line">        livenessProbe:</span><br><span class="line">          httpGet:</span><br><span class="line">            path: /live</span><br><span class="line">            port: probe</span><br><span class="line">          initialDelaySeconds: 5</span><br><span class="line">          periodSeconds: 5</span><br><span class="line">        readinessProbe:</span><br><span class="line">          httpGet:</span><br><span class="line">            path: /ready</span><br><span class="line">            port: probe</span><br><span class="line">          periodSeconds: 5</span><br></pre></td></tr></table></figure>
 
 <p>版本1 和版本2 的 Pod 都具有一个共同的标签app=my-app，所以对应的 Service 会匹配两个版本的 Pod。</p>
 <p>首先，部署版本1 应用：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ kubectl apply -f app-v1-canary.yaml</span><br><span class="line">service &quot;my-app&quot; created</span><br><span class="line">deployment.apps &quot;my-app-v1&quot; created</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ kubectl apply -f app-v1-canary.yaml</span><br><span class="line">service &quot;my-app&quot; created</span><br><span class="line">deployment.apps &quot;my-app-v1&quot; created</span><br></pre></td></tr></table></figure>
 
 <p>然后测试版本1 应用是否正确部署了：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$ kubectl get svc -l app&#x3D;my-app</span><br><span class="line">NAME          TYPE        CLUSTER-IP       EXTERNAL-IP   PORT(S)        AGE</span><br><span class="line">my-app        NodePort    10.105.133.213   &lt;none&gt;        80:30760&#x2F;TCP   47s</span><br><span class="line">$ curl http:&#x2F;&#x2F;127.0.0.1:30760</span><br><span class="line">Host: my-app-v1-7b4874cd75-tsh2s, Version: v1.0.0</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$ kubectl get svc -l app=my-app</span><br><span class="line">NAME          TYPE        CLUSTER-IP       EXTERNAL-IP   PORT(S)        AGE</span><br><span class="line">my-app        NodePort    10.105.133.213   &lt;none&gt;        80:30760/TCP   47s</span><br><span class="line">$ curl http://127.0.0.1:30760</span><br><span class="line">Host: my-app-v1-7b4874cd75-tsh2s, Version: v1.0.0</span><br></pre></td></tr></table></figure>
 
 <p>同样，新开一个终端，查看 Pod 的变化：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ watch kubectl get pod</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ watch kubectl get pod</span><br></pre></td></tr></table></figure>
 <p>然后部署版本2 应用：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ kubectl apply -f app-v2-canary.yaml</span><br><span class="line">deployment.apps &quot;my-app-v2&quot; created</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ kubectl apply -f app-v2-canary.yaml</span><br><span class="line">deployment.apps &quot;my-app-v2&quot; created</span><br></pre></td></tr></table></figure>
 
 <p>然后在 watch 终端页面可以看到多了一个 Pod，现在一共 11 个 Pod，其中只有1 个 Pod 运行新版本应用，然后同样可以循环访问该应用，查看是否会有版本2 的应用信息：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">$ while sleep 0.1; do curl http:&#x2F;&#x2F;127.0.0.1:30760; done</span><br><span class="line">Host: my-app-v1-7b4874cd75-bhxbp, Version: v1.0.0</span><br><span class="line">Host: my-app-v1-7b4874cd75-wmcqc, Version: v1.0.0</span><br><span class="line">Host: my-app-v1-7b4874cd75-tsh2s, Version: v1.0.0</span><br><span class="line">Host: my-app-v1-7b4874cd75-ml58j, Version: v1.0.0</span><br><span class="line">Host: my-app-v1-7b4874cd75-spsdv, Version: v1.0.0</span><br><span class="line">Host: my-app-v2-f885c8d45-mc2fx, Version: v2.0.0</span><br><span class="line">......</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">$ while sleep 0.1; do curl http://127.0.0.1:30760; done</span><br><span class="line">Host: my-app-v1-7b4874cd75-bhxbp, Version: v1.0.0</span><br><span class="line">Host: my-app-v1-7b4874cd75-wmcqc, Version: v1.0.0</span><br><span class="line">Host: my-app-v1-7b4874cd75-tsh2s, Version: v1.0.0</span><br><span class="line">Host: my-app-v1-7b4874cd75-ml58j, Version: v1.0.0</span><br><span class="line">Host: my-app-v1-7b4874cd75-spsdv, Version: v1.0.0</span><br><span class="line">Host: my-app-v2-f885c8d45-mc2fx, Version: v2.0.0</span><br><span class="line">......</span><br></pre></td></tr></table></figure>
 
 <p>正常情况下可以看到大部分都是返回的版本1 的应用信息，偶尔会出现版本2 的应用信息，这就证明我们的金丝雀发布成功了，待确认了版本2 的这个应用没有任何问题后，可以将版本2 应用扩容到10 个副本：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ kubectl scale --replicas&#x3D;10 deploy my-app-v2</span><br><span class="line">deployment.extensions &quot;my-app-v2&quot; scaled</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ kubectl scale --replicas=10 deploy my-app-v2</span><br><span class="line">deployment.extensions &quot;my-app-v2&quot; scaled</span><br></pre></td></tr></table></figure>
 
 <p>其实这个时候访问应用的话新版本和旧版本的流量分配是1:1了，确认了版本2 正常后，就可以删除版本1 的应用了：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ kubectl delete deploy my-app-v1</span><br><span class="line">deployment.extensions &quot;my-app-v1&quot; deleted</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ kubectl delete deploy my-app-v1</span><br><span class="line">deployment.extensions &quot;my-app-v1&quot; deleted</span><br></pre></td></tr></table></figure>
 
 <p>最终留下的是 10 个新版本的 Pod 了，到这里我们的整个金丝雀发布就完成了。</p>
 <p>同样，最后，执行下面的命令删除上面的资源对象：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ kubectl delete all -l app&#x3D;my-app</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ kubectl delete all -l app=my-app</span><br></pre></td></tr></table></figure>
 
 <p>结论：</p>
 <ul>
@@ -496,7 +515,7 @@
 <img src="/images/b4qVNZ.jpg" width="100%" height="100%">
 
 <p>下面是使用 Istio 进行规则设置的示例，因为 Istio 还不太稳定，以下示例规则将来可能会更改：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">route:</span><br><span class="line">- tags:</span><br><span class="line">  version: v1.0.0</span><br><span class="line">  weight: 90</span><br><span class="line">- tags:</span><br><span class="line">  version: v2.0.0</span><br><span class="line">  weight: 10</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">route:</span><br><span class="line">- tags:</span><br><span class="line">  version: v1.0.0</span><br><span class="line">  weight: 90</span><br><span class="line">- tags:</span><br><span class="line">  version: v2.0.0</span><br><span class="line">  weight: 10</span><br></pre></td></tr></table></figure>
 
 <p>关于在 Istio 中具体如何做 A/B 测试，我们这里就不再详细介绍了，我们在istio-book文档中有相关的介绍。</p>
 <img src="/images/2lK8wZ.jpg" width="100%" height="100%">
@@ -516,7 +535,7 @@
     
     
 
-      <footer class="post-footer">
+    <footer class="post-footer">
           <div class="post-tags">
               <a href="/tags/k8s/" rel="tag"># k8s</a>
               <a href="/tags/kubernets/" rel="tag"># kubernets</a>
@@ -524,165 +543,54 @@
 
         
 
-
-        
-    <div class="post-nav">
-      <div class="post-nav-item">
-    <a href="/posts/e64d06ef.html" rel="prev" title="备份etcd">
-      <i class="fa fa-chevron-left"></i> 备份etcd
-    </a></div>
-      <div class="post-nav-item">
-    <a href="/posts/9f2bb797.html" rel="next" title="k8s获取客户端访问真实 IP">
-      k8s获取客户端访问真实 IP <i class="fa fa-chevron-right"></i>
-    </a></div>
-    </div>
-      </footer>
-    
-  </article>
-  
-  
-  
-
-
-
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/posts/e64d06ef.html" rel="prev" title="备份etcd">
+                  <i class="fa fa-chevron-left"></i> 备份etcd
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/posts/9f2bb797.html" rel="next" title="k8s获取客户端访问真实 IP">
+                  k8s获取客户端访问真实 IP <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
           </div>
-          
-
-<script>
-  window.addEventListener('tabs:register', () => {
-    let { activeClass } = CONFIG.comments;
-    if (CONFIG.comments.storage) {
-      activeClass = localStorage.getItem('comments_active') || activeClass;
-    }
-    if (activeClass) {
-      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
-      if (activeTab) {
-        activeTab.click();
-      }
-    }
-  });
-  if (CONFIG.comments.storage) {
-    window.addEventListener('tabs:click', event => {
-      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
-      let commentClass = event.target.classList[1];
-      localStorage.setItem('comments_active', commentClass);
-    });
-  }
-</script>
-
-        </div>
-          
-  
-  <div class="toggle sidebar-toggle">
-    <span class="toggle-line toggle-line-first"></span>
-    <span class="toggle-line toggle-line-middle"></span>
-    <span class="toggle-line toggle-line-last"></span>
-  </div>
-
-  <aside class="sidebar">
-    <div class="sidebar-inner">
-
-      <ul class="sidebar-nav motion-element">
-        <li class="sidebar-nav-toc">
-          文章目录
-        </li>
-        <li class="sidebar-nav-overview">
-          站点概览
-        </li>
-      </ul>
-
-      <!--noindex-->
-      <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#重建-Recreate-最好在开发环境"><span class="nav-number">1.</span> <span class="nav-text">重建(Recreate) - 最好在开发环境</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#滚动更新-rolling-update"><span class="nav-number">2.</span> <span class="nav-text">滚动更新(rolling-update)</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#蓝-绿-blue-green-最好用来验证-API-版本问题"><span class="nav-number">3.</span> <span class="nav-text">蓝&#x2F;绿(blue&#x2F;green) - 最好用来验证 API 版本问题</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#金丝雀-Canary-让部分用户参与测试"><span class="nav-number">4.</span> <span class="nav-text">金丝雀(Canary) - 让部分用户参与测试</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#A-B测试-A-B-testing-最适合部分用户的功能测试"><span class="nav-number">5.</span> <span class="nav-text">A&#x2F;B测试(A&#x2F;B testing) - 最适合部分用户的功能测试</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#总结"><span class="nav-number">6.</span> <span class="nav-text">总结</span></a></li></ol></div>
-      </div>
-      <!--/noindex-->
-
-      <div class="site-overview-wrap sidebar-panel">
-        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
-  <p class="site-author-name" itemprop="name">hyman</p>
-  <div class="site-description" itemprop="description"></div>
-</div>
-<div class="site-state-wrap motion-element">
-  <nav class="site-state">
-      <div class="site-state-item site-state-posts">
-          <a href="/archives/">
-        
-          <span class="site-state-item-count">169</span>
-          <span class="site-state-item-name">日志</span>
-        </a>
-      </div>
-      <div class="site-state-item site-state-categories">
-            <a href="/categories/">
-          
-        <span class="site-state-item-count">35</span>
-        <span class="site-state-item-name">分类</span></a>
-      </div>
-      <div class="site-state-item site-state-tags">
-            <a href="/tags/">
-          
-        <span class="site-state-item-count">122</span>
-        <span class="site-state-item-name">标签</span></a>
-      </div>
-  </nav>
+    </footer>
+  </article>
 </div>
 
 
 
-      </div>
-
-    </div>
-  </aside>
-  <div id="sidebar-dimmer"></div>
 
 
-      </div>
-    </main>
 
-    <footer class="footer">
-      <div class="footer-inner">
-        
+</div>
+  </main>
 
-        
+  <footer class="footer">
+    <div class="footer-inner">
+
 
 <div class="copyright">
-  
-  &copy; 
+  &copy; 2017 – 
   <span itemprop="copyrightYear">2021</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>
   <span class="author" itemprop="copyrightHolder">hyman</span>
 </div>
-  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/mist/" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a> 强力驱动
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/mist/" rel="noopener" target="_blank">NexT.Mist</a> 强力驱动
   </div>
 
-        
-
-
-
-
-
-
-
-
-      </div>
-    </footer>
-  </div>
+    </div>
+  </footer>
 
   
-  <script src="/lib/anime.min.js"></script>
-  <script src="/lib/velocity/velocity.min.js"></script>
-  <script src="/lib/velocity/velocity.ui.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/next-boot.js"></script>
 
-<script src="/js/utils.js"></script>
-
-<script src="/js/motion.js"></script>
-
-
-<script src="/js/schemes/muse.js"></script>
-
-
-<script src="/js/next-boot.js"></script>
+  
+<script src="/js/third-party/search/local-search.js"></script>
 
 
 
@@ -692,24 +600,6 @@
 
 
 
-  
-<script src="/js/local-search.js"></script>
-
-
-
-
-
-
-
-
-
-
-
-
-
-  
-
-  
 
 </body>
 </html>

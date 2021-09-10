@@ -2,25 +2,25 @@
 <html lang="zh-CN">
 <head>
   <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="viewport" content="width=device-width">
 <meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 4.2.1">
+<meta name="generator" content="Hexo 5.4.0">
+
+
   <link rel="apple-touch-icon" sizes="180x180" href="/images/favicon.png">
   <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon.png">
-  <link rel="mask-icon" href="/images/favicon.png" color="#222">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
 
 <link rel="stylesheet" href="/css/main.css">
 
 
-<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
 
-<script id="hexo-configurations">
-    var NexT = window.NexT || {};
-    var CONFIG = {"hostname":"www.ywthings.com","root":"/","scheme":"Mist","version":"8.0.0-rc.2","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"appID":"UDW7NS797T","apiKey":"c4bb3c2b53b39900e8498ee72e6dc96e","indexName":"hyman","hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
-  </script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.3/css/all.min.css" integrity="sha256-2H3fkXt6FEmrReK448mDVGKb3WW2ZZw35gI7vqHOE4Y=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
 
-  <meta name="description" content="相关文档：">
+<script class="next-config" data-name="main" type="application/json">{"hostname":"www.ywthings.com","root":"/","images":"/images","scheme":"Mist","version":"8.5.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":true,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+<meta name="description" content="相关文档：">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Prometheus+Grafana监控系统搭建">
 <meta property="og:url" content="https://www.ywthings.com/posts/e62c4815.html">
@@ -37,72 +37,47 @@
 <meta property="article:tag" content="pushgateway">
 <meta name="twitter:card" content="summary">
 
+
 <link rel="canonical" href="https://www.ywthings.com/posts/e62c4815.html">
 
 
-<script id="page-configurations">
-  // https://hexo.io/docs/variables.html
-  CONFIG.page = {
-    sidebar: "",
-    isHome : false,
-    isPost : true,
-    lang   : 'zh-CN'
-  };
-</script>
 
-  <title>Prometheus+Grafana监控系统搭建 | hyman</title>
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://www.ywthings.com/posts/e62c4815.html","path":"posts/e62c4815.html","title":"Prometheus+Grafana监控系统搭建"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>Prometheus+Grafana监控系统搭建 | hyman</title>
   
 
-
-
+  <script src="/js/third-party/analytics/baidu-analytics.js"></script>
+  <script async src="https://hm.baidu.com/hm.js?97e285060b95594e74e4d3562a50a717"></script>
 
 
 
   <noscript>
-  <style>
-  .use-motion .brand,
-  .use-motion .menu-item,
-  .sidebar-inner,
-  .use-motion .post-block,
-  .use-motion .pagination,
-  .use-motion .comments,
-  .use-motion .post-header,
-  .use-motion .post-body,
-  .use-motion .collection-header { opacity: initial; }
-
-  .use-motion .site-title,
-  .use-motion .site-subtitle {
-    opacity: initial;
-    top: initial;
-  }
-
-  .use-motion .logo-line-before i { left: initial; }
-  .use-motion .logo-line-after i { right: initial; }
-  </style>
-</noscript>
-
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
 </head>
 
-<body itemscope itemtype="http://schema.org/WebPage">
-  <div class="container use-motion">
-    <div class="headband"></div>
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
 
+  <main class="main">
     <header class="header" itemscope itemtype="http://schema.org/WPHeader">
       <div class="header-inner"><div class="site-brand-container">
   <div class="site-nav-toggle">
-    <div class="toggle" aria-label="切换导航栏">
-        <span class="toggle-line toggle-line-first"></span>
-        <span class="toggle-line toggle-line-middle"></span>
-        <span class="toggle-line toggle-line-last"></span>
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
     </div>
   </div>
 
   <div class="site-meta">
 
     <a href="/" class="brand" rel="start">
-      <span class="logo-line-before"><i></i></span>
+      <i class="logo-line"></i>
       <h1 class="site-title">hyman</h1>
-      <span class="logo-line-after"><i></i></span>
+      <i class="logo-line"></i>
     </a>
       <p class="site-subtitle" itemprop="description">一些简单的记录</p>
   </div>
@@ -117,32 +92,12 @@
 
 
 <nav class="site-nav">
-  <ul id="menu" class="main-menu menu">
-        <li class="menu-item menu-item-home">
-
-    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
-
-  </li>
-        <li class="menu-item menu-item-tags">
-
-    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
-
-  </li>
-        <li class="menu-item menu-item-categories">
-
-    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
-
-  </li>
-        <li class="menu-item menu-item-archives">
-
-    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
-
-  </li>
-        <li class="menu-item menu-item-sitemap">
-
-    <a href="/sitemap.xml" rel="section"><i class="fa fa-sitemap fa-fw"></i>站点地图</a>
-
-  </li>
+  <ul class="main-menu menu">
+        <li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li>
+        <li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li>
+        <li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li>
+        <li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li>
+        <li class="menu-item menu-item-sitemap"><a href="/sitemap.xml" rel="section"><i class="fa fa-sitemap fa-fw"></i>站点地图</a></li>
       <li class="menu-item menu-item-search">
         <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
         </a>
@@ -153,23 +108,22 @@
 
 
   <div class="search-pop-overlay">
-    <div class="popup search-popup">
-        <div class="search-header">
+    <div class="popup search-popup"><div class="search-header">
   <span class="search-icon">
     <i class="fa fa-search"></i>
   </span>
   <div class="search-input-container">
-    <input autocomplete="off" autocapitalize="off"
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
            placeholder="搜索..." spellcheck="false"
            type="search" class="search-input">
   </div>
-  <span class="popup-btn-close">
+  <span class="popup-btn-close" role="button">
     <i class="fa fa-times-circle"></i>
   </span>
 </div>
-<div id="search-result">
-  <div id="no-result">
-    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
   </div>
 </div>
 
@@ -177,33 +131,98 @@
   </div>
 
 </div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%89%E8%A3%85-Prometheus-Server"><span class="nav-number">1.</span> <span class="nav-text">安装 Prometheus Server</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%8B%E8%BD%BD"><span class="nav-number">1.1.</span> <span class="nav-text">下载</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%85%8D%E7%BD%AE%E8%AF%AD%E6%B3%95%E6%A0%A1%E9%AA%8C"><span class="nav-number">1.2.</span> <span class="nav-text">配置语法校验</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%AE%BE%E7%BD%AEprometheus%E7%B3%BB%E7%BB%9F%E6%9C%8D%E5%8A%A1"><span class="nav-number">1.3.</span> <span class="nav-text">设置prometheus系统服务</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%AE%BE%E7%BD%AE%E5%BC%80%E6%9C%BA%E5%90%AF%E5%8A%A8"><span class="nav-number">1.4.</span> <span class="nav-text">设置开机启动</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%89%E8%A3%85Grafana"><span class="nav-number">2.</span> <span class="nav-text">安装Grafana</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%8B%E8%BD%BD%E5%AE%89%E8%A3%85"><span class="nav-number">2.1.</span> <span class="nav-text">下载安装</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%89%E8%A3%85alertmanager"><span class="nav-number">3.</span> <span class="nav-text">安装alertmanager</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%8B%E8%BD%BD-1"><span class="nav-number">3.1.</span> <span class="nav-text">下载</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%85%8D%E7%BD%AE%E6%9C%8D%E5%8A%A1"><span class="nav-number">3.2.</span> <span class="nav-text">配置服务</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%AE%BE%E7%BD%AE%E6%9C%8D%E5%8A%A1%E5%BC%80%E6%9C%BA%E8%87%AA%E5%90%AF%E5%8A%A8"><span class="nav-number">3.3.</span> <span class="nav-text">设置服务开机自启动</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%89%E8%A3%85node-exporter"><span class="nav-number">4.</span> <span class="nav-text">安装node_exporter</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%8B%E8%BD%BD-2"><span class="nav-number">4.1.</span> <span class="nav-text">下载</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%85%8D%E7%BD%AE%E6%9C%8D%E5%8A%A1-1"><span class="nav-number">4.2.</span> <span class="nav-text">配置服务</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%AE%BE%E7%BD%AE%E6%9C%8D%E5%8A%A1%E5%BC%80%E6%9C%BA%E8%87%AA%E5%90%AF%E5%8A%A8-1"><span class="nav-number">4.3.</span> <span class="nav-text">设置服务开机自启动</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%89%E8%A3%85pushgateway"><span class="nav-number">5.</span> <span class="nav-text">安装pushgateway</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%8B%E8%BD%BD-3"><span class="nav-number">5.1.</span> <span class="nav-text">下载</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%85%8D%E7%BD%AE%E6%9C%8D%E5%8A%A1-2"><span class="nav-number">5.2.</span> <span class="nav-text">配置服务</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%AE%BE%E7%BD%AE%E6%9C%8D%E5%8A%A1%E5%BC%80%E6%9C%BA%E8%87%AA%E5%90%AF%E5%8A%A8-2"><span class="nav-number">5.3.</span> <span class="nav-text">设置服务开机自启动</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%89%E8%A3%85redis-exporter"><span class="nav-number">6.</span> <span class="nav-text">安装redis_exporter</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%8B%E8%BD%BD-4"><span class="nav-number">6.1.</span> <span class="nav-text">下载</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%85%8D%E7%BD%AE%E6%9C%8D%E5%8A%A1-3"><span class="nav-number">6.2.</span> <span class="nav-text">配置服务</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%AE%BE%E7%BD%AE%E6%9C%8D%E5%8A%A1%E5%BC%80%E6%9C%BA%E8%87%AA%E5%90%AF%E5%8A%A8-3"><span class="nav-number">6.3.</span> <span class="nav-text">设置服务开机自启动</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%89%E8%A3%85blackbox-exporter"><span class="nav-number">7.</span> <span class="nav-text">安装blackbox_exporter</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%8B%E8%BD%BD-5"><span class="nav-number">7.1.</span> <span class="nav-text">下载</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%85%8D%E7%BD%AE%E6%9C%8D%E5%8A%A1-4"><span class="nav-number">7.2.</span> <span class="nav-text">配置服务</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%AE%BE%E7%BD%AE%E6%9C%8D%E5%8A%A1%E5%BC%80%E6%9C%BA%E8%87%AA%E5%90%AF%E5%8A%A8-4"><span class="nav-number">7.3.</span> <span class="nav-text">设置服务开机自启动</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-overview">
+            <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">hyman</p>
+  <div class="site-description" itemprop="description">一些简单的记录</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">187</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+        <span class="site-state-item-count">39</span>
+        <span class="site-state-item-name">分类</span>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">129</span>
+        <span class="site-state-item-name">标签</span>
+      </div>
+  </nav>
+</div>
+
+
+
+          </div>
+        </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
     </header>
 
     
-  <div class="back-to-top">
+  <div class="back-to-top" role="button" aria-label="返回顶部">
     <i class="fa fa-arrow-up"></i>
     <span>0%</span>
   </div>
 
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
 
-    <main class="main">
-      <div class="main-inner">
-        <div class="content-wrap">
-          
 
-          <div class="content post posts-expand">
-            
+    <div class="main-inner post posts-expand">
 
-    
+
+  
+
+
+<div class="post-block">
   
   
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://www.ywthings.com/posts/e62c4815.html">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
       <meta itemprop="name" content="hyman">
-      <meta itemprop="description" content="">
+      <meta itemprop="description" content="一些简单的记录">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
@@ -214,33 +233,35 @@
           Prometheus+Grafana监控系统搭建
         </h1>
 
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
 
-              <time title="创建时间：2020-08-20 09:44:26" itemprop="dateCreated datePublished" datetime="2020-08-20T09:44:26+08:00">2020-08-20</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-08-28 11:23:26" itemprop="dateModified" datetime="2020-08-28T11:23:26+08:00">2020-08-28</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E8%BF%90%E7%BB%B4%E9%83%A8%E7%BD%B2%E8%AE%B0%E5%BD%95/" itemprop="url" rel="index"><span itemprop="name">运维部署记录</span></a>
-                </span>
-            </span>
+      <time title="创建时间：2020-08-20 09:44:26" itemprop="dateCreated datePublished" datetime="2020-08-20T09:44:26+08:00">2020-08-20</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">更新于</span>
+        <time title="修改时间：2020-08-28 11:23:26" itemprop="dateModified" datetime="2020-08-28T11:23:26+08:00">2020-08-28</time>
+      </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E8%BF%90%E7%BB%B4%E9%83%A8%E7%BD%B2%E8%AE%B0%E5%BD%95/" itemprop="url" rel="index"><span itemprop="name">运维部署记录</span></a>
+        </span>
+    </span>
 
-          
+  
+</div>
 
         </div>
       </header>
@@ -249,56 +270,54 @@
     
     
     <div class="post-body" itemprop="articleBody">
-
-      
         <p>相关文档：</p>
-<a id="more"></a>
+<span id="more"></span>
 
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">Prometheus官网：https:&#x2F;&#x2F;prometheus.io&#x2F;download&#x2F;</span><br><span class="line">Grafana官网：https:&#x2F;&#x2F;grafana.com&#x2F;grafana&#x2F;download</span><br><span class="line">Grafana 模板官网：https:&#x2F;&#x2F;grafana.com&#x2F;grafana&#x2F;dashboards</span><br><span class="line">Rules 规则：https:&#x2F;&#x2F;awesome-prometheus-alerts.grep.to&#x2F;</span><br><span class="line">发送告警模板：https:&#x2F;&#x2F;github.com&#x2F;prometheus&#x2F;alertmanager&#x2F;blob&#x2F;master&#x2F;template&#x2F;default.tmpl</span><br><span class="line">官方文档中文版: https:&#x2F;&#x2F;github.com&#x2F;Alrights&#x2F;prometheus</span><br><span class="line">官方监控agent列表: https:&#x2F;&#x2F;prometheus.io&#x2F;docs&#x2F;instrumenting&#x2F;exporters&#x2F;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">Prometheus官网：https://prometheus.io/download/</span><br><span class="line">Grafana官网：https://grafana.com/grafana/download</span><br><span class="line">Grafana 模板官网：https://grafana.com/grafana/dashboards</span><br><span class="line">Rules 规则：https://awesome-prometheus-alerts.grep.to/</span><br><span class="line">发送告警模板：https://github.com/prometheus/alertmanager/blob/master/template/default.tmpl</span><br><span class="line">官方文档中文版: https://github.com/Alrights/prometheus</span><br><span class="line">官方监控agent列表: https://prometheus.io/docs/instrumenting/exporters/</span><br></pre></td></tr></table></figure>
 
-<h2 id="安装-Prometheus-Server"><a href="#安装-Prometheus-Server" class="headerlink" title="安装 Prometheus Server"></a>安装 Prometheus Server</h2><h3 id="下载"><a href="#下载" class="headerlink" title="下载"></a>下载</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">wget https:&#x2F;&#x2F;github.com&#x2F;prometheus&#x2F;prometheus&#x2F;releases&#x2F;download&#x2F;v2.20.1&#x2F;prometheus-2.20.1.linux-amd64.tar.gz</span><br><span class="line">tar xzf prometheus-2.20.1.linux-amd64.tar.gz -C &#x2F;usr&#x2F;local&#x2F;prometheus</span><br></pre></td></tr></table></figure>
+<h2 id="安装-Prometheus-Server"><a href="#安装-Prometheus-Server" class="headerlink" title="安装 Prometheus Server"></a>安装 Prometheus Server</h2><h3 id="下载"><a href="#下载" class="headerlink" title="下载"></a>下载</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">wget https://github.com/prometheus/prometheus/releases/download/v2.20.1/prometheus-2.20.1.linux-amd64.tar.gz</span><br><span class="line">tar xzf prometheus-2.20.1.linux-amd64.tar.gz -C /usr/local/prometheus</span><br></pre></td></tr></table></figure>
 
-<h3 id="配置语法校验"><a href="#配置语法校验" class="headerlink" title="配置语法校验"></a>配置语法校验</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">.&#x2F;promtool check config prometheus.yml</span><br></pre></td></tr></table></figure>
+<h3 id="配置语法校验"><a href="#配置语法校验" class="headerlink" title="配置语法校验"></a>配置语法校验</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./promtool check config prometheus.yml</span><br></pre></td></tr></table></figure>
 
-<h3 id="设置prometheus系统服务"><a href="#设置prometheus系统服务" class="headerlink" title="设置prometheus系统服务"></a>设置prometheus系统服务</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">vim &#x2F;usr&#x2F;lib&#x2F;systemd&#x2F;system&#x2F;prometheus.service</span><br><span class="line"></span><br><span class="line">[Unit]</span><br><span class="line">Description&#x3D;Prometheus</span><br><span class="line">Documentation&#x3D;https:&#x2F;&#x2F;prometheus.io&#x2F;</span><br><span class="line">After&#x3D;network.target</span><br><span class="line"></span><br><span class="line">[Service]</span><br><span class="line">Type&#x3D;simple</span><br><span class="line"># --storage.tsdb.path是可选项，默认数据目录在运行目录的.&#x2F;dada目录中</span><br><span class="line">ExecStart&#x3D;&#x2F;usr&#x2F;local&#x2F;prometheus&#x2F;prometheus --config.file&#x3D;&#x2F;usr&#x2F;local&#x2F;prometheus&#x2F;prometheus.yml --web.enable-lifecycle --storage.tsdb.path&#x3D;&#x2F;data&#x2F;prometheus --storage.tsdb.retention&#x3D;30d</span><br><span class="line">Restart&#x3D;on-failure</span><br><span class="line"></span><br><span class="line">[Install]</span><br><span class="line">WantedBy&#x3D;multi-user.target</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">#Prometheus启动参数说明</span><br><span class="line">--config.file -- 指明prometheus的配置文件路径</span><br><span class="line">--web.enable-lifecycle -- 指明prometheus配置更改后可以进行热加载</span><br><span class="line">--storage.tsdb.path -- 指明监控数据存储路径</span><br><span class="line">--storage.tsdb.retention --指明数据保留时间</span><br></pre></td></tr></table></figure>
+<h3 id="设置prometheus系统服务"><a href="#设置prometheus系统服务" class="headerlink" title="设置prometheus系统服务"></a>设置prometheus系统服务</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">vim /usr/lib/systemd/system/prometheus.service</span><br><span class="line"></span><br><span class="line">[Unit]</span><br><span class="line">Description=Prometheus</span><br><span class="line">Documentation=https://prometheus.io/</span><br><span class="line">After=network.target</span><br><span class="line"></span><br><span class="line">[Service]</span><br><span class="line">Type=simple</span><br><span class="line"># --storage.tsdb.path是可选项，默认数据目录在运行目录的./dada目录中</span><br><span class="line">ExecStart=/usr/local/prometheus/prometheus --config.file=/usr/local/prometheus/prometheus.yml --web.enable-lifecycle --storage.tsdb.path=/data/prometheus --storage.tsdb.retention=30d</span><br><span class="line">Restart=on-failure</span><br><span class="line"></span><br><span class="line">[Install]</span><br><span class="line">WantedBy=multi-user.target</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">#Prometheus启动参数说明</span><br><span class="line">--config.file -- 指明prometheus的配置文件路径</span><br><span class="line">--web.enable-lifecycle -- 指明prometheus配置更改后可以进行热加载</span><br><span class="line">--storage.tsdb.path -- 指明监控数据存储路径</span><br><span class="line">--storage.tsdb.retention --指明数据保留时间</span><br></pre></td></tr></table></figure>
 
-<h3 id="设置开机启动"><a href="#设置开机启动" class="headerlink" title="设置开机启动"></a>设置开机启动</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">systemctl daemon-reload</span><br><span class="line">systemctl enable prometheus.service</span><br><span class="line">systemctl status prometheus.service</span><br><span class="line">systemctl restart prometheus.service</span><br></pre></td></tr></table></figure>
+<h3 id="设置开机启动"><a href="#设置开机启动" class="headerlink" title="设置开机启动"></a>设置开机启动</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">systemctl daemon-reload</span><br><span class="line">systemctl enable prometheus.service</span><br><span class="line">systemctl status prometheus.service</span><br><span class="line">systemctl restart prometheus.service</span><br></pre></td></tr></table></figure>
 
 <p>备注：在启动prometheus时加上参数 web.enable-lifecycle , 可以启用配置的热加载, 配置修改后, 热加载配置</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl -X POST  http:&#x2F;&#x2F;localhost:9090&#x2F;-&#x2F;reload</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl -X POST  http://localhost:9090/-/reload</span><br></pre></td></tr></table></figure>
 
-<h2 id="安装Grafana"><a href="#安装Grafana" class="headerlink" title="安装Grafana"></a>安装Grafana</h2><h3 id="下载安装"><a href="#下载安装" class="headerlink" title="下载安装"></a>下载安装</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">wget https:&#x2F;&#x2F;dl.grafana.com&#x2F;enterprise&#x2F;release&#x2F;grafana-enterprise-7.1.3-1.x86_64.rpm</span><br><span class="line">sudo yum install grafana-enterprise-7.1.3-1.x86_64.rpm</span><br></pre></td></tr></table></figure>
+<h2 id="安装Grafana"><a href="#安装Grafana" class="headerlink" title="安装Grafana"></a>安装Grafana</h2><h3 id="下载安装"><a href="#下载安装" class="headerlink" title="下载安装"></a>下载安装</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">wget https://dl.grafana.com/enterprise/release/grafana-enterprise-7.1.3-1.x86_64.rpm</span><br><span class="line">sudo yum install grafana-enterprise-7.1.3-1.x86_64.rpm</span><br></pre></td></tr></table></figure>
 
 <p>granafa首次登录账户名和密码admin/admin</p>
-<h2 id="安装alertmanager"><a href="#安装alertmanager" class="headerlink" title="安装alertmanager"></a>安装alertmanager</h2><h3 id="下载-1"><a href="#下载-1" class="headerlink" title="下载"></a>下载</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">wget https:&#x2F;&#x2F;github.com&#x2F;prometheus&#x2F;alertmanager&#x2F;releases&#x2F;download&#x2F;v0.21.0&#x2F;alertmanager-0.21.0.linux-amd64.tar.gz</span><br><span class="line">tar xzf alertmanager-0.21.0.linux-amd64.tar.gz -C &#x2F;usr&#x2F;local&#x2F;alertmanager</span><br></pre></td></tr></table></figure>
+<h2 id="安装alertmanager"><a href="#安装alertmanager" class="headerlink" title="安装alertmanager"></a>安装alertmanager</h2><h3 id="下载-1"><a href="#下载-1" class="headerlink" title="下载"></a>下载</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">wget https://github.com/prometheus/alertmanager/releases/download/v0.21.0/alertmanager-0.21.0.linux-amd64.tar.gz</span><br><span class="line">tar xzf alertmanager-0.21.0.linux-amd64.tar.gz -C /usr/local/alertmanager</span><br></pre></td></tr></table></figure>
 
-<h3 id="配置服务"><a href="#配置服务" class="headerlink" title="配置服务"></a>配置服务</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">vim &#x2F;usr&#x2F;lib&#x2F;systemd&#x2F;system&#x2F;alertmanager.service</span><br><span class="line"></span><br><span class="line">[Unit] </span><br><span class="line">Description&#x3D;Alertmanager </span><br><span class="line">After&#x3D;network.target </span><br><span class="line">[Service] </span><br><span class="line">Type&#x3D;simple </span><br><span class="line">User&#x3D;root</span><br><span class="line">ExecStart&#x3D;&#x2F;usr&#x2F;local&#x2F;alertmanager&#x2F;alertmanager --config.file&#x3D;&#x2F;usr&#x2F;local&#x2F;alertmanager&#x2F;alertmanager.yml --storage.path&#x3D;&#x2F;data&#x2F;alertmanager&#x2F;</span><br><span class="line">Restart&#x3D;on-failure</span><br><span class="line">[Install] </span><br><span class="line">WantedBy&#x3D;multi-user.target</span><br></pre></td></tr></table></figure>
+<h3 id="配置服务"><a href="#配置服务" class="headerlink" title="配置服务"></a>配置服务</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">vim /usr/lib/systemd/system/alertmanager.service</span><br><span class="line"></span><br><span class="line">[Unit] </span><br><span class="line">Description=Alertmanager </span><br><span class="line">After=network.target </span><br><span class="line">[Service] </span><br><span class="line">Type=simple </span><br><span class="line">User=root</span><br><span class="line">ExecStart=/usr/local/alertmanager/alertmanager --config.file=/usr/local/alertmanager/alertmanager.yml --storage.path=/data/alertmanager/</span><br><span class="line">Restart=on-failure</span><br><span class="line">[Install] </span><br><span class="line">WantedBy=multi-user.target	</span><br></pre></td></tr></table></figure>
 
-<h3 id="设置服务开机自启动"><a href="#设置服务开机自启动" class="headerlink" title="设置服务开机自启动"></a>设置服务开机自启动</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">systemctl enable alertmanager</span><br><span class="line">systemctl start alertmanager</span><br></pre></td></tr></table></figure>
+<h3 id="设置服务开机自启动"><a href="#设置服务开机自启动" class="headerlink" title="设置服务开机自启动"></a>设置服务开机自启动</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">systemctl enable alertmanager</span><br><span class="line">systemctl start alertmanager</span><br></pre></td></tr></table></figure>
 
-<h2 id="安装node-exporter"><a href="#安装node-exporter" class="headerlink" title="安装node_exporter"></a>安装node_exporter</h2><h3 id="下载-2"><a href="#下载-2" class="headerlink" title="下载"></a>下载</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">wget https:&#x2F;&#x2F;github.com&#x2F;prometheus&#x2F;node_exporter&#x2F;releases&#x2F;download&#x2F;v1.0.1&#x2F;node_exporter-1.0.1.linux-amd64.tar.gz</span><br><span class="line">tar xzf node_exporter-1.0.1.linux-amd64.tar.gz -C &#x2F;usr&#x2F;local&#x2F;node_exporter</span><br></pre></td></tr></table></figure>
+<h2 id="安装node-exporter"><a href="#安装node-exporter" class="headerlink" title="安装node_exporter"></a>安装node_exporter</h2><h3 id="下载-2"><a href="#下载-2" class="headerlink" title="下载"></a>下载</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">wget https://github.com/prometheus/node_exporter/releases/download/v1.0.1/node_exporter-1.0.1.linux-amd64.tar.gz</span><br><span class="line">tar xzf node_exporter-1.0.1.linux-amd64.tar.gz -C /usr/local/node_exporter</span><br></pre></td></tr></table></figure>
 
-<h3 id="配置服务-1"><a href="#配置服务-1" class="headerlink" title="配置服务"></a>配置服务</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">vim &#x2F;usr&#x2F;lib&#x2F;systemd&#x2F;system&#x2F;node_exporter.service</span><br><span class="line"></span><br><span class="line">[Unit]</span><br><span class="line">Description&#x3D;node_exporter</span><br><span class="line">Documentation&#x3D;https:&#x2F;&#x2F;prometheus.io&#x2F;</span><br><span class="line">After&#x3D;network.target</span><br><span class="line"></span><br><span class="line">[Service]</span><br><span class="line">Type&#x3D;simple</span><br><span class="line">ExecStart&#x3D;&#x2F;usr&#x2F;local&#x2F;node_exporter&#x2F;node_exporter</span><br><span class="line">Restart&#x3D;on-failure</span><br><span class="line"></span><br><span class="line">[Install]</span><br><span class="line">WantedBy&#x3D;multi-user.target</span><br></pre></td></tr></table></figure>
+<h3 id="配置服务-1"><a href="#配置服务-1" class="headerlink" title="配置服务"></a>配置服务</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">vim /usr/lib/systemd/system/node_exporter.service</span><br><span class="line"></span><br><span class="line">[Unit]</span><br><span class="line">Description=node_exporter</span><br><span class="line">Documentation=https://prometheus.io/</span><br><span class="line">After=network.target</span><br><span class="line"></span><br><span class="line">[Service]</span><br><span class="line">Type=simple</span><br><span class="line">ExecStart=/usr/local/node_exporter/node_exporter</span><br><span class="line">Restart=on-failure</span><br><span class="line"></span><br><span class="line">[Install]</span><br><span class="line">WantedBy=multi-user.target</span><br></pre></td></tr></table></figure>
 
-<h3 id="设置服务开机自启动-1"><a href="#设置服务开机自启动-1" class="headerlink" title="设置服务开机自启动"></a>设置服务开机自启动</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">systemctl enable node_exporter</span><br><span class="line">systemctl start node_exporter</span><br></pre></td></tr></table></figure>
+<h3 id="设置服务开机自启动-1"><a href="#设置服务开机自启动-1" class="headerlink" title="设置服务开机自启动"></a>设置服务开机自启动</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">systemctl enable node_exporter</span><br><span class="line">systemctl start node_exporter</span><br></pre></td></tr></table></figure>
 
-<h2 id="安装pushgateway"><a href="#安装pushgateway" class="headerlink" title="安装pushgateway"></a>安装pushgateway</h2><h3 id="下载-3"><a href="#下载-3" class="headerlink" title="下载"></a>下载</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">wget https:&#x2F;&#x2F;github.com&#x2F;prometheus&#x2F;pushgateway&#x2F;releases&#x2F;download&#x2F;v1.2.0&#x2F;pushgateway-1.2.0.linux-amd64.tar.gz</span><br><span class="line">tar xzf pushgateway-1.2.0.linux-amd64.tar.gz -C &#x2F;usr&#x2F;local&#x2F;pushgateway</span><br></pre></td></tr></table></figure>
+<h2 id="安装pushgateway"><a href="#安装pushgateway" class="headerlink" title="安装pushgateway"></a>安装pushgateway</h2><h3 id="下载-3"><a href="#下载-3" class="headerlink" title="下载"></a>下载</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">wget https://github.com/prometheus/pushgateway/releases/download/v1.2.0/pushgateway-1.2.0.linux-amd64.tar.gz</span><br><span class="line">tar xzf pushgateway-1.2.0.linux-amd64.tar.gz -C /usr/local/pushgateway</span><br></pre></td></tr></table></figure>
 
-<h3 id="配置服务-2"><a href="#配置服务-2" class="headerlink" title="配置服务"></a>配置服务</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">vim &#x2F;usr&#x2F;lib&#x2F;systemd&#x2F;system&#x2F;pushgateway.service</span><br><span class="line"></span><br><span class="line">[Unit]</span><br><span class="line">Description&#x3D;pushgateway</span><br><span class="line">Documentation&#x3D;https:&#x2F;&#x2F;prometheus.io&#x2F;</span><br><span class="line">After&#x3D;network.target</span><br><span class="line"></span><br><span class="line">[Service]</span><br><span class="line">Type&#x3D;simple</span><br><span class="line">ExecStart&#x3D;&#x2F;usr&#x2F;local&#x2F;pushgateway&#x2F;pushgateway</span><br><span class="line">Restart&#x3D;on-failure</span><br><span class="line"></span><br><span class="line">[Install]</span><br><span class="line">WantedBy&#x3D;multi-user.target</span><br></pre></td></tr></table></figure>
+<h3 id="配置服务-2"><a href="#配置服务-2" class="headerlink" title="配置服务"></a>配置服务</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">vim /usr/lib/systemd/system/pushgateway.service</span><br><span class="line"></span><br><span class="line">[Unit]</span><br><span class="line">Description=pushgateway</span><br><span class="line">Documentation=https://prometheus.io/</span><br><span class="line">After=network.target</span><br><span class="line"></span><br><span class="line">[Service]</span><br><span class="line">Type=simple</span><br><span class="line">ExecStart=/usr/local/pushgateway/pushgateway</span><br><span class="line">Restart=on-failure</span><br><span class="line"></span><br><span class="line">[Install]</span><br><span class="line">WantedBy=multi-user.target</span><br></pre></td></tr></table></figure>
 
-<h3 id="设置服务开机自启动-2"><a href="#设置服务开机自启动-2" class="headerlink" title="设置服务开机自启动"></a>设置服务开机自启动</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">systemctl enable pushgateway</span><br><span class="line">systemctl start pushgateway</span><br></pre></td></tr></table></figure>
+<h3 id="设置服务开机自启动-2"><a href="#设置服务开机自启动-2" class="headerlink" title="设置服务开机自启动"></a>设置服务开机自启动</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">systemctl enable pushgateway</span><br><span class="line">systemctl start pushgateway</span><br></pre></td></tr></table></figure>
 
-<h2 id="安装redis-exporter"><a href="#安装redis-exporter" class="headerlink" title="安装redis_exporter"></a>安装redis_exporter</h2><h3 id="下载-4"><a href="#下载-4" class="headerlink" title="下载"></a>下载</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F; 下载地址：https:&#x2F;&#x2F;github.com&#x2F;oliver006&#x2F;redis_exporter&#x2F;releases</span><br><span class="line">tar xzf redis_exporter-v1.10.0.linux-amd64.tar.gz -C &#x2F;usr&#x2F;local&#x2F;redis_exporter</span><br></pre></td></tr></table></figure>
+<h2 id="安装redis-exporter"><a href="#安装redis-exporter" class="headerlink" title="安装redis_exporter"></a>安装redis_exporter</h2><h3 id="下载-4"><a href="#下载-4" class="headerlink" title="下载"></a>下载</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">// 下载地址：https://github.com/oliver006/redis_exporter/releases</span><br><span class="line">tar xzf redis_exporter-v1.10.0.linux-amd64.tar.gz -C /usr/local/redis_exporter</span><br></pre></td></tr></table></figure>
 
-<h3 id="配置服务-3"><a href="#配置服务-3" class="headerlink" title="配置服务"></a>配置服务</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"># vim &#x2F;usr&#x2F;lib&#x2F;systemd&#x2F;system&#x2F;redis_exporter.service</span><br><span class="line"></span><br><span class="line">[Unit]</span><br><span class="line">Description&#x3D;redis_exporter</span><br><span class="line">After&#x3D;network.target</span><br><span class="line"></span><br><span class="line">[Service]</span><br><span class="line">Restart&#x3D;on-failure</span><br><span class="line">ExecStart&#x3D;&#x2F;usr&#x2F;local&#x2F;redis_exporter&#x2F;redis_exporter -redis.addr 127.0.0.1:6379 -redis.password 123456</span><br><span class="line"></span><br><span class="line">[Install]</span><br><span class="line">WantedBy&#x3D;multi-user.target</span><br></pre></td></tr></table></figure>
+<h3 id="配置服务-3"><a href="#配置服务-3" class="headerlink" title="配置服务"></a>配置服务</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"># vim /usr/lib/systemd/system/redis_exporter.service</span><br><span class="line"></span><br><span class="line">[Unit]</span><br><span class="line">Description=redis_exporter</span><br><span class="line">After=network.target</span><br><span class="line"></span><br><span class="line">[Service]</span><br><span class="line">Restart=on-failure</span><br><span class="line">ExecStart=/usr/local/redis_exporter/redis_exporter -redis.addr 127.0.0.1:6379 -redis.password 123456</span><br><span class="line"></span><br><span class="line">[Install]</span><br><span class="line">WantedBy=multi-user.target</span><br></pre></td></tr></table></figure>
 
-<h3 id="设置服务开机自启动-3"><a href="#设置服务开机自启动-3" class="headerlink" title="设置服务开机自启动"></a>设置服务开机自启动</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">systemctl enable redis_exporter</span><br><span class="line">systemctl start redis_exporter</span><br></pre></td></tr></table></figure>
+<h3 id="设置服务开机自启动-3"><a href="#设置服务开机自启动-3" class="headerlink" title="设置服务开机自启动"></a>设置服务开机自启动</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">systemctl enable redis_exporter</span><br><span class="line">systemctl start redis_exporter</span><br></pre></td></tr></table></figure>
 
-<h2 id="安装blackbox-exporter"><a href="#安装blackbox-exporter" class="headerlink" title="安装blackbox_exporter"></a>安装blackbox_exporter</h2><h3 id="下载-5"><a href="#下载-5" class="headerlink" title="下载"></a>下载</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">wget https:&#x2F;&#x2F;github.com&#x2F;prometheus&#x2F;blackbox_exporter&#x2F;releases&#x2F;download&#x2F;v0.17.0&#x2F;blackbox_exporter-0.17.0.linux-amd64.tar.gz</span><br><span class="line">tar xzf blackbox_exporter-0.17.0.linux-amd64.tar.gz -C &#x2F;usr&#x2F;local&#x2F;blackbox_exporter</span><br></pre></td></tr></table></figure>
+<h2 id="安装blackbox-exporter"><a href="#安装blackbox-exporter" class="headerlink" title="安装blackbox_exporter"></a>安装blackbox_exporter</h2><h3 id="下载-5"><a href="#下载-5" class="headerlink" title="下载"></a>下载</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">wget https://github.com/prometheus/blackbox_exporter/releases/download/v0.17.0/blackbox_exporter-0.17.0.linux-amd64.tar.gz</span><br><span class="line">tar xzf blackbox_exporter-0.17.0.linux-amd64.tar.gz -C /usr/local/blackbox_exporter</span><br></pre></td></tr></table></figure>
 
-<h3 id="配置服务-4"><a href="#配置服务-4" class="headerlink" title="配置服务"></a>配置服务</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">$ vim &#x2F;usr&#x2F;lib&#x2F;systemd&#x2F;system&#x2F;blackbox_exporter.service</span><br><span class="line"></span><br><span class="line">[Unit]</span><br><span class="line">Description&#x3D;blackbox_exporter</span><br><span class="line">After&#x3D;network.target</span><br><span class="line"></span><br><span class="line">[Service]</span><br><span class="line">User&#x3D;root</span><br><span class="line">Type&#x3D;simple</span><br><span class="line">ExecStart&#x3D;&#x2F;usr&#x2F;local&#x2F;blackbox_exporter&#x2F;blackbox_exporter --config.file&#x3D;&#x2F;usr&#x2F;local&#x2F;blackbox_exporter&#x2F;blackbox.yml</span><br><span class="line">Restart&#x3D;on-failure</span><br><span class="line"></span><br><span class="line">[Install]</span><br><span class="line">WantedBy&#x3D;multi-user.target</span><br></pre></td></tr></table></figure>
+<h3 id="配置服务-4"><a href="#配置服务-4" class="headerlink" title="配置服务"></a>配置服务</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">$ vim /usr/lib/systemd/system/blackbox_exporter.service</span><br><span class="line"></span><br><span class="line">[Unit]</span><br><span class="line">Description=blackbox_exporter</span><br><span class="line">After=network.target</span><br><span class="line"></span><br><span class="line">[Service]</span><br><span class="line">User=root</span><br><span class="line">Type=simple</span><br><span class="line">ExecStart=/usr/local/blackbox_exporter/blackbox_exporter --config.file=/usr/local/blackbox_exporter/blackbox.yml</span><br><span class="line">Restart=on-failure</span><br><span class="line"></span><br><span class="line">[Install]</span><br><span class="line">WantedBy=multi-user.target</span><br></pre></td></tr></table></figure>
 
-<h3 id="设置服务开机自启动-4"><a href="#设置服务开机自启动-4" class="headerlink" title="设置服务开机自启动"></a>设置服务开机自启动</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">systemctl enable blackbox_exporter</span><br><span class="line">systemctl start blackbox_exporter</span><br></pre></td></tr></table></figure>
+<h3 id="设置服务开机自启动-4"><a href="#设置服务开机自启动-4" class="headerlink" title="设置服务开机自启动"></a>设置服务开机自启动</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">systemctl enable blackbox_exporter</span><br><span class="line">systemctl start blackbox_exporter</span><br></pre></td></tr></table></figure>
 
 
     </div>
@@ -307,7 +326,7 @@
     
     
 
-      <footer class="post-footer">
+    <footer class="post-footer">
           <div class="post-tags">
               <a href="/tags/prometheus/" rel="tag"># prometheus</a>
               <a href="/tags/grafana/" rel="tag"># grafana</a>
@@ -318,165 +337,54 @@
 
         
 
-
-        
-    <div class="post-nav">
-      <div class="post-nav-item">
-    <a href="/posts/353cb7e9.html" rel="prev" title="Centos 7 配置本地yum源">
-      <i class="fa fa-chevron-left"></i> Centos 7 配置本地yum源
-    </a></div>
-      <div class="post-nav-item">
-    <a href="/posts/e938a162.html" rel="next" title="nginx反向代理出现502错误，日志显示no live upstreams">
-      nginx反向代理出现502错误，日志显示no live upstreams <i class="fa fa-chevron-right"></i>
-    </a></div>
-    </div>
-      </footer>
-    
-  </article>
-  
-  
-  
-
-
-
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/posts/353cb7e9.html" rel="prev" title="Centos 7 配置本地yum源">
+                  <i class="fa fa-chevron-left"></i> Centos 7 配置本地yum源
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/posts/e938a162.html" rel="next" title="nginx反向代理出现502错误，日志显示no live upstreams">
+                  nginx反向代理出现502错误，日志显示no live upstreams <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
           </div>
-          
-
-<script>
-  window.addEventListener('tabs:register', () => {
-    let { activeClass } = CONFIG.comments;
-    if (CONFIG.comments.storage) {
-      activeClass = localStorage.getItem('comments_active') || activeClass;
-    }
-    if (activeClass) {
-      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
-      if (activeTab) {
-        activeTab.click();
-      }
-    }
-  });
-  if (CONFIG.comments.storage) {
-    window.addEventListener('tabs:click', event => {
-      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
-      let commentClass = event.target.classList[1];
-      localStorage.setItem('comments_active', commentClass);
-    });
-  }
-</script>
-
-        </div>
-          
-  
-  <div class="toggle sidebar-toggle">
-    <span class="toggle-line toggle-line-first"></span>
-    <span class="toggle-line toggle-line-middle"></span>
-    <span class="toggle-line toggle-line-last"></span>
-  </div>
-
-  <aside class="sidebar">
-    <div class="sidebar-inner">
-
-      <ul class="sidebar-nav motion-element">
-        <li class="sidebar-nav-toc">
-          文章目录
-        </li>
-        <li class="sidebar-nav-overview">
-          站点概览
-        </li>
-      </ul>
-
-      <!--noindex-->
-      <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#安装-Prometheus-Server"><span class="nav-number">1.</span> <span class="nav-text">安装 Prometheus Server</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#下载"><span class="nav-number">1.1.</span> <span class="nav-text">下载</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#配置语法校验"><span class="nav-number">1.2.</span> <span class="nav-text">配置语法校验</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#设置prometheus系统服务"><span class="nav-number">1.3.</span> <span class="nav-text">设置prometheus系统服务</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#设置开机启动"><span class="nav-number">1.4.</span> <span class="nav-text">设置开机启动</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#安装Grafana"><span class="nav-number">2.</span> <span class="nav-text">安装Grafana</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#下载安装"><span class="nav-number">2.1.</span> <span class="nav-text">下载安装</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#安装alertmanager"><span class="nav-number">3.</span> <span class="nav-text">安装alertmanager</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#下载-1"><span class="nav-number">3.1.</span> <span class="nav-text">下载</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#配置服务"><span class="nav-number">3.2.</span> <span class="nav-text">配置服务</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#设置服务开机自启动"><span class="nav-number">3.3.</span> <span class="nav-text">设置服务开机自启动</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#安装node-exporter"><span class="nav-number">4.</span> <span class="nav-text">安装node_exporter</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#下载-2"><span class="nav-number">4.1.</span> <span class="nav-text">下载</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#配置服务-1"><span class="nav-number">4.2.</span> <span class="nav-text">配置服务</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#设置服务开机自启动-1"><span class="nav-number">4.3.</span> <span class="nav-text">设置服务开机自启动</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#安装pushgateway"><span class="nav-number">5.</span> <span class="nav-text">安装pushgateway</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#下载-3"><span class="nav-number">5.1.</span> <span class="nav-text">下载</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#配置服务-2"><span class="nav-number">5.2.</span> <span class="nav-text">配置服务</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#设置服务开机自启动-2"><span class="nav-number">5.3.</span> <span class="nav-text">设置服务开机自启动</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#安装redis-exporter"><span class="nav-number">6.</span> <span class="nav-text">安装redis_exporter</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#下载-4"><span class="nav-number">6.1.</span> <span class="nav-text">下载</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#配置服务-3"><span class="nav-number">6.2.</span> <span class="nav-text">配置服务</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#设置服务开机自启动-3"><span class="nav-number">6.3.</span> <span class="nav-text">设置服务开机自启动</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#安装blackbox-exporter"><span class="nav-number">7.</span> <span class="nav-text">安装blackbox_exporter</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#下载-5"><span class="nav-number">7.1.</span> <span class="nav-text">下载</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#配置服务-4"><span class="nav-number">7.2.</span> <span class="nav-text">配置服务</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#设置服务开机自启动-4"><span class="nav-number">7.3.</span> <span class="nav-text">设置服务开机自启动</span></a></li></ol></li></ol></div>
-      </div>
-      <!--/noindex-->
-
-      <div class="site-overview-wrap sidebar-panel">
-        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
-  <p class="site-author-name" itemprop="name">hyman</p>
-  <div class="site-description" itemprop="description"></div>
-</div>
-<div class="site-state-wrap motion-element">
-  <nav class="site-state">
-      <div class="site-state-item site-state-posts">
-          <a href="/archives/">
-        
-          <span class="site-state-item-count">169</span>
-          <span class="site-state-item-name">日志</span>
-        </a>
-      </div>
-      <div class="site-state-item site-state-categories">
-            <a href="/categories/">
-          
-        <span class="site-state-item-count">35</span>
-        <span class="site-state-item-name">分类</span></a>
-      </div>
-      <div class="site-state-item site-state-tags">
-            <a href="/tags/">
-          
-        <span class="site-state-item-count">122</span>
-        <span class="site-state-item-name">标签</span></a>
-      </div>
-  </nav>
+    </footer>
+  </article>
 </div>
 
 
 
-      </div>
-
-    </div>
-  </aside>
-  <div id="sidebar-dimmer"></div>
 
 
-      </div>
-    </main>
 
-    <footer class="footer">
-      <div class="footer-inner">
-        
+</div>
+  </main>
 
-        
+  <footer class="footer">
+    <div class="footer-inner">
+
 
 <div class="copyright">
-  
-  &copy; 
+  &copy; 2017 – 
   <span itemprop="copyrightYear">2021</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>
   <span class="author" itemprop="copyrightHolder">hyman</span>
 </div>
-  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/mist/" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a> 强力驱动
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/mist/" rel="noopener" target="_blank">NexT.Mist</a> 强力驱动
   </div>
 
-        
-
-
-
-
-
-
-
-
-      </div>
-    </footer>
-  </div>
+    </div>
+  </footer>
 
   
-  <script src="/lib/anime.min.js"></script>
-  <script src="/lib/velocity/velocity.min.js"></script>
-  <script src="/lib/velocity/velocity.ui.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/next-boot.js"></script>
 
-<script src="/js/utils.js"></script>
-
-<script src="/js/motion.js"></script>
-
-
-<script src="/js/schemes/muse.js"></script>
-
-
-<script src="/js/next-boot.js"></script>
+  
+<script src="/js/third-party/search/local-search.js"></script>
 
 
 
@@ -486,24 +394,6 @@
 
 
 
-  
-<script src="/js/local-search.js"></script>
-
-
-
-
-
-
-
-
-
-
-
-
-
-  
-
-  
 
 </body>
 </html>

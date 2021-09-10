@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/favicon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.3/css/all.min.css" integrity="sha256-2H3fkXt6FEmrReK448mDVGKb3WW2ZZw35gI7vqHOE4Y=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"www.ywthings.com","root":"/","images":"/images","scheme":"Mist","version":"8.5.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":true,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+<meta name="description" content="现象项目运维人员反馈k8s服务发生重启，需找到重启原因。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="k8s pod服务异常重启terminated">
+<meta property="og:url" content="https://www.ywthings.com/posts/1b80a5d5.html">
+<meta property="og:site_name" content="hyman">
+<meta property="og:description" content="现象项目运维人员反馈k8s服务发生重启，需找到重启原因。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://www.ywthings.com/images/20210910110324.png">
+<meta property="article:published_time" content="2021-09-10T02:50:59.000Z">
+<meta property="article:modified_time" content="2021-09-10T03:17:16.603Z">
+<meta property="article:author" content="hyman">
+<meta property="article:tag" content="k8s">
+<meta property="article:tag" content="nfs">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://www.ywthings.com/images/20210910110324.png">
+
+
+<link rel="canonical" href="https://www.ywthings.com/posts/1b80a5d5.html">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://www.ywthings.com/posts/1b80a5d5.html","path":"posts/1b80a5d5.html","title":"k8s pod服务异常重启terminated"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>k8s pod服务异常重启terminated | hyman</title>
+  
+
+  <script src="/js/third-party/analytics/baidu-analytics.js"></script>
+  <script async src="https://hm.baidu.com/hm.js?97e285060b95594e74e4d3562a50a717"></script>
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <h1 class="site-title">hyman</h1>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">一些简单的记录</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+        <li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li>
+        <li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li>
+        <li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li>
+        <li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li>
+        <li class="menu-item menu-item-sitemap"><a href="/sitemap.xml" rel="section"><i class="fa fa-sitemap fa-fw"></i>站点地图</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%8E%B0%E8%B1%A1"><span class="nav-number">1.</span> <span class="nav-text">现象</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%8E%92%E6%9F%A5%E6%AD%A5%E9%AA%A4"><span class="nav-number">2.</span> <span class="nav-text">排查步骤</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9F%A5%E7%9C%8Bk8s%E9%87%8D%E5%90%AF%E5%8E%9F%E5%9B%A0"><span class="nav-number">2.1.</span> <span class="nav-text">查看k8s重启原因</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9F%A5%E7%9C%8B%E6%9C%8D%E5%8A%A1%E9%87%8D%E5%90%AF%E4%B9%8B%E5%89%8D%E7%9A%84%E6%97%A5%E5%BF%97%E6%98%AF%E5%90%A6%E5%BC%82%E5%B8%B8"><span class="nav-number">2.2.</span> <span class="nav-text">查看服务重启之前的日志是否异常</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9F%A5%E7%9C%8B%E4%BA%8B%E4%BB%B6"><span class="nav-number">2.3.</span> <span class="nav-text">查看事件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9F%A5%E7%9C%8B%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%B3%BB%E7%BB%9F%E6%97%A5%E5%BF%97"><span class="nav-number">2.4.</span> <span class="nav-text">查看服务器系统日志</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-overview">
+            <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">hyman</p>
+  <div class="site-description" itemprop="description">一些简单的记录</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">187</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+        <span class="site-state-item-count">39</span>
+        <span class="site-state-item-name">分类</span>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">129</span>
+        <span class="site-state-item-name">标签</span>
+      </div>
+  </nav>
+</div>
+
+
+
+          </div>
+        </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://www.ywthings.com/posts/1b80a5d5.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="hyman">
+      <meta itemprop="description" content="一些简单的记录">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="hyman">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          k8s pod服务异常重启terminated
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+      
+
+      <time title="创建时间：2021-09-10 10:50:59 / 修改时间：11:17:16" itemprop="dateCreated datePublished" datetime="2021-09-10T10:50:59+08:00">2021-09-10</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E6%97%A5%E5%B8%B8%E9%97%AE%E9%A2%98%E5%A4%84%E7%90%86/" itemprop="url" rel="index"><span itemprop="name">日常问题处理</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h2 id="现象"><a href="#现象" class="headerlink" title="现象"></a>现象</h2><p>项目运维人员反馈k8s服务发生重启，需找到重启原因。</p>
+<span id="more"></span>
+
+<h2 id="排查步骤"><a href="#排查步骤" class="headerlink" title="排查步骤"></a>排查步骤</h2><h3 id="查看k8s重启原因"><a href="#查看k8s重启原因" class="headerlink" title="查看k8s重启原因"></a>查看k8s重启原因</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kubectl -n bms-prod describe pods bms-job-autobill-557d8dc577-nx2qv</span><br></pre></td></tr></table></figure>
+
+<img src="/images/20210910110324.png" width="100%" height="100%">
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Last State:     Terminated</span><br><span class="line">      Reason:       Error</span><br><span class="line">      Exit Code:    143</span><br></pre></td></tr></table></figure>
+
+<p>根据错误代码，初步判断是外部异常导致</p>
+<h3 id="查看服务重启之前的日志是否异常"><a href="#查看服务重启之前的日志是否异常" class="headerlink" title="查看服务重启之前的日志是否异常"></a>查看服务重启之前的日志是否异常</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kubectl -n bms-prod logs --previous bms-job-autobill-557d8dc577-nx2qv</span><br></pre></td></tr></table></figure>
+
+<p>查看日志并无异常</p>
+<h3 id="查看事件"><a href="#查看事件" class="headerlink" title="查看事件"></a>查看事件</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kubectl -n bms-prod get events</span><br></pre></td></tr></table></figure>
+
+<p>并无异常事件</p>
+<p>获取具体事件</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kubectl -n bms-prod get events -o json &gt; 1.json</span><br></pre></td></tr></table></figure>
+
+<h3 id="查看服务器系统日志"><a href="#查看服务器系统日志" class="headerlink" title="查看服务器系统日志"></a>查看服务器系统日志</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">vim /var/logs/message</span><br><span class="line">dmesg -T</span><br></pre></td></tr></table></figure>
+
+<p>发现了连接nfs错误</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">[Fri Sep 10 01:38:03 2021] nfs: server 10.0.15.1 not responding, still trying</span><br><span class="line">[Fri Sep 10 01:38:50 2021] nfs: server 10.0.15.1 not responding, still trying</span><br><span class="line">[Fri Sep 10 01:39:02 2021] nfs: server 10.0.15.1 not responding, still trying</span><br><span class="line">[Fri Sep 10 01:39:21 2021] nfs: server 10.0.15.1 not responding, timed out</span><br><span class="line">[Fri Sep 10 01:41:42 2021] nfs: server 10.0.15.1 OK</span><br><span class="line">[Fri Sep 10 01:41:42 2021] nfs: server 10.0.15.1 OK</span><br><span class="line">[Fri Sep 10 01:41:42 2021] nfs: server 10.0.15.1 OK</span><br><span class="line">[Fri Sep 10 02:53:27 2021] nfs: server 10.0.15.1 not responding, still trying</span><br><span class="line">[Fri Sep 10 02:53:27 2021] nfs: server 10.0.15.1 not responding, still trying</span><br><span class="line">[Fri Sep 10 02:53:55 2021] nfs: server 10.0.15.1 not responding, timed out</span><br><span class="line">[Fri Sep 10 02:54:51 2021] nfs: server 10.0.15.1 not responding, still trying</span><br><span class="line">[Fri Sep 10 02:55:15 2021] nfs: server 10.0.15.1 OK</span><br><span class="line">[Fri Sep 10 02:55:15 2021] nfs: server 10.0.15.1 OK</span><br><span class="line">[Fri Sep 10 02:56:47 2021] nfs: server 10.0.15.1 OK</span><br><span class="line">[Fri Sep 10 02:58:15 2021] nfs: server 10.0.15.1 not responding, still trying</span><br><span class="line">[Fri Sep 10 02:58:15 2021] nfs: server 10.0.15.1 not responding, still trying</span><br><span class="line">[Fri Sep 10 02:58:46 2021] nfs: server 10.0.15.1 OK</span><br><span class="line">[Fri Sep 10 02:58:46 2021] nfs: server 10.0.15.1 OK</span><br><span class="line">[Fri Sep 10 05:55:53 2021] nfs: server 10.0.15.1 not responding, still trying</span><br><span class="line">[Fri Sep 10 05:56:17 2021] nfs: server 10.0.15.1 not responding, still trying</span><br><span class="line">[Fri Sep 10 05:56:18 2021] nfs: server 10.0.15.1 OK</span><br><span class="line">[Fri Sep 10 05:56:18 2021] nfs: server 10.0.15.1 OK</span><br></pre></td></tr></table></figure>
+
+<p>因此初步判断挂载windows nfs server导致异常重启。</p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/k8s/" rel="tag"># k8s</a>
+              <a href="/tags/nfs/" rel="tag"># nfs</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/posts/59d60043.html" rel="prev" title="对nginx location以及proxy_pass斜跨配置">
+                  <i class="fa fa-chevron-left"></i> 对nginx location以及proxy_pass斜跨配置
+                </a>
+            </div>
+            <div class="post-nav-item">
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 2017 – 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">hyman</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/mist/" rel="noopener" target="_blank">NexT.Mist</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/next-boot.js"></script>
+
+  
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+
+  
+
+
+
+
+
+</body>
+</html>

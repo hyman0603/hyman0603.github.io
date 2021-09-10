@@ -2,25 +2,25 @@
 <html lang="zh-CN">
 <head>
   <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="viewport" content="width=device-width">
 <meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 4.2.1">
+<meta name="generator" content="Hexo 5.4.0">
+
+
   <link rel="apple-touch-icon" sizes="180x180" href="/images/favicon.png">
   <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon.png">
-  <link rel="mask-icon" href="/images/favicon.png" color="#222">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
 
 <link rel="stylesheet" href="/css/main.css">
 
 
-<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
 
-<script id="hexo-configurations">
-    var NexT = window.NexT || {};
-    var CONFIG = {"hostname":"www.ywthings.com","root":"/","scheme":"Mist","version":"8.0.0-rc.2","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"appID":"UDW7NS797T","apiKey":"c4bb3c2b53b39900e8498ee72e6dc96e","indexName":"hyman","hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
-  </script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.3/css/all.min.css" integrity="sha256-2H3fkXt6FEmrReK448mDVGKb3WW2ZZw35gI7vqHOE4Y=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
 
-  <meta name="description" content="MongoDB介绍MongoDB 是由C++语言编写的，是一个基于分布式文件存储的开源数据库系统。在高负载的情况下，添加更多的节点，可以保证服务器性能。MongoDB 旨在为WEB应用提供可扩展的高性能数据存储解决方案。MongoDB 将数据存储为一个文档，数据结构由键值(key&#x3D;&gt;value)对组成。MongoDB 文档类似于 JSON 对象。字段值可以包含其他文档，数组及文档数组。">
+<script class="next-config" data-name="main" type="application/json">{"hostname":"www.ywthings.com","root":"/","images":"/images","scheme":"Mist","version":"8.5.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":true,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+<meta name="description" content="MongoDB介绍MongoDB 是由C++语言编写的，是一个基于分布式文件存储的开源数据库系统。在高负载的情况下，添加更多的节点，可以保证服务器性能。MongoDB 旨在为WEB应用提供可扩展的高性能数据存储解决方案。MongoDB 将数据存储为一个文档，数据结构由键值(key&#x3D;&gt;value)对组成。MongoDB 文档类似于 JSON 对象。字段值可以包含其他文档，数组及文档数组。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="记录MongoDB3.4分片的一些配置">
 <meta property="og:url" content="https://www.ywthings.com/posts/3737b178.html">
@@ -33,72 +33,47 @@
 <meta property="article:tag" content="mongodb">
 <meta name="twitter:card" content="summary">
 
+
 <link rel="canonical" href="https://www.ywthings.com/posts/3737b178.html">
 
 
-<script id="page-configurations">
-  // https://hexo.io/docs/variables.html
-  CONFIG.page = {
-    sidebar: "",
-    isHome : false,
-    isPost : true,
-    lang   : 'zh-CN'
-  };
-</script>
 
-  <title>记录MongoDB3.4分片的一些配置 | hyman</title>
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://www.ywthings.com/posts/3737b178.html","path":"posts/3737b178.html","title":"记录MongoDB3.4分片的一些配置"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>记录MongoDB3.4分片的一些配置 | hyman</title>
   
 
-
-
+  <script src="/js/third-party/analytics/baidu-analytics.js"></script>
+  <script async src="https://hm.baidu.com/hm.js?97e285060b95594e74e4d3562a50a717"></script>
 
 
 
   <noscript>
-  <style>
-  .use-motion .brand,
-  .use-motion .menu-item,
-  .sidebar-inner,
-  .use-motion .post-block,
-  .use-motion .pagination,
-  .use-motion .comments,
-  .use-motion .post-header,
-  .use-motion .post-body,
-  .use-motion .collection-header { opacity: initial; }
-
-  .use-motion .site-title,
-  .use-motion .site-subtitle {
-    opacity: initial;
-    top: initial;
-  }
-
-  .use-motion .logo-line-before i { left: initial; }
-  .use-motion .logo-line-after i { right: initial; }
-  </style>
-</noscript>
-
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
 </head>
 
-<body itemscope itemtype="http://schema.org/WebPage">
-  <div class="container use-motion">
-    <div class="headband"></div>
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
 
+  <main class="main">
     <header class="header" itemscope itemtype="http://schema.org/WPHeader">
       <div class="header-inner"><div class="site-brand-container">
   <div class="site-nav-toggle">
-    <div class="toggle" aria-label="切换导航栏">
-        <span class="toggle-line toggle-line-first"></span>
-        <span class="toggle-line toggle-line-middle"></span>
-        <span class="toggle-line toggle-line-last"></span>
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
     </div>
   </div>
 
   <div class="site-meta">
 
     <a href="/" class="brand" rel="start">
-      <span class="logo-line-before"><i></i></span>
+      <i class="logo-line"></i>
       <h1 class="site-title">hyman</h1>
-      <span class="logo-line-after"><i></i></span>
+      <i class="logo-line"></i>
     </a>
       <p class="site-subtitle" itemprop="description">一些简单的记录</p>
   </div>
@@ -113,32 +88,12 @@
 
 
 <nav class="site-nav">
-  <ul id="menu" class="main-menu menu">
-        <li class="menu-item menu-item-home">
-
-    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
-
-  </li>
-        <li class="menu-item menu-item-tags">
-
-    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
-
-  </li>
-        <li class="menu-item menu-item-categories">
-
-    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
-
-  </li>
-        <li class="menu-item menu-item-archives">
-
-    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
-
-  </li>
-        <li class="menu-item menu-item-sitemap">
-
-    <a href="/sitemap.xml" rel="section"><i class="fa fa-sitemap fa-fw"></i>站点地图</a>
-
-  </li>
+  <ul class="main-menu menu">
+        <li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li>
+        <li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li>
+        <li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li>
+        <li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li>
+        <li class="menu-item menu-item-sitemap"><a href="/sitemap.xml" rel="section"><i class="fa fa-sitemap fa-fw"></i>站点地图</a></li>
       <li class="menu-item menu-item-search">
         <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
         </a>
@@ -149,23 +104,22 @@
 
 
   <div class="search-pop-overlay">
-    <div class="popup search-popup">
-        <div class="search-header">
+    <div class="popup search-popup"><div class="search-header">
   <span class="search-icon">
     <i class="fa fa-search"></i>
   </span>
   <div class="search-input-container">
-    <input autocomplete="off" autocapitalize="off"
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
            placeholder="搜索..." spellcheck="false"
            type="search" class="search-input">
   </div>
-  <span class="popup-btn-close">
+  <span class="popup-btn-close" role="button">
     <i class="fa fa-times-circle"></i>
   </span>
 </div>
-<div id="search-result">
-  <div id="no-result">
-    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
   </div>
 </div>
 
@@ -173,33 +127,98 @@
   </div>
 
 </div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#MongoDB%E4%BB%8B%E7%BB%8D"><span class="nav-number">1.</span> <span class="nav-text">MongoDB介绍</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#MongoDB%E7%89%B9%E7%82%B9"><span class="nav-number">2.</span> <span class="nav-text">MongoDB特点</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#MongoDB%E5%AE%89%E8%A3%85"><span class="nav-number">3.</span> <span class="nav-text">MongoDB安装</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#yum%E5%AE%89%E8%A3%85"><span class="nav-number">3.1.</span> <span class="nav-text">yum安装</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%8B%E8%BD%BD"><span class="nav-number">3.2.</span> <span class="nav-text">下载</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6"><span class="nav-number">3.3.</span> <span class="nav-text">配置文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%90%AF%E5%8A%A8mongodb"><span class="nav-number">3.4.</span> <span class="nav-text">启动mongodb</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%9D%E5%A7%8B%E5%8C%96mongodb"><span class="nav-number">3.5.</span> <span class="nav-text">初始化mongodb</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%90%AF%E5%8A%A8%E5%88%86%E7%89%87"><span class="nav-number">3.6.</span> <span class="nav-text">启动分片</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-overview">
+            <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">hyman</p>
+  <div class="site-description" itemprop="description">一些简单的记录</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">187</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+        <span class="site-state-item-count">39</span>
+        <span class="site-state-item-name">分类</span>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">129</span>
+        <span class="site-state-item-name">标签</span>
+      </div>
+  </nav>
+</div>
+
+
+
+          </div>
+        </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
     </header>
 
     
-  <div class="back-to-top">
+  <div class="back-to-top" role="button" aria-label="返回顶部">
     <i class="fa fa-arrow-up"></i>
     <span>0%</span>
   </div>
 
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
 
-    <main class="main">
-      <div class="main-inner">
-        <div class="content-wrap">
-          
 
-          <div class="content post posts-expand">
-            
+    <div class="main-inner post posts-expand">
 
-    
+
+  
+
+
+<div class="post-block">
   
   
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://www.ywthings.com/posts/3737b178.html">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
       <meta itemprop="name" content="hyman">
-      <meta itemprop="description" content="">
+      <meta itemprop="description" content="一些简单的记录">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
@@ -210,33 +229,35 @@
           记录MongoDB3.4分片的一些配置
         </h1>
 
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
 
-              <time title="创建时间：2017-05-03 09:47:31" itemprop="dateCreated datePublished" datetime="2017-05-03T09:47:31+08:00">2017-05-03</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-05-18 07:58:41" itemprop="dateModified" datetime="2020-05-18T07:58:41+08:00">2020-05-18</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/MongoDB/" itemprop="url" rel="index"><span itemprop="name">MongoDB</span></a>
-                </span>
-            </span>
+      <time title="创建时间：2017-05-03 09:47:31" itemprop="dateCreated datePublished" datetime="2017-05-03T09:47:31+08:00">2017-05-03</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">更新于</span>
+        <time title="修改时间：2020-05-18 07:58:41" itemprop="dateModified" datetime="2020-05-18T07:58:41+08:00">2020-05-18</time>
+      </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/MongoDB/" itemprop="url" rel="index"><span itemprop="name">MongoDB</span></a>
+        </span>
+    </span>
 
-          
+  
+</div>
 
         </div>
       </header>
@@ -245,10 +266,8 @@
     
     
     <div class="post-body" itemprop="articleBody">
-
-      
         <h2 id="MongoDB介绍"><a href="#MongoDB介绍" class="headerlink" title="MongoDB介绍"></a>MongoDB介绍</h2><p>MongoDB 是由C++语言编写的，是一个基于分布式文件存储的开源数据库系统。在高负载的情况下，添加更多的节点，可以保证服务器性能。MongoDB 旨在为WEB应用提供可扩展的高性能数据存储解决方案。MongoDB 将数据存储为一个文档，数据结构由键值(key=&gt;value)对组成。MongoDB 文档类似于 JSON 对象。字段值可以包含其他文档，数组及文档数组。</p>
-<a id="more"></a>
+<span id="more"></span>
 <h2 id="MongoDB特点"><a href="#MongoDB特点" class="headerlink" title="MongoDB特点"></a>MongoDB特点</h2><ul>
 <li>MongoDB的提供了一个面向文档存储，操作起来比较简单和容易。</li>
 <li>你可以在MongoDB记录中设置任何属性的索引 (如：FirstName=”Ning”,Address=”Beijing”)来实现更快的排序。</li>
@@ -263,32 +282,32 @@
 <li>MongoDB允许在服务端执行脚本，可以用Javascript编写某个函数，直接在服务端执行，也可以把函数的定义存储在服务端，下次直接调用即可。</li>
 <li>MongoDB支持各种编程语言:RUBY，PYTHON，JAVA，C++，PHP，C#等多种语言。</li>
 </ul>
-<h2 id="MongoDB安装"><a href="#MongoDB安装" class="headerlink" title="MongoDB安装"></a>MongoDB安装</h2><h3 id="yum安装"><a href="#yum安装" class="headerlink" title="yum安装"></a>yum安装</h3><p>官网：<a href="https://docs.mongodb.com/master/tutorial/install-mongodb-on-red-hat/">https://docs.mongodb.com/master/tutorial/install-mongodb-on-red-hat/</a></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">[root@object1 ~]# vim &#x2F;etc&#x2F;yum.repos.d&#x2F;mongodb-org-3.4.repo</span><br><span class="line">[mongodb-org-3.4]</span><br><span class="line">name&#x3D;MongoDB Repository</span><br><span class="line">baseurl&#x3D;https:&#x2F;&#x2F;repo.mongodb.org&#x2F;yum&#x2F;redhat&#x2F;$releasever&#x2F;mongodb-org&#x2F;3.4&#x2F;x86_64&#x2F;</span><br><span class="line">gpgcheck&#x3D;1</span><br><span class="line">enabled&#x3D;1</span><br><span class="line">gpgkey&#x3D;https:&#x2F;&#x2F;www.mongodb.org&#x2F;static&#x2F;pgp&#x2F;server-3.4.asc</span><br><span class="line"></span><br><span class="line">[root@object1 ~]#sudo yum install -y mongodb-org</span><br></pre></td></tr></table></figure>
+<h2 id="MongoDB安装"><a href="#MongoDB安装" class="headerlink" title="MongoDB安装"></a>MongoDB安装</h2><h3 id="yum安装"><a href="#yum安装" class="headerlink" title="yum安装"></a>yum安装</h3><p>官网：<a target="_blank" rel="noopener" href="https://docs.mongodb.com/master/tutorial/install-mongodb-on-red-hat/">https://docs.mongodb.com/master/tutorial/install-mongodb-on-red-hat/</a></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">[root@object1 ~]# vim /etc/yum.repos.d/mongodb-org-3.4.repo</span><br><span class="line">[mongodb-org-3.4]</span><br><span class="line">name=MongoDB Repository</span><br><span class="line">baseurl=https://repo.mongodb.org/yum/redhat/$releasever/mongodb-org/3.4/x86_64/</span><br><span class="line">gpgcheck=1</span><br><span class="line">enabled=1</span><br><span class="line">gpgkey=https://www.mongodb.org/static/pgp/server-3.4.asc</span><br><span class="line"></span><br><span class="line">[root@object1 ~]#sudo yum install -y mongodb-org</span><br></pre></td></tr></table></figure>
 
-<h3 id="下载"><a href="#下载" class="headerlink" title="下载"></a>下载</h3><p>官网：<a href="https://www.mongodb.com/download-center?jmp=nav#community">https://www.mongodb.com/download-center?jmp=nav#community</a></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">[root@object1 ~]#curl -O https:&#x2F;&#x2F;fastdl.mongodb.org&#x2F;linux&#x2F;mongodb-linux-x86_64-rhel70-3.4.4.tgz</span><br><span class="line">[root@object1 ~]#tar -zxvf mongodb-linux-x86_64-rhel70-3.4.4.tgz </span><br><span class="line">[root@object1 ~]# mv mongodb-linux-x86_64-rhel70-3.4.4 &#x2F;usr&#x2F;local&#x2F;mongodb</span><br><span class="line"></span><br><span class="line">#把安装目录添加到系统环境中</span><br><span class="line">export PATH&#x3D;&#x2F;usr&#x2F;local&#x2F;mongodb&#x2F;bin:$PATH</span><br></pre></td></tr></table></figure>
+<h3 id="下载"><a href="#下载" class="headerlink" title="下载"></a>下载</h3><p>官网：<a target="_blank" rel="noopener" href="https://www.mongodb.com/download-center?jmp=nav#community">https://www.mongodb.com/download-center?jmp=nav#community</a></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">[root@object1 ~]#curl -O https://fastdl.mongodb.org/linux/mongodb-linux-x86_64-rhel70-3.4.4.tgz</span><br><span class="line">[root@object1 ~]#tar -zxvf mongodb-linux-x86_64-rhel70-3.4.4.tgz </span><br><span class="line">[root@object1 ~]# mv mongodb-linux-x86_64-rhel70-3.4.4 /usr/local/mongodb</span><br><span class="line"></span><br><span class="line">#把安装目录添加到系统环境中</span><br><span class="line">export PATH=/usr/local/mongodb/bin:$PATH</span><br></pre></td></tr></table></figure>
 
-<h3 id="配置文件"><a href="#配置文件" class="headerlink" title="配置文件"></a>配置文件</h3><p>官网：<a href="https://docs.mongodb.com/manual/administration/configuration/">https://docs.mongodb.com/manual/administration/configuration/</a></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">#使用YAML配置也可以使用原ini配置</span><br><span class="line">#基本设置</span><br><span class="line">processManagement:</span><br><span class="line">   fork: true</span><br><span class="line">   pidFilePath: &#x2F;home&#x2F;mongodb&#x2F;mongodb.pid</span><br><span class="line">storage:</span><br><span class="line">   dbPath: &#x2F;home&#x2F;mongodb&#x2F;data</span><br><span class="line">systemLog:</span><br><span class="line">   destination: file</span><br><span class="line">   path: &quot;&#x2F;home&#x2F;mongodb&#x2F;log&#x2F;mongod.log&quot;</span><br><span class="line">   logAppend: true</span><br><span class="line">storage:</span><br><span class="line">   journal:</span><br><span class="line">      enabled: true</span><br><span class="line"></span><br><span class="line">#安全</span><br><span class="line">security:</span><br><span class="line">   authorization: enabled</span><br><span class="line">net:</span><br><span class="line">   bindIp: 192.168.1.226</span><br><span class="line">   port: 27017</span><br><span class="line"></span><br><span class="line">#副本集</span><br><span class="line">replication:</span><br><span class="line">   replSetName: set0</span><br><span class="line">#副本集安全</span><br><span class="line">security:</span><br><span class="line">   keyFile: &#x2F;home&#x2F;mongodb&#x2F;keyfile</span><br></pre></td></tr></table></figure>
+<h3 id="配置文件"><a href="#配置文件" class="headerlink" title="配置文件"></a>配置文件</h3><p>官网：<a target="_blank" rel="noopener" href="https://docs.mongodb.com/manual/administration/configuration/">https://docs.mongodb.com/manual/administration/configuration/</a></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">#使用YAML配置也可以使用原ini配置</span><br><span class="line">#基本设置</span><br><span class="line">processManagement:</span><br><span class="line">   fork: true</span><br><span class="line">   pidFilePath: /home/mongodb/mongodb.pid</span><br><span class="line">storage:</span><br><span class="line">   dbPath: /home/mongodb/data</span><br><span class="line">systemLog:</span><br><span class="line">   destination: file</span><br><span class="line">   path: &quot;/home/mongodb/log/mongod.log&quot;</span><br><span class="line">   logAppend: true</span><br><span class="line">storage:</span><br><span class="line">   journal:</span><br><span class="line">      enabled: true</span><br><span class="line"></span><br><span class="line">#安全</span><br><span class="line">security:</span><br><span class="line">   authorization: enabled</span><br><span class="line">net:</span><br><span class="line">   bindIp: 192.168.1.226</span><br><span class="line">   port: 27017</span><br><span class="line"></span><br><span class="line">#副本集</span><br><span class="line">replication:</span><br><span class="line">   replSetName: set0</span><br><span class="line">#副本集安全</span><br><span class="line">security:</span><br><span class="line">   keyFile: /home/mongodb/keyfile</span><br></pre></td></tr></table></figure>
 
 <p><strong>分片配置</strong><br>分片服务器</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">processManagement:</span><br><span class="line">   fork: true</span><br><span class="line">   pidFilePath: &#x2F;home&#x2F;mongodb&#x2F;mongodb.pid</span><br><span class="line">storage:</span><br><span class="line">   dbPath: &#x2F;home&#x2F;mongodb&#x2F;data</span><br><span class="line">systemLog:</span><br><span class="line">   destination: file</span><br><span class="line">   path: &quot;&#x2F;home&#x2F;mongodb&#x2F;log&#x2F;mongod.log&quot;</span><br><span class="line">   logAppend: true</span><br><span class="line">storage:</span><br><span class="line">   journal:</span><br><span class="line">      enabled: true</span><br><span class="line">net:</span><br><span class="line">   bindIp: 192.168.1.226</span><br><span class="line">   port: 27017</span><br><span class="line">sharding:</span><br><span class="line">   clusterRole: shardsvr</span><br><span class="line">replication:</span><br><span class="line">   replSetName: shardA</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">processManagement:</span><br><span class="line">   fork: true</span><br><span class="line">   pidFilePath: /home/mongodb/mongodb.pid</span><br><span class="line">storage:</span><br><span class="line">   dbPath: /home/mongodb/data</span><br><span class="line">systemLog:</span><br><span class="line">   destination: file</span><br><span class="line">   path: &quot;/home/mongodb/log/mongod.log&quot;</span><br><span class="line">   logAppend: true</span><br><span class="line">storage:</span><br><span class="line">   journal:</span><br><span class="line">      enabled: true</span><br><span class="line">net:</span><br><span class="line">   bindIp: 192.168.1.226</span><br><span class="line">   port: 27017</span><br><span class="line">sharding:</span><br><span class="line">   clusterRole: shardsvr</span><br><span class="line">replication:</span><br><span class="line">   replSetName: shardA</span><br></pre></td></tr></table></figure>
 
 <p>配置服务器</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">processManagement:</span><br><span class="line">   fork: true</span><br><span class="line">   pidFilePath: &#x2F;home&#x2F;mongodb&#x2F;mongodb.pid</span><br><span class="line">storage:</span><br><span class="line">   dbPath: &#x2F;home&#x2F;mongodb&#x2F;data</span><br><span class="line">systemLog:</span><br><span class="line">   destination: file</span><br><span class="line">   path: &quot;&#x2F;home&#x2F;mongodb&#x2F;log&#x2F;mongod.log&quot;</span><br><span class="line">   logAppend: true</span><br><span class="line">storage:</span><br><span class="line">   journal:</span><br><span class="line">      enabled: true</span><br><span class="line">sharding:</span><br><span class="line">    clusterRole: configsvr</span><br><span class="line">net:</span><br><span class="line">    bindIp: 192.168.1.226</span><br><span class="line">    port: 27001</span><br><span class="line">replication:</span><br><span class="line">    replSetName: csRS</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">processManagement:</span><br><span class="line">   fork: true</span><br><span class="line">   pidFilePath: /home/mongodb/mongodb.pid</span><br><span class="line">storage:</span><br><span class="line">   dbPath: /home/mongodb/data</span><br><span class="line">systemLog:</span><br><span class="line">   destination: file</span><br><span class="line">   path: &quot;/home/mongodb/log/mongod.log&quot;</span><br><span class="line">   logAppend: true</span><br><span class="line">storage:</span><br><span class="line">   journal:</span><br><span class="line">      enabled: true</span><br><span class="line">sharding:</span><br><span class="line">    clusterRole: configsvr</span><br><span class="line">net:</span><br><span class="line">    bindIp: 192.168.1.226</span><br><span class="line">    port: 27001</span><br><span class="line">replication:</span><br><span class="line">    replSetName: csRS</span><br></pre></td></tr></table></figure>
 <p>路由服务器</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">processManagement:</span><br><span class="line">   fork: true</span><br><span class="line">   pidFilePath: &#x2F;home&#x2F;mongodb&#x2F;mongos.pid</span><br><span class="line">#storage:</span><br><span class="line">#   dbPath: &#x2F;home&#x2F;mongodb&#x2F;data</span><br><span class="line">systemLog:</span><br><span class="line">   destination: file</span><br><span class="line">   path: &quot;&#x2F;home&#x2F;mongodb&#x2F;log&#x2F;mongos.log&quot;</span><br><span class="line">   logAppend: true</span><br><span class="line">#storage:</span><br><span class="line">#   journal:</span><br><span class="line">#      enabled: true</span><br><span class="line">net:</span><br><span class="line">    bindIp: 192.168.1.226</span><br><span class="line">    port: 28001</span><br><span class="line">sharding:</span><br><span class="line">   configDB: csRS&#x2F;192.168.1.226:27001,192.168.1.226:27002,192.168.1.226:27003</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">processManagement:</span><br><span class="line">   fork: true</span><br><span class="line">   pidFilePath: /home/mongodb/mongos.pid</span><br><span class="line">#storage:</span><br><span class="line">#   dbPath: /home/mongodb/data</span><br><span class="line">systemLog:</span><br><span class="line">   destination: file</span><br><span class="line">   path: &quot;/home/mongodb/log/mongos.log&quot;</span><br><span class="line">   logAppend: true</span><br><span class="line">#storage:</span><br><span class="line">#   journal:</span><br><span class="line">#      enabled: true</span><br><span class="line">net:</span><br><span class="line">    bindIp: 192.168.1.226</span><br><span class="line">    port: 28001</span><br><span class="line">sharding:</span><br><span class="line">   configDB: csRS/192.168.1.226:27001,192.168.1.226:27002,192.168.1.226:27003</span><br></pre></td></tr></table></figure>
 
-<h3 id="启动mongodb"><a href="#启动mongodb" class="headerlink" title="启动mongodb"></a>启动mongodb</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[root@object1 ~]# &#x2F;usr&#x2F;local&#x2F;mongodb&#x2F;bin&#x2F;mongod -f 分片服务器配置文件</span><br><span class="line">[root@object1 ~]# &#x2F;usr&#x2F;local&#x2F;mongodb&#x2F;bin&#x2F;mongod -f 配置服务器配置文件</span><br><span class="line">[root@object1 ~]# &#x2F;usr&#x2F;local&#x2F;mongodb&#x2F;bin&#x2F;mongos -f 路由服务器配置文件</span><br></pre></td></tr></table></figure>
+<h3 id="启动mongodb"><a href="#启动mongodb" class="headerlink" title="启动mongodb"></a>启动mongodb</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[root@object1 ~]# /usr/local/mongodb/bin/mongod -f 分片服务器配置文件</span><br><span class="line">[root@object1 ~]# /usr/local/mongodb/bin/mongod -f 配置服务器配置文件</span><br><span class="line">[root@object1 ~]# /usr/local/mongodb/bin/mongos -f 路由服务器配置文件</span><br></pre></td></tr></table></figure>
 
 <h3 id="初始化mongodb"><a href="#初始化mongodb" class="headerlink" title="初始化mongodb"></a>初始化mongodb</h3><p>分片服务器</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">[root@object1 ~]# &#x2F;usr&#x2F;local&#x2F;mongodb&#x2F;bin&#x2F;mongo --port 27017</span><br><span class="line">&gt;use admin</span><br><span class="line">&gt;config &#x3D; &#123;_id:&quot;shardA&quot;,members:[</span><br><span class="line">&#123;_id:0, host:&quot;192.168.1.226:27017&quot;&#125;,</span><br><span class="line">&#123;_id:1, host:&quot;192.168.1.226:27018&quot;&#125;,</span><br><span class="line">&#123;_id:2, host:&quot;192.168.1.226:27019&quot;&#125;</span><br><span class="line">]&#125;</span><br><span class="line">&gt;rs.initiate(config)</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">[root@object1 ~]# /usr/local/mongodb/bin/mongo --port 27017</span><br><span class="line">&gt;use admin</span><br><span class="line">&gt;config = &#123;_id:&quot;shardA&quot;,members:[</span><br><span class="line">&#123;_id:0, host:&quot;192.168.1.226:27017&quot;&#125;,</span><br><span class="line">&#123;_id:1, host:&quot;192.168.1.226:27018&quot;&#125;,</span><br><span class="line">&#123;_id:2, host:&quot;192.168.1.226:27019&quot;&#125;</span><br><span class="line">]&#125;</span><br><span class="line">&gt;rs.initiate(config)</span><br></pre></td></tr></table></figure>
 
 <p>配置服务器</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">[root@object1 ~]# &#x2F;usr&#x2F;local&#x2F;mongodb&#x2F;bin&#x2F;mongo --port 27001</span><br><span class="line">&gt;use admin</span><br><span class="line">&gt;config &#x3D; &#123;_id:&quot;csRS&quot;,configsvr:true,members:[</span><br><span class="line">&#123;_id:0, host:&quot;192.168.1.226:27001&quot;&#125;,</span><br><span class="line">&#123;_id:1, host:&quot;192.168.1.226:27002&quot;&#125;,</span><br><span class="line">&#123;_id:2, host:&quot;192.168.1.226:27003&quot;&#125;</span><br><span class="line">]&#125;</span><br><span class="line">&gt;rs.initiate(config)</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">[root@object1 ~]# /usr/local/mongodb/bin/mongo --port 27001</span><br><span class="line">&gt;use admin</span><br><span class="line">&gt;config = &#123;_id:&quot;csRS&quot;,configsvr:true,members:[</span><br><span class="line">&#123;_id:0, host:&quot;192.168.1.226:27001&quot;&#125;,</span><br><span class="line">&#123;_id:1, host:&quot;192.168.1.226:27002&quot;&#125;,</span><br><span class="line">&#123;_id:2, host:&quot;192.168.1.226:27003&quot;&#125;</span><br><span class="line">]&#125;</span><br><span class="line">&gt;rs.initiate(config)</span><br></pre></td></tr></table></figure>
 
-<h3 id="启动分片"><a href="#启动分片" class="headerlink" title="启动分片"></a>启动分片</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[root@object1 mongodb]# mongo --port 28001</span><br><span class="line">mongos&gt; use admin</span><br><span class="line">mongos&gt; db.runCommand( &#123; addShard: &quot;shardA&#x2F;192.168.1.226:27017,192.168.1.226:27018,192.168.1.226:27019&quot;&#125; )</span><br></pre></td></tr></table></figure>
+<h3 id="启动分片"><a href="#启动分片" class="headerlink" title="启动分片"></a>启动分片</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[root@object1 mongodb]# mongo --port 28001</span><br><span class="line">mongos&gt; use admin</span><br><span class="line">mongos&gt; db.runCommand( &#123; addShard: &quot;shardA/192.168.1.226:27017,192.168.1.226:27018,192.168.1.226:27019&quot;&#125; )</span><br><span class="line"></span><br></pre></td></tr></table></figure>
 
 
     </div>
@@ -297,172 +316,61 @@
     
     
 
-      <footer class="post-footer">
+    <footer class="post-footer">
           <div class="post-tags">
               <a href="/tags/mongodb/" rel="tag"># mongodb</a>
           </div>
 
         
 
-
-        
-    <div class="post-nav">
-      <div class="post-nav-item">
-    <a href="/posts/c197f166.html" rel="prev" title="CentOS7 LDAP统一认证部署">
-      <i class="fa fa-chevron-left"></i> CentOS7 LDAP统一认证部署
-    </a></div>
-      <div class="post-nav-item">
-    <a href="/posts/9de8b011.html" rel="next" title="搭建FastDFS分布式文件系统">
-      搭建FastDFS分布式文件系统 <i class="fa fa-chevron-right"></i>
-    </a></div>
-    </div>
-      </footer>
-    
-  </article>
-  
-  
-  
-
-
-
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/posts/c197f166.html" rel="prev" title="CentOS7 LDAP统一认证部署">
+                  <i class="fa fa-chevron-left"></i> CentOS7 LDAP统一认证部署
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/posts/9de8b011.html" rel="next" title="搭建FastDFS分布式文件系统">
+                  搭建FastDFS分布式文件系统 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
           </div>
-          
-
-<script>
-  window.addEventListener('tabs:register', () => {
-    let { activeClass } = CONFIG.comments;
-    if (CONFIG.comments.storage) {
-      activeClass = localStorage.getItem('comments_active') || activeClass;
-    }
-    if (activeClass) {
-      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
-      if (activeTab) {
-        activeTab.click();
-      }
-    }
-  });
-  if (CONFIG.comments.storage) {
-    window.addEventListener('tabs:click', event => {
-      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
-      let commentClass = event.target.classList[1];
-      localStorage.setItem('comments_active', commentClass);
-    });
-  }
-</script>
-
-        </div>
-          
-  
-  <div class="toggle sidebar-toggle">
-    <span class="toggle-line toggle-line-first"></span>
-    <span class="toggle-line toggle-line-middle"></span>
-    <span class="toggle-line toggle-line-last"></span>
-  </div>
-
-  <aside class="sidebar">
-    <div class="sidebar-inner">
-
-      <ul class="sidebar-nav motion-element">
-        <li class="sidebar-nav-toc">
-          文章目录
-        </li>
-        <li class="sidebar-nav-overview">
-          站点概览
-        </li>
-      </ul>
-
-      <!--noindex-->
-      <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#MongoDB介绍"><span class="nav-number">1.</span> <span class="nav-text">MongoDB介绍</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#MongoDB特点"><span class="nav-number">2.</span> <span class="nav-text">MongoDB特点</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#MongoDB安装"><span class="nav-number">3.</span> <span class="nav-text">MongoDB安装</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#yum安装"><span class="nav-number">3.1.</span> <span class="nav-text">yum安装</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#下载"><span class="nav-number">3.2.</span> <span class="nav-text">下载</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#配置文件"><span class="nav-number">3.3.</span> <span class="nav-text">配置文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#启动mongodb"><span class="nav-number">3.4.</span> <span class="nav-text">启动mongodb</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#初始化mongodb"><span class="nav-number">3.5.</span> <span class="nav-text">初始化mongodb</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#启动分片"><span class="nav-number">3.6.</span> <span class="nav-text">启动分片</span></a></li></ol></li></ol></div>
-      </div>
-      <!--/noindex-->
-
-      <div class="site-overview-wrap sidebar-panel">
-        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
-  <p class="site-author-name" itemprop="name">hyman</p>
-  <div class="site-description" itemprop="description"></div>
-</div>
-<div class="site-state-wrap motion-element">
-  <nav class="site-state">
-      <div class="site-state-item site-state-posts">
-          <a href="/archives/">
-        
-          <span class="site-state-item-count">169</span>
-          <span class="site-state-item-name">日志</span>
-        </a>
-      </div>
-      <div class="site-state-item site-state-categories">
-            <a href="/categories/">
-          
-        <span class="site-state-item-count">35</span>
-        <span class="site-state-item-name">分类</span></a>
-      </div>
-      <div class="site-state-item site-state-tags">
-            <a href="/tags/">
-          
-        <span class="site-state-item-count">122</span>
-        <span class="site-state-item-name">标签</span></a>
-      </div>
-  </nav>
+    </footer>
+  </article>
 </div>
 
 
 
-      </div>
-
-    </div>
-  </aside>
-  <div id="sidebar-dimmer"></div>
 
 
-      </div>
-    </main>
 
-    <footer class="footer">
-      <div class="footer-inner">
-        
+</div>
+  </main>
 
-        
+  <footer class="footer">
+    <div class="footer-inner">
+
 
 <div class="copyright">
-  
-  &copy; 
+  &copy; 2017 – 
   <span itemprop="copyrightYear">2021</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>
   <span class="author" itemprop="copyrightHolder">hyman</span>
 </div>
-  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/mist/" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a> 强力驱动
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/mist/" rel="noopener" target="_blank">NexT.Mist</a> 强力驱动
   </div>
 
-        
-
-
-
-
-
-
-
-
-      </div>
-    </footer>
-  </div>
+    </div>
+  </footer>
 
   
-  <script src="/lib/anime.min.js"></script>
-  <script src="/lib/velocity/velocity.min.js"></script>
-  <script src="/lib/velocity/velocity.ui.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/next-boot.js"></script>
 
-<script src="/js/utils.js"></script>
-
-<script src="/js/motion.js"></script>
-
-
-<script src="/js/schemes/muse.js"></script>
-
-
-<script src="/js/next-boot.js"></script>
+  
+<script src="/js/third-party/search/local-search.js"></script>
 
 
 
@@ -472,24 +380,6 @@
 
 
 
-  
-<script src="/js/local-search.js"></script>
-
-
-
-
-
-
-
-
-
-
-
-
-
-  
-
-  
 
 </body>
 </html>

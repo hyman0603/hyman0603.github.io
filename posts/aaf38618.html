@@ -2,25 +2,25 @@
 <html lang="zh-CN">
 <head>
   <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="viewport" content="width=device-width">
 <meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 4.2.1">
+<meta name="generator" content="Hexo 5.4.0">
+
+
   <link rel="apple-touch-icon" sizes="180x180" href="/images/favicon.png">
   <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon.png">
-  <link rel="mask-icon" href="/images/favicon.png" color="#222">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
 
 <link rel="stylesheet" href="/css/main.css">
 
 
-<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
 
-<script id="hexo-configurations">
-    var NexT = window.NexT || {};
-    var CONFIG = {"hostname":"www.ywthings.com","root":"/","scheme":"Mist","version":"8.0.0-rc.2","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"appID":"UDW7NS797T","apiKey":"c4bb3c2b53b39900e8498ee72e6dc96e","indexName":"hyman","hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
-  </script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.3/css/all.min.css" integrity="sha256-2H3fkXt6FEmrReK448mDVGKb3WW2ZZw35gI7vqHOE4Y=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
 
-  <meta name="description" content="基本安装方法与其他版本安装无异，只是镜像名更改了，去掉了amd64">
+<script class="next-config" data-name="main" type="application/json">{"hostname":"www.ywthings.com","root":"/","images":"/images","scheme":"Mist","version":"8.5.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":true,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+<meta name="description" content="基本安装方法与其他版本安装无异，只是镜像名更改了，去掉了amd64">
 <meta property="og:type" content="article">
 <meta property="og:title" content="使用kubeadm安装kubernetes 1.12.x">
 <meta property="og:url" content="https://www.ywthings.com/posts/aaf38618.html">
@@ -30,76 +30,51 @@
 <meta property="article:published_time" content="2018-09-29T11:21:57.000Z">
 <meta property="article:modified_time" content="2020-05-17T23:58:41.065Z">
 <meta property="article:author" content="hyman">
-<meta property="article:tag" content="k8s">
 <meta property="article:tag" content="kubernetes">
+<meta property="article:tag" content="k8s">
 <meta name="twitter:card" content="summary">
+
 
 <link rel="canonical" href="https://www.ywthings.com/posts/aaf38618.html">
 
 
-<script id="page-configurations">
-  // https://hexo.io/docs/variables.html
-  CONFIG.page = {
-    sidebar: "",
-    isHome : false,
-    isPost : true,
-    lang   : 'zh-CN'
-  };
-</script>
 
-  <title>使用kubeadm安装kubernetes 1.12.x | hyman</title>
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://www.ywthings.com/posts/aaf38618.html","path":"posts/aaf38618.html","title":"使用kubeadm安装kubernetes 1.12.x"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>使用kubeadm安装kubernetes 1.12.x | hyman</title>
   
 
-
-
+  <script src="/js/third-party/analytics/baidu-analytics.js"></script>
+  <script async src="https://hm.baidu.com/hm.js?97e285060b95594e74e4d3562a50a717"></script>
 
 
 
   <noscript>
-  <style>
-  .use-motion .brand,
-  .use-motion .menu-item,
-  .sidebar-inner,
-  .use-motion .post-block,
-  .use-motion .pagination,
-  .use-motion .comments,
-  .use-motion .post-header,
-  .use-motion .post-body,
-  .use-motion .collection-header { opacity: initial; }
-
-  .use-motion .site-title,
-  .use-motion .site-subtitle {
-    opacity: initial;
-    top: initial;
-  }
-
-  .use-motion .logo-line-before i { left: initial; }
-  .use-motion .logo-line-after i { right: initial; }
-  </style>
-</noscript>
-
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
 </head>
 
-<body itemscope itemtype="http://schema.org/WebPage">
-  <div class="container use-motion">
-    <div class="headband"></div>
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
 
+  <main class="main">
     <header class="header" itemscope itemtype="http://schema.org/WPHeader">
       <div class="header-inner"><div class="site-brand-container">
   <div class="site-nav-toggle">
-    <div class="toggle" aria-label="切换导航栏">
-        <span class="toggle-line toggle-line-first"></span>
-        <span class="toggle-line toggle-line-middle"></span>
-        <span class="toggle-line toggle-line-last"></span>
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
     </div>
   </div>
 
   <div class="site-meta">
 
     <a href="/" class="brand" rel="start">
-      <span class="logo-line-before"><i></i></span>
+      <i class="logo-line"></i>
       <h1 class="site-title">hyman</h1>
-      <span class="logo-line-after"><i></i></span>
+      <i class="logo-line"></i>
     </a>
       <p class="site-subtitle" itemprop="description">一些简单的记录</p>
   </div>
@@ -114,32 +89,12 @@
 
 
 <nav class="site-nav">
-  <ul id="menu" class="main-menu menu">
-        <li class="menu-item menu-item-home">
-
-    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
-
-  </li>
-        <li class="menu-item menu-item-tags">
-
-    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
-
-  </li>
-        <li class="menu-item menu-item-categories">
-
-    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
-
-  </li>
-        <li class="menu-item menu-item-archives">
-
-    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
-
-  </li>
-        <li class="menu-item menu-item-sitemap">
-
-    <a href="/sitemap.xml" rel="section"><i class="fa fa-sitemap fa-fw"></i>站点地图</a>
-
-  </li>
+  <ul class="main-menu menu">
+        <li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li>
+        <li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li>
+        <li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li>
+        <li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li>
+        <li class="menu-item menu-item-sitemap"><a href="/sitemap.xml" rel="section"><i class="fa fa-sitemap fa-fw"></i>站点地图</a></li>
       <li class="menu-item menu-item-search">
         <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
         </a>
@@ -150,23 +105,22 @@
 
 
   <div class="search-pop-overlay">
-    <div class="popup search-popup">
-        <div class="search-header">
+    <div class="popup search-popup"><div class="search-header">
   <span class="search-icon">
     <i class="fa fa-search"></i>
   </span>
   <div class="search-input-container">
-    <input autocomplete="off" autocapitalize="off"
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
            placeholder="搜索..." spellcheck="false"
            type="search" class="search-input">
   </div>
-  <span class="popup-btn-close">
+  <span class="popup-btn-close" role="button">
     <i class="fa fa-times-circle"></i>
   </span>
 </div>
-<div id="search-result">
-  <div id="no-result">
-    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
   </div>
 </div>
 
@@ -174,33 +128,98 @@
   </div>
 
 </div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%AE%89%E8%A3%85%E5%87%86%E5%A4%87"><span class="nav-number">1.</span> <span class="nav-text">安装准备</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%AA%8C%E8%AF%81MAC%E5%9C%B0%E5%9D%80%E5%92%8Cproduct-uuid%E5%AF%B9%E4%BA%8E%E6%AF%8F%E4%B8%AA%E8%8A%82%E7%82%B9%E9%83%BD%E6%98%AF%E5%94%AF%E4%B8%80%E7%9A%84"><span class="nav-number">1.1.</span> <span class="nav-text">验证MAC地址和product_uuid对于每个节点都是唯一的</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%A3%80%E6%9F%A5%E7%AB%AF%E5%8F%A3%E6%98%AF%E5%90%A6%E5%BC%80%E6%94%BE"><span class="nav-number">1.2.</span> <span class="nav-text">检查端口是否开放</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%B3%E9%97%ADSelinux-firewalld"><span class="nav-number">1.3.</span> <span class="nav-text">关闭Selinux&#x2F;firewalld</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%B3%E9%97%AD%E4%BA%A4%E6%8D%A2%E5%88%86%E5%8C%BA"><span class="nav-number">1.4.</span> <span class="nav-text">关闭交换分区</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%A6%82%E9%87%87%E7%94%A8%E4%BA%91%E6%9C%8D%E5%8A%A1%EF%BC%8C%E5%8F%AF%E7%95%A5%E8%BF%87%E6%AD%A4%E6%AD%A5%E9%AA%A4%EF%BC%8C%E4%BA%91%E6%9C%8D%E5%8A%A1%E9%BB%98%E8%AE%A4%E7%A6%81%E6%AD%A2%E4%BD%BF%E7%94%A8%E4%BA%A4%E6%8D%A2%E5%88%86%E5%8C%BA%EF%BC%8C%E5%A6%82%E9%98%BF%E9%87%8C%E4%BA%91%E3%80%81%E8%85%BE%E8%AE%AF%E4%BA%91%E3%80%81%E5%8D%8E%E4%B8%BA%E4%BA%91"><span class="nav-number">1.5.</span> <span class="nav-text">如采用云服务，可略过此步骤，云服务默认禁止使用交换分区，如阿里云、腾讯云、华为云</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BD%91%E6%A1%A5%E5%8C%85%E7%BB%8FIPTables"><span class="nav-number">1.6.</span> <span class="nav-text">网桥包经IPTables</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%90%8C%E6%AD%A5%E6%97%B6%E9%97%B4"><span class="nav-number">1.7.</span> <span class="nav-text">同步时间</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%BC%80%E5%90%AFIPVS"><span class="nav-number">1.8.</span> <span class="nav-text">开启IPVS</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%AE%89%E8%A3%85dockre-ce"><span class="nav-number">2.</span> <span class="nav-text">安装dockre ce</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%AE%89%E8%A3%85kubeadm"><span class="nav-number">3.</span> <span class="nav-text">安装kubeadm</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%AE%89%E8%A3%85%E6%89%80%E9%9C%80%E9%95%9C%E5%83%8F"><span class="nav-number">4.</span> <span class="nav-text">安装所需镜像</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%AE%89%E8%A3%85kubernetes-1-12-3"><span class="nav-number">5.</span> <span class="nav-text">安装kubernetes 1.12.3</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%87%8D%E7%BD%AEkubernets"><span class="nav-number">6.</span> <span class="nav-text">重置kubernets</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%AE%89%E8%A3%85Pod-Network"><span class="nav-number">7.</span> <span class="nav-text">安装Pod Network</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#master-node%E5%8F%82%E4%B8%8E%E5%B7%A5%E4%BD%9C%E8%B4%9F%E8%BD%BD"><span class="nav-number">8.</span> <span class="nav-text">master node参与工作负载</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%B5%8B%E8%AF%95DNS"><span class="nav-number">9.</span> <span class="nav-text">测试DNS</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%9B%86%E7%BE%A4%E4%B8%AD%E7%A7%BB%E9%99%A4Node"><span class="nav-number">10.</span> <span class="nav-text">集群中移除Node</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-overview">
+            <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">hyman</p>
+  <div class="site-description" itemprop="description">一些简单的记录</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">187</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+        <span class="site-state-item-count">39</span>
+        <span class="site-state-item-name">分类</span>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">129</span>
+        <span class="site-state-item-name">标签</span>
+      </div>
+  </nav>
+</div>
+
+
+
+          </div>
+        </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
     </header>
 
     
-  <div class="back-to-top">
+  <div class="back-to-top" role="button" aria-label="返回顶部">
     <i class="fa fa-arrow-up"></i>
     <span>0%</span>
   </div>
 
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
 
-    <main class="main">
-      <div class="main-inner">
-        <div class="content-wrap">
-          
 
-          <div class="content post posts-expand">
-            
+    <div class="main-inner post posts-expand">
 
-    
+
+  
+
+
+<div class="post-block">
   
   
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://www.ywthings.com/posts/aaf38618.html">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
       <meta itemprop="name" content="hyman">
-      <meta itemprop="description" content="">
+      <meta itemprop="description" content="一些简单的记录">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
@@ -211,33 +230,35 @@
           使用kubeadm安装kubernetes 1.12.x
         </h1>
 
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
 
-              <time title="创建时间：2018-09-29 19:21:57" itemprop="dateCreated datePublished" datetime="2018-09-29T19:21:57+08:00">2018-09-29</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-05-18 07:58:41" itemprop="dateModified" datetime="2020-05-18T07:58:41+08:00">2020-05-18</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/kubernetes/" itemprop="url" rel="index"><span itemprop="name">kubernetes</span></a>
-                </span>
-            </span>
+      <time title="创建时间：2018-09-29 19:21:57" itemprop="dateCreated datePublished" datetime="2018-09-29T19:21:57+08:00">2018-09-29</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">更新于</span>
+        <time title="修改时间：2020-05-18 07:58:41" itemprop="dateModified" datetime="2020-05-18T07:58:41+08:00">2020-05-18</time>
+      </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/kubernetes/" itemprop="url" rel="index"><span itemprop="name">kubernetes</span></a>
+        </span>
+    </span>
 
-          
+  
+</div>
 
         </div>
       </header>
@@ -246,221 +267,108 @@
     
     
     <div class="post-body" itemprop="articleBody">
-
-      
         <p>基本安装方法与其他版本安装无异，只是镜像名更改了，去掉了amd64</p>
-<a id="more"></a>
-<h1 id="安装准备"><a href="#安装准备" class="headerlink" title="安装准备"></a>安装准备</h1><h2 id="验证MAC地址和product-uuid对于每个节点都是唯一的"><a href="#验证MAC地址和product-uuid对于每个节点都是唯一的" class="headerlink" title="验证MAC地址和product_uuid对于每个节点都是唯一的"></a>验证MAC地址和product_uuid对于每个节点都是唯一的</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ip link或获取网络接口的MAC地址ifconfig -a</span><br><span class="line">sudo cat &#x2F;sys&#x2F;class&#x2F;dmi&#x2F;id&#x2F;product_uuid</span><br></pre></td></tr></table></figure>
+<span id="more"></span>
+<h1 id="安装准备"><a href="#安装准备" class="headerlink" title="安装准备"></a>安装准备</h1><h2 id="验证MAC地址和product-uuid对于每个节点都是唯一的"><a href="#验证MAC地址和product-uuid对于每个节点都是唯一的" class="headerlink" title="验证MAC地址和product_uuid对于每个节点都是唯一的"></a>验证MAC地址和product_uuid对于每个节点都是唯一的</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ip link或获取网络接口的MAC地址ifconfig -a</span><br><span class="line">sudo cat /sys/class/dmi/id/product_uuid</span><br></pre></td></tr></table></figure>
 
 <h2 id="检查端口是否开放"><a href="#检查端口是否开放" class="headerlink" title="检查端口是否开放"></a>检查端口是否开放</h2><p>ps 在一次客户提供的服务器安装k8s，无法操作k8s读取日志文件，才发生端口被禁</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">master</span><br><span class="line">TCP	6443	Kubernetes API server</span><br><span class="line">TCP 2379-2380	etcd server client API</span><br><span class="line">TCP 10250 	Kubelet API</span><br><span class="line">TCP 10251	kube-scheduler</span><br><span class="line">TCP 10252	kube-controller-manager</span><br><span class="line"></span><br><span class="line">node</span><br><span class="line">TCP 10250	Kubelet API</span><br><span class="line">TCP 30000-32767	NodePort Services</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">master</span><br><span class="line">TCP	6443	Kubernetes API server</span><br><span class="line">TCP 2379-2380	etcd server client API</span><br><span class="line">TCP 10250 	Kubelet API</span><br><span class="line">TCP 10251	kube-scheduler</span><br><span class="line">TCP 10252	kube-controller-manager</span><br><span class="line"></span><br><span class="line">node</span><br><span class="line">TCP 10250	Kubelet API</span><br><span class="line">TCP 30000-32767	NodePort Services</span><br></pre></td></tr></table></figure>
 
-<h2 id="关闭Selinux-firewalld"><a href="#关闭Selinux-firewalld" class="headerlink" title="关闭Selinux/firewalld"></a>关闭Selinux/firewalld</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">systemctl stop firewalld</span><br><span class="line">systemctl disable firewalld</span><br><span class="line"></span><br><span class="line">setenforce 0</span><br><span class="line">#以允许容器访问主机文件系统，例如pod网络所需</span><br><span class="line">sed -i &quot;s&#x2F;SELINUX&#x3D;enforcing&#x2F;SELINUX&#x3D;disabled&#x2F;g&quot; &#x2F;etc&#x2F;selinux&#x2F;config</span><br></pre></td></tr></table></figure>
+<h2 id="关闭Selinux-firewalld"><a href="#关闭Selinux-firewalld" class="headerlink" title="关闭Selinux/firewalld"></a>关闭Selinux/firewalld</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">systemctl stop firewalld</span><br><span class="line">systemctl disable firewalld</span><br><span class="line"></span><br><span class="line">setenforce 0</span><br><span class="line">#以允许容器访问主机文件系统，例如pod网络所需</span><br><span class="line">sed -i &quot;s/SELINUX=enforcing/SELINUX=disabled/g&quot; /etc/selinux/config</span><br></pre></td></tr></table></figure>
 
-<h2 id="关闭交换分区"><a href="#关闭交换分区" class="headerlink" title="关闭交换分区"></a>关闭交换分区</h2><h2 id="如采用云服务，可略过此步骤，云服务默认禁止使用交换分区，如阿里云、腾讯云、华为云"><a href="#如采用云服务，可略过此步骤，云服务默认禁止使用交换分区，如阿里云、腾讯云、华为云" class="headerlink" title="如采用云服务，可略过此步骤，云服务默认禁止使用交换分区，如阿里云、腾讯云、华为云"></a>如采用云服务，可略过此步骤，云服务默认禁止使用交换分区，如阿里云、腾讯云、华为云</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">swapoff -a</span><br><span class="line">cp -p &#x2F;etc&#x2F;fstab &#x2F;etc&#x2F;fstab.bak$(date &#39;+%Y%m%d%H%M%S&#39;)</span><br><span class="line">sed -i &quot;s&#x2F;\&#x2F;dev\&#x2F;mapper\&#x2F;rhel-swap&#x2F;\#\&#x2F;dev\&#x2F;mapper\&#x2F;rhel-swap&#x2F;g&quot; &#x2F;etc&#x2F;fstab</span><br><span class="line">sed -i &quot;s&#x2F;\&#x2F;dev\&#x2F;mapper\&#x2F;centos-swap&#x2F;\#\&#x2F;dev\&#x2F;mapper\&#x2F;centos-swap&#x2F;g&quot; &#x2F;etc&#x2F;fstab</span><br><span class="line">mount -a</span><br></pre></td></tr></table></figure>
+<h2 id="关闭交换分区"><a href="#关闭交换分区" class="headerlink" title="关闭交换分区"></a>关闭交换分区</h2><h2 id="如采用云服务，可略过此步骤，云服务默认禁止使用交换分区，如阿里云、腾讯云、华为云"><a href="#如采用云服务，可略过此步骤，云服务默认禁止使用交换分区，如阿里云、腾讯云、华为云" class="headerlink" title="如采用云服务，可略过此步骤，云服务默认禁止使用交换分区，如阿里云、腾讯云、华为云"></a>如采用云服务，可略过此步骤，云服务默认禁止使用交换分区，如阿里云、腾讯云、华为云</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">swapoff -a</span><br><span class="line">cp -p /etc/fstab /etc/fstab.bak$(date &#x27;+%Y%m%d%H%M%S&#x27;)</span><br><span class="line">sed -i &quot;s/\/dev\/mapper\/rhel-swap/\#\/dev\/mapper\/rhel-swap/g&quot; /etc/fstab</span><br><span class="line">sed -i &quot;s/\/dev\/mapper\/centos-swap/\#\/dev\/mapper\/centos-swap/g&quot; /etc/fstab</span><br><span class="line">mount -a</span><br></pre></td></tr></table></figure>
 
 <h2 id="网桥包经IPTables"><a href="#网桥包经IPTables" class="headerlink" title="网桥包经IPTables"></a>网桥包经IPTables</h2><p>由于iptables被绕过而导致流量路由不正确的问题</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">cat &lt;&lt;EOF &gt;  &#x2F;etc&#x2F;sysctl.d&#x2F;k8s.conf</span><br><span class="line">net.bridge.bridge-nf-call-ip6tables &#x3D; 1</span><br><span class="line">net.bridge.bridge-nf-call-iptables &#x3D; 1</span><br><span class="line">net.ipv4.ip_forward &#x3D; 1</span><br><span class="line">vm.swappiness&#x3D;0</span><br><span class="line">EOF</span><br><span class="line">sysctl --system</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">cat &lt;&lt;EOF &gt;  /etc/sysctl.d/k8s.conf</span><br><span class="line">net.bridge.bridge-nf-call-ip6tables = 1</span><br><span class="line">net.bridge.bridge-nf-call-iptables = 1</span><br><span class="line">net.ipv4.ip_forward = 1</span><br><span class="line">vm.swappiness=0</span><br><span class="line">EOF</span><br><span class="line">sysctl --system</span><br></pre></td></tr></table></figure>
 
 <h2 id="同步时间"><a href="#同步时间" class="headerlink" title="同步时间"></a>同步时间</h2><p>如时间不一致，会导致认证过期，提示cluster-info: x509: certificate has expired or is not yet valid</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">yum install -y ntpdate</span><br><span class="line">ntpdate -u ntp1.aliyun.com</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">yum install -y ntpdate</span><br><span class="line">ntpdate -u ntp1.aliyun.com</span><br></pre></td></tr></table></figure>
 
 <h2 id="开启IPVS"><a href="#开启IPVS" class="headerlink" title="开启IPVS"></a>开启IPVS</h2><p>kubernets 1.12 默认更改为ipvs</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">yum install ipvsadm</span><br><span class="line"></span><br><span class="line">cat &gt; &#x2F;etc&#x2F;sysconfig&#x2F;modules&#x2F;ipvs.modules &lt;&lt;EOF</span><br><span class="line"> </span><br><span class="line">#!&#x2F;bin&#x2F;bash</span><br><span class="line">ipvs_modules&#x3D;&quot;ip_vs ip_vs_lc ip_vs_wlc ip_vs_rr ip_vs_wrr ip_vs_lblc ip_vs_lblcr ip_vs_dh ip_vs_sh ip_vs_nq ip_vs_sed ip_vs_ftp nf_conntrack_ipv4&quot;</span><br><span class="line">for kernel_module in \$&#123;ipvs_modules&#125;; do</span><br><span class="line"> &#x2F;sbin&#x2F;modinfo -F filename \$&#123;kernel_module&#125; &gt; &#x2F;dev&#x2F;null 2&gt;&amp;1</span><br><span class="line"> if [ $? -eq 0 ]; then</span><br><span class="line"> &#x2F;sbin&#x2F;modprobe \$&#123;kernel_module&#125;</span><br><span class="line"> fi</span><br><span class="line">done</span><br><span class="line">EOF</span><br><span class="line"></span><br><span class="line">chmod 755 &#x2F;etc&#x2F;sysconfig&#x2F;modules&#x2F;ipvs.modules &amp;&amp; bash &#x2F;etc&#x2F;sysconfig&#x2F;modules&#x2F;ipvs.modules &amp;&amp; lsmod | grep ip_vs</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">yum install ipvsadm</span><br><span class="line"></span><br><span class="line">cat &gt; /etc/sysconfig/modules/ipvs.modules &lt;&lt;EOF</span><br><span class="line"> </span><br><span class="line">#!/bin/bash</span><br><span class="line">ipvs_modules=&quot;ip_vs ip_vs_lc ip_vs_wlc ip_vs_rr ip_vs_wrr ip_vs_lblc ip_vs_lblcr ip_vs_dh ip_vs_sh ip_vs_nq ip_vs_sed ip_vs_ftp nf_conntrack_ipv4&quot;</span><br><span class="line">for kernel_module in \$&#123;ipvs_modules&#125;; do</span><br><span class="line"> /sbin/modinfo -F filename \$&#123;kernel_module&#125; &gt; /dev/null 2&gt;&amp;1</span><br><span class="line"> if [ $? -eq 0 ]; then</span><br><span class="line"> /sbin/modprobe \$&#123;kernel_module&#125;</span><br><span class="line"> fi</span><br><span class="line">done</span><br><span class="line">EOF</span><br><span class="line"></span><br><span class="line">chmod 755 /etc/sysconfig/modules/ipvs.modules &amp;&amp; bash /etc/sysconfig/modules/ipvs.modules &amp;&amp; lsmod | grep ip_vs</span><br></pre></td></tr></table></figure>
 
 
 <h1 id="安装dockre-ce"><a href="#安装dockre-ce" class="headerlink" title="安装dockre ce"></a>安装dockre ce</h1><p>目前官方文档提供已支持docker 1806<br>Kubernetes 1.12.3版本暂时不支持最新的Docker 18.09</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"># 卸载原docker</span><br><span class="line">yum remove docker docker-client docker-client-latest docker-common docker-latest docker-latest-logrotate docker-logrotate docker-selinux docker-engine-selinux docker-engine</span><br><span class="line"># 安装docker</span><br><span class="line">yum install -y yum-utils device-mapper-persistent-data lvm2</span><br><span class="line">yum-config-manager --add-repo http:&#x2F;&#x2F;mirrors.aliyun.com&#x2F;docker-ce&#x2F;linux&#x2F;centos&#x2F;docker-ce.repo</span><br><span class="line">yum install -y docker-ce</span><br><span class="line"></span><br><span class="line"># 增加加速器</span><br><span class="line">tee &#x2F;etc&#x2F;docker&#x2F;daemon.json &lt;&lt;EOF</span><br><span class="line">&#123;</span><br><span class="line">  &quot;registry-mirrors&quot;: [&quot;https:&#x2F;&#x2F;bv55mwyn.mirror.aliyuncs.com&quot;]</span><br><span class="line">&#125;</span><br><span class="line">EOF</span><br><span class="line"></span><br><span class="line"># 启动docker</span><br><span class="line">systemctl enable docker &amp;&amp; systemctl start docker</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"># 卸载原docker</span><br><span class="line">yum remove docker docker-client docker-client-latest docker-common docker-latest docker-latest-logrotate docker-logrotate docker-selinux docker-engine-selinux docker-engine</span><br><span class="line"># 安装docker</span><br><span class="line">yum install -y yum-utils device-mapper-persistent-data lvm2</span><br><span class="line">yum-config-manager --add-repo http://mirrors.aliyun.com/docker-ce/linux/centos/docker-ce.repo</span><br><span class="line">yum install -y docker-ce</span><br><span class="line"></span><br><span class="line"># 增加加速器</span><br><span class="line">tee /etc/docker/daemon.json &lt;&lt;EOF</span><br><span class="line">&#123;</span><br><span class="line">  &quot;registry-mirrors&quot;: [&quot;https://bv55mwyn.mirror.aliyuncs.com&quot;]</span><br><span class="line">&#125;</span><br><span class="line">EOF</span><br><span class="line"></span><br><span class="line"># 启动docker</span><br><span class="line">systemctl enable docker &amp;&amp; systemctl start docker</span><br></pre></td></tr></table></figure>
 
-<h1 id="安装kubeadm"><a href="#安装kubeadm" class="headerlink" title="安装kubeadm"></a>安装kubeadm</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"># 添加阿里云仓库</span><br><span class="line">cat &lt;&lt;EOF &gt; &#x2F;etc&#x2F;yum.repos.d&#x2F;kubernetes.repo</span><br><span class="line">[kubernetes]</span><br><span class="line">name&#x3D;Kubernetes</span><br><span class="line">baseurl&#x3D;https:&#x2F;&#x2F;mirrors.aliyun.com&#x2F;kubernetes&#x2F;yum&#x2F;repos&#x2F;kubernetes-el7-x86_64&#x2F;</span><br><span class="line">enabled&#x3D;1</span><br><span class="line">gpgcheck&#x3D;1</span><br><span class="line">repo_gpgcheck&#x3D;1</span><br><span class="line">gpgkey&#x3D;https:&#x2F;&#x2F;mirrors.aliyun.com&#x2F;kubernetes&#x2F;yum&#x2F;doc&#x2F;yum-key.gpg https:&#x2F;&#x2F;mirrors.aliyun.com&#x2F;kubernetes&#x2F;yum&#x2F;doc&#x2F;rpm-package-key.gpg</span><br><span class="line">EOF</span><br><span class="line"></span><br><span class="line"># 安装kubeadm</span><br><span class="line">yum install -y kubelet-1.12.3 kubeadm-1.12.3 kubectl-1.12.3</span><br><span class="line"></span><br><span class="line"># 启动kubectl</span><br><span class="line">systemctl enable kubelet &amp;&amp; systemctl start kubelet</span><br></pre></td></tr></table></figure>
+<h1 id="安装kubeadm"><a href="#安装kubeadm" class="headerlink" title="安装kubeadm"></a>安装kubeadm</h1><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"># 添加阿里云仓库</span><br><span class="line">cat &lt;&lt;EOF &gt; /etc/yum.repos.d/kubernetes.repo</span><br><span class="line">[kubernetes]</span><br><span class="line">name=Kubernetes</span><br><span class="line">baseurl=https://mirrors.aliyun.com/kubernetes/yum/repos/kubernetes-el7-x86_64/</span><br><span class="line">enabled=1</span><br><span class="line">gpgcheck=1</span><br><span class="line">repo_gpgcheck=1</span><br><span class="line">gpgkey=https://mirrors.aliyun.com/kubernetes/yum/doc/yum-key.gpg https://mirrors.aliyun.com/kubernetes/yum/doc/rpm-package-key.gpg</span><br><span class="line">EOF</span><br><span class="line"></span><br><span class="line"># 安装kubeadm</span><br><span class="line">yum install -y kubelet-1.12.3 kubeadm-1.12.3 kubectl-1.12.3</span><br><span class="line"></span><br><span class="line"># 启动kubectl</span><br><span class="line">systemctl enable kubelet &amp;&amp; systemctl start kubelet</span><br></pre></td></tr></table></figure>
 
-<h1 id="安装所需镜像"><a href="#安装所需镜像" class="headerlink" title="安装所需镜像"></a>安装所需镜像</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"># 编写一个脚本执行，通过阿里云镜像服务拉取谷歌镜像并tag</span><br><span class="line">#如安装kubernetes-version&#x3D;v1.12.3，需要更改KUBE_VERSION&#x3D;v1.12.3</span><br><span class="line">#!&#x2F;bin&#x2F;bash</span><br><span class="line"></span><br><span class="line">set -e</span><br><span class="line"></span><br><span class="line">KUBE_VERSION&#x3D;v1.12.3</span><br><span class="line">KUBE_PAUSE_VERSION&#x3D;3.1</span><br><span class="line">ETCD_VERSION&#x3D;3.2.24</span><br><span class="line">CORE_DNS_VERSION&#x3D;1.2.2</span><br><span class="line"></span><br><span class="line">GCR_URL&#x3D;k8s.gcr.io</span><br><span class="line">ALIYUN_URL&#x3D;registry.cn-shenzhen.aliyuncs.com&#x2F;hyman0603</span><br><span class="line"></span><br><span class="line">images&#x3D;(kube-proxy:$&#123;KUBE_VERSION&#125;</span><br><span class="line">kube-scheduler:$&#123;KUBE_VERSION&#125;</span><br><span class="line">kube-controller-manager:$&#123;KUBE_VERSION&#125;</span><br><span class="line">kube-apiserver:$&#123;KUBE_VERSION&#125;</span><br><span class="line">pause:$&#123;KUBE_PAUSE_VERSION&#125;</span><br><span class="line">etcd:$&#123;ETCD_VERSION&#125;</span><br><span class="line">coredns:$&#123;CORE_DNS_VERSION&#125;)</span><br><span class="line"></span><br><span class="line">for imageName in $&#123;images[@]&#125; ; do</span><br><span class="line">  docker pull $ALIYUN_URL&#x2F;$imageName</span><br><span class="line">  docker tag  $ALIYUN_URL&#x2F;$imageName $GCR_URL&#x2F;$imageName</span><br><span class="line">  docker rmi $ALIYUN_URL&#x2F;$imageName</span><br><span class="line">done</span><br></pre></td></tr></table></figure>
+<h1 id="安装所需镜像"><a href="#安装所需镜像" class="headerlink" title="安装所需镜像"></a>安装所需镜像</h1><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"># 编写一个脚本执行，通过阿里云镜像服务拉取谷歌镜像并tag</span><br><span class="line">#如安装kubernetes-version=v1.12.3，需要更改KUBE_VERSION=v1.12.3</span><br><span class="line">#!/bin/bash</span><br><span class="line"></span><br><span class="line">set -e</span><br><span class="line"></span><br><span class="line">KUBE_VERSION=v1.12.3</span><br><span class="line">KUBE_PAUSE_VERSION=3.1</span><br><span class="line">ETCD_VERSION=3.2.24</span><br><span class="line">CORE_DNS_VERSION=1.2.2</span><br><span class="line"></span><br><span class="line">GCR_URL=k8s.gcr.io</span><br><span class="line">ALIYUN_URL=registry.cn-shenzhen.aliyuncs.com/hyman0603</span><br><span class="line"></span><br><span class="line">images=(kube-proxy:$&#123;KUBE_VERSION&#125;</span><br><span class="line">kube-scheduler:$&#123;KUBE_VERSION&#125;</span><br><span class="line">kube-controller-manager:$&#123;KUBE_VERSION&#125;</span><br><span class="line">kube-apiserver:$&#123;KUBE_VERSION&#125;</span><br><span class="line">pause:$&#123;KUBE_PAUSE_VERSION&#125;</span><br><span class="line">etcd:$&#123;ETCD_VERSION&#125;</span><br><span class="line">coredns:$&#123;CORE_DNS_VERSION&#125;)</span><br><span class="line"></span><br><span class="line">for imageName in $&#123;images[@]&#125; ; do</span><br><span class="line">  docker pull $ALIYUN_URL/$imageName</span><br><span class="line">  docker tag  $ALIYUN_URL/$imageName $GCR_URL/$imageName</span><br><span class="line">  docker rmi $ALIYUN_URL/$imageName</span><br><span class="line">done</span><br><span class="line"></span><br></pre></td></tr></table></figure>
 
 <h1 id="安装kubernetes-1-12-3"><a href="#安装kubernetes-1-12-3" class="headerlink" title="安装kubernetes 1.12.3"></a>安装kubernetes 1.12.3</h1><p>选择了kubernetes-version=v1.12.3，kubernetes镜像文件也需要对应一致</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kubeadm init --kubernetes-version&#x3D;v1.12.3 --pod-network-cidr&#x3D;10.244.0.0&#x2F;16 ----apiserver-advertise-address&#x3D;172.16.0.17</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kubeadm init --kubernetes-version=v1.12.3 --pod-network-cidr=10.244.0.0/16 ----apiserver-advertise-address=172.16.0.17</span><br></pre></td></tr></table></figure>
 
-<h1 id="重置kubernets"><a href="#重置kubernets" class="headerlink" title="重置kubernets"></a>重置kubernets</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">kubeadm reset</span><br><span class="line">ifconfig cni0 down</span><br><span class="line">ip link delete cni0</span><br><span class="line">ifconfig flannel.1 down</span><br><span class="line">ip link delete flannel.1</span><br><span class="line">rm -rf &#x2F;var&#x2F;lib&#x2F;cni&#x2F;</span><br></pre></td></tr></table></figure>
+<h1 id="重置kubernets"><a href="#重置kubernets" class="headerlink" title="重置kubernets"></a>重置kubernets</h1><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">kubeadm reset</span><br><span class="line">ifconfig cni0 down</span><br><span class="line">ip link delete cni0</span><br><span class="line">ifconfig flannel.1 down</span><br><span class="line">ip link delete flannel.1</span><br><span class="line">rm -rf /var/lib/cni/</span><br></pre></td></tr></table></figure>
 
-<h1 id="安装Pod-Network"><a href="#安装Pod-Network" class="headerlink" title="安装Pod Network"></a>安装Pod Network</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">wget https:&#x2F;&#x2F;raw.githubusercontent.com&#x2F;coreos&#x2F;flannel&#x2F;master&#x2F;Documentation&#x2F;kube-flannel.yml</span><br><span class="line">kubectl apply -f  kube-flannel.yml</span><br><span class="line"></span><br><span class="line">#如果Node有多个网卡的话，参考[flannel issues 39701](https:&#x2F;&#x2F;github.com&#x2F;kubernetes&#x2F;kubernetes&#x2F;issues&#x2F;39701)，目前需要在kube-flannel.yml中使用–iface参数指定集群主机内网网卡的名称，否则可能会出现dns无法解析。需要将kube-flannel.yml下载到本地，flanneld启动参数加上–iface&#x3D;&lt;iface-name&gt;</span><br><span class="line"></span><br><span class="line">containers:</span><br><span class="line">      - name: kube-flannel</span><br><span class="line">        image: quay.io&#x2F;coreos&#x2F;flannel:v0.10.0-amd64</span><br><span class="line">        command:</span><br><span class="line">        - &#x2F;opt&#x2F;bin&#x2F;flanneld</span><br><span class="line">        args:</span><br><span class="line">        - --ip-masq</span><br><span class="line">        - --kube-subnet-mgr</span><br><span class="line">        - --iface&#x3D;eth1</span><br></pre></td></tr></table></figure>
+<h1 id="安装Pod-Network"><a href="#安装Pod-Network" class="headerlink" title="安装Pod Network"></a>安装Pod Network</h1><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">wget https://raw.githubusercontent.com/coreos/flannel/master/Documentation/kube-flannel.yml</span><br><span class="line">kubectl apply -f  kube-flannel.yml</span><br><span class="line"></span><br><span class="line">#如果Node有多个网卡的话，参考[flannel issues 39701](https://github.com/kubernetes/kubernetes/issues/39701)，目前需要在kube-flannel.yml中使用–iface参数指定集群主机内网网卡的名称，否则可能会出现dns无法解析。需要将kube-flannel.yml下载到本地，flanneld启动参数加上–iface=&lt;iface-name&gt;</span><br><span class="line"></span><br><span class="line">containers:</span><br><span class="line">      - name: kube-flannel</span><br><span class="line">        image: quay.io/coreos/flannel:v0.10.0-amd64</span><br><span class="line">        command:</span><br><span class="line">        - /opt/bin/flanneld</span><br><span class="line">        args:</span><br><span class="line">        - --ip-masq</span><br><span class="line">        - --kube-subnet-mgr</span><br><span class="line">        - --iface=eth1</span><br></pre></td></tr></table></figure>
 
-<h1 id="master-node参与工作负载"><a href="#master-node参与工作负载" class="headerlink" title="master node参与工作负载"></a>master node参与工作负载</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">kubectl describe node node1 | grep Taint</span><br><span class="line">Taints:             node-role.kubernetes.io&#x2F;master:NoSchedule</span><br><span class="line"></span><br><span class="line">kubectl taint nodes node1 node-role.kubernetes.io&#x2F;master-</span><br><span class="line">node &quot;node1&quot; untainted</span><br></pre></td></tr></table></figure>
+<h1 id="master-node参与工作负载"><a href="#master-node参与工作负载" class="headerlink" title="master node参与工作负载"></a>master node参与工作负载</h1><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">kubectl describe node node1 | grep Taint</span><br><span class="line">Taints:             node-role.kubernetes.io/master:NoSchedule</span><br><span class="line"></span><br><span class="line">kubectl taint nodes node1 node-role.kubernetes.io/master-</span><br><span class="line">node &quot;node1&quot; untainted</span><br></pre></td></tr></table></figure>
 
-<h1 id="测试DNS"><a href="#测试DNS" class="headerlink" title="测试DNS"></a>测试DNS</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">kubectl run curl --image&#x3D;radial&#x2F;busyboxplus:curl -it</span><br><span class="line">kubectl run --generator&#x3D;deployment&#x2F;apps.v1beta1 is DEPRECATED and will be removed in a future version. Use kubectl create instead.</span><br><span class="line">If you don&#39;t see a command prompt, try pressing enter.</span><br><span class="line">[ root@curl-5cc7b478b6-r997p:&#x2F; ]$ </span><br><span class="line"></span><br><span class="line">nslookup kubernetes.default</span><br><span class="line">Server:    10.96.0.10</span><br><span class="line">Address 1: 10.96.0.10 kube-dns.kube-system.svc.cluster.local</span><br><span class="line"></span><br><span class="line">Name:      kubernetes.default</span><br><span class="line">Address 1: 10.96.0.1 kubernetes.default.svc.cluster.local</span><br></pre></td></tr></table></figure>
+<h1 id="测试DNS"><a href="#测试DNS" class="headerlink" title="测试DNS"></a>测试DNS</h1><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">kubectl run curl --image=radial/busyboxplus:curl -it</span><br><span class="line">kubectl run --generator=deployment/apps.v1beta1 is DEPRECATED and will be removed in a future version. Use kubectl create instead.</span><br><span class="line">If you don&#x27;t see a command prompt, try pressing enter.</span><br><span class="line">[ root@curl-5cc7b478b6-r997p:/ ]$ </span><br><span class="line"></span><br><span class="line">nslookup kubernetes.default</span><br><span class="line">Server:    10.96.0.10</span><br><span class="line">Address 1: 10.96.0.10 kube-dns.kube-system.svc.cluster.local</span><br><span class="line"></span><br><span class="line">Name:      kubernetes.default</span><br><span class="line">Address 1: 10.96.0.1 kubernetes.default.svc.cluster.local</span><br></pre></td></tr></table></figure>
 
-<h1 id="集群中移除Node"><a href="#集群中移除Node" class="headerlink" title="集群中移除Node"></a>集群中移除Node</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">kubectl get nodes</span><br><span class="line">NAME      STATUS    ROLES     AGE       VERSION</span><br><span class="line">node1     Ready     master    26m       v1.12.0</span><br><span class="line">node2     Ready     &lt;none&gt;    2m        v1.12.0</span><br><span class="line"></span><br><span class="line">在master节点上执行：</span><br><span class="line">kubectl drain node2 --delete-local-data --force --ignore-daemonsets</span><br><span class="line">kubectl delete node node2</span><br><span class="line"></span><br><span class="line">在node2上执行：</span><br><span class="line">kubeadm reset</span><br><span class="line">ifconfig cni0 down</span><br><span class="line">ip link delete cni0</span><br><span class="line">ifconfig flannel.1 down</span><br><span class="line">ip link delete flannel.1</span><br><span class="line">rm -rf &#x2F;var&#x2F;lib&#x2F;cni&#x2F;</span><br><span class="line"></span><br><span class="line">在node1上执行：</span><br><span class="line"></span><br><span class="line">kubectl delete node node2</span><br></pre></td></tr></table></figure>
+<h1 id="集群中移除Node"><a href="#集群中移除Node" class="headerlink" title="集群中移除Node"></a>集群中移除Node</h1><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">kubectl get nodes</span><br><span class="line">NAME      STATUS    ROLES     AGE       VERSION</span><br><span class="line">node1     Ready     master    26m       v1.12.0</span><br><span class="line">node2     Ready     &lt;none&gt;    2m        v1.12.0</span><br><span class="line"></span><br><span class="line">在master节点上执行：</span><br><span class="line">kubectl drain node2 --delete-local-data --force --ignore-daemonsets</span><br><span class="line">kubectl delete node node2</span><br><span class="line"></span><br><span class="line">在node2上执行：</span><br><span class="line">kubeadm reset</span><br><span class="line">ifconfig cni0 down</span><br><span class="line">ip link delete cni0</span><br><span class="line">ifconfig flannel.1 down</span><br><span class="line">ip link delete flannel.1</span><br><span class="line">rm -rf /var/lib/cni/</span><br><span class="line"></span><br><span class="line">在node1上执行：</span><br><span class="line"></span><br><span class="line">kubectl delete node node2</span><br></pre></td></tr></table></figure>
     </div>
 
     
     
     
 
-      <footer class="post-footer">
+    <footer class="post-footer">
           <div class="post-tags">
-              <a href="/tags/k8s/" rel="tag"># k8s</a>
               <a href="/tags/kubernetes/" rel="tag"># kubernetes</a>
+              <a href="/tags/k8s/" rel="tag"># k8s</a>
           </div>
 
         
 
-
-        
-    <div class="post-nav">
-      <div class="post-nav-item">
-    <a href="/posts/fc409f42.html" rel="prev" title="CentOS7 升级内核">
-      <i class="fa fa-chevron-left"></i> CentOS7 升级内核
-    </a></div>
-      <div class="post-nav-item">
-    <a href="/posts/8a0c2be.html" rel="next" title="shell脚本定期重启tomcat">
-      shell脚本定期重启tomcat <i class="fa fa-chevron-right"></i>
-    </a></div>
-    </div>
-      </footer>
-    
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/posts/fc409f42.html" rel="prev" title="CentOS7 升级内核">
+                  <i class="fa fa-chevron-left"></i> CentOS7 升级内核
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/posts/8a0c2be.html" rel="next" title="shell脚本定期重启tomcat">
+                  shell脚本定期重启tomcat <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
   </article>
-  
-  
-  
-
-
-
-          </div>
-          
-
-<script>
-  window.addEventListener('tabs:register', () => {
-    let { activeClass } = CONFIG.comments;
-    if (CONFIG.comments.storage) {
-      activeClass = localStorage.getItem('comments_active') || activeClass;
-    }
-    if (activeClass) {
-      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
-      if (activeTab) {
-        activeTab.click();
-      }
-    }
-  });
-  if (CONFIG.comments.storage) {
-    window.addEventListener('tabs:click', event => {
-      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
-      let commentClass = event.target.classList[1];
-      localStorage.setItem('comments_active', commentClass);
-    });
-  }
-</script>
-
-        </div>
-          
-  
-  <div class="toggle sidebar-toggle">
-    <span class="toggle-line toggle-line-first"></span>
-    <span class="toggle-line toggle-line-middle"></span>
-    <span class="toggle-line toggle-line-last"></span>
-  </div>
-
-  <aside class="sidebar">
-    <div class="sidebar-inner">
-
-      <ul class="sidebar-nav motion-element">
-        <li class="sidebar-nav-toc">
-          文章目录
-        </li>
-        <li class="sidebar-nav-overview">
-          站点概览
-        </li>
-      </ul>
-
-      <!--noindex-->
-      <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#安装准备"><span class="nav-number">1.</span> <span class="nav-text">安装准备</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#验证MAC地址和product-uuid对于每个节点都是唯一的"><span class="nav-number">1.1.</span> <span class="nav-text">验证MAC地址和product_uuid对于每个节点都是唯一的</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#检查端口是否开放"><span class="nav-number">1.2.</span> <span class="nav-text">检查端口是否开放</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#关闭Selinux-firewalld"><span class="nav-number">1.3.</span> <span class="nav-text">关闭Selinux&#x2F;firewalld</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#关闭交换分区"><span class="nav-number">1.4.</span> <span class="nav-text">关闭交换分区</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#如采用云服务，可略过此步骤，云服务默认禁止使用交换分区，如阿里云、腾讯云、华为云"><span class="nav-number">1.5.</span> <span class="nav-text">如采用云服务，可略过此步骤，云服务默认禁止使用交换分区，如阿里云、腾讯云、华为云</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#网桥包经IPTables"><span class="nav-number">1.6.</span> <span class="nav-text">网桥包经IPTables</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#同步时间"><span class="nav-number">1.7.</span> <span class="nav-text">同步时间</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#开启IPVS"><span class="nav-number">1.8.</span> <span class="nav-text">开启IPVS</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#安装dockre-ce"><span class="nav-number">2.</span> <span class="nav-text">安装dockre ce</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#安装kubeadm"><span class="nav-number">3.</span> <span class="nav-text">安装kubeadm</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#安装所需镜像"><span class="nav-number">4.</span> <span class="nav-text">安装所需镜像</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#安装kubernetes-1-12-3"><span class="nav-number">5.</span> <span class="nav-text">安装kubernetes 1.12.3</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#重置kubernets"><span class="nav-number">6.</span> <span class="nav-text">重置kubernets</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#安装Pod-Network"><span class="nav-number">7.</span> <span class="nav-text">安装Pod Network</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#master-node参与工作负载"><span class="nav-number">8.</span> <span class="nav-text">master node参与工作负载</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#测试DNS"><span class="nav-number">9.</span> <span class="nav-text">测试DNS</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#集群中移除Node"><span class="nav-number">10.</span> <span class="nav-text">集群中移除Node</span></a></li></ol></div>
-      </div>
-      <!--/noindex-->
-
-      <div class="site-overview-wrap sidebar-panel">
-        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
-  <p class="site-author-name" itemprop="name">hyman</p>
-  <div class="site-description" itemprop="description"></div>
-</div>
-<div class="site-state-wrap motion-element">
-  <nav class="site-state">
-      <div class="site-state-item site-state-posts">
-          <a href="/archives/">
-        
-          <span class="site-state-item-count">169</span>
-          <span class="site-state-item-name">日志</span>
-        </a>
-      </div>
-      <div class="site-state-item site-state-categories">
-            <a href="/categories/">
-          
-        <span class="site-state-item-count">35</span>
-        <span class="site-state-item-name">分类</span></a>
-      </div>
-      <div class="site-state-item site-state-tags">
-            <a href="/tags/">
-          
-        <span class="site-state-item-count">122</span>
-        <span class="site-state-item-name">标签</span></a>
-      </div>
-  </nav>
 </div>
 
 
 
-      </div>
-
-    </div>
-  </aside>
-  <div id="sidebar-dimmer"></div>
 
 
-      </div>
-    </main>
 
-    <footer class="footer">
-      <div class="footer-inner">
-        
+</div>
+  </main>
 
-        
+  <footer class="footer">
+    <div class="footer-inner">
+
 
 <div class="copyright">
-  
-  &copy; 
+  &copy; 2017 – 
   <span itemprop="copyrightYear">2021</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>
   <span class="author" itemprop="copyrightHolder">hyman</span>
 </div>
-  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/mist/" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a> 强力驱动
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/mist/" rel="noopener" target="_blank">NexT.Mist</a> 强力驱动
   </div>
 
-        
-
-
-
-
-
-
-
-
-      </div>
-    </footer>
-  </div>
+    </div>
+  </footer>
 
   
-  <script src="/lib/anime.min.js"></script>
-  <script src="/lib/velocity/velocity.min.js"></script>
-  <script src="/lib/velocity/velocity.ui.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/next-boot.js"></script>
 
-<script src="/js/utils.js"></script>
-
-<script src="/js/motion.js"></script>
-
-
-<script src="/js/schemes/muse.js"></script>
-
-
-<script src="/js/next-boot.js"></script>
+  
+<script src="/js/third-party/search/local-search.js"></script>
 
 
 
@@ -470,24 +378,6 @@
 
 
 
-  
-<script src="/js/local-search.js"></script>
-
-
-
-
-
-
-
-
-
-
-
-
-
-  
-
-  
 
 </body>
 </html>

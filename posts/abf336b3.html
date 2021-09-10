@@ -2,25 +2,25 @@
 <html lang="zh-CN">
 <head>
   <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="viewport" content="width=device-width">
 <meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 4.2.1">
+<meta name="generator" content="Hexo 5.4.0">
+
+
   <link rel="apple-touch-icon" sizes="180x180" href="/images/favicon.png">
   <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon.png">
-  <link rel="mask-icon" href="/images/favicon.png" color="#222">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
 
 <link rel="stylesheet" href="/css/main.css">
 
 
-<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
 
-<script id="hexo-configurations">
-    var NexT = window.NexT || {};
-    var CONFIG = {"hostname":"www.ywthings.com","root":"/","scheme":"Mist","version":"8.0.0-rc.2","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"appID":"UDW7NS797T","apiKey":"c4bb3c2b53b39900e8498ee72e6dc96e","indexName":"hyman","hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
-  </script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.3/css/all.min.css" integrity="sha256-2H3fkXt6FEmrReK448mDVGKb3WW2ZZw35gI7vqHOE4Y=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
 
-  <meta name="description" content="复制SSH密钥到目标主机，开启无密码SSH登录">
+<script class="next-config" data-name="main" type="application/json">{"hostname":"www.ywthings.com","root":"/","images":"/images","scheme":"Mist","version":"8.5.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":true,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+<meta name="description" content="复制SSH密钥到目标主机，开启无密码SSH登录">
 <meta property="og:type" content="article">
 <meta property="og:title" content="ssh命令用法">
 <meta property="og:url" content="https://www.ywthings.com/posts/abf336b3.html">
@@ -34,72 +34,47 @@
 <meta property="article:tag" content="rsync">
 <meta name="twitter:card" content="summary">
 
+
 <link rel="canonical" href="https://www.ywthings.com/posts/abf336b3.html">
 
 
-<script id="page-configurations">
-  // https://hexo.io/docs/variables.html
-  CONFIG.page = {
-    sidebar: "",
-    isHome : false,
-    isPost : true,
-    lang   : 'zh-CN'
-  };
-</script>
 
-  <title>ssh命令用法 | hyman</title>
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://www.ywthings.com/posts/abf336b3.html","path":"posts/abf336b3.html","title":"ssh命令用法"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>ssh命令用法 | hyman</title>
   
 
-
-
+  <script src="/js/third-party/analytics/baidu-analytics.js"></script>
+  <script async src="https://hm.baidu.com/hm.js?97e285060b95594e74e4d3562a50a717"></script>
 
 
 
   <noscript>
-  <style>
-  .use-motion .brand,
-  .use-motion .menu-item,
-  .sidebar-inner,
-  .use-motion .post-block,
-  .use-motion .pagination,
-  .use-motion .comments,
-  .use-motion .post-header,
-  .use-motion .post-body,
-  .use-motion .collection-header { opacity: initial; }
-
-  .use-motion .site-title,
-  .use-motion .site-subtitle {
-    opacity: initial;
-    top: initial;
-  }
-
-  .use-motion .logo-line-before i { left: initial; }
-  .use-motion .logo-line-after i { right: initial; }
-  </style>
-</noscript>
-
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
 </head>
 
-<body itemscope itemtype="http://schema.org/WebPage">
-  <div class="container use-motion">
-    <div class="headband"></div>
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
 
+  <main class="main">
     <header class="header" itemscope itemtype="http://schema.org/WPHeader">
       <div class="header-inner"><div class="site-brand-container">
   <div class="site-nav-toggle">
-    <div class="toggle" aria-label="切换导航栏">
-        <span class="toggle-line toggle-line-first"></span>
-        <span class="toggle-line toggle-line-middle"></span>
-        <span class="toggle-line toggle-line-last"></span>
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
     </div>
   </div>
 
   <div class="site-meta">
 
     <a href="/" class="brand" rel="start">
-      <span class="logo-line-before"><i></i></span>
+      <i class="logo-line"></i>
       <h1 class="site-title">hyman</h1>
-      <span class="logo-line-after"><i></i></span>
+      <i class="logo-line"></i>
     </a>
       <p class="site-subtitle" itemprop="description">一些简单的记录</p>
   </div>
@@ -114,32 +89,12 @@
 
 
 <nav class="site-nav">
-  <ul id="menu" class="main-menu menu">
-        <li class="menu-item menu-item-home">
-
-    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
-
-  </li>
-        <li class="menu-item menu-item-tags">
-
-    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
-
-  </li>
-        <li class="menu-item menu-item-categories">
-
-    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
-
-  </li>
-        <li class="menu-item menu-item-archives">
-
-    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
-
-  </li>
-        <li class="menu-item menu-item-sitemap">
-
-    <a href="/sitemap.xml" rel="section"><i class="fa fa-sitemap fa-fw"></i>站点地图</a>
-
-  </li>
+  <ul class="main-menu menu">
+        <li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li>
+        <li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li>
+        <li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li>
+        <li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li>
+        <li class="menu-item menu-item-sitemap"><a href="/sitemap.xml" rel="section"><i class="fa fa-sitemap fa-fw"></i>站点地图</a></li>
       <li class="menu-item menu-item-search">
         <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
         </a>
@@ -150,23 +105,22 @@
 
 
   <div class="search-pop-overlay">
-    <div class="popup search-popup">
-        <div class="search-header">
+    <div class="popup search-popup"><div class="search-header">
   <span class="search-icon">
     <i class="fa fa-search"></i>
   </span>
   <div class="search-input-container">
-    <input autocomplete="off" autocapitalize="off"
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
            placeholder="搜索..." spellcheck="false"
            type="search" class="search-input">
   </div>
-  <span class="popup-btn-close">
+  <span class="popup-btn-close" role="button">
     <i class="fa fa-times-circle"></i>
   </span>
 </div>
-<div id="search-result">
-  <div id="no-result">
-    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
   </div>
 </div>
 
@@ -174,33 +128,98 @@
   </div>
 
 </div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A4%8D%E5%88%B6SSH%E5%AF%86%E9%92%A5%E5%88%B0%E7%9B%AE%E6%A0%87%E4%B8%BB%E6%9C%BA%EF%BC%8C%E5%BC%80%E5%90%AF%E6%97%A0%E5%AF%86%E7%A0%81SSH%E7%99%BB%E5%BD%95"><span class="nav-number">1.</span> <span class="nav-text">复制SSH密钥到目标主机，开启无密码SSH登录</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BB%8E%E6%9F%90%E4%B8%BB%E6%9C%BA%E7%9A%8480%E7%AB%AF%E5%8F%A3%E5%BC%80%E5%90%AF%E5%88%B0%E6%9C%AC%E5%9C%B0%E4%B8%BB%E6%9C%BA2001%E7%AB%AF%E5%8F%A3%E7%9A%84%E9%9A%A7%E9%81%93"><span class="nav-number">2.</span> <span class="nav-text">从某主机的80端口开启到本地主机2001端口的隧道</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B0%86%E4%BD%A0%E7%9A%84%E9%BA%A6%E5%85%8B%E9%A3%8E%E8%BE%93%E5%87%BA%E5%88%B0%E8%BF%9C%E7%A8%8B%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%9A%84%E6%89%AC%E5%A3%B0%E5%99%A8"><span class="nav-number">3.</span> <span class="nav-text">将你的麦克风输出到远程计算机的扬声器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%AF%94%E8%BE%83%E8%BF%9C%E7%A8%8B%E5%92%8C%E6%9C%AC%E5%9C%B0%E6%96%87%E4%BB%B6"><span class="nav-number">4.</span> <span class="nav-text">比较远程和本地文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%80%9A%E8%BF%87SSH%E6%8C%82%E8%BD%BD%E7%9B%AE%E5%BD%95-%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F"><span class="nav-number">5.</span> <span class="nav-text">通过SSH挂载目录&#x2F;文件系统</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%80%9A%E8%BF%87%E4%B8%AD%E9%97%B4%E4%B8%BB%E6%9C%BA%E5%BB%BA%E7%AB%8BSSH%E8%BF%9E%E6%8E%A5"><span class="nav-number">6.</span> <span class="nav-text">通过中间主机建立SSH连接</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B0%86%E4%BD%A0%E7%9A%84SSH%E5%85%AC%E9%92%A5%E5%A4%8D%E5%88%B6%E5%88%B0%E8%BF%9C%E7%A8%8B%E4%B8%BB%E6%9C%BA%EF%BC%8C%E5%BC%80%E5%90%AF%E6%97%A0%E5%AF%86%E7%A0%81%E7%99%BB%E5%BD%95-%E2%80%93-%E7%AE%80%E5%8D%95%E7%9A%84%E6%96%B9%E6%B3%95"><span class="nav-number">7.</span> <span class="nav-text">将你的SSH公钥复制到远程主机，开启无密码登录 – 简单的方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%9B%B4%E6%8E%A5%E8%BF%9E%E6%8E%A5%E5%88%B0%E5%8F%AA%E8%83%BD%E9%80%9A%E8%BF%87%E4%B8%BB%E6%9C%BAB%E8%BF%9E%E6%8E%A5%E7%9A%84%E4%B8%BB%E6%9C%BAA"><span class="nav-number">8.</span> <span class="nav-text">直接连接到只能通过主机B连接的主机A</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%9B%E5%BB%BA%E5%88%B0%E7%9B%AE%E6%A0%87%E4%B8%BB%E6%9C%BA%E7%9A%84%E6%8C%81%E4%B9%85%E5%8C%96%E8%BF%9E%E6%8E%A5"><span class="nav-number">9.</span> <span class="nav-text">创建到目标主机的持久化连接</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%80%9A%E8%BF%87SSH%E8%BF%9E%E6%8E%A5%E5%B1%8F%E5%B9%95"><span class="nav-number">10.</span> <span class="nav-text">通过SSH连接屏幕</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%AB%AF%E5%8F%A3%E6%A3%80%E6%B5%8B%EF%BC%88%E6%95%B2%E9%97%A8%EF%BC%89"><span class="nav-number">11.</span> <span class="nav-text">端口检测（敲门）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%A0%E9%99%A4%E6%96%87%E6%9C%AC%E6%96%87%E4%BB%B6%E4%B8%AD%E7%9A%84%E4%B8%80%E8%A1%8C%E5%86%85%E5%AE%B9%EF%BC%8C%E6%9C%89%E7%94%A8%E7%9A%84%E4%BF%AE%E5%A4%8D"><span class="nav-number">12.</span> <span class="nav-text">删除文本文件中的一行内容，有用的修复</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%80%9A%E8%BF%87SSH%E8%BF%90%E8%A1%8C%E5%A4%8D%E6%9D%82%E7%9A%84%E8%BF%9C%E7%A8%8Bshell%E5%91%BD%E4%BB%A4"><span class="nav-number">13.</span> <span class="nav-text">通过SSH运行复杂的远程shell命令</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%80%9A%E8%BF%87SSH%E5%B0%86MySQL%E6%95%B0%E6%8D%AE%E5%BA%93%E5%A4%8D%E5%88%B6%E5%88%B0%E6%96%B0%E6%9C%8D%E5%8A%A1%E5%99%A8"><span class="nav-number">14.</span> <span class="nav-text">通过SSH将MySQL数据库复制到新服务器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%A0%E9%99%A4%E6%96%87%E6%9C%AC%E6%96%87%E4%BB%B6%E4%B8%AD%E7%9A%84%E4%B8%80%E8%A1%8C%EF%BC%8C%E4%BF%AE%E5%A4%8D%E2%80%9CSSH%E4%B8%BB%E6%9C%BA%E5%AF%86%E9%92%A5%E6%9B%B4%E6%94%B9%E2%80%9D%E7%9A%84%E8%AD%A6%E5%91%8A"><span class="nav-number">15.</span> <span class="nav-text">删除文本文件中的一行，修复“SSH主机密钥更改”的警告</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BB%8E%E4%B8%80%E5%8F%B0%E6%B2%A1%E6%9C%89SSH-COPY-ID%E5%91%BD%E4%BB%A4%E7%9A%84%E4%B8%BB%E6%9C%BA%E5%B0%86%E4%BD%A0%E7%9A%84SSH%E5%85%AC%E9%92%A5%E5%A4%8D%E5%88%B6%E5%88%B0%E6%9C%8D%E5%8A%A1%E5%99%A8"><span class="nav-number">16.</span> <span class="nav-text">从一台没有SSH-COPY-ID命令的主机将你的SSH公钥复制到服务器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%9E%E6%97%B6SSH%E7%BD%91%E7%BB%9C%E5%90%9E%E5%90%90%E9%87%8F%E6%B5%8B%E8%AF%95"><span class="nav-number">17.</span> <span class="nav-text">实时SSH网络吞吐量测试</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A6%82%E6%9E%9C%E5%BB%BA%E7%AB%8B%E4%B8%80%E4%B8%AA%E5%8F%AF%E4%BB%A5%E9%87%8D%E6%96%B0%E8%BF%9E%E6%8E%A5%E7%9A%84%E8%BF%9C%E7%A8%8BGNU-screen"><span class="nav-number">18.</span> <span class="nav-text">如果建立一个可以重新连接的远程GNU screen</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BB%A7%E7%BB%ADSCP%E5%A4%A7%E6%96%87%E4%BB%B6"><span class="nav-number">19.</span> <span class="nav-text">继续SCP大文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%80%9A%E8%BF%87SSH-W-WIRESHARK%E5%88%86%E6%9E%90%E6%B5%81%E9%87%8F"><span class="nav-number">20.</span> <span class="nav-text">通过SSH W&#x2F; WIRESHARK分析流量</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BF%9D%E6%8C%81SSH%E4%BC%9A%E8%AF%9D%E6%B0%B8%E4%B9%85%E6%89%93%E5%BC%80"><span class="nav-number">21.</span> <span class="nav-text">保持SSH会话永久打开</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9B%B4%E7%A8%B3%E5%AE%9A%EF%BC%8C%E6%9B%B4%E5%BF%AB%EF%BC%8C%E6%9B%B4%E5%BC%BA%E7%9A%84SSH%E5%AE%A2%E6%88%B7%E7%AB%AF"><span class="nav-number">22.</span> <span class="nav-text">更稳定，更快，更强的SSH客户端</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8cstream%E6%8E%A7%E5%88%B6%E5%B8%A6%E5%AE%BD"><span class="nav-number">23.</span> <span class="nav-text">使用cstream控制带宽</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%80%E6%AD%A5%E5%B0%86SSH%E5%85%AC%E9%92%A5%E4%BC%A0%E8%BE%93%E5%88%B0%E5%8F%A6%E4%B8%80%E5%8F%B0%E6%9C%BA%E5%99%A8"><span class="nav-number">24.</span> <span class="nav-text">一步将SSH公钥传输到另一台机器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B0%86%E6%A0%87%E5%87%86%E8%BE%93%E5%85%A5%EF%BC%88stdin%EF%BC%89%E5%A4%8D%E5%88%B6%E5%88%B0%E4%BD%A0%E7%9A%84X11%E7%BC%93%E5%86%B2%E5%8C%BA"><span class="nav-number">25.</span> <span class="nav-text">将标准输入（stdin）复制到你的X11缓冲区</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-overview">
+            <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">hyman</p>
+  <div class="site-description" itemprop="description">一些简单的记录</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">187</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+        <span class="site-state-item-count">39</span>
+        <span class="site-state-item-name">分类</span>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">129</span>
+        <span class="site-state-item-name">标签</span>
+      </div>
+  </nav>
+</div>
+
+
+
+          </div>
+        </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
     </header>
 
     
-  <div class="back-to-top">
+  <div class="back-to-top" role="button" aria-label="返回顶部">
     <i class="fa fa-arrow-up"></i>
     <span>0%</span>
   </div>
 
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
 
-    <main class="main">
-      <div class="main-inner">
-        <div class="content-wrap">
-          
 
-          <div class="content post posts-expand">
-            
+    <div class="main-inner post posts-expand">
 
-    
+
+  
+
+
+<div class="post-block">
   
   
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://www.ywthings.com/posts/abf336b3.html">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
       <meta itemprop="name" content="hyman">
-      <meta itemprop="description" content="">
+      <meta itemprop="description" content="一些简单的记录">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
@@ -211,27 +230,29 @@
           ssh命令用法
         </h1>
 
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-              
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+      
 
-              <time title="创建时间：2020-09-28 08:42:06 / 修改时间：08:51:00" itemprop="dateCreated datePublished" datetime="2020-09-28T08:42:06+08:00">2020-09-28</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/ssh/" itemprop="url" rel="index"><span itemprop="name">ssh</span></a>
-                </span>
-            </span>
+      <time title="创建时间：2020-09-28 08:42:06 / 修改时间：08:51:00" itemprop="dateCreated datePublished" datetime="2020-09-28T08:42:06+08:00">2020-09-28</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/ssh/" itemprop="url" rel="index"><span itemprop="name">ssh</span></a>
+        </span>
+    </span>
 
-          
+  
+</div>
 
         </div>
       </header>
@@ -240,9 +261,7 @@
     
     
     <div class="post-body" itemprop="articleBody">
-
-      
-        <h3 id="复制SSH密钥到目标主机，开启无密码SSH登录"><a href="#复制SSH密钥到目标主机，开启无密码SSH登录" class="headerlink" title="复制SSH密钥到目标主机，开启无密码SSH登录"></a>复制SSH密钥到目标主机，开启无密码SSH登录</h3><a id="more"></a>
+        <h3 id="复制SSH密钥到目标主机，开启无密码SSH登录"><a href="#复制SSH密钥到目标主机，开启无密码SSH登录" class="headerlink" title="复制SSH密钥到目标主机，开启无密码SSH登录"></a>复制SSH密钥到目标主机，开启无密码SSH登录</h3><span id="more"></span>
 
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh-copy-id user@host</span><br></pre></td></tr></table></figure>
 
@@ -316,7 +335,7 @@
 
 
 
-<h3 id="通过SSH将MySQL数据库复制到新服务器"><a href="#通过SSH将MySQL数据库复制到新服务器" class="headerlink" title="通过SSH将MySQL数据库复制到新服务器"></a>通过SSH将MySQL数据库复制到新服务器</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mysqldump –add-drop-table –extended-insert –force –<span class="built_in">log</span>-error=error.log -uUSER -pPASS OLD_DB_NAME | ssh -C user@newhost “mysql -uUSER -pPASS NEW_DB_NAME”</span><br><span class="line">通过压缩的SSH隧道Dump一个MySQL数据库，将其作为输入传递给mysql命令，我认为这是迁移数据库到新服务器最快最好的方法。</span><br></pre></td></tr></table></figure>
+<h3 id="通过SSH将MySQL数据库复制到新服务器"><a href="#通过SSH将MySQL数据库复制到新服务器" class="headerlink" title="通过SSH将MySQL数据库复制到新服务器"></a>通过SSH将MySQL数据库复制到新服务器</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mysqldump –add-drop-table –extended-insert –force –log-error=error.log -uUSER -pPASS OLD_DB_NAME | ssh -C user@newhost “mysql -uUSER -pPASS NEW_DB_NAME”</span><br><span class="line">通过压缩的SSH隧道Dump一个MySQL数据库，将其作为输入传递给mysql命令，我认为这是迁移数据库到新服务器最快最好的方法。</span><br></pre></td></tr></table></figure>
 
 
 
@@ -351,7 +370,7 @@
 
 
 
-<p>人们总是喜欢在一个文本终端中打开许多shell，如果会话突然中断，或你按下了“Ctrl-a d”，远程主机上的shell不会受到丝毫影响，你可以重新连接，其它有用的screen命令有“Ctrl-a c”（打开新的shell）和“Ctrl-a a”（在shell之间来回切换），请访问<a href="http://aperiodic.net/screen/quick_reference阅读更多关于screen命令的快速参考。">http://aperiodic.net/screen/quick_reference阅读更多关于screen命令的快速参考。</a></p>
+<p>人们总是喜欢在一个文本终端中打开许多shell，如果会话突然中断，或你按下了“Ctrl-a d”，远程主机上的shell不会受到丝毫影响，你可以重新连接，其它有用的screen命令有“Ctrl-a c”（打开新的shell）和“Ctrl-a a”（在shell之间来回切换），请访问<a target="_blank" rel="noopener" href="http://aperiodic.net/screen/quick_reference%E9%98%85%E8%AF%BB%E6%9B%B4%E5%A4%9A%E5%85%B3%E4%BA%8Escreen%E5%91%BD%E4%BB%A4%E7%9A%84%E5%BF%AB%E9%80%9F%E5%8F%82%E8%80%83%E3%80%82">http://aperiodic.net/screen/quick_reference阅读更多关于screen命令的快速参考。</a></p>
 <h3 id="继续SCP大文件"><a href="#继续SCP大文件" class="headerlink" title="继续SCP大文件"></a>继续SCP大文件</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rsync –partial –progress –rsh=ssh <span class="variable">$file_source</span> <span class="variable">$user</span>@<span class="variable">$host</span>:<span class="variable">$destination_file</span></span><br></pre></td></tr></table></figure>
 
 
@@ -366,7 +385,7 @@
 
 
 
-<h3 id="通过SSH-W-WIRESHARK分析流量"><a href="#通过SSH-W-WIRESHARK分析流量" class="headerlink" title="通过SSH W/ WIRESHARK分析流量"></a>通过SSH W/ WIRESHARK分析流量</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh root@server.com ‘tshark -f “port !22″ -w -<span class="string">' | wireshark -k -i –</span></span><br></pre></td></tr></table></figure>
+<h3 id="通过SSH-W-WIRESHARK分析流量"><a href="#通过SSH-W-WIRESHARK分析流量" class="headerlink" title="通过SSH W/ WIRESHARK分析流量"></a>通过SSH W/ WIRESHARK分析流量</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh root@server.com ‘tshark -f “port !22″ -w -<span class="string">&#x27; | wireshark -k -i –</span></span><br></pre></td></tr></table></figure>
 
 
 
@@ -389,7 +408,7 @@
 
 
 
-<p>使用bzip压缩文件夹，然后以777k bit/s速率向远程主机传输。Cstream还有更多的功能，请访问<a href="http://www.cons.org/cracauer/cstream.html#usage了解详情，例如：">http://www.cons.org/cracauer/cstream.html#usage了解详情，例如：</a></p>
+<p>使用bzip压缩文件夹，然后以777k bit/s速率向远程主机传输。Cstream还有更多的功能，请访问<a target="_blank" rel="noopener" href="http://www.cons.org/cracauer/cstream.html#usage%E4%BA%86%E8%A7%A3%E8%AF%A6%E6%83%85%EF%BC%8C%E4%BE%8B%E5%A6%82%EF%BC%9A">http://www.cons.org/cracauer/cstream.html#usage了解详情，例如：</a></p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">echo</span> w00t, i’m 733+ | cstream -b1 -t2</span><br></pre></td></tr></table></figure>
 
 
@@ -411,7 +430,7 @@
     
     
 
-      <footer class="post-footer">
+    <footer class="post-footer">
           <div class="post-tags">
               <a href="/tags/ssh/" rel="tag"># ssh</a>
               <a href="/tags/rsync/" rel="tag"># rsync</a>
@@ -419,165 +438,54 @@
 
         
 
-
-        
-    <div class="post-nav">
-      <div class="post-nav-item">
-    <a href="/posts/5be8727f.html" rel="prev" title="kubernetes etcd 数据备份与恢复">
-      <i class="fa fa-chevron-left"></i> kubernetes etcd 数据备份与恢复
-    </a></div>
-      <div class="post-nav-item">
-    <a href="/posts/14c64f9e.html" rel="next" title="keepalived 参数中文说明">
-      keepalived 参数中文说明 <i class="fa fa-chevron-right"></i>
-    </a></div>
-    </div>
-      </footer>
-    
-  </article>
-  
-  
-  
-
-
-
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/posts/5be8727f.html" rel="prev" title="kubernetes etcd 数据备份与恢复">
+                  <i class="fa fa-chevron-left"></i> kubernetes etcd 数据备份与恢复
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/posts/14c64f9e.html" rel="next" title="keepalived 参数中文说明">
+                  keepalived 参数中文说明 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
           </div>
-          
-
-<script>
-  window.addEventListener('tabs:register', () => {
-    let { activeClass } = CONFIG.comments;
-    if (CONFIG.comments.storage) {
-      activeClass = localStorage.getItem('comments_active') || activeClass;
-    }
-    if (activeClass) {
-      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
-      if (activeTab) {
-        activeTab.click();
-      }
-    }
-  });
-  if (CONFIG.comments.storage) {
-    window.addEventListener('tabs:click', event => {
-      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
-      let commentClass = event.target.classList[1];
-      localStorage.setItem('comments_active', commentClass);
-    });
-  }
-</script>
-
-        </div>
-          
-  
-  <div class="toggle sidebar-toggle">
-    <span class="toggle-line toggle-line-first"></span>
-    <span class="toggle-line toggle-line-middle"></span>
-    <span class="toggle-line toggle-line-last"></span>
-  </div>
-
-  <aside class="sidebar">
-    <div class="sidebar-inner">
-
-      <ul class="sidebar-nav motion-element">
-        <li class="sidebar-nav-toc">
-          文章目录
-        </li>
-        <li class="sidebar-nav-overview">
-          站点概览
-        </li>
-      </ul>
-
-      <!--noindex-->
-      <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#复制SSH密钥到目标主机，开启无密码SSH登录"><span class="nav-number">1.</span> <span class="nav-text">复制SSH密钥到目标主机，开启无密码SSH登录</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#从某主机的80端口开启到本地主机2001端口的隧道"><span class="nav-number">2.</span> <span class="nav-text">从某主机的80端口开启到本地主机2001端口的隧道</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#将你的麦克风输出到远程计算机的扬声器"><span class="nav-number">3.</span> <span class="nav-text">将你的麦克风输出到远程计算机的扬声器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#比较远程和本地文件"><span class="nav-number">4.</span> <span class="nav-text">比较远程和本地文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#通过SSH挂载目录-文件系统"><span class="nav-number">5.</span> <span class="nav-text">通过SSH挂载目录&#x2F;文件系统</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#通过中间主机建立SSH连接"><span class="nav-number">6.</span> <span class="nav-text">通过中间主机建立SSH连接</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#将你的SSH公钥复制到远程主机，开启无密码登录-–-简单的方法"><span class="nav-number">7.</span> <span class="nav-text">将你的SSH公钥复制到远程主机，开启无密码登录 – 简单的方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#直接连接到只能通过主机B连接的主机A"><span class="nav-number">8.</span> <span class="nav-text">直接连接到只能通过主机B连接的主机A</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#创建到目标主机的持久化连接"><span class="nav-number">9.</span> <span class="nav-text">创建到目标主机的持久化连接</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#通过SSH连接屏幕"><span class="nav-number">10.</span> <span class="nav-text">通过SSH连接屏幕</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#端口检测（敲门）"><span class="nav-number">11.</span> <span class="nav-text">端口检测（敲门）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#删除文本文件中的一行内容，有用的修复"><span class="nav-number">12.</span> <span class="nav-text">删除文本文件中的一行内容，有用的修复</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#通过SSH运行复杂的远程shell命令"><span class="nav-number">13.</span> <span class="nav-text">通过SSH运行复杂的远程shell命令</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#通过SSH将MySQL数据库复制到新服务器"><span class="nav-number">14.</span> <span class="nav-text">通过SSH将MySQL数据库复制到新服务器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#删除文本文件中的一行，修复“SSH主机密钥更改”的警告"><span class="nav-number">15.</span> <span class="nav-text">删除文本文件中的一行，修复“SSH主机密钥更改”的警告</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#从一台没有SSH-COPY-ID命令的主机将你的SSH公钥复制到服务器"><span class="nav-number">16.</span> <span class="nav-text">从一台没有SSH-COPY-ID命令的主机将你的SSH公钥复制到服务器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#实时SSH网络吞吐量测试"><span class="nav-number">17.</span> <span class="nav-text">实时SSH网络吞吐量测试</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#如果建立一个可以重新连接的远程GNU-screen"><span class="nav-number">18.</span> <span class="nav-text">如果建立一个可以重新连接的远程GNU screen</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#继续SCP大文件"><span class="nav-number">19.</span> <span class="nav-text">继续SCP大文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#通过SSH-W-WIRESHARK分析流量"><span class="nav-number">20.</span> <span class="nav-text">通过SSH W&#x2F; WIRESHARK分析流量</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#保持SSH会话永久打开"><span class="nav-number">21.</span> <span class="nav-text">保持SSH会话永久打开</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#更稳定，更快，更强的SSH客户端"><span class="nav-number">22.</span> <span class="nav-text">更稳定，更快，更强的SSH客户端</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用cstream控制带宽"><span class="nav-number">23.</span> <span class="nav-text">使用cstream控制带宽</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#一步将SSH公钥传输到另一台机器"><span class="nav-number">24.</span> <span class="nav-text">一步将SSH公钥传输到另一台机器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#将标准输入（stdin）复制到你的X11缓冲区"><span class="nav-number">25.</span> <span class="nav-text">将标准输入（stdin）复制到你的X11缓冲区</span></a></li></ol></div>
-      </div>
-      <!--/noindex-->
-
-      <div class="site-overview-wrap sidebar-panel">
-        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
-  <p class="site-author-name" itemprop="name">hyman</p>
-  <div class="site-description" itemprop="description"></div>
-</div>
-<div class="site-state-wrap motion-element">
-  <nav class="site-state">
-      <div class="site-state-item site-state-posts">
-          <a href="/archives/">
-        
-          <span class="site-state-item-count">169</span>
-          <span class="site-state-item-name">日志</span>
-        </a>
-      </div>
-      <div class="site-state-item site-state-categories">
-            <a href="/categories/">
-          
-        <span class="site-state-item-count">35</span>
-        <span class="site-state-item-name">分类</span></a>
-      </div>
-      <div class="site-state-item site-state-tags">
-            <a href="/tags/">
-          
-        <span class="site-state-item-count">122</span>
-        <span class="site-state-item-name">标签</span></a>
-      </div>
-  </nav>
+    </footer>
+  </article>
 </div>
 
 
 
-      </div>
-
-    </div>
-  </aside>
-  <div id="sidebar-dimmer"></div>
 
 
-      </div>
-    </main>
 
-    <footer class="footer">
-      <div class="footer-inner">
-        
+</div>
+  </main>
 
-        
+  <footer class="footer">
+    <div class="footer-inner">
+
 
 <div class="copyright">
-  
-  &copy; 
+  &copy; 2017 – 
   <span itemprop="copyrightYear">2021</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>
   <span class="author" itemprop="copyrightHolder">hyman</span>
 </div>
-  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/mist/" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a> 强力驱动
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/mist/" rel="noopener" target="_blank">NexT.Mist</a> 强力驱动
   </div>
 
-        
-
-
-
-
-
-
-
-
-      </div>
-    </footer>
-  </div>
+    </div>
+  </footer>
 
   
-  <script src="/lib/anime.min.js"></script>
-  <script src="/lib/velocity/velocity.min.js"></script>
-  <script src="/lib/velocity/velocity.ui.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/next-boot.js"></script>
 
-<script src="/js/utils.js"></script>
-
-<script src="/js/motion.js"></script>
-
-
-<script src="/js/schemes/muse.js"></script>
-
-
-<script src="/js/next-boot.js"></script>
+  
+<script src="/js/third-party/search/local-search.js"></script>
 
 
 
@@ -587,24 +495,6 @@
 
 
 
-  
-<script src="/js/local-search.js"></script>
-
-
-
-
-
-
-
-
-
-
-
-
-
-  
-
-  
 
 </body>
 </html>

@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/favicon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.3/css/all.min.css" integrity="sha256-2H3fkXt6FEmrReK448mDVGKb3WW2ZZw35gI7vqHOE4Y=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"www.ywthings.com","root":"/","images":"/images","scheme":"Mist","version":"8.5.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":true,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+<meta name="description" content="检查服务器磁盘使用情况并发送企业微信告警脚本">
+<meta property="og:type" content="article">
+<meta property="og:title" content="检查磁盘使用率脚本">
+<meta property="og:url" content="https://www.ywthings.com/posts/430e254b.html">
+<meta property="og:site_name" content="hyman">
+<meta property="og:description" content="检查服务器磁盘使用情况并发送企业微信告警脚本">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2021-08-17T02:20:06.000Z">
+<meta property="article:modified_time" content="2021-08-18T00:03:47.227Z">
+<meta property="article:author" content="hyman">
+<meta property="article:tag" content="shell">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="https://www.ywthings.com/posts/430e254b.html">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://www.ywthings.com/posts/430e254b.html","path":"posts/430e254b.html","title":"检查磁盘使用率脚本"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>检查磁盘使用率脚本 | hyman</title>
+  
+
+  <script src="/js/third-party/analytics/baidu-analytics.js"></script>
+  <script async src="https://hm.baidu.com/hm.js?97e285060b95594e74e4d3562a50a717"></script>
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <h1 class="site-title">hyman</h1>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">一些简单的记录</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+        <li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li>
+        <li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li>
+        <li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li>
+        <li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li>
+        <li class="menu-item menu-item-sitemap"><a href="/sitemap.xml" rel="section"><i class="fa fa-sitemap fa-fw"></i>站点地图</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-overview-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-overview">
+            <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">hyman</p>
+  <div class="site-description" itemprop="description">一些简单的记录</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">187</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+        <span class="site-state-item-count">39</span>
+        <span class="site-state-item-name">分类</span>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">129</span>
+        <span class="site-state-item-name">标签</span>
+      </div>
+  </nav>
+</div>
+
+
+
+          </div>
+        </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://www.ywthings.com/posts/430e254b.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="hyman">
+      <meta itemprop="description" content="一些简单的记录">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="hyman">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          检查磁盘使用率脚本
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2021-08-17 10:20:06" itemprop="dateCreated datePublished" datetime="2021-08-17T10:20:06+08:00">2021-08-17</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">更新于</span>
+        <time title="修改时间：2021-08-18 08:03:47" itemprop="dateModified" datetime="2021-08-18T08:03:47+08:00">2021-08-18</time>
+      </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/shell/" itemprop="url" rel="index"><span itemprop="name">shell</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <p>检查服务器磁盘使用情况并发送企业微信告警脚本</p>
+<span id="more"></span>
+
+
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br></pre></td><td class="code"><pre><span class="line">#!/bin/bash</span><br><span class="line"></span><br><span class="line"># 01.获取主机资源</span><br><span class="line">function sys_info()</span><br><span class="line">&#123;</span><br><span class="line"> # 系统信息</span><br><span class="line"> Date=`date +%Y-%m-%d`</span><br><span class="line"> Date_time=`date &quot;+%Y-%m-%d__%H:%M:%S&quot;`</span><br><span class="line"> Host_name=`hostname`</span><br><span class="line"> IP_addr=`grep IPADDR /etc/sysconfig/network-scripts/ifcfg-ens*|awk -F&quot;=&quot; &#x27;&#123;print $2&#125;&#x27;`</span><br><span class="line"> # 主机资源</span><br><span class="line"> Disk_rate_sys=`df -h|grep \/\$|awk -F&quot; &quot; &#x27;&#123; print $5 &#125;&#x27;`</span><br><span class="line"> Disk_rate_sys2=$&#123;Disk_rate_sys%%%&#125;</span><br><span class="line"> Disk_rate_data=`df -h|grep \/var/lib/containers\$|awk -F&quot; &quot; &#x27;&#123; print $5 &#125;&#x27;`</span><br><span class="line"> Disk_rate_data2=$&#123;Disk_rate_data%%%&#125;</span><br><span class="line"> CPU_free=`vmstat |tail -1|awk -F&quot; &quot; &#x27;&#123;print $15&#125;&#x27;`</span><br><span class="line"> Load_ave15=`uptime |awk &#x27;&#123; print $NF &#125;&#x27;|awk -F&quot; &quot; &#x27;&#123; print $1 &#125;&#x27;`</span><br><span class="line"> Load_ave15_1=`expr $Load_ave15`</span><br><span class="line"> Mem_Total_kb=`cat /proc/meminfo | grep &quot;MemTotal&quot;|awk -F&quot;:&quot; &#x27;&#123;print $2&#125;&#x27;|awk &#x27;&#123;print $1&#125;&#x27;`</span><br><span class="line"> Mem_Free_kb=`cat /proc/meminfo | grep &quot;MemFree&quot;|awk -F&quot;:&quot; &#x27;&#123;print $2&#125;&#x27;|awk &#x27;&#123;print $1&#125;&#x27;`</span><br><span class="line"> Mem_Total=`expr $Mem_Total_kb / 1024`</span><br><span class="line"> Mem_Free=`expr $Mem_Free_kb / 1024`</span><br><span class="line"> # 微信接口</span><br><span class="line"> CropID=&#x27;xxxxxx&#x27;</span><br><span class="line"> Secret=&#x27;xxxxxx&#x27;</span><br><span class="line"> GURL=&quot;https://qyapi.weixin.qq.com/cgi-bin/gettoken?corpid=$CropID&amp;corpsecret=$Secret&quot;</span><br><span class="line"> Gtoken=$(/usr/bin/curl -s -G $GURL | awk -F\&quot; &#x27;&#123;print $10&#125;&#x27;)</span><br><span class="line"> PURL=&quot;https://qyapi.weixin.qq.com/cgi-bin/message/send?access_token=$Gtoken&quot;</span><br><span class="line"> To_User=&quot;xxxxxx&quot;</span><br><span class="line"> To_Party=&quot;1&quot;</span><br><span class="line"> Agent_ID=&quot;xxxxx&quot;</span><br><span class="line"> # 日志目录</span><br><span class="line"> if [ ! -d &quot;/tmp/logs_check&quot; ]; then mkdir /tmp/logs_check; fi</span><br><span class="line"> Logs_file=&#x27;/tmp/logs_check&#x27;</span><br><span class="line"> # 运行业务</span><br><span class="line"> Project_mode=&quot;DEV镜像仓库&quot;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"># 02.主机资源磁盘、CPU、MEM、LOAD</span><br><span class="line"># 2.1 判断根磁盘使用率超额</span><br><span class="line">  #系统盘使用率</span><br><span class="line">function sys_disk()</span><br><span class="line">&#123;</span><br><span class="line">if [ $Disk_rate_sys2 -gt 80 ]</span><br><span class="line"> then</span><br><span class="line">  echo &quot;$Date_time 磁盘使用率超额&quot; &gt;&gt; $Logs_file/disk_rate.$Date.log</span><br><span class="line">  /usr/bin/curl --data-ascii &#x27;&#123; &quot;touser&quot;: &quot;&#x27;$&#123;To_User&#125;&#x27;&quot;, &quot;toparty&quot;: &quot;&#x27;$&#123;To_Party&#125;&#x27;&quot;,&quot;msgtype&quot;: &quot;text&quot;,&quot;agentid&quot;: &quot;&#x27;$&#123;Agent_ID&#125;&#x27;&quot;,&quot;text&quot;: &#123;&quot;content&quot;: &quot;&#x27;获取时间：$&#123;Date_time&#125;&#x27;\n&#x27;运行业务：$&#123;Project_mode&#125;&#x27;\n&#x27;内网地址：$&#123;IP_addr&#125;&#x27;\n&#x27;主机名称：$&#123;Host_name&#125;&#x27;\n&#x27;磁盘使用：目录/为$&#123;Disk_rate_sys&#125;&#x27;&quot;&#125;,&quot;safe&quot;:&quot;0&quot;&#125;&#x27; $PURL</span><br><span class="line"> else</span><br><span class="line">  echo &quot;$Date_time 磁盘使用率良好：$Disk_rate_sys&quot; &gt;&gt; $Logs_file/disk_rate.$Date.log</span><br><span class="line"> fi</span><br><span class="line"></span><br><span class="line">  #数据盘使用率</span><br><span class="line"></span><br><span class="line">if [ $&#123;Disk_rate_data2&#125; -gt 50 ]</span><br><span class="line"> then</span><br><span class="line">  echo &quot;$Date_time 磁盘使用率超额&quot; &gt;&gt; $Logs_file/disk_rate.$Date.log</span><br><span class="line">  /usr/bin/curl --data-ascii &#x27;&#123; &quot;touser&quot;: &quot;&#x27;$&#123;To_User&#125;&#x27;&quot;, &quot;toparty&quot;: &quot;&#x27;$&#123;To_Party&#125;&#x27;&quot;,&quot;msgtype&quot;: &quot;text&quot;,&quot;agentid&quot;: &quot;&#x27;$&#123;Agent_ID&#125;&#x27;&quot;,&quot;text&quot;: &#123;&quot;content&quot;: &quot;&#x27;获取时间：$&#123;Date_time&#125;&#x27;\n&#x27;运行业务：$&#123;Project_mode&#125;&#x27;\n&#x27;内网地址：$&#123;IP_addr&#125;&#x27;\n&#x27;主机名称：$&#123;Host_name&#125;&#x27;\n&#x27;磁盘使用：目录/data为$&#123;Disk_rate_data&#125;&#x27;&quot;&#125;,&quot;safe&quot;:&quot;0&quot;&#125;&#x27; $PURL</span><br><span class="line"> else</span><br><span class="line">  echo &quot;$Date_time 磁盘使用率良好：$Disk_rate_data&quot; &gt;&gt; $Logs_file/disk_rate.$Date.log</span><br><span class="line"> fi</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"># 2.3 判断CPU空闲值过低</span><br><span class="line">function sys_cpu()</span><br><span class="line">&#123;</span><br><span class="line"> if [ $CPU_free -lt 10 ]</span><br><span class="line"> then</span><br><span class="line">  echo &quot;$Date_time CPU空闲率少于10%&quot; &gt;&gt; $Logs_file/CPU_free.$Date.log</span><br><span class="line">  /usr/bin/curl --data-ascii &#x27;&#123; &quot;touser&quot;:  &quot;&#x27;$&#123;To_User&#125;&#x27;&quot;, &quot;toparty&quot;: &quot;&#x27;$&#123;To_Party&#125;&#x27;&quot;,&quot;msgtype&quot;: &quot;text&quot;,&quot;agentid&quot;: &quot;&#x27;$&#123;Agent_ID&#125;&#x27;&quot;,&quot;text&quot;: &#123;&quot;content&quot;: &quot;&#x27;获取时间：$&#123;Date_time&#125;&#x27;\n&#x27;运行业务：$&#123;Project_mode&#125;&#x27;\n&#x27;远程地址：$&#123;SSH_addr&#125;&#x27;\n&#x27;内网地址：$&#123;IP_addr&#125;&#x27;\n&#x27;主机名称：$&#123;Host_name&#125;&#x27;\n&#x27;CPU空闲：$&#123;CPU_free&#125;%&#x27;&quot;&#125;,&quot;safe&quot;:&quot;0&quot;&#125;&#x27; $PURL</span><br><span class="line"> else</span><br><span class="line">  echo &quot;$Date_time CPU空闲率良好：$CPU_free%&quot; &gt;&gt; $Logs_file/CPU_free.$Date.log</span><br><span class="line"> fi</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"># 2.4 判断服务器15分钟负载过高</span><br><span class="line">function sys_load()</span><br><span class="line">&#123;</span><br><span class="line"> if [ `expr $Load_ave15_1 \&gt; 0` -gt 1 ]</span><br><span class="line"> then</span><br><span class="line">  echo &quot;$Date_time 服务器15分钟负载过高：$Load_ave15%&quot; &gt;&gt; $Logs_file/Load_ave15.$Date.log</span><br><span class="line">  /usr/bin/curl --data-ascii &#x27;&#123; &quot;touser&quot;:  &quot;&#x27;$&#123;To_User&#125;&#x27;&quot;, &quot;toparty&quot;: &quot;&#x27;$&#123;To_Party&#125;&#x27;&quot;,&quot;msgtype&quot;: &quot;text&quot;,&quot;agentid&quot;: &quot;&#x27;$&#123;Agent_ID&#125;&#x27;&quot;,&quot;text&quot;: &#123;&quot;content&quot;: &quot;&#x27;获取时间：$&#123;Date_time&#125;&#x27;\n&#x27;运行业务：$&#123;Project_mode&#125;&#x27;\n&#x27;远程地址：$&#123;SSH_addr&#125;&#x27;\n&#x27;内网地址：$&#123;IP_addr&#125;&#x27;\n&#x27;主机名称：$&#123;Host_name&#125;&#x27;\n&#x27;主机负载：$&#123;Load_ave15&#125;%&#x27;&quot;&#125;,&quot;safe&quot;:&quot;0&quot;&#125;&#x27; $PURL</span><br><span class="line"> else</span><br><span class="line">  echo &quot;$Date_time 服务器15分钟负载良好：$Load_ave15%&quot; &gt;&gt; $Logs_file/Load_ave15.$Date.log</span><br><span class="line"> fi</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"># 3 调用函数</span><br><span class="line">sys_info</span><br><span class="line">sys_disk</span><br><span class="line">sys_cpu</span><br><span class="line">sys_load</span><br></pre></td></tr></table></figure>
+
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/shell/" rel="tag"># shell</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/posts/59a7113b.html" rel="prev" title="ceph mon 启动失败">
+                  <i class="fa fa-chevron-left"></i> ceph mon 启动失败
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/posts/a72c0938.html" rel="next" title="清理镜像脚本">
+                  清理镜像脚本 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 2017 – 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">hyman</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/mist/" rel="noopener" target="_blank">NexT.Mist</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/next-boot.js"></script>
+
+  
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+
+  
+
+
+
+
+
+</body>
+</html>
