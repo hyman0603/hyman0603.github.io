@@ -1,0 +1,554 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/favicon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"www.ywthings.com","root":"/","scheme":"Mist","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="用于工作快速搭建k8s，适用于kuberbetes小于1.23">
+<meta property="og:type" content="article">
+<meta property="og:title" content="部署kubenetes集群 &lt; 1.23">
+<meta property="og:url" content="https://www.ywthings.com/posts/b678a5f8.html">
+<meta property="og:site_name" content="hyman">
+<meta property="og:description" content="用于工作快速搭建k8s，适用于kuberbetes小于1.23">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2022-04-23T06:02:01.000Z">
+<meta property="article:modified_time" content="2022-04-28T07:34:26.000Z">
+<meta property="article:author" content="hyman">
+<meta property="article:tag" content="k8s">
+<meta property="article:tag" content="kubernetes">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://www.ywthings.com/posts/b678a5f8.html">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>部署kubenetes集群 < 1.23 | hyman</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">hyman</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">一些简单的记录</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+        <li class="menu-item menu-item-sitemap">
+
+    <a href="/sitemap.xml" rel="section"><i class="fa fa-sitemap fa-fw"></i>站点地图</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://www.ywthings.com/posts/b678a5f8.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="hyman">
+      <meta itemprop="description" content="一些简单的记录">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="hyman">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          部署kubenetes集群 < 1.23
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2022-04-23 14:02:01" itemprop="dateCreated datePublished" datetime="2022-04-23T14:02:01+08:00">2022-04-23</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2022-04-28 15:34:26" itemprop="dateModified" datetime="2022-04-28T15:34:26+08:00">2022-04-28</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/kubernetes/" itemprop="url" rel="index"><span itemprop="name">kubernetes</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>用于工作快速搭建k8s，适用于kuberbetes小于1.23</p>
+<span id="more"></span>
+
+<h2 id="系统初始化"><a href="#系统初始化" class="headerlink" title="系统初始化"></a>系统初始化</h2><h3 id="配置yum仓库"><a href="#配置yum仓库" class="headerlink" title="配置yum仓库"></a>配置yum仓库</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">#添加yum源仓库</span><br><span class="line"></span><br><span class="line">mv /etc/yum.repos.d/CentOS-Base.repo /etc/yum.repos.d/CentOS-Base.repo.backup </span><br><span class="line">curl -o /etc/yum.repos.d/CentOS-Base.repo https://mirrors.aliyun.com/repo/Centos-7.repo </span><br><span class="line">curl -o /etc/yum.repos.d/epel.repo http://mirrors.aliyun.com/repo/epel-7.repo</span><br><span class="line">rpm --import https://www.elrepo.org/RPM-GPG-KEY-elrepo.org</span><br><span class="line">yum install -y https://www.elrepo.org/elrepo-release-7.0-4.el7.elrepo.noarch.rpm</span><br><span class="line"></span><br><span class="line">#更新yum源仓库</span><br><span class="line">yum -y update</span><br><span class="line"></span><br><span class="line">#添加阿里云YUM软件源</span><br><span class="line"># cat &gt; /etc/yum.repos.d/kubernetes.repo &lt;&lt;EOF</span><br><span class="line">[kubernetes]</span><br><span class="line">name=Kubernetes</span><br><span class="line">baseurl=https://mirrors.aliyun.com/kubernetes/yum/repos/kubernetes-el7-x86_64/</span><br><span class="line">enabled=1</span><br><span class="line">gpgcheck=1</span><br><span class="line">repo_gpgcheck=1</span><br><span class="line">gpgkey=https://mirrors.aliyun.com/kubernetes/yum/doc/yum-key.gpg https://mirrors.aliyun.com/kubernetes/yum/doc/rpm-package-key.gpg</span><br><span class="line">EOF </span><br><span class="line"># yum clean all &amp;&amp; yum makecache  &amp;&amp; yum repolist</span><br></pre></td></tr></table></figure>
+
+<h3 id="配置hosts"><a href="#配置hosts" class="headerlink" title="配置hosts"></a>配置hosts</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"># hostnamectl set-hostname master01</span><br><span class="line"></span><br><span class="line"># cat &gt;&gt; /etc/hosts &lt;&lt; EOF</span><br><span class="line">10.0.x.x master01</span><br><span class="line">10.0.x.x node01</span><br><span class="line">EOF</span><br></pre></td></tr></table></figure>
+
+<p>⚠未配置会hosts在集群检测会出现以下警告：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[WARNING Hostname]: hostname &quot;master01&quot; could not be reached    </span><br><span class="line">[WARNING Hostname]: hostname &quot;master01&quot;: lookup master01 on 8.8.8.8:53: no such host</span><br></pre></td></tr></table></figure>
+
+<h3 id="关闭selinux、swap、firewalld"><a href="#关闭selinux、swap、firewalld" class="headerlink" title="关闭selinux、swap、firewalld"></a>关闭selinux、swap、firewalld</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"># sed -i &#x27;s/SELINUX=enforcing/SELINUX=disabled/g&#x27;  /etc/selinux/config</span><br><span class="line"># sed -i &quot;s@/dev/mapper/centos-swap@#/dev/mapper/centos-swap@g&quot;   /etc/fstab</span><br><span class="line"># swapoff  -a</span><br><span class="line"># systemctl disable --now firewalld</span><br><span class="line"># yum remove  -y firewalld*</span><br><span class="line"># systemctl stop NetworkManager</span><br><span class="line"># systemctl disable NetworkManager</span><br></pre></td></tr></table></figure>
+
+<h3 id="调整文件打开数等配置"><a href="#调整文件打开数等配置" class="headerlink" title="调整文件打开数等配置"></a>调整文件打开数等配置</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">cat&gt; /etc/security/limits.conf &lt;&lt;EOF</span><br><span class="line">* soft nproc 1000000</span><br><span class="line">* hard nproc 1000000</span><br><span class="line">* soft nofile 1000000</span><br><span class="line">* hard nofile 1000000</span><br><span class="line">* soft  memlock  unlimited</span><br><span class="line">* hard memlock  unlimited</span><br><span class="line">EOF</span><br></pre></td></tr></table></figure>
+
+<h3 id="配置时间同步"><a href="#配置时间同步" class="headerlink" title="配置时间同步"></a>配置时间同步</h3><ul>
+<li>服务端(本处以master节点为服务端）</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"># yum install chrony -y</span><br><span class="line"># vim /etc/chrony.conf</span><br><span class="line">server 127.127.1.0 iburst     #表示与本机IP同步时间，其他server注释或删除</span><br><span class="line">allow 192.168.2.0/24   #指定一台主机、子网，或者网络以允许或拒绝NTP连接到扮演时钟服务器的机器</span><br><span class="line">local stratum 10    #不去同步任何人的时间。时间同步服务级别</span><br><span class="line"># systemctl restart chronyd  &amp;&amp;  systemctl enable chronyd</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>客户端（node节点）</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"># yum install chrony -y</span><br><span class="line"># vim /etc/chrony.conf</span><br><span class="line">server 服务端IP iburst</span><br><span class="line"># systemctl restart chronyd  &amp;&amp;  systemctl enable chronyd</span><br><span class="line"># chronyc sources  -v              #查看同步状态</span><br></pre></td></tr></table></figure>
+
+<h3 id="内核升级"><a href="#内核升级" class="headerlink" title="内核升级"></a>内核升级</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">rpm --import https://www.elrepo.org/RPM-GPG-KEY-elrepo.org</span><br><span class="line">yum -y install https://www.elrepo.org/elrepo-release-7.0-4.el7.elrepo.noarch.rpm</span><br><span class="line">yum --enablerepo=elrepo-kernel install kernel-lt -y</span><br><span class="line">grub2-set-default 0</span><br><span class="line">grub2-mkconfig -o /etc/grub2.cfg</span><br><span class="line">reboot //重启服务器</span><br></pre></td></tr></table></figure>
+
+<h3 id="配置IPVS"><a href="#配置IPVS" class="headerlink" title="配置IPVS"></a>配置IPVS</h3><p><code>非必须操作</code>，kube-proxy安装后默认使用iptable规则，也可以修改为IP VS规则。</p>
+<ul>
+<li>内核 &lt; 4.19</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"># yum install  -y ipvsadm ipset sysstat conntrack libseccomp  </span><br><span class="line"></span><br><span class="line">:&gt; /etc/modules-load.d/ipvs.conf</span><br><span class="line">module=(</span><br><span class="line">ip_vs</span><br><span class="line">ip_vs_rr</span><br><span class="line">ip_vs_wrr</span><br><span class="line">ip_vs_sh</span><br><span class="line">br_netfilter</span><br><span class="line">  )</span><br><span class="line">for kernel_module in $&#123;module[@]&#125;;do</span><br><span class="line">    /sbin/modinfo -F filename $kernel_module |&amp; grep -qv ERROR &amp;&amp; echo $kernel_module &gt;&gt; /etc/modules-load.d/ipvs.conf || :</span><br><span class="line">done</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>内核 &gt;= 4.19</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">:&gt; /etc/modules-load.d/ipvs.conf</span><br><span class="line">module=(</span><br><span class="line">ip_vs</span><br><span class="line">ip_vs_rr</span><br><span class="line">ip_vs_wrr</span><br><span class="line">ip_vs_sh</span><br><span class="line">nf_conntrack</span><br><span class="line">br_netfilter</span><br><span class="line">  )</span><br><span class="line">for kernel_module in $&#123;module[@]&#125;;do</span><br><span class="line">    /sbin/modinfo -F filename $kernel_module |&amp; grep -qv ERROR &amp;&amp; echo $kernel_module &gt;&gt; /etc/modules-load.d/ipvs.conf || :</span><br><span class="line">done</span><br></pre></td></tr></table></figure>
+<ul>
+<li>加载ipvs模块</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">systemctl daemon-reload</span><br><span class="line">systemctl enable --now systemd-modules-load.service</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>查询ipvs是否加载</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">#  lsmod | grep ip_vs</span><br><span class="line">ip_vs_sh               16384  0</span><br><span class="line">ip_vs_wrr              16384  0</span><br><span class="line">ip_vs_rr               16384  0</span><br><span class="line">ip_vs                 172032  6 ip_vs_rr,ip_vs_sh,ip_vs_wrr</span><br><span class="line">nf_conntrack          172032  6 xt_conntrack,nf_nat,xt_state,ipt_MASQUERADE,xt_CT,ip_vs</span><br><span class="line">nf_defrag_ipv6         20480  4 nf_conntrack,xt_socket,xt_TPROXY,ip_vs</span><br><span class="line">libcrc32c              16384  3 nf_conntrack,nf_nat,ip_vs</span><br></pre></td></tr></table></figure>
+
+<p>ummy0网卡和kube-ipvs0网卡：在安装k8s集群时，启用了ipvs的话，就会有这两个网卡。（将service的IP绑定在kube-ipvs0网卡上）</p>
+<h3 id="配置内核参数"><a href="#配置内核参数" class="headerlink" title="配置内核参数"></a>配置内核参数</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">#系统优化</span><br><span class="line">cat &gt; /etc/sysctl.d/k8s_better.conf &lt;&lt; EOF</span><br><span class="line">net.bridge.bridge-nf-call-iptables=1</span><br><span class="line">net.bridge.bridge-nf-call-ip6tables=1</span><br><span class="line">net.ipv4.ip_forward=1</span><br><span class="line">net.ipv4.tcp_tw_recycle=0</span><br><span class="line">vm.swappiness=0</span><br><span class="line">vm.overcommit_memory=1</span><br><span class="line">vm.panic_on_oom=0</span><br><span class="line">fs.inotify.max_user_instances=8192</span><br><span class="line">fs.inotify.max_user_watches=1048576</span><br><span class="line">fs.file-max=52706963</span><br><span class="line">fs.nr_open=52706963</span><br><span class="line">net.ipv6.conf.all.disable_ipv6=1</span><br><span class="line">net.netfilter.nf_conntrack_max=2310720</span><br><span class="line">EOF</span><br><span class="line"></span><br><span class="line">sysctl -p /etc/sysctl.d/k8s_better.conf</span><br></pre></td></tr></table></figure>
+
+<p>说明：</p>
+<p>lnet.bridge.bridge-nf-call-iptables：开启桥设备内核监控（ipv4）<br>lnet.ipv4.ip_forward：开启路由转发<br>lnet.bridge.bridge-nf-call-ip6tables：开启桥设备内核监控（ipv6）</p>
+<h3 id="docker部署"><a href="#docker部署" class="headerlink" title="docker部署"></a>docker部署</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"># yum  install  docker-ce-19.03.8</span><br><span class="line"># systemctl start docker &amp;&amp; systemctl enable docker </span><br><span class="line"># cat &gt;  /etc/docker/daemon.json &lt;&lt;EOF</span><br><span class="line">&#123;</span><br><span class="line">    &quot;registry-mirrors&quot;: [&quot;https://xcg41ct3.mirror.aliyuncs.com&quot;],        </span><br><span class="line">    &quot;exec-opts&quot;: [&quot;native.cgroupdriver=systemd&quot;]            </span><br><span class="line">&#125;</span><br><span class="line">EOF    </span><br><span class="line"># systemctl daemon-reload &amp;&amp; systemctl restart docker.service</span><br></pre></td></tr></table></figure>
+
+<h3 id="安装kubelet、kubectl、kubeadm"><a href="#安装kubelet、kubectl、kubeadm" class="headerlink" title="安装kubelet、kubectl、kubeadm"></a>安装kubelet、kubectl、kubeadm</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"># yum install  -y kubelet-1.20.6</span><br><span class="line"># yum  install  -y kubectl-1.20.6    </span><br><span class="line"># yum  install  -y kubeadm-1.20.6</span><br><span class="line"># systemctl start kubelet &amp;&amp; systemctl enable kubelet</span><br><span class="line"># systemctl status kubelet</span><br></pre></td></tr></table></figure>
+
+<h3 id="设置table键补全"><a href="#设置table键补全" class="headerlink" title="设置table键补全"></a>设置table键补全</h3><ul>
+<li>Kubectl命令补全</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"># kubectl completion  bash &gt;  /etc/bash_completion.d/kubelet</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>Kubeadm命令补全</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"># kubeadm  completion  bash &gt;  /etc/bash_completion.d/kubeadm</span><br></pre></td></tr></table></figure>
+
+<h2 id="安装master节点"><a href="#安装master节点" class="headerlink" title="安装master节点"></a>安装master节点</h2><h3 id="检测环境"><a href="#检测环境" class="headerlink" title="检测环境"></a>检测环境</h3><p>检测主机环境是否达到集群的要求，可根据结果提示进行逐一排除故障，</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"># kubeadm   init  --dry-run</span><br></pre></td></tr></table></figure>
+
+<h3 id="初始化master节点"><a href="#初始化master节点" class="headerlink" title="初始化master节点"></a>初始化master节点</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kubeadm   config  print  init-defaults&gt; init-default.yaml</span><br></pre></td></tr></table></figure>
+
+<p>初始化前确保kubelet服务已经启动并设置为开机自启。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"># kubeadm   init  --kubernetes-version=1.20.6 \</span><br><span class="line">--pod-network-cidr=10.244.0.0/16 \</span><br><span class="line">--apiserver-advertise-address=10.0.x.x  \</span><br><span class="line">--image-repository  registry.aliyuncs.com/google_containers</span><br></pre></td></tr></table></figure>
+
+<h2 id="Node部署"><a href="#Node部署" class="headerlink" title="Node部署"></a>Node部署</h2><ul>
+<li>在master节点执行</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"># kubeadm token create --print-join-command</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>将node节点加入集群</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kubeadm join 192.168.2.11:6443 --token xxxx     --discovery-token-ca-cert-hash xxxx</span><br></pre></td></tr></table></figure>
+
+<h2 id="安装插件"><a href="#安装插件" class="headerlink" title="安装插件"></a>安装插件</h2><h3 id="安装Calico网络插件"><a href="#安装Calico网络插件" class="headerlink" title="安装Calico网络插件"></a>安装Calico网络插件</h3><ul>
+<li>下载资源清单文件</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"># wget  https://docs.projectcalico.org/manifests/calico.yaml  --no-check-certificate</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>更新资源清单</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"># kubectl apply  -f  calico.yaml</span><br></pre></td></tr></table></figure>
+
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/k8s/" rel="tag"># k8s</a>
+              <a href="/tags/kubernetes/" rel="tag"># kubernetes</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/posts/2a362d4a.html" rel="prev" title="nginx反向代理htps访问502">
+      <i class="fa fa-chevron-left"></i> nginx反向代理htps访问502
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/posts/f7e54a66.html" rel="next" title="kubenetes 安装 traefik">
+      kubenetes 安装 traefik <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%B3%BB%E7%BB%9F%E5%88%9D%E5%A7%8B%E5%8C%96"><span class="nav-number">1.</span> <span class="nav-text">系统初始化</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%85%8D%E7%BD%AEyum%E4%BB%93%E5%BA%93"><span class="nav-number">1.1.</span> <span class="nav-text">配置yum仓库</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%85%8D%E7%BD%AEhosts"><span class="nav-number">1.2.</span> <span class="nav-text">配置hosts</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%85%B3%E9%97%ADselinux%E3%80%81swap%E3%80%81firewalld"><span class="nav-number">1.3.</span> <span class="nav-text">关闭selinux、swap、firewalld</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%B0%83%E6%95%B4%E6%96%87%E4%BB%B6%E6%89%93%E5%BC%80%E6%95%B0%E7%AD%89%E9%85%8D%E7%BD%AE"><span class="nav-number">1.4.</span> <span class="nav-text">调整文件打开数等配置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%85%8D%E7%BD%AE%E6%97%B6%E9%97%B4%E5%90%8C%E6%AD%A5"><span class="nav-number">1.5.</span> <span class="nav-text">配置时间同步</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%86%85%E6%A0%B8%E5%8D%87%E7%BA%A7"><span class="nav-number">1.6.</span> <span class="nav-text">内核升级</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%85%8D%E7%BD%AEIPVS"><span class="nav-number">1.7.</span> <span class="nav-text">配置IPVS</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%85%8D%E7%BD%AE%E5%86%85%E6%A0%B8%E5%8F%82%E6%95%B0"><span class="nav-number">1.8.</span> <span class="nav-text">配置内核参数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#docker%E9%83%A8%E7%BD%B2"><span class="nav-number">1.9.</span> <span class="nav-text">docker部署</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%89%E8%A3%85kubelet%E3%80%81kubectl%E3%80%81kubeadm"><span class="nav-number">1.10.</span> <span class="nav-text">安装kubelet、kubectl、kubeadm</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%AE%BE%E7%BD%AEtable%E9%94%AE%E8%A1%A5%E5%85%A8"><span class="nav-number">1.11.</span> <span class="nav-text">设置table键补全</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%89%E8%A3%85master%E8%8A%82%E7%82%B9"><span class="nav-number">2.</span> <span class="nav-text">安装master节点</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%A3%80%E6%B5%8B%E7%8E%AF%E5%A2%83"><span class="nav-number">2.1.</span> <span class="nav-text">检测环境</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%9D%E5%A7%8B%E5%8C%96master%E8%8A%82%E7%82%B9"><span class="nav-number">2.2.</span> <span class="nav-text">初始化master节点</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Node%E9%83%A8%E7%BD%B2"><span class="nav-number">3.</span> <span class="nav-text">Node部署</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%89%E8%A3%85%E6%8F%92%E4%BB%B6"><span class="nav-number">4.</span> <span class="nav-text">安装插件</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%89%E8%A3%85Calico%E7%BD%91%E7%BB%9C%E6%8F%92%E4%BB%B6"><span class="nav-number">4.1.</span> <span class="nav-text">安装Calico网络插件</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">hyman</p>
+  <div class="site-description" itemprop="description">一些简单的记录</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">215</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">47</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">142</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/hyman0603" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;hyman0603" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 2017 – 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">hyman</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://mist.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>
