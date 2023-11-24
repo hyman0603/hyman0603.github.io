@@ -1,0 +1,522 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 6.3.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/favicon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"www.ywthings.com","root":"/","scheme":"Mist","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="原文链接：https:&#x2F;&#x2F;www.docker.com&#x2F;blog&#x2F;intro-guide-to-dockerfile-best-practices&#x2F; 注意 本文使用一个基于 Maven 的 Java 项目作为示例，然后不断改进 Dockerfile 的写法，直到最后写出一个最优雅的 Dockerfile。中间的所有步骤都是为了说明某一方面的最佳实践。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Dockerfile 最佳实践准则">
+<meta property="og:url" content="https://www.ywthings.com/2020/04/08/dockerfile-best-practices/index.html">
+<meta property="og:site_name" content="hyman-海曼工具">
+<meta property="og:description" content="原文链接：https:&#x2F;&#x2F;www.docker.com&#x2F;blog&#x2F;intro-guide-to-dockerfile-best-practices&#x2F; 注意 本文使用一个基于 Maven 的 Java 项目作为示例，然后不断改进 Dockerfile 的写法，直到最后写出一个最优雅的 Dockerfile。中间的所有步骤都是为了说明某一方面的最佳实践。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://www.ywthings.com/images/2019-07-09-063907.jpg">
+<meta property="og:image" content="https://www.ywthings.com/images/2019-07-09-070604.jpg">
+<meta property="og:image" content="https://www.ywthings.com/images/2019-07-09-071520.jpg">
+<meta property="og:image" content="https://www.ywthings.com/images/2019-07-09-073718.jpg">
+<meta property="og:image" content="https://www.ywthings.com/images/2019-07-09-073800.jpg">
+<meta property="og:image" content="https://www.ywthings.com/images/2019-07-09-074136.jpg">
+<meta property="og:image" content="https://www.ywthings.com/images/2019-07-09-081644.jpg">
+<meta property="og:image" content="https://www.ywthings.com/images/2019-07-09-082549.jpg">
+<meta property="og:image" content="https://www.ywthings.com/images/2019-07-09-085148.jpg">
+<meta property="og:image" content="https://www.ywthings.com/images/2019-07-09-091331.jpg">
+<meta property="og:image" content="https://www.ywthings.com/images/2019-07-09-093630.jpg">
+<meta property="og:image" content="https://www.ywthings.com/images/2019-07-09-094739.jpg">
+<meta property="article:published_time" content="2020-04-08T01:08:18.000Z">
+<meta property="article:modified_time" content="2020-05-17T23:58:42.000Z">
+<meta property="article:author" content="hyman">
+<meta property="article:tag" content="docker">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://www.ywthings.com/images/2019-07-09-063907.jpg">
+
+<link rel="canonical" href="https://www.ywthings.com/2020/04/08/dockerfile-best-practices/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>Dockerfile 最佳实践准则 | hyman-海曼工具</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">hyman-海曼工具</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">一些简单的记录</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+        <li class="menu-item menu-item-sitemap">
+
+    <a href="/sitemap.xml" rel="section"><i class="fa fa-sitemap fa-fw"></i>站点地图</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://www.ywthings.com/2020/04/08/dockerfile-best-practices/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="hyman">
+      <meta itemprop="description" content="一些简单的记录">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="hyman-海曼工具">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Dockerfile 最佳实践准则
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-04-08 09:08:18" itemprop="dateCreated datePublished" datetime="2020-04-08T09:08:18+08:00">2020-04-08</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-05-18 07:58:42" itemprop="dateModified" datetime="2020-05-18T07:58:42+08:00">2020-05-18</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/docker/" itemprop="url" rel="index"><span itemprop="name">docker</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>原文链接：<br><a target="_blank" rel="noopener" href="https://www.docker.com/blog/intro-guide-to-dockerfile-best-practices/">https://www.docker.com/blog/intro-guide-to-dockerfile-best-practices/</a></p>
+<p><strong>注意</strong></p>
+<p>本文使用一个基于 Maven 的 Java 项目作为示例，然后不断改进 Dockerfile 的写法，直到最后写出一个最优雅的 Dockerfile。中间的所有步骤都是为了说明某一方面的最佳实践。</p>
+<span id="more"></span>
+<h1 id="减少构建时间"><a href="#减少构建时间" class="headerlink" title="减少构建时间"></a>减少构建时间</h1><p>一个开发周期包括构建 Docker 镜像，更改代码，然后重新构建 Docker 镜像。在构建镜像的过程中，如果能够利用缓存，可以减少不必要的重复构建步骤。</p>
+<h2 id="构建顺序影响缓存的利用率"><a href="#构建顺序影响缓存的利用率" class="headerlink" title="构建顺序影响缓存的利用率"></a>构建顺序影响缓存的利用率</h2><img src="/images/2019-07-09-063907.jpg" width="100%" height="100%">
+
+<p>镜像的构建顺序很重要，当你向 Dockerfile 中添加文件，或者修改其中的某一行时，那一部分的缓存就会失效，该缓存的后续步骤都会中断，需要重新构建。所以优化缓存的最佳方法是把不需要经常更改的行放到最前面，更改最频繁的行放到最后面。</p>
+<h2 id="只拷贝需要的文件，防止缓存溢出"><a href="#只拷贝需要的文件，防止缓存溢出" class="headerlink" title="只拷贝需要的文件，防止缓存溢出"></a>只拷贝需要的文件，防止缓存溢出</h2><img src="/images/2019-07-09-070604.jpg" width="100%" height="100%">
+
+<p>当拷贝文件到镜像中时，尽量只拷贝需要的文件，切忌使用 COPY . 指令拷贝整个目录。如果被拷贝的文件内容发生了更改，缓存就会被破坏。在上面的示例中，镜像中只需要构建好的 jar 包，因此只需要拷贝这个文件就行了，这样即使其他不相关的文件发生了更改也不会影响缓存。</p>
+<h2 id="最小化可缓存的执行层"><a href="#最小化可缓存的执行层" class="headerlink" title="最小化可缓存的执行层"></a>最小化可缓存的执行层</h2><img src="/images/2019-07-09-071520.jpg" width="100%" height="100%">
+
+<p>每一个 RUN 指令都会被看作是可缓存的执行单元。太多的 RUN 指令会增加镜像的层数，增大镜像体积，而将所有的命令都放到同一个 RUN 指令中又会破坏缓存，从而延缓开发周期。当使用包管理器安装软件时，一般都会先更新软件索引信息，然后再安装软件。推荐将更新索引和安装软件放在同一个 RUN 指令中，这样可以形成一个可缓存的执行单元，否则你可能会安装旧的软件包。</p>
+<h1 id="减小镜像体积"><a href="#减小镜像体积" class="headerlink" title="减小镜像体积"></a>减小镜像体积</h1><p>镜像的体积很重要，因为镜像越小，部署的速度更快，攻击范围越小。</p>
+<h2 id="删除不必要依赖"><a href="#删除不必要依赖" class="headerlink" title="删除不必要依赖"></a>删除不必要依赖</h2><img src="/images/2019-07-09-073718.jpg" width="100%" height="100%">
+
+<p>删除不必要的依赖，不要安装调试工具。如果实在需要调试工具，可以在容器运行之后再安装。某些包管理工具（如 apt）除了安装用户指定的包之外，还会安装推荐的包，这会无缘无故增加镜像的体积。apt 可以通过添加参数 -–no-install-recommends 来确保不会安装不需要的依赖项。如果确实需要某些依赖项，请在后面手动添加。</p>
+<h2 id="删除包管理工具的缓存"><a href="#删除包管理工具的缓存" class="headerlink" title="删除包管理工具的缓存"></a>删除包管理工具的缓存</h2><img src="/images/2019-07-09-073800.jpg" width="100%" height="100%">
+
+<p>包管理工具会维护自己的缓存，这些缓存会保留在镜像文件中，推荐的处理方法是在每一个 RUN 指令的末尾删除缓存。如果你在下一条指令中删除缓存，不会减小镜像的体积。</p>
+<p>当然了，还有其他更高级的方法可以用来减小镜像体积，如下文将会介绍的多阶段构建。接下来我们将探讨如何优化 Dockerfile 的可维护性、安全性和可重复性。</p>
+<h1 id="可维护性"><a href="#可维护性" class="headerlink" title="可维护性"></a>可维护性</h1><h2 id="尽量使用官方镜像"><a href="#尽量使用官方镜像" class="headerlink" title="尽量使用官方镜像"></a>尽量使用官方镜像</h2><img src="/images/2019-07-09-074136.jpg" width="100%" height="100%">
+
+<p>使用官方镜像可以节省大量的维护时间，因为官方镜像的所有安装步骤都使用了最佳实践。如果你有多个项目，可以共享这些镜像层，因为他们都可以使用相同的基础镜像。</p>
+<h2 id="使用更具体的标签"><a href="#使用更具体的标签" class="headerlink" title="使用更具体的标签"></a>使用更具体的标签</h2><img src="/images/2019-07-09-081644.jpg" width="100%" height="100%">
+
+<p>基础镜像尽量不要使用 latest 标签。虽然这很方便，但随着时间的推移，latest 镜像可能会发生重大变化。因此在 Dockerfile 中最好指定基础镜像的具体标签。我们使用 openjdk 作为示例，指定标签为 8。其他更多标签请查看官方仓库。</p>
+<h2 id="使用体积最小的基础镜像"><a href="#使用体积最小的基础镜像" class="headerlink" title="使用体积最小的基础镜像"></a>使用体积最小的基础镜像</h2><img src="/images/2019-07-09-082549.jpg" width="100%" height="100%">
+
+<p>基础镜像的标签风格不同，镜像体积就会不同。slim 风格的镜像是基于 Debian 发行版制作的，而 alpine 风格的镜像是基于体积更小的 Alpine Linux 发行版制作的。其中一个明显的区别是：Debian 使用的是 GNU 项目所实现的 C 语言标准库，而 Alpine 使用的是 Musl C 标准库，它被设计用来替代 GNU C 标准库（glibc）的替代品，用于嵌入式操作系统和移动设备。因此使用 Alpine 在某些情况下会遇到兼容性问题。 以 openjdk 为例，jre 风格的镜像只包含 Java 运行时，不包含 SDK，这么做也可以大大减少镜像体积。</p>
+<h1 id="重复利用"><a href="#重复利用" class="headerlink" title="重复利用"></a>重复利用</h1><p>到目前为止，我们一直都在假设你的 jar 包是在主机上构建的，这还不是理想方案，因为没有充分利用容器提供的一致性环境。例如，如果你的 Java 应用依赖于某一个特定的操作系统的库，就可能会出现问题，因为环境不一致（具体取决于构建 jar 包的机器）。</p>
+<h2 id="在一致的环境中从源代码构建"><a href="#在一致的环境中从源代码构建" class="headerlink" title="在一致的环境中从源代码构建"></a>在一致的环境中从源代码构建</h2><p>源代码是你构建 Docker 镜像的最终来源，Dockerfile 里面只提供了构建步骤。</p>
+<img src="/images/2019-07-09-085148.jpg" width="100%" height="100%">
+
+<p>首先应该确定构建应用所需的所有依赖，本文的示例 Java 应用很简单，只需要 Maven 和 JDK，所以基础镜像应该选择官方的体积最小的 maven 镜像，该镜像也包含了 JDK。如果你需要安装更多依赖，可以在 RUN 指令中添加。pom.xml 文件和 src 文件夹需要被复制到镜像中，因为最后执行 mvn package 命令（-e 参数用来显示错误，-B 参数表示以非交互式的“批处理”模式运行）打包的时候会用到这些依赖文件。</p>
+<p>虽然现在我们解决了环境不一致的问题，但还有另外一个问题：每次代码更改之后，都要重新获取一遍 pom.xml 中描述的所有依赖项。下面我们来解决这个问题。</p>
+<h2 id="在单独的步骤中获取依赖项"><a href="#在单独的步骤中获取依赖项" class="headerlink" title="在单独的步骤中获取依赖项"></a>在单独的步骤中获取依赖项</h2><img src="/images/2019-07-09-091331.jpg" width="100%" height="100%">
+
+<p>结合前面提到的缓存机制，我们可以让获取依赖项这一步变成可缓存单元，只要 pom.xml 文件的内容没有变化，无论代码如何更改，都不会破坏这一层的缓存。上图中两个 COPY 指令中间的 RUN 指令用来告诉 Maven 只获取依赖项。</p>
+<p>现在又遇到了一个新问题：跟之前直接拷贝 jar 包相比，镜像体积变得更大了，因为它包含了很多运行应用时不需要的构建依赖项。</p>
+<h2 id="使用多阶段构建来删除构建时的依赖项"><a href="#使用多阶段构建来删除构建时的依赖项" class="headerlink" title="使用多阶段构建来删除构建时的依赖项"></a>使用多阶段构建来删除构建时的依赖项</h2><img src="/images/2019-07-09-093630.jpg" width="100%" height="100%">
+
+<p>多阶段构建可以由多个 FROM 指令识别，每一个 FROM 语句表示一个新的构建阶段，阶段名称可以用 AS 参数指定。本例中指定第一阶段的名称为 builder，它可以被第二阶段直接引用。两个阶段环境一致，并且第一阶段包含所有构建依赖项。</p>
+<p>第二阶段是构建最终镜像的最后阶段，它将包括应用运行时的所有必要条件，本例是基于 Alpine 的最小 JRE 镜像。上一个构建阶段虽然会有大量的缓存，但不会出现在第二阶段中。为了将构建好的 jar 包添加到最终的镜像中，可以使用 COPY –from&#x3D;STAGE_NAME 指令，其中 STAGE_NAME 是上一构建阶段的名称。</p>
+<img src="/images/2019-07-09-094739.jpg" width="100%" height="100%">
+
+<p>多阶段构建是删除构建依赖的首选方案。</p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/docker/" rel="tag"># docker</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/04/08/k8s-network-calico/" rel="prev" title="Calico 网络通信原理">
+      <i class="fa fa-chevron-left"></i> Calico 网络通信原理
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2020/04/08/rate-limiting-nginx/" rel="next" title="nginx上的限流">
+      nginx上的限流 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%87%8F%E5%B0%91%E6%9E%84%E5%BB%BA%E6%97%B6%E9%97%B4"><span class="nav-number">1.</span> <span class="nav-text">减少构建时间</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9E%84%E5%BB%BA%E9%A1%BA%E5%BA%8F%E5%BD%B1%E5%93%8D%E7%BC%93%E5%AD%98%E7%9A%84%E5%88%A9%E7%94%A8%E7%8E%87"><span class="nav-number">1.1.</span> <span class="nav-text">构建顺序影响缓存的利用率</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8F%AA%E6%8B%B7%E8%B4%9D%E9%9C%80%E8%A6%81%E7%9A%84%E6%96%87%E4%BB%B6%EF%BC%8C%E9%98%B2%E6%AD%A2%E7%BC%93%E5%AD%98%E6%BA%A2%E5%87%BA"><span class="nav-number">1.2.</span> <span class="nav-text">只拷贝需要的文件，防止缓存溢出</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9C%80%E5%B0%8F%E5%8C%96%E5%8F%AF%E7%BC%93%E5%AD%98%E7%9A%84%E6%89%A7%E8%A1%8C%E5%B1%82"><span class="nav-number">1.3.</span> <span class="nav-text">最小化可缓存的执行层</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%87%8F%E5%B0%8F%E9%95%9C%E5%83%8F%E4%BD%93%E7%A7%AF"><span class="nav-number">2.</span> <span class="nav-text">减小镜像体积</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%A0%E9%99%A4%E4%B8%8D%E5%BF%85%E8%A6%81%E4%BE%9D%E8%B5%96"><span class="nav-number">2.1.</span> <span class="nav-text">删除不必要依赖</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%A0%E9%99%A4%E5%8C%85%E7%AE%A1%E7%90%86%E5%B7%A5%E5%85%B7%E7%9A%84%E7%BC%93%E5%AD%98"><span class="nav-number">2.2.</span> <span class="nav-text">删除包管理工具的缓存</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%8F%AF%E7%BB%B4%E6%8A%A4%E6%80%A7"><span class="nav-number">3.</span> <span class="nav-text">可维护性</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%B0%BD%E9%87%8F%E4%BD%BF%E7%94%A8%E5%AE%98%E6%96%B9%E9%95%9C%E5%83%8F"><span class="nav-number">3.1.</span> <span class="nav-text">尽量使用官方镜像</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8%E6%9B%B4%E5%85%B7%E4%BD%93%E7%9A%84%E6%A0%87%E7%AD%BE"><span class="nav-number">3.2.</span> <span class="nav-text">使用更具体的标签</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8%E4%BD%93%E7%A7%AF%E6%9C%80%E5%B0%8F%E7%9A%84%E5%9F%BA%E7%A1%80%E9%95%9C%E5%83%8F"><span class="nav-number">3.3.</span> <span class="nav-text">使用体积最小的基础镜像</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%87%8D%E5%A4%8D%E5%88%A9%E7%94%A8"><span class="nav-number">4.</span> <span class="nav-text">重复利用</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9C%A8%E4%B8%80%E8%87%B4%E7%9A%84%E7%8E%AF%E5%A2%83%E4%B8%AD%E4%BB%8E%E6%BA%90%E4%BB%A3%E7%A0%81%E6%9E%84%E5%BB%BA"><span class="nav-number">4.1.</span> <span class="nav-text">在一致的环境中从源代码构建</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9C%A8%E5%8D%95%E7%8B%AC%E7%9A%84%E6%AD%A5%E9%AA%A4%E4%B8%AD%E8%8E%B7%E5%8F%96%E4%BE%9D%E8%B5%96%E9%A1%B9"><span class="nav-number">4.2.</span> <span class="nav-text">在单独的步骤中获取依赖项</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8%E5%A4%9A%E9%98%B6%E6%AE%B5%E6%9E%84%E5%BB%BA%E6%9D%A5%E5%88%A0%E9%99%A4%E6%9E%84%E5%BB%BA%E6%97%B6%E7%9A%84%E4%BE%9D%E8%B5%96%E9%A1%B9"><span class="nav-number">4.3.</span> <span class="nav-text">使用多阶段构建来删除构建时的依赖项</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">hyman</p>
+  <div class="site-description" itemprop="description">一些简单的记录</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">222</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">50</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">145</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/hyman0603" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;hyman0603" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+  <div class="beian"><a href="https://beian.miit.gov.cn/" rel="noopener" target="_blank">粤ICP备2023127571号 </a>
+  </div>
+
+<div class="copyright">
+  
+  &copy; 2017 – 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">hyman</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://mist.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

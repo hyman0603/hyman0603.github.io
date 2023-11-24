@@ -1,0 +1,534 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 6.3.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/favicon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"www.ywthings.com","root":"/","scheme":"Mist","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="复制过程">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Redis 主从复制的原理详解">
+<meta property="og:url" content="https://www.ywthings.com/2021/01/28/redis-repl/index.html">
+<meta property="og:site_name" content="hyman-海曼工具">
+<meta property="og:description" content="复制过程">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://mmbiz.qpic.cn/mmbiz_png/tO7NEN7wjr6Thv3wYgXOwvONWia9Vk048csBzRqiaicPOnlqftXMz5icYYcKB7WFykwk0ibxUN7fmps2OUNIO8ia9YsQ/640?wx_fmt=png&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1">
+<meta property="og:image" content="https://mmbiz.qpic.cn/mmbiz_png/tO7NEN7wjr6Thv3wYgXOwvONWia9Vk048yoPWLPibbz9ah4icicQQibBE833Ys0ol26PH9MNliaLMC23XcAM9ItK8RZg/640?wx_fmt=png&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1">
+<meta property="og:image" content="https://mmbiz.qpic.cn/mmbiz_png/tO7NEN7wjr6Thv3wYgXOwvONWia9Vk048VLOhgLISMYASiar3GrxBe0ibmHIuN9GoxHeoF4FgK04iaONtd1njpp9Bw/640?wx_fmt=png&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1">
+<meta property="og:image" content="https://mmbiz.qpic.cn/mmbiz_png/tO7NEN7wjr6Thv3wYgXOwvONWia9Vk0484wOVI35T39t6ojJ8maMT9tuZiaNBibnl59B4AIvk3vTtloP8YI4bwDRQ/640?wx_fmt=png&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1">
+<meta property="og:image" content="https://mmbiz.qpic.cn/mmbiz_png/tO7NEN7wjr6Thv3wYgXOwvONWia9Vk048ib1cDubIBuVKe293I69jECflpRf1QXBGZTfH9EO2icOaPjPGsbWvXh0A/640?wx_fmt=png&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1">
+<meta property="article:published_time" content="2021-01-28T01:08:08.000Z">
+<meta property="article:modified_time" content="2021-04-07T06:48:40.000Z">
+<meta property="article:author" content="hyman">
+<meta property="article:tag" content="redis">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://mmbiz.qpic.cn/mmbiz_png/tO7NEN7wjr6Thv3wYgXOwvONWia9Vk048csBzRqiaicPOnlqftXMz5icYYcKB7WFykwk0ibxUN7fmps2OUNIO8ia9YsQ/640?wx_fmt=png&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1">
+
+<link rel="canonical" href="https://www.ywthings.com/2021/01/28/redis-repl/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>Redis 主从复制的原理详解 | hyman-海曼工具</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">hyman-海曼工具</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">一些简单的记录</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+        <li class="menu-item menu-item-sitemap">
+
+    <a href="/sitemap.xml" rel="section"><i class="fa fa-sitemap fa-fw"></i>站点地图</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://www.ywthings.com/2021/01/28/redis-repl/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="hyman">
+      <meta itemprop="description" content="一些简单的记录">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="hyman-海曼工具">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Redis 主从复制的原理详解
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2021-01-28 09:08:08" itemprop="dateCreated datePublished" datetime="2021-01-28T09:08:08+08:00">2021-01-28</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2021-04-07 14:48:40" itemprop="dateModified" datetime="2021-04-07T14:48:40+08:00">2021-04-07</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/redis/" itemprop="url" rel="index"><span itemprop="name">redis</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="复制过程"><a href="#复制过程" class="headerlink" title="复制过程"></a><strong>复制过程</strong></h2><span id="more"></span>
+
+<p><strong>复制的过程步骤如下：</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">1、从节点执行 slaveof 命令</span><br><span class="line">2、从节点只是保存了 slaveof 命令中主节点的信息，并没有立即发起复制</span><br><span class="line">3、从节点内部的定时任务发现有主节点的信息，开始使用 socket 连接主节点</span><br><span class="line">4、连接建立成功后，发送 ping 命令，希望得到 pong 命令响应，否则会进行重连</span><br><span class="line">5、如果主节点设置了权限，那么就需要进行权限验证；如果验证失败，复制终止。</span><br><span class="line">6、权限验证通过后，进行数据同步，这是耗时最长的操作，主节点将把所有的数据全部发送给从节点。</span><br><span class="line">7、当主节点把当前的数据同步给从节点后，便完成了复制的建立流程。接下来，主节点就会持续的把写命令发送给从节点，保证主从数据一致性。</span><br></pre></td></tr></table></figure>
+
+<h2 id="数据间的同步"><a href="#数据间的同步" class="headerlink" title="数据间的同步"></a><strong>数据间的同步</strong></h2><p>上面说的复制过程，其中有一个步骤是“同步数据集”，这个就是现在讲的‘数据间的同步’。</p>
+<p>redis 同步有 2 个命令：</p>
+<p>sync 和 psync，前者是 redis 2.8 之前的同步命令，后者是 redis 2.8 为了优化 sync 新设计的命令。我们会重点关注 2.8 的 psync 命令。</p>
+<p>psync 命令需要 3 个组件支持：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">1、主从节点各自复制偏移量 2、主节点复制积压缓冲区 3、主节点运行 ID</span><br></pre></td></tr></table></figure>
+
+<p>主从节点各自复制偏移量：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">1、参与复制的主从节点都会维护自身的复制偏移量。</span><br><span class="line"></span><br><span class="line">2、主节点在处理完写入命令后，会把命令的字节长度做累加记录，统计信息在 info replication 中的 masterreploffset 指标中。</span><br><span class="line"></span><br><span class="line">3、从节点每秒钟上报自身的的复制偏移量给主节点，因此主节点也会保存从节点的复制偏移量。</span><br><span class="line"></span><br><span class="line">4、从节点在接收到主节点发送的命令后，也会累加自身的偏移量，统计信息在 info replication 中。</span><br><span class="line"></span><br><span class="line">5、通过对比主从节点的复制偏移量，可以判断主从节点数据是否一致。</span><br></pre></td></tr></table></figure>
+
+<p>主节点复制积压缓冲区：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">1、复制积压缓冲区是一个保存在主节点的一个固定长度的先进先出的队列。默认大小 1MB。</span><br><span class="line"></span><br><span class="line">2、这个队列在 slave 连接是创建。这时主节点响应写命令时，不但会把命令发送给从节点，也会写入复制缓冲区。</span><br><span class="line"></span><br><span class="line">3、他的作用就是用于部分复制和复制命令丢失的数据补救。通过 info replication 可以看到相关信息。</span><br></pre></td></tr></table></figure>
+
+<p>主节点运行 ID：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">1、每个 redis 启动的时候，都会生成一个 40 位的运行 ID。</span><br><span class="line"></span><br><span class="line">2、运行 ID 的主要作用是用来识别 Redis 节点。如果使用 ip+port 的方式，那么如果主节点重启修改了 RDB/AOF 数据，从节点再基于偏移量进行复制将是不安全的。所以，当运行 id 变化后，从节点将进行全量复制。也就是说，redis 重启后，默认从节点会进行全量复制。</span><br></pre></td></tr></table></figure>
+
+<p>如果在重启时不改变运行 ID 呢？</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">1、可以通过 debug reload 命令重新加载 RDB 并保持运行 ID 不变。从而有效的避免不必要的全量复制。</span><br><span class="line"></span><br><span class="line">2、他的缺点则是：debug reload 命令会阻塞当前 Redis 节点主线程，因此对于大数据量的主节点或者无法容忍阻塞的节点，需要谨慎使用。一般通过故障转移机制可以解决这个问题。</span><br></pre></td></tr></table></figure>
+
+<p>psync 命令的使用方式：</p>
+<p>命令格式为 <code>psync&#123;runId&#125;&#123;offset&#125;</code></p>
+<p>runId：从节点所复制主节点的运行 id offset：当前从节点已复制的数据偏移量</p>
+<p>psync 执行流程：</p>
+<p><img src="https://mmbiz.qpic.cn/mmbiz_png/tO7NEN7wjr6Thv3wYgXOwvONWia9Vk048csBzRqiaicPOnlqftXMz5icYYcKB7WFykwk0ibxUN7fmps2OUNIO8ia9YsQ/640?wx_fmt=png&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1" alt="图片"></p>
+<p>流程说明：从节点发送 psync 命令给主节点，runId 就是目标主节点的 ID，如果没有默认为 -1，offset 是从节点保存的复制偏移量，如果是第一次复制则为 -1.</p>
+<p>主节点会根据 runid 和 offset 决定返回结果：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">1、如果回复 +FULLRESYNC &#123;runId&#125; &#123;offset&#125; ，那么从节点将触发全量复制流程。</span><br><span class="line"></span><br><span class="line">2、如果回复 +CONTINUE，从节点将触发部分复制。</span><br><span class="line"></span><br><span class="line">3、如果回复 +ERR，说明主节点不支持 2.8 的 psync 命令，将使用 sync 执行全量复制。</span><br></pre></td></tr></table></figure>
+
+<p>到这里，数据之间的同步就讲的差不多了，篇幅还是比较长的。主要是针对 psync 命令相关之间的介绍。##</p>
+<h2 id="全量复制"><a href="#全量复制" class="headerlink" title="全量复制"></a><strong>全量复制</strong></h2><p>全量复制是 Redis 最早支持的复制方式，也是主从第一次建立复制时必须经历的的阶段。触发全量复制的命令是 sync 和 psync。之前说过，这两个命令的分水岭版本是 2.8，redis 2.8 之前使用 sync 只能执行全量不同，2.8 之后同时支持全量同步和部分同步。</p>
+<p>流程如下：</p>
+<p><img src="https://mmbiz.qpic.cn/mmbiz_png/tO7NEN7wjr6Thv3wYgXOwvONWia9Vk048yoPWLPibbz9ah4icicQQibBE833Ys0ol26PH9MNliaLMC23XcAM9ItK8RZg/640?wx_fmt=png&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1" alt="图片"></p>
+<p><strong>介绍一下上图步骤：</strong></p>
+<p>1、发送 psync 命令（spync ？-1）</p>
+<p>2、主节点根据命令返回 FULLRESYNC</p>
+<p>3、从节点记录主节点 ID 和 offset</p>
+<p>4、<strong>主节点 bgsave 并保存 RDB 到本地</strong></p>
+<p>5、<strong>主节点发送 RBD 文件到从节点</strong></p>
+<p>6、<strong>从节点收到 RDB 文件并加载到内存中</strong></p>
+<p>7、主节点在从节点接受数据的期间，将新数据保存到“复制客户端缓冲区”，当从节点加载 RDB 完毕，再发送过去。（如果从节点花费时间过长，将导致缓冲区溢出，最后全量同步失败） 8、<strong>从节点清空数据后加载 RDB 文件，如果 RDB 文件很大，这一步操作仍然耗时，如果此时客户端访问，将导致数据不一致，可以使用配置slave-server-stale-data 关闭</strong>. 9、<strong>从节点成功加载完 RBD 后，如果开启了 AOF，会立刻做 bgrewriteaof</strong>。</p>
+<p><strong>以上加粗的部分是整个全量同步耗时的地方。</strong></p>
+<p>注意：</p>
+<p>1、如过 RDB 文件大于 6GB，并且是千兆网卡，Redis 的默认超时机制（60 秒），会导致全量复制失败。<strong>可以通过调大 repl-timeout 参数来解决此问题</strong>。</p>
+<p>2、Redis 虽然支持无盘复制，即直接通过网络发送给从节点，但功能不是很完善，生产环境慎用。</p>
+<h2 id="部分复制"><a href="#部分复制" class="headerlink" title="部分复制"></a><strong>部分复制</strong></h2><p>当从节点正在复制主节点时，如果出现网络闪断和其他异常，从节点会让主节点补发丢失的命令数据，主节点只需要将复制缓冲区的数据发送到从节点就能够保证数据的一致性，相比较全量复制，成本小很多。</p>
+<p>步骤如下：</p>
+<p><img src="https://mmbiz.qpic.cn/mmbiz_png/tO7NEN7wjr6Thv3wYgXOwvONWia9Vk048VLOhgLISMYASiar3GrxBe0ibmHIuN9GoxHeoF4FgK04iaONtd1njpp9Bw/640?wx_fmt=png&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1" alt="图片"></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">1、当从节点出现网络中断，超过了 repl-timeout 时间，主节点就会中断复制连接。</span><br><span class="line"></span><br><span class="line">2、主节点会将请求的数据写入到“复制积压缓冲区”，默认 1MB。</span><br><span class="line"></span><br><span class="line">3、当从节点恢复，重新连接上主节点，从节点会将 offset 和主节点 id 发送到主节点</span><br><span class="line"></span><br><span class="line">4、主节点校验后，如果偏移量的数后的数据在缓冲区中，就发送 cuntinue 响应 —— 表示可以进行部分复制</span><br><span class="line"></span><br><span class="line">5、主节点将缓冲区的数据发送到从节点，保证主从复制进行正常状态。</span><br></pre></td></tr></table></figure>
+
+<h2 id="心跳"><a href="#心跳" class="headerlink" title="心跳"></a><strong>心跳</strong></h2><p>主从节点在建立复制后，他们之间维护着长连接并彼此发送心跳命令。</p>
+<p>心跳的关键机制如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">1、主从都有心跳检测机制，各自模拟成对方的客户端进行通信，通过 client list 命令查看复制相关客户端信息，主节点的连接状态为 flags = M，从节点的连接状态是 flags = S。</span><br><span class="line"></span><br><span class="line">2、主节点默认每隔 10 秒对从节点发送 ping 命令，可修改配置 repl-ping-slave-period 控制发送频率。</span><br><span class="line"></span><br><span class="line">3、从节点在主线程每隔一秒发送 replconf ack&#123;offset&#125; 命令，给主节点上报自身当前的复制偏移量。</span><br><span class="line"></span><br><span class="line">4、主节点收到 replconf 信息后，判断从节点超时时间，如果超过 repl-timeout 60 秒，则判断节点下线。</span><br></pre></td></tr></table></figure>
+
+
+
+<p><img src="https://mmbiz.qpic.cn/mmbiz_png/tO7NEN7wjr6Thv3wYgXOwvONWia9Vk0484wOVI35T39t6ojJ8maMT9tuZiaNBibnl59B4AIvk3vTtloP8YI4bwDRQ/640?wx_fmt=png&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1" alt="图片"></p>
+<p>注意：为了降低主从延迟，一般把 redis 主从节点部署在相同的机房&#x2F;同城机房，避免网络延迟带来的网络分区造成的心跳中断等情况。</p>
+<h2 id="异步复制"><a href="#异步复制" class="headerlink" title="异步复制"></a><strong>异步复制</strong></h2><p>主节点不但负责数据读写，还负责把写命令同步给从节点，写命令的发送过程是异步完成，也就是说主节点处理完写命令后立即返回客户度，并不等待从节点复制完成。</p>
+<p>异步复制的步骤很简单，如下：</p>
+<p>1、主节点接受处理命令 2、主节点处理完后返回响应结果 3、对于修改命令，异步发送给从节点，从节点在主线程中执行复制的命令。</p>
+<p><img src="https://mmbiz.qpic.cn/mmbiz_png/tO7NEN7wjr6Thv3wYgXOwvONWia9Vk048ib1cDubIBuVKe293I69jECflpRf1QXBGZTfH9EO2icOaPjPGsbWvXh0A/640?wx_fmt=png&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1" alt="图片"></p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a><strong>总结</strong></h2><p>本文主要分析了 Redis 的复制原理，包括复制过程，数据之间的同步，全量复制的流程，部分复制的流程，心跳设计，异步复制流程。</p>
+<p>其中，可以看出，RDB 数据之间的同步非常耗时。所以，Redis 在 2.8 版本退出了类似增量复制的 psync 命令，当 Redis 主从直接发生了网络中断，不会进行全量复制，而是将数据放到缓冲区（默认 1MB）里，在通过主从之间各自维护复制 offset 来判断缓存区的数据是否溢出，如果没有溢出，只需要发送缓冲区数据即可，成本很小，反之，则要进行全量复制，因此，控制缓冲区大小非常的重要。</p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/redis/" rel="tag"># redis</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2021/01/28/redis-6-make-error/" rel="prev" title="Centos7安装redis6.0.X报错">
+      <i class="fa fa-chevron-left"></i> Centos7安装redis6.0.X报错
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2021/03/03/cpu-load-hign/" rel="next" title="CPU 使用率过高">
+      CPU 使用率过高 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%A4%8D%E5%88%B6%E8%BF%87%E7%A8%8B"><span class="nav-number">1.</span> <span class="nav-text">复制过程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E9%97%B4%E7%9A%84%E5%90%8C%E6%AD%A5"><span class="nav-number">2.</span> <span class="nav-text">数据间的同步</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%A8%E9%87%8F%E5%A4%8D%E5%88%B6"><span class="nav-number">3.</span> <span class="nav-text">全量复制</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%83%A8%E5%88%86%E5%A4%8D%E5%88%B6"><span class="nav-number">4.</span> <span class="nav-text">部分复制</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%BF%83%E8%B7%B3"><span class="nav-number">5.</span> <span class="nav-text">心跳</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%BC%82%E6%AD%A5%E5%A4%8D%E5%88%B6"><span class="nav-number">6.</span> <span class="nav-text">异步复制</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%80%BB%E7%BB%93"><span class="nav-number">7.</span> <span class="nav-text">总结</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">hyman</p>
+  <div class="site-description" itemprop="description">一些简单的记录</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">222</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">50</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">145</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/hyman0603" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;hyman0603" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+  <div class="beian"><a href="https://beian.miit.gov.cn/" rel="noopener" target="_blank">粤ICP备2023127571号 </a>
+  </div>
+
+<div class="copyright">
+  
+  &copy; 2017 – 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">hyman</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://mist.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

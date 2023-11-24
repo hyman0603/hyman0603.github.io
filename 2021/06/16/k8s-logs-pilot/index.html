@@ -1,0 +1,524 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 6.3.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/favicon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"www.ywthings.com","root":"/","scheme":"Mist","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="Log-Pilot关于 Log-PilotLog-Pilot 是一个阿里开源的智能容器日志采集工具，它不仅能够高效便捷地将容器日志采集输出到多种存储日志后端，同时还能够动态地发现和采集容器内部的日志文件。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="利用开源组件Log-pilot搭建Kubernetes日志解决方案">
+<meta property="og:url" content="https://www.ywthings.com/2021/06/16/k8s-logs-pilot/index.html">
+<meta property="og:site_name" content="hyman-海曼工具">
+<meta property="og:description" content="Log-Pilot关于 Log-PilotLog-Pilot 是一个阿里开源的智能容器日志采集工具，它不仅能够高效便捷地将容器日志采集输出到多种存储日志后端，同时还能够动态地发现和采集容器内部的日志文件。">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2021-06-16T06:54:59.000Z">
+<meta property="article:modified_time" content="2021-06-21T09:23:26.000Z">
+<meta property="article:author" content="hyman">
+<meta property="article:tag" content="kubenetes">
+<meta property="article:tag" content="logpilot">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://www.ywthings.com/2021/06/16/k8s-logs-pilot/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>利用开源组件Log-pilot搭建Kubernetes日志解决方案 | hyman-海曼工具</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">hyman-海曼工具</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">一些简单的记录</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+        <li class="menu-item menu-item-sitemap">
+
+    <a href="/sitemap.xml" rel="section"><i class="fa fa-sitemap fa-fw"></i>站点地图</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://www.ywthings.com/2021/06/16/k8s-logs-pilot/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="hyman">
+      <meta itemprop="description" content="一些简单的记录">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="hyman-海曼工具">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          利用开源组件Log-pilot搭建Kubernetes日志解决方案
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2021-06-16 14:54:59" itemprop="dateCreated datePublished" datetime="2021-06-16T14:54:59+08:00">2021-06-16</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2021-06-21 17:23:26" itemprop="dateModified" datetime="2021-06-21T17:23:26+08:00">2021-06-21</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/kubenetes/" itemprop="url" rel="index"><span itemprop="name">kubenetes</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="Log-Pilot"><a href="#Log-Pilot" class="headerlink" title="Log-Pilot"></a>Log-Pilot</h2><h3 id="关于-Log-Pilot"><a href="#关于-Log-Pilot" class="headerlink" title="关于 Log-Pilot"></a>关于 Log-Pilot</h3><p>Log-Pilot 是一个阿里开源的智能容器日志采集工具，它不仅能够高效便捷地将容器日志采集输出到多种存储日志后端，同时还能够动态地发现和采集容器内部的日志文件。</p>
+<span id="more"></span>
+
+<blockquote>
+<p>项目地址是  <a target="_blank" rel="noopener" href="https://github.com/AliyunContainerService/log-pilot?spm=a2c4g.11186623.2.12.46bc6af0yvb7YE">github.com&#x2F;AliyunContainerService&#x2F;log-pilot</a></p>
+<p>阿里介绍      <a target="_blank" rel="noopener" href="https://help.aliyun.com/document_detail/86552.html">https://help.aliyun.com/document_detail/86552.html</a></p>
+</blockquote>
+<h3 id="采集模式"><a href="#采集模式" class="headerlink" title="采集模式"></a>采集模式</h3><p>传统采集模式中需要在每个 Pod 中起一个专门用来采集日志的容器。在集群规模大的情况下，会造成资源的过多占用。<br>而Log-Pilot 采用的是 Node 采集模式，这个模式中只需要在每个节点上部署一个专门用来采集此节点上所有容器的日志的 Pod，可以避免资源的浪费。</p>
+<h3 id="Log-Pilot-特性"><a href="#Log-Pilot-特性" class="headerlink" title="Log-Pilot 特性"></a>Log-Pilot 特性</h3><ul>
+<li><h4 id="声明式配置"><a href="#声明式配置" class="headerlink" title="声明式配置"></a>声明式配置</h4><p>Log-Pilot 支持声明式日志配置，可以依据容器的 Label 或者 ENV 来动态地生成日志采集配置文件。示例：</p>
+<ul>
+<li>Label：<code>aliyun.logs.$name=$path</code></li>
+<li>ENV：<code>aliyun_logs_$name=$path</code></li>
+</ul>
+<p>含义：</p>
+<ul>
+<li>$name：自定义的字符串，不同场景下有不同含义，如</li>
+<li>输出到 ElasiticSearch 表示 index</li>
+<li>输出到 Kafka 表示 topic</li>
+<li>$path：表示标准输出日志或者日志路径</li>
+<li><code>aliyun_logs_$name=stdout</code> 表示采集容器的标准输出日志</li>
+<li><code>aliyun_logs_$name=/usr/local/tomcat/logs/*</code> 表示采集容器的内部日志文件</li>
+</ul>
+<p>如果不想使用 <code>aliyun</code> 这个前缀，还可以在 Log-Pilot 中配置 <code>PILOT_LOG_PREFIX</code> 环境变量来自定义前缀。</p>
+<h4 id="数据自动打标"><a href="#数据自动打标" class="headerlink" title="数据自动打标"></a>数据自动打标</h4><p>Log-Pilot 在 Kubernetes 中采集容器日志的时候，同时也会收集容器的元数据信息：</p>
+<ul>
+<li>k8s_pod</li>
+<li>k8s_pod_namespace</li>
+<li>k8s_node_name</li>
+<li>k8s_container_name</li>
+</ul>
+<h4 id="多种解析格式"><a href="#多种解析格式" class="headerlink" title="多种解析格式"></a>多种解析格式</h4><p>常用：</p>
+<ul>
+<li>none：默认格式，指不对日志记录做任何解析，整行采集出来直接输出到日志存储后端</li>
+<li>json：Log-Pilot 在采集日志的时候同时会将每一行日志以 json 的方式进行解析，解析出多个 KV 对，然后输出到日志存储后端</li>
+</ul>
+<p>需要配置 fluentd 插件：</p>
+<ul>
+<li>csv：主要是针对csv格式的日志采集配置</li>
+<li>nginx：主要是针对Nginx的日志采集配置</li>
+<li>apache2：主要是针对Apache的日志采集配置</li>
+<li>regexp：用户可以通过 format 标签来自定义正则表达式，告诉 Log-Pilot 在解析日志记录的时候以什么样的拆分格式来进行解析拆分</li>
+</ul>
+<h4 id="自定义输出-target"><a href="#自定义输出-target" class="headerlink" title="自定义输出 target"></a>自定义输出 target</h4><p>格式：<code>aliyun_logs_$name_target=$target</code><br>$target 和 前面的 $name 一样，不同的场景下有不同含义，如</p>
+<ul>
+<li>输出到 ElasiticSearch 表示 index</li>
+<li>输出到 Kafka 表示 topic</li>
+</ul>
+<p>使用示例：ElasticSearch 场景下，有一个容器在测试环境中定义了 <code>aliyun_logs_svc=stdout</code> ，表示该容器的标准输出日志被采集到 <code>index=svc</code>中。当该容器应用于生产环境中时，可以<strong>添加</strong>一条 <code>aliyun_logs_svc_target=svc-pro</code> 定义来使标准输出日志被采集到 <code>index=svc-pro</code> 中，而不用去修改原先每条定义的 $name 。</p>
+<h4 id="多插件多后端"><a href="#多插件多后端" class="headerlink" title="多插件多后端"></a>多插件多后端</h4><p>目前 Log-Pilot 支持两种采集插件：一个是CNCF社区的Fluentd插件，一个是Elastic的Filebeat插件；其同时其支持对接多种存储后端，目前 Fluentd 和 Filebeat 都支持 Elasticsearch、Kafka、File、Console 作为日志存储后端，而 Fluentd 还支持 Graylog、阿里云日志服务 以及 Mongodb 作为存储后端。</p>
+<h4 id="其他特性"><a href="#其他特性" class="headerlink" title="其他特性"></a>其他特性</h4><ul>
+<li>自动发现机制</li>
+<li>句柄保持机制</li>
+</ul>
+</li>
+</ul>
+<h2 id="部署示例"><a href="#部署示例" class="headerlink" title="部署示例"></a>部署示例</h2><p>以下部署过程中的集群环境和 YAML 文件仅为展示 Log-Pilot 采集效果，实际部署以具体情况为准。</p>
+<h3 id="部署-Log-Pilot"><a href="#部署-Log-Pilot" class="headerlink" title="部署 Log-Pilot"></a>部署 Log-Pilot</h3><h4 id="log-pilot-yml"><a href="#log-pilot-yml" class="headerlink" title="log-pilot.yml"></a>log-pilot.yml</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br></pre></td><td class="code"><pre><span class="line">apiVersion: apps/v1</span><br><span class="line">kind: DaemonSet</span><br><span class="line">metadata:</span><br><span class="line">  name: log-pilot</span><br><span class="line">  labels:</span><br><span class="line">    app: log-pilot</span><br><span class="line">  # 设置期望部署的namespace。</span><br><span class="line">  namespace: kube-system</span><br><span class="line">spec:</span><br><span class="line">  selector:</span><br><span class="line">    matchLabels:</span><br><span class="line">      app: log-pilot</span><br><span class="line">  updateStrategy:</span><br><span class="line">    type: RollingUpdate</span><br><span class="line">  template:</span><br><span class="line">    metadata:</span><br><span class="line">      labels:</span><br><span class="line">        app: log-pilot</span><br><span class="line">      annotations:</span><br><span class="line">        scheduler.alpha.kubernetes.io/critical-pod: &#x27;&#x27;</span><br><span class="line">    spec:</span><br><span class="line">      # 是否允许部署到Master节点上tolerations。</span><br><span class="line">      tolerations:</span><br><span class="line">      - key: node-role.kubernetes.io/master</span><br><span class="line">        effect: NoSchedule</span><br><span class="line">      containers:</span><br><span class="line">      - name: log-pilot</span><br><span class="line">        # 版本请参考https://github.com/AliyunContainerService/log-pilot/releases。</span><br><span class="line">        image: registry.cn-hangzhou.aliyuncs.com/acs/log-pilot:0.9.6-filebeat</span><br><span class="line">        resources:</span><br><span class="line">          limits:</span><br><span class="line">            memory: 500Mi</span><br><span class="line">          requests:</span><br><span class="line">            cpu: 200m</span><br><span class="line">            memory: 200Mi</span><br><span class="line">        env:</span><br><span class="line">          - name: &quot;NODE_NAME&quot;</span><br><span class="line">            valueFrom:</span><br><span class="line">              fieldRef:</span><br><span class="line">                fieldPath: spec.nodeName</span><br><span class="line">          - name: &quot;LOGGING_OUTPUT&quot;</span><br><span class="line">            value: &quot;elasticsearch&quot;</span><br><span class="line">          # 请确保集群到ES网络可达。</span><br><span class="line">          - name: &quot;ELASTICSEARCH_HOSTS&quot;</span><br><span class="line">            value: &quot;&#123;es_endpoint&#125;:&#123;es_port&#125;&quot;</span><br><span class="line">          # 配置ES访问权限。</span><br><span class="line">          - name: &quot;ELASTICSEARCH_USER&quot;</span><br><span class="line">            value: &quot;&#123;es_username&#125;&quot;</span><br><span class="line">          - name: &quot;ELASTICSEARCH_PASSWORD&quot;</span><br><span class="line">            value: &quot;&#123;es_password&#125;&quot;</span><br><span class="line">        volumeMounts:</span><br><span class="line">        - name: sock</span><br><span class="line">          mountPath: /var/run/docker.sock</span><br><span class="line">        - name: root</span><br><span class="line">          mountPath: /host</span><br><span class="line">          readOnly: true</span><br><span class="line">        - name: varlib</span><br><span class="line">          mountPath: /var/lib/filebeat</span><br><span class="line">        - name: varlog</span><br><span class="line">          mountPath: /var/log/filebeat</span><br><span class="line">        - name: localtime</span><br><span class="line">          mountPath: /etc/localtime</span><br><span class="line">          readOnly: true</span><br><span class="line">        livenessProbe:</span><br><span class="line">          failureThreshold: 3</span><br><span class="line">          exec:</span><br><span class="line">            command:</span><br><span class="line">            - /pilot/healthz</span><br><span class="line">          initialDelaySeconds: 10</span><br><span class="line">          periodSeconds: 10</span><br><span class="line">          successThreshold: 1</span><br><span class="line">          timeoutSeconds: 2</span><br><span class="line">        securityContext:</span><br><span class="line">          capabilities:</span><br><span class="line">            add:</span><br><span class="line">            - SYS_ADMIN</span><br><span class="line">      terminationGracePeriodSeconds: 30</span><br><span class="line">      volumes:</span><br><span class="line">      - name: sock</span><br><span class="line">        hostPath:</span><br><span class="line">          path: /var/run/docker.sock</span><br><span class="line">      - name: root</span><br><span class="line">        hostPath:</span><br><span class="line">          path: /</span><br><span class="line">      - name: varlib</span><br><span class="line">        hostPath:</span><br><span class="line">          path: /var/lib/filebeat</span><br><span class="line">          type: DirectoryOrCreate</span><br><span class="line">      - name: varlog</span><br><span class="line">        hostPath:</span><br><span class="line">          path: /var/log/filebeat</span><br><span class="line">          type: DirectoryOrCreate</span><br><span class="line">      - name: localtime</span><br><span class="line">        hostPath:</span><br><span class="line">          path: /etc/localtime</span><br></pre></td></tr></table></figure>
+
+<h4 id="log-pilot-yml-自应用"><a href="#log-pilot-yml-自应用" class="headerlink" title="log-pilot.yml 自应用"></a>log-pilot.yml 自应用</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br></pre></td><td class="code"><pre><span class="line">---</span><br><span class="line">kind: ConfigMap</span><br><span class="line">apiVersion: v1</span><br><span class="line">metadata:</span><br><span class="line">  labels:</span><br><span class="line">    k8s-app: log-pilot</span><br><span class="line">  name: filebeat-conf</span><br><span class="line">data:</span><br><span class="line">  filebeat.tpl: |-</span><br><span class="line">    &#123;&#123;range .configList&#125;&#125;</span><br><span class="line">    - type: log</span><br><span class="line">      enabled: true</span><br><span class="line">      multiline.pattern: &#x27;^[[:space:]]+(at|\.&#123;3&#125;)\b|^Caused by:|^...&#x27;</span><br><span class="line">      multiline.negate: false</span><br><span class="line">      multiline.match: after</span><br><span class="line">      paths:</span><br><span class="line">          - &#123;&#123; .HostDir &#125;&#125;/&#123;&#123; .File &#125;&#125;</span><br><span class="line">      scan_frequency: 10s</span><br><span class="line">      fields_under_root: true</span><br><span class="line">      &#123;&#123;if .Stdout&#125;&#125;</span><br><span class="line">      docker-json: true</span><br><span class="line">      &#123;&#123;end&#125;&#125;</span><br><span class="line">      &#123;&#123;if eq .Format &quot;json&quot;&#125;&#125;</span><br><span class="line">      json.keys_under_root: true</span><br><span class="line">      &#123;&#123;end&#125;&#125;</span><br><span class="line">      fields:</span><br><span class="line">          &#123;&#123;range $key, $value := .Tags&#125;&#125;</span><br><span class="line">          &#123;&#123; $key &#125;&#125;: &#123;&#123; $value &#125;&#125;</span><br><span class="line">          &#123;&#123;end&#125;&#125;</span><br><span class="line">          &#123;&#123;range $key, $value := $.container&#125;&#125;</span><br><span class="line">          &#123;&#123; $key &#125;&#125;: &#123;&#123; $value &#125;&#125;</span><br><span class="line">          &#123;&#123;end&#125;&#125;</span><br><span class="line">      tail_files: false</span><br><span class="line">      close_inactive: 2h</span><br><span class="line">      close_eof: false</span><br><span class="line">      close_removed: true</span><br><span class="line">      clean_removed: true</span><br><span class="line">      close_renamed: false</span><br><span class="line">    &#123;&#123;end&#125;&#125;</span><br><span class="line">---</span><br><span class="line">apiVersion: extensions/v1beta1</span><br><span class="line">kind: DaemonSet</span><br><span class="line">metadata:</span><br><span class="line">  name: log-pilot</span><br><span class="line">  labels:</span><br><span class="line">    k8s-app: log-pilot</span><br><span class="line">spec:</span><br><span class="line">  updateStrategy:</span><br><span class="line">    type: RollingUpdate</span><br><span class="line">  template:</span><br><span class="line">    metadata:</span><br><span class="line">      labels:</span><br><span class="line">        k8s-app: log-pilot</span><br><span class="line">    spec:</span><br><span class="line">      affinity:</span><br><span class="line">        nodeAffinity:</span><br><span class="line">          requiredDuringSchedulingIgnoredDuringExecution:</span><br><span class="line">            nodeSelectorTerms:</span><br><span class="line">              - matchExpressions:</span><br><span class="line">                - key: kubernetes.io/hostname</span><br><span class="line">                  operator: NotIn</span><br><span class="line">                  values:</span><br><span class="line">                    - vpsz-dce-dmp01</span><br><span class="line"> </span><br><span class="line">      containers:</span><br><span class="line">      - name: log-pilot</span><br><span class="line">        image: 10.0.7.130/toolkit/log-pilot:0.9.6-filebeat</span><br><span class="line">        resources:</span><br><span class="line">          limits:</span><br><span class="line">            cpu: 200m</span><br><span class="line">            memory: 1000Mi</span><br><span class="line">        env:</span><br><span class="line">          - name: &quot;LOGGING_OUTPUT&quot;</span><br><span class="line">            value: &quot;logstash&quot;</span><br><span class="line">          - name: &quot;LOGSTASH_HOST&quot;</span><br><span class="line">            value: &quot;10.0.7.18&quot;</span><br><span class="line">          - name: &quot;LOGSTASH_PORT&quot;</span><br><span class="line">            value: &quot;5044&quot;</span><br><span class="line">          - name: &quot;LOGSTASH_LOADBALANCE&quot;</span><br><span class="line">            value: &quot;true&quot;</span><br><span class="line">          - name: &quot;NODE_NAME&quot;</span><br><span class="line">            valueFrom:</span><br><span class="line">              fieldRef:</span><br><span class="line">                fieldPath: spec.nodeName</span><br><span class="line">        volumeMounts:</span><br><span class="line">        - name: sock</span><br><span class="line">          mountPath: /var/run/docker.sock</span><br><span class="line">        - name: logs</span><br><span class="line">          mountPath: /var/log/filebeat</span><br><span class="line">        - name: state</span><br><span class="line">          mountPath: /var/lib/filebeat</span><br><span class="line">        - name: root</span><br><span class="line">          mountPath: /host</span><br><span class="line">          readOnly: true</span><br><span class="line">        - name: localtime</span><br><span class="line">          mountPath: /etc/localtime</span><br><span class="line">        - name: filebeat-tpl</span><br><span class="line">          mountPath: /pilot/filebeat.tpl</span><br><span class="line">          subPath: filebeat.tpl</span><br><span class="line">        securityContext:</span><br><span class="line">          capabilities:</span><br><span class="line">            add:</span><br><span class="line">            - SYS_ADMIN</span><br><span class="line">      terminationGracePeriodSeconds: 30</span><br><span class="line">      volumes:</span><br><span class="line">      - name: sock</span><br><span class="line">        hostPath:</span><br><span class="line">          path: /var/run/docker.sock</span><br><span class="line">      - name: logs</span><br><span class="line">        hostPath:</span><br><span class="line">          path: /var/log/filebeat</span><br><span class="line">      - name: state</span><br><span class="line">        hostPath:</span><br><span class="line">          path: /var/lib/filebeat</span><br><span class="line">      - name: root</span><br><span class="line">        hostPath:</span><br><span class="line">          path: /</span><br><span class="line">      - name: localtime</span><br><span class="line">        hostPath:</span><br><span class="line">          path: /etc/localtime</span><br><span class="line">      - name: filebeat-tpl</span><br><span class="line">        configMap:</span><br><span class="line">          name: filebeat-conf</span><br></pre></td></tr></table></figure>
+
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/kubenetes/" rel="tag"># kubenetes</a>
+              <a href="/tags/logpilot/" rel="tag"># logpilot</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2021/05/17/ansible-nginx/" rel="prev" title="通过ansible更新nginx配置">
+      <i class="fa fa-chevron-left"></i> 通过ansible更新nginx配置
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2021/06/21/docker-stop-or-kill/" rel="next" title="docker stop 或者 docker kill 不能停止容器">
+      docker stop 或者 docker kill 不能停止容器 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Log-Pilot"><span class="nav-number">1.</span> <span class="nav-text">Log-Pilot</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%85%B3%E4%BA%8E-Log-Pilot"><span class="nav-number">1.1.</span> <span class="nav-text">关于 Log-Pilot</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%87%87%E9%9B%86%E6%A8%A1%E5%BC%8F"><span class="nav-number">1.2.</span> <span class="nav-text">采集模式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Log-Pilot-%E7%89%B9%E6%80%A7"><span class="nav-number">1.3.</span> <span class="nav-text">Log-Pilot 特性</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%A3%B0%E6%98%8E%E5%BC%8F%E9%85%8D%E7%BD%AE"><span class="nav-number">1.3.1.</span> <span class="nav-text">声明式配置</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E8%87%AA%E5%8A%A8%E6%89%93%E6%A0%87"><span class="nav-number">1.3.2.</span> <span class="nav-text">数据自动打标</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%A4%9A%E7%A7%8D%E8%A7%A3%E6%9E%90%E6%A0%BC%E5%BC%8F"><span class="nav-number">1.3.3.</span> <span class="nav-text">多种解析格式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%87%AA%E5%AE%9A%E4%B9%89%E8%BE%93%E5%87%BA-target"><span class="nav-number">1.3.4.</span> <span class="nav-text">自定义输出 target</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%A4%9A%E6%8F%92%E4%BB%B6%E5%A4%9A%E5%90%8E%E7%AB%AF"><span class="nav-number">1.3.5.</span> <span class="nav-text">多插件多后端</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%85%B6%E4%BB%96%E7%89%B9%E6%80%A7"><span class="nav-number">1.3.6.</span> <span class="nav-text">其他特性</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%83%A8%E7%BD%B2%E7%A4%BA%E4%BE%8B"><span class="nav-number">2.</span> <span class="nav-text">部署示例</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%83%A8%E7%BD%B2-Log-Pilot"><span class="nav-number">2.1.</span> <span class="nav-text">部署 Log-Pilot</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#log-pilot-yml"><span class="nav-number">2.1.1.</span> <span class="nav-text">log-pilot.yml</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#log-pilot-yml-%E8%87%AA%E5%BA%94%E7%94%A8"><span class="nav-number">2.1.2.</span> <span class="nav-text">log-pilot.yml 自应用</span></a></li></ol></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">hyman</p>
+  <div class="site-description" itemprop="description">一些简单的记录</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">222</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">50</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">145</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/hyman0603" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;hyman0603" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+  <div class="beian"><a href="https://beian.miit.gov.cn/" rel="noopener" target="_blank">粤ICP备2023127571号 </a>
+  </div>
+
+<div class="copyright">
+  
+  &copy; 2017 – 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">hyman</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://mist.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

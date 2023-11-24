@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 5.4.0">
+<meta name="generator" content="Hexo 6.3.0">
   <link rel="apple-touch-icon" sizes="180x180" href="/images/favicon.png">
   <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon.png">
@@ -22,9 +22,9 @@
 
   <meta name="description" content="一些简单的记录">
 <meta property="og:type" content="website">
-<meta property="og:title" content="hyman">
+<meta property="og:title" content="hyman-海曼工具">
 <meta property="og:url" content="https://www.ywthings.com/page/12/index.html">
-<meta property="og:site_name" content="hyman">
+<meta property="og:site_name" content="hyman-海曼工具">
 <meta property="og:description" content="一些简单的记录">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:author" content="hyman">
@@ -43,7 +43,7 @@
   };
 </script>
 
-  <title>hyman</title>
+  <title>hyman-海曼工具</title>
   
 
 
@@ -94,7 +94,7 @@
 
     <a href="/" class="brand" rel="start">
       <span class="logo-line-before"><i></i></span>
-      <h1 class="site-title">hyman</h1>
+      <h1 class="site-title">hyman-海曼工具</h1>
       <span class="logo-line-after"><i></i></span>
     </a>
       <p class="site-subtitle" itemprop="description">一些简单的记录</p>
@@ -192,7 +192,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://www.ywthings.com/posts/a828f573.html">
+    <link itemprop="mainEntityOfPage" href="https://www.ywthings.com/2020/04/07/k8s-strategy/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -201,12 +201,12 @@
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="hyman">
+      <meta itemprop="name" content="hyman-海曼工具">
     </span>
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/posts/a828f573.html" class="post-title-link" itemprop="url">k8s的几种部署策略</a>
+            <a href="/2020/04/07/k8s-strategy/" class="post-title-link" itemprop="url">k8s的几种部署策略</a>
         </h2>
 
         <div class="post-meta">
@@ -223,7 +223,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-05-18 07:58:41" itemprop="dateModified" datetime="2020-05-18T07:58:41+08:00">2020-05-18</time>
+                <time title="修改时间：2020-05-18 07:58:42" itemprop="dateModified" datetime="2020-05-18T07:58:42+08:00">2020-05-18</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -249,22 +249,18 @@
           <p>在Kubernetes中有几种不同的方式发布应用，所以为了让应用在升级期间依然平稳提供服务，选择一个正确的发布策略就非常重要了。</p>
 <p>选择正确的部署策略是要依赖于我们的业务需求的，下面我们列出了一些可能会使用到的策略：</p>
 <ul>
-<li>重建(recreate)：停止旧版本部署新版本</li>
-</ul>
-<ul>
-<li>滚动更新(rolling-update)：一个接一个地以滚动更新方式发布新版本</li>
-</ul>
-<ul>
-<li>蓝绿(blue/green)：新版本与旧版本一起存在，然后切换流量</li>
-</ul>
-<ul>
-<li>金丝雀(canary)：将新版本面向一部分用户发布，然后继续全量发布</li>
-</ul>
-<ul>
-<li>A/B测(a/b testing)：以精确的方式（HTTP 头、cookie、权重等）向部分用户发布新版本。A/B测实际上是一种基于数据统计做出业务决策的技术。在 Kubernetes 中并不原生支持，需要额外的一些高级组件来完成改设置（比如Istio、Linkerd、Traefik、或者自定义 Nginx/Haproxy 等）。
+<li><p>重建(recreate)：停止旧版本部署新版本</p>
+</li>
+<li><p>滚动更新(rolling-update)：一个接一个地以滚动更新方式发布新版本</p>
+</li>
+<li><p>蓝绿(blue&#x2F;green)：新版本与旧版本一起存在，然后切换流量</p>
+</li>
+<li><p>金丝雀(canary)：将新版本面向一部分用户发布，然后继续全量发布</p>
+</li>
+<li><p>A&#x2F;B测(a&#x2F;b testing)：以精确的方式（HTTP 头、cookie、权重等）向部分用户发布新版本。A&#x2F;B测实际上是一种基于数据统计做出业务决策的技术。在 Kubernetes 中并不原生支持，需要额外的一些高级组件来完成改设置（比如Istio、Linkerd、Traefik、或者自定义 Nginx&#x2F;Haproxy 等）。</p>
           <!--noindex-->
             <div class="post-button">
-              <a class="btn" href="/posts/a828f573.html#more" rel="contents">
+              <a class="btn" href="/2020/04/07/k8s-strategy/#more" rel="contents">
                 阅读全文 &raquo;
               </a>
             </div>
@@ -288,7 +284,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://www.ywthings.com/posts/e64d06ef.html">
+    <link itemprop="mainEntityOfPage" href="https://www.ywthings.com/2020/04/03/etcd/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -297,12 +293,12 @@
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="hyman">
+      <meta itemprop="name" content="hyman-海曼工具">
     </span>
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/posts/e64d06ef.html" class="post-title-link" itemprop="url">备份etcd</a>
+            <a href="/2020/04/03/etcd/" class="post-title-link" itemprop="url">备份etcd</a>
         </h2>
 
         <div class="post-meta">
@@ -319,7 +315,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-05-18 07:58:41" itemprop="dateModified" datetime="2020-05-18T07:58:41+08:00">2020-05-18</time>
+                <time title="修改时间：2020-05-18 07:58:42" itemprop="dateModified" datetime="2020-05-18T07:58:42+08:00">2020-05-18</time>
               </span>
 
           
@@ -363,7 +359,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://www.ywthings.com/posts/514dbaf1.html">
+    <link itemprop="mainEntityOfPage" href="https://www.ywthings.com/2020/03/30/k8s-fannal-network-interface/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -372,12 +368,12 @@
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="hyman">
+      <meta itemprop="name" content="hyman-海曼工具">
     </span>
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/posts/514dbaf1.html" class="post-title-link" itemprop="url">Kubernetes集群中添加node节点导致flannel因网卡名不一致启动失败</a>
+            <a href="/2020/03/30/k8s-fannal-network-interface/" class="post-title-link" itemprop="url">Kubernetes集群中添加node节点导致flannel因网卡名不一致启动失败</a>
         </h2>
 
         <div class="post-meta">
@@ -394,7 +390,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-05-18 07:58:41" itemprop="dateModified" datetime="2020-05-18T07:58:41+08:00">2020-05-18</time>
+                <time title="修改时间：2020-05-18 07:58:42" itemprop="dateModified" datetime="2020-05-18T07:58:42+08:00">2020-05-18</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -420,7 +416,7 @@
           <h1 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h1><p>加入一节点到k8s中，发现新节点的守护容器kube-flannel-ds启动失败。</p>
           <!--noindex-->
             <div class="post-button">
-              <a class="btn" href="/posts/514dbaf1.html#more" rel="contents">
+              <a class="btn" href="/2020/03/30/k8s-fannal-network-interface/#more" rel="contents">
                 阅读全文 &raquo;
               </a>
             </div>
@@ -444,7 +440,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://www.ywthings.com/posts/891a4efc.html">
+    <link itemprop="mainEntityOfPage" href="https://www.ywthings.com/2020/03/27/vxlan/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -453,12 +449,12 @@
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="hyman">
+      <meta itemprop="name" content="hyman-海曼工具">
     </span>
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/posts/891a4efc.html" class="post-title-link" itemprop="url">vxlan</a>
+            <a href="/2020/03/27/vxlan/" class="post-title-link" itemprop="url">vxlan</a>
         </h2>
 
         <div class="post-meta">
@@ -475,7 +471,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-05-18 07:58:41" itemprop="dateModified" datetime="2020-05-18T07:58:41+08:00">2020-05-18</time>
+                <time title="修改时间：2020-05-18 07:58:42" itemprop="dateModified" datetime="2020-05-18T07:58:42+08:00">2020-05-18</time>
               </span>
 
           
@@ -492,7 +488,7 @@
           <h1 id="VXLAN协议"><a href="#VXLAN协议" class="headerlink" title="VXLAN协议"></a>VXLAN协议</h1><p>VXLAN是Virtual eXtensible Local Area Network的缩写,虚拟可扩展的局域网，RFC 7348的标题“A Framework for Overlaying Virtualized Layer 2 Networks over Layer 3 Networks”，说明了VXLAN是一个在传统Layer 3网络上架设出来的Layer 2 overlay网络。RFC Abstract如下：</p>
           <!--noindex-->
             <div class="post-button">
-              <a class="btn" href="/posts/891a4efc.html#more" rel="contents">
+              <a class="btn" href="/2020/03/27/vxlan/#more" rel="contents">
                 阅读全文 &raquo;
               </a>
             </div>
@@ -516,7 +512,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://www.ywthings.com/posts/58d7ce25.html">
+    <link itemprop="mainEntityOfPage" href="https://www.ywthings.com/2020/03/26/ceph-14-learn/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -525,12 +521,12 @@
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="hyman">
+      <meta itemprop="name" content="hyman-海曼工具">
     </span>
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/posts/58d7ce25.html" class="post-title-link" itemprop="url">Ceph RBD介绍与使用</a>
+            <a href="/2020/03/26/ceph-14-learn/" class="post-title-link" itemprop="url">Ceph RBD介绍与使用</a>
         </h2>
 
         <div class="post-meta">
@@ -547,7 +543,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-05-18 07:58:40" itemprop="dateModified" datetime="2020-05-18T07:58:40+08:00">2020-05-18</time>
+                <time title="修改时间：2020-05-18 07:58:42" itemprop="dateModified" datetime="2020-05-18T07:58:42+08:00">2020-05-18</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -573,7 +569,7 @@
           <h1 id="RBD介绍"><a href="#RBD介绍" class="headerlink" title="RBD介绍"></a>RBD介绍</h1><p>RBD即RADOS Block Device的简称，RBD块存储是最稳定且最常用的存储类型。RBD块设备类似磁盘可以被挂载。 RBD块设备具有快照、多副本、克隆和一致性等特性，数据以条带化的方式存储在Ceph集群的多个OSD中。如下是对Ceph RBD的理解。</p>
           <!--noindex-->
             <div class="post-button">
-              <a class="btn" href="/posts/58d7ce25.html#more" rel="contents">
+              <a class="btn" href="/2020/03/26/ceph-14-learn/#more" rel="contents">
                 阅读全文 &raquo;
               </a>
             </div>
@@ -597,7 +593,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://www.ywthings.com/posts/cb5eee23.html">
+    <link itemprop="mainEntityOfPage" href="https://www.ywthings.com/2020/03/25/efk-pv/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -606,12 +602,12 @@
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="hyman">
+      <meta itemprop="name" content="hyman-海曼工具">
     </span>
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/posts/cb5eee23.html" class="post-title-link" itemprop="url">使用Ceph RBD持久化存储部署K8S EFK</a>
+            <a href="/2020/03/25/efk-pv/" class="post-title-link" itemprop="url">使用Ceph RBD持久化存储部署K8S EFK</a>
         </h2>
 
         <div class="post-meta">
@@ -628,7 +624,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-05-18 07:58:41" itemprop="dateModified" datetime="2020-05-18T07:58:41+08:00">2020-05-18</time>
+                <time title="修改时间：2020-05-18 07:58:42" itemprop="dateModified" datetime="2020-05-18T07:58:42+08:00">2020-05-18</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -659,7 +655,7 @@
 <li><p>Cenos 7.6</p>
           <!--noindex-->
             <div class="post-button">
-              <a class="btn" href="/posts/cb5eee23.html#more" rel="contents">
+              <a class="btn" href="/2020/03/25/efk-pv/#more" rel="contents">
                 阅读全文 &raquo;
               </a>
             </div>
@@ -683,7 +679,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://www.ywthings.com/posts/407ebcc2.html">
+    <link itemprop="mainEntityOfPage" href="https://www.ywthings.com/2020/03/25/guzhang-question/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -692,12 +688,12 @@
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="hyman">
+      <meta itemprop="name" content="hyman-海曼工具">
     </span>
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/posts/407ebcc2.html" class="post-title-link" itemprop="url">故障问题收集</a>
+            <a href="/2020/03/25/guzhang-question/" class="post-title-link" itemprop="url">故障问题收集</a>
         </h2>
 
         <div class="post-meta">
@@ -714,7 +710,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-05-18 07:58:41" itemprop="dateModified" datetime="2020-05-18T07:58:41+08:00">2020-05-18</time>
+                <time title="修改时间：2020-05-18 07:58:42" itemprop="dateModified" datetime="2020-05-18T07:58:42+08:00">2020-05-18</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -758,7 +754,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://www.ywthings.com/posts/23e04480.html">
+    <link itemprop="mainEntityOfPage" href="https://www.ywthings.com/2020/03/25/linux-question/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -767,12 +763,12 @@
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="hyman">
+      <meta itemprop="name" content="hyman-海曼工具">
     </span>
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/posts/23e04480.html" class="post-title-link" itemprop="url">linux面试收集</a>
+            <a href="/2020/03/25/linux-question/" class="post-title-link" itemprop="url">linux面试收集</a>
         </h2>
 
         <div class="post-meta">
@@ -789,7 +785,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-05-18 07:58:41" itemprop="dateModified" datetime="2020-05-18T07:58:41+08:00">2020-05-18</time>
+                <time title="修改时间：2020-05-18 07:58:42" itemprop="dateModified" datetime="2020-05-18T07:58:42+08:00">2020-05-18</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -838,7 +834,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://www.ywthings.com/posts/2ed8fca5.html">
+    <link itemprop="mainEntityOfPage" href="https://www.ywthings.com/2020/03/24/network-question/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -847,12 +843,12 @@
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="hyman">
+      <meta itemprop="name" content="hyman-海曼工具">
     </span>
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/posts/2ed8fca5.html" class="post-title-link" itemprop="url">network面试收集</a>
+            <a href="/2020/03/24/network-question/" class="post-title-link" itemprop="url">network面试收集</a>
         </h2>
 
         <div class="post-meta">
@@ -869,7 +865,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-05-18 07:58:41" itemprop="dateModified" datetime="2020-05-18T07:58:41+08:00">2020-05-18</time>
+                <time title="修改时间：2020-05-18 07:58:42" itemprop="dateModified" datetime="2020-05-18T07:58:42+08:00">2020-05-18</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -895,7 +891,7 @@
           <h2 id="如何查看http的并发请求数与其TCP连接状态？"><a href="#如何查看http的并发请求数与其TCP连接状态？" class="headerlink" title="如何查看http的并发请求数与其TCP连接状态？"></a>如何查看http的并发请求数与其TCP连接状态？</h2>
           <!--noindex-->
             <div class="post-button">
-              <a class="btn" href="/posts/2ed8fca5.html#more" rel="contents">
+              <a class="btn" href="/2020/03/24/network-question/#more" rel="contents">
                 阅读全文 &raquo;
               </a>
             </div>
@@ -919,7 +915,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://www.ywthings.com/posts/6401f101.html">
+    <link itemprop="mainEntityOfPage" href="https://www.ywthings.com/2020/03/24/k8s-deployment-yaml/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -928,12 +924,12 @@
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="hyman">
+      <meta itemprop="name" content="hyman-海曼工具">
     </span>
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/posts/6401f101.html" class="post-title-link" itemprop="url">k8s Deployment 字段解释</a>
+            <a href="/2020/03/24/k8s-deployment-yaml/" class="post-title-link" itemprop="url">k8s Deployment 字段解释</a>
         </h2>
 
         <div class="post-meta">
@@ -950,7 +946,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-05-18 07:58:41" itemprop="dateModified" datetime="2020-05-18T07:58:41+08:00">2020-05-18</time>
+                <time title="修改时间：2020-05-18 07:58:42" itemprop="dateModified" datetime="2020-05-18T07:58:42+08:00">2020-05-18</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -976,7 +972,7 @@
           <h1 id="Deployment"><a href="#Deployment" class="headerlink" title="Deployment"></a>Deployment</h1><p>apiVersion: 表示版本<br>kind: 表示资源<br>metadata: 表示元信息<br>spec: 资源规范字段</p>
           <!--noindex-->
             <div class="post-button">
-              <a class="btn" href="/posts/6401f101.html#more" rel="contents">
+              <a class="btn" href="/2020/03/24/k8s-deployment-yaml/#more" rel="contents">
                 阅读全文 &raquo;
               </a>
             </div>
@@ -1065,20 +1061,20 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">221</span>
+          <span class="site-state-item-count">222</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">49</span>
+        <span class="site-state-item-count">50</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">144</span>
+        <span class="site-state-item-count">145</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -1106,6 +1102,8 @@
         
 
         
+  <div class="beian"><a href="https://beian.miit.gov.cn/" rel="noopener" target="_blank">粤ICP备2023127571号 </a>
+  </div>
 
 <div class="copyright">
   
