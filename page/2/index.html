@@ -192,6 +192,400 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://www.ywthings.com/2022/10/28/python-rocketmq/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="hyman">
+      <meta itemprop="description" content="一些简单的记录">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="hyman-海曼工具">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2022/10/28/python-rocketmq/" class="post-title-link" itemprop="url">Python 操作 RocketMQ</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2022-10-28 08:04:00" itemprop="dateCreated datePublished" datetime="2022-10-28T08:04:00+08:00">2022-10-28</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2023-04-27 09:40:08" itemprop="dateModified" datetime="2023-04-27T09:40:08+08:00">2023-04-27</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/python/" itemprop="url" rel="index"><span itemprop="name">python</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="安装pip"><a href="#安装pip" class="headerlink" title="安装pip"></a>安装pip</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">yum install python-pip -y</span><br><span class="line"></span><br><span class="line"># 升级pip</span><br><span class="line">pip install -upgrade pip</span><br></pre></td></tr></table></figure>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2022/10/28/python-rocketmq/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://www.ywthings.com/2022/10/27/rocketmq-connect/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="hyman">
+      <meta itemprop="description" content="一些简单的记录">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="hyman-海曼工具">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2022/10/27/rocketmq-connect/" class="post-title-link" itemprop="url">rocketmq-connect 解决RocketMQ跨集群复制方案</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2022-10-27 11:40:53" itemprop="dateCreated datePublished" datetime="2022-10-27T11:40:53+08:00">2022-10-27</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2023-04-27 09:41:48" itemprop="dateModified" datetime="2023-04-27T09:41:48+08:00">2023-04-27</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/RocketMQ/" itemprop="url" rel="index"><span itemprop="name">RocketMQ</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h2><p><strong>Replicator</strong>是RocketMQ Connector的别名，用于RocketMQ集群之间的信息同步，Replicator是运行在RocketMQ Runt上的RocketMQ 集群消息同步Connector，其主要实现了Connector的机制,能够同步两个独立的RocketMQ集群之间的消息。</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2022/10/27/rocketmq-connect/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://www.ywthings.com/2022/10/07/yum-redis-6-x/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="hyman">
+      <meta itemprop="description" content="一些简单的记录">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="hyman-海曼工具">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2022/10/07/yum-redis-6-x/" class="post-title-link" itemprop="url">CentOS 7.x yum 安装 Redis 最新版</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2022-10-07 16:20:58 / 修改时间：16:56:14" itemprop="dateCreated datePublished" datetime="2022-10-07T16:20:58+08:00">2022-10-07</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/nginx/" itemprop="url" rel="index"><span itemprop="name">nginx</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h3 id="安装最新版的-redis-，需要安装Remi的软件源"><a href="#安装最新版的-redis-，需要安装Remi的软件源" class="headerlink" title="安装最新版的 redis ，需要安装Remi的软件源"></a>安装最新版的 redis ，需要安装Remi的软件源</h3><p>官网地址：<a target="_blank" rel="noopener" href="http://rpms.remirepo.net/">http://rpms.remirepo.net/</a></p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2022/10/07/yum-redis-6-x/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://www.ywthings.com/2022/09/23/nginx-error-ssl-handshake/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="hyman">
+      <meta itemprop="description" content="一些简单的记录">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="hyman-海曼工具">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2022/09/23/nginx-error-ssl-handshake/" class="post-title-link" itemprop="url">nginx反向代理时，出现 closed connection in SSL handshake</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2022-09-23 14:02:12 / 修改时间：14:37:24" itemprop="dateCreated datePublished" datetime="2022-09-23T14:02:12+08:00">2022-09-23</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/nginx/" itemprop="url" rel="index"><span itemprop="name">nginx</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p><strong>背景：</strong></p>
+<p>sap部署在北京微软云，供应商提供cname解析地址，公司提供域名解析到该cname，因国外访问国内地址过慢，因此通过香港nginx通过反向代理转发。</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2022/09/23/nginx-error-ssl-handshake/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://www.ywthings.com/2022/04/28/k8s-loki/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="hyman">
+      <meta itemprop="description" content="一些简单的记录">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="hyman-海曼工具">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2022/04/28/k8s-loki/" class="post-title-link" itemprop="url">kubernetes部署loki日志系统</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2022-04-28 17:57:50" itemprop="dateCreated datePublished" datetime="2022-04-28T17:57:50+08:00">2022-04-28</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2022-05-05 14:04:10" itemprop="dateModified" datetime="2022-05-05T14:04:10+08:00">2022-05-05</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/kubernetes/" itemprop="url" rel="index"><span itemprop="name">kubernetes</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>Loki 是受 Prometheus 启发可水平可扩展，高可用的<a target="_blank" rel="noopener" href="https://so.csdn.net/so/search?q=%E5%A4%9A%E7%A7%9F%E6%88%B7&spm=1001.2101.3001.7020">多租户</a>日志聚合系统。它被设计得非常轻量高效且易于操作。它不索引日志的内容，而是为每个日志流设置一组标签。一个小索引和高度压缩的块简化了操作，显著降低了 Loki 的成本。</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2022/04/28/k8s-loki/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://www.ywthings.com/2022/04/28/k8s-ubuntu-1-23/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -569,411 +963,6 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://www.ywthings.com/2022/04/26/kubenetes-traefik/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="hyman">
-      <meta itemprop="description" content="一些简单的记录">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="hyman-海曼工具">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2022/04/26/kubenetes-traefik/" class="post-title-link" itemprop="url">kubenetes 安装 traefik</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2022-04-26 11:30:59" itemprop="dateCreated datePublished" datetime="2022-04-26T11:30:59+08:00">2022-04-26</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2022-04-28 15:33:50" itemprop="dateModified" datetime="2022-04-28T15:33:50+08:00">2022-04-28</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/kubernetes/" itemprop="url" rel="index"><span itemprop="name">kubernetes</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>参照官网：<a target="_blank" rel="noopener" href="https://doc.traefik.io/traefik/user-guides/crd-acme/#deployments">https://doc.traefik.io/traefik/user-guides/crd-acme/#deployments</a></p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2022/04/26/kubenetes-traefik/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://www.ywthings.com/2022/04/23/kubenetes-1-20-x/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="hyman">
-      <meta itemprop="description" content="一些简单的记录">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="hyman-海曼工具">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2022/04/23/kubenetes-1-20-x/" class="post-title-link" itemprop="url">部署kubenetes集群 < 1.23</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2022-04-23 14:02:01" itemprop="dateCreated datePublished" datetime="2022-04-23T14:02:01+08:00">2022-04-23</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2022-09-30 14:26:30" itemprop="dateModified" datetime="2022-09-30T14:26:30+08:00">2022-09-30</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/kubernetes/" itemprop="url" rel="index"><span itemprop="name">kubernetes</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>用于工作快速搭建k8s，适用于kuberbetes小于1.23</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2022/04/23/kubenetes-1-20-x/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://www.ywthings.com/2022/04/12/nginx-https-502/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="hyman">
-      <meta itemprop="description" content="一些简单的记录">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="hyman-海曼工具">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2022/04/12/nginx-https-502/" class="post-title-link" itemprop="url">nginx反向代理htps访问502</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2022-04-12 14:06:00" itemprop="dateCreated datePublished" datetime="2022-04-12T14:06:00+08:00">2022-04-12</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2022-04-23 11:36:18" itemprop="dateModified" datetime="2022-04-23T11:36:18+08:00">2022-04-23</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/nginx/" itemprop="url" rel="index"><span itemprop="name">nginx</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h3 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h3><p>为解决国内访问国外站点的问题(<a target="_blank" rel="noopener" href="https://wwwcie.ups.com/)%EF%BC%8C%E9%80%9A%E8%BF%87%E9%A6%99%E6%B8%AFnginx%E8%BF%9B%E8%A1%8C%E5%8F%8D%E5%90%91%E4%BB%A3%E7%90%86%E5%9B%BD%E5%A4%96%E7%AB%99%E7%82%B9%EF%BC%8C%E6%9D%A5%E8%A7%A3%E5%86%B3%E8%AE%BF%E9%97%AE%E6%85%A2%E7%9A%84%E9%97%AE%E9%A2%98%EF%BC%8C%E6%AD%A3%E5%B8%B8%E4%B8%80%E6%AE%B5%E6%97%B6%E9%97%B4%EF%BC%8C%E4%BB%8A%E5%A4%A9%E8%AE%BF%E9%97%AE%E6%8F%90%E7%A4%BA502">https://wwwcie.ups.com/)，通过香港nginx进行反向代理国外站点，来解决访问慢的问题，正常一段时间，今天访问提示502</a></p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2022/04/12/nginx-https-502/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://www.ywthings.com/2022/04/07/gitlab-update/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="hyman">
-      <meta itemprop="description" content="一些简单的记录">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="hyman-海曼工具">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2022/04/07/gitlab-update/" class="post-title-link" itemprop="url">gitlab升级、备份、恢复</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2022-04-07 09:49:58" itemprop="dateCreated datePublished" datetime="2022-04-07T09:49:58+08:00">2022-04-07</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2022-04-23 13:51:34" itemprop="dateModified" datetime="2022-04-23T13:51:34+08:00">2022-04-23</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/gitlab/" itemprop="url" rel="index"><span itemprop="name">gitlab</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>官方说明:<a target="_blank" rel="noopener" href="https://docs.gitlab.com/ee/update/index.html#upgrade-paths">https://docs.gitlab.com/ee/update/index.html#upgrade-paths</a></p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2022/04/07/gitlab-update/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://www.ywthings.com/2022/03/28/linux-go/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="hyman">
-      <meta itemprop="description" content="一些简单的记录">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="hyman-海曼工具">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2022/03/28/linux-go/" class="post-title-link" itemprop="url">linux安装go环境</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2022-03-28 10:37:18" itemprop="dateCreated datePublished" datetime="2022-03-28T10:37:18+08:00">2022-03-28</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2022-04-01 15:40:16" itemprop="dateModified" datetime="2022-04-01T15:40:16+08:00">2022-04-01</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/go/" itemprop="url" rel="index"><span itemprop="name">go</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>先执行uname -m<br>查看系统架构</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2022/03/28/linux-go/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1043,20 +1032,20 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">222</span>
+          <span class="site-state-item-count">227</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">50</span>
+        <span class="site-state-item-count">52</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">145</span>
+        <span class="site-state-item-count">150</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -1090,7 +1079,7 @@
 <div class="copyright">
   
   &copy; 2017 – 
-  <span itemprop="copyrightYear">2023</span>
+  <span itemprop="copyrightYear">2024</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>

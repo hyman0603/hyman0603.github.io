@@ -192,6 +192,411 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://www.ywthings.com/2018/09/27/regular-delete-elasticsearch-index/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="hyman">
+      <meta itemprop="description" content="一些简单的记录">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="hyman-海曼工具">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2018/09/27/regular-delete-elasticsearch-index/" class="post-title-link" itemprop="url">定期删除elasticsearch索引记录</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2018-09-27 08:49:05" itemprop="dateCreated datePublished" datetime="2018-09-27T08:49:05+08:00">2018-09-27</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2021-04-29 08:17:42" itemprop="dateModified" datetime="2021-04-29T08:17:42+08:00">2021-04-29</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/elasticsearch/" itemprop="url" rel="index"><span itemprop="name">elasticsearch</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>需要定期清理的索引的后缀日期格式为YYYY.MM.DD，如：nginx-2018.09.01，解决方法通过_cat&#x2F;indices接口可以获取当前ES全部索引信息，取第三列为索引名。过滤出索引名中带有的日期字符串，然后进行日期比较，早于10天前的日期便可通过日期模糊匹配索引来删除。</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2018/09/27/regular-delete-elasticsearch-index/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://www.ywthings.com/2018/09/17/helm-install-kafka-zookeeper-with-nfs/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="hyman">
+      <meta itemprop="description" content="一些简单的记录">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="hyman-海曼工具">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2018/09/17/helm-install-kafka-zookeeper-with-nfs/" class="post-title-link" itemprop="url">在k8s上通过helm与动态NFS部署kafka、zookeeper</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2018-09-17 15:16:39" itemprop="dateCreated datePublished" datetime="2018-09-17T15:16:39+08:00">2018-09-17</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-05-18 07:58:42" itemprop="dateModified" datetime="2020-05-18T07:58:42+08:00">2020-05-18</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/kubernetes/" itemprop="url" rel="index"><span itemprop="name">kubernetes</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>helm仓库地址<a target="_blank" rel="noopener" href="https://github.com/helm/charts">https://github.com/helm/charts</a></p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2018/09/17/helm-install-kafka-zookeeper-with-nfs/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://www.ywthings.com/2018/09/14/kubernetes-ingress-enable-free-https-with-cert-manager/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="hyman">
+      <meta itemprop="description" content="一些简单的记录">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="hyman-海曼工具">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2018/09/14/kubernetes-ingress-enable-free-https-with-cert-manager/" class="post-title-link" itemprop="url">利用cert-manager让Ingress启用免费的HTTPS证书</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2018-09-14 16:44:46" itemprop="dateCreated datePublished" datetime="2018-09-14T16:44:46+08:00">2018-09-14</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-05-18 07:58:42" itemprop="dateModified" datetime="2020-05-18T07:58:42+08:00">2020-05-18</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/kubernetes/" itemprop="url" rel="index"><span itemprop="name">kubernetes</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>cert-manager 是替代 kube-lego 的一个开源项目，用于在 Kubernetes 集群中自动提供 HTTPS 证书，支持 Let’s Encrypt, HashiCorp Vault 这些免费证书的签发。</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2018/09/14/kubernetes-ingress-enable-free-https-with-cert-manager/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://www.ywthings.com/2018/09/14/kubernetes-use-tls/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="hyman">
+      <meta itemprop="description" content="一些简单的记录">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="hyman-海曼工具">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2018/09/14/kubernetes-use-tls/" class="post-title-link" itemprop="url">kubernetes通过TLS安全访问</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2018-09-14 13:34:49" itemprop="dateCreated datePublished" datetime="2018-09-14T13:34:49+08:00">2018-09-14</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-05-18 07:58:42" itemprop="dateModified" datetime="2020-05-18T07:58:42+08:00">2020-05-18</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/kubernetes/" itemprop="url" rel="index"><span itemprop="name">kubernetes</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>外部访问k8s里的服务，都是直接以http方式进行的，缺少TLS安全</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2018/09/14/kubernetes-use-tls/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://www.ywthings.com/2018/09/13/use-kubernetes-private-resgistry/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="hyman">
+      <meta itemprop="description" content="一些简单的记录">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="hyman-海曼工具">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2018/09/13/use-kubernetes-private-resgistry/" class="post-title-link" itemprop="url">kubernetes 中拉取私有仓库(腾讯云)</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2018-09-13 17:55:22" itemprop="dateCreated datePublished" datetime="2018-09-13T17:55:22+08:00">2018-09-13</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-05-18 07:58:42" itemprop="dateModified" datetime="2020-05-18T07:58:42+08:00">2020-05-18</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/kubernetes/" itemprop="url" rel="index"><span itemprop="name">kubernetes</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>官方介绍：<a target="_blank" rel="noopener" href="https://kubernetes.io/docs/concepts/containers/images/">https://kubernetes.io/docs/concepts/containers/images/</a></p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2018/09/13/use-kubernetes-private-resgistry/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://www.ywthings.com/2018/09/11/use-nfs-client-provisioner-k8s/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -615,420 +1020,6 @@ $ kubectl label node &lt;nodename&gt; ceph-osd=enabled ceph-osd-device-dev-sdb=e
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://www.ywthings.com/2018/07/25/kubernetes-install-helm/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="hyman">
-      <meta itemprop="description" content="一些简单的记录">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="hyman-海曼工具">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2018/07/25/kubernetes-install-helm/" class="post-title-link" itemprop="url">kubernetes包管理器Helm快速安装</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2018-07-25 10:22:49" itemprop="dateCreated datePublished" datetime="2018-07-25T10:22:49+08:00">2018-07-25</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-05-18 07:58:42" itemprop="dateModified" datetime="2020-05-18T07:58:42+08:00">2020-05-18</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/kubernetes/" itemprop="url" rel="index"><span itemprop="name">kubernetes</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h1><p><a target="_blank" rel="noopener" href="https://github.com/helm/helm">Helm</a> 是由 <a target="_blank" rel="noopener" href="https://deis.com/">Deis</a> 发起的一个开源工具，Helm是查找，共享和使用为Kubernetes构建的软件的最佳方式。</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2018/07/25/kubernetes-install-helm/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://www.ywthings.com/2018/07/24/kubernetes-master-install-for-kubeadm-1-11/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="hyman">
-      <meta itemprop="description" content="一些简单的记录">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="hyman-海曼工具">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2018/07/24/kubernetes-master-install-for-kubeadm-1-11/" class="post-title-link" itemprop="url">利用 kubeadm 部署 Kubernetes v1.11.x HA 集群</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2018-07-24 13:35:20" itemprop="dateCreated datePublished" datetime="2018-07-24T13:35:20+08:00">2018-07-24</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-05-18 07:58:42" itemprop="dateModified" datetime="2020-05-18T07:58:42+08:00">2020-05-18</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/kubernetes/" itemprop="url" rel="index"><span itemprop="name">kubernetes</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>本篇将说明如何透过Kubeadm来部署Kubernetes v1.11版本的高可用性丛集，而本安装主要是参考官方文件中的用kubeadm创建高可用的集群内容来进行，这边将透过HAProxy与Keepalived的结合来实现控制面的Load Balancer与VIP。</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2018/07/24/kubernetes-master-install-for-kubeadm-1-11/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://www.ywthings.com/2018/07/23/ceph-cluster-deploy-luminous/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="hyman">
-      <meta itemprop="description" content="一些简单的记录">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="hyman-海曼工具">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2018/07/23/ceph-cluster-deploy-luminous/" class="post-title-link" itemprop="url">Ceph luminous 安装配置</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2018-07-23 10:32:35" itemprop="dateCreated datePublished" datetime="2018-07-23T10:32:35+08:00">2018-07-23</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-05-18 07:58:42" itemprop="dateModified" datetime="2020-05-18T07:58:42+08:00">2020-05-18</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Ceph/" itemprop="url" rel="index"><span itemprop="name">Ceph</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p><strong>备注：</strong><br>简易安装ceph luminous版本，用于kubernetes PV，详情移至Ceph官网，部署Ceph至少一个MON，三个OSD。Ceph 分布式存储集群有三大组件组成，分为：Ceph Monitor、Ceph OSD、Ceph MDS，后边使用对象存储和块存储时，MDS 非必须安装，只有当使用 Cephfs 文件存储时，才需要安装。</p>
-<ul>
-<li><p>自动部署osd可以采用 ceph-deploy ，也可以采用 ceph-disk 命令</p>
-</li>
-<li><p>luminous版本中，删除OSD可以直接使用 ceph osd purge 命令，比较省心</p>
-</li>
-<li><p>生产环境中磁盘的挂载尽量采用uuid&#x2F;partuuid</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http://docs.ceph.com/docs/master/start/quick-ceph-deploy/</span><br></pre></td></tr></table></figure></li>
-</ul>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2018/07/23/ceph-cluster-deploy-luminous/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://www.ywthings.com/2018/07/09/nginx-remote-addr-rewrite/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="hyman">
-      <meta itemprop="description" content="一些简单的记录">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="hyman-海曼工具">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2018/07/09/nginx-remote-addr-rewrite/" class="post-title-link" itemprop="url">Nginx根据指定IP转发链接</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2018-07-09 17:44:04" itemprop="dateCreated datePublished" datetime="2018-07-09T17:44:04+08:00">2018-07-09</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-05-18 07:58:42" itemprop="dateModified" datetime="2020-05-18T07:58:42+08:00">2020-05-18</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/nginx/" itemprop="url" rel="index"><span itemprop="name">nginx</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p><strong>需求</strong><br>因项目变更，外网官网跳转到维护界面，指定ip地址能够正常访问</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2018/07/09/nginx-remote-addr-rewrite/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://www.ywthings.com/2018/07/04/docker-swarm-mongodb-replication/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="hyman">
-      <meta itemprop="description" content="一些简单的记录">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="hyman-海曼工具">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2018/07/04/docker-swarm-mongodb-replication/" class="post-title-link" itemprop="url">基于Docker Swarm 构建MongoDB分片副本集群</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2018-07-04 15:09:50" itemprop="dateCreated datePublished" datetime="2018-07-04T15:09:50+08:00">2018-07-04</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-05-18 07:58:42" itemprop="dateModified" datetime="2020-05-18T07:58:42+08:00">2020-05-18</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/docker/" itemprop="url" rel="index"><span itemprop="name">docker</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="环境准备"><a href="#环境准备" class="headerlink" title="环境准备"></a>环境准备</h1><p>两台服务器，建立 Docker Swarm 集群，一个 Manager，一个 Worker。</p>
-<p>docker 版本：18-06<br>mongo 版本：3.6<br>172.16.2.30 server01<br>172.16.2.31 server02</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2018/07/04/docker-swarm-mongodb-replication/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1098,20 +1089,20 @@ $ kubectl label node &lt;nodename&gt; ceph-osd=enabled ceph-osd-device-dev-sdb=e
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">222</span>
+          <span class="site-state-item-count">227</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">50</span>
+        <span class="site-state-item-count">52</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">145</span>
+        <span class="site-state-item-count">150</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -1145,7 +1136,7 @@ $ kubectl label node &lt;nodename&gt; ceph-osd=enabled ceph-osd-device-dev-sdb=e
 <div class="copyright">
   
   &copy; 2017 – 
-  <span itemprop="copyrightYear">2023</span>
+  <span itemprop="copyrightYear">2024</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>

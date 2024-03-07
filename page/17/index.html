@@ -192,6 +192,415 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://www.ywthings.com/2019/01/26/update-mysql-max-connections-not-userful/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="hyman">
+      <meta itemprop="description" content="一些简单的记录">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="hyman-海曼工具">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2019/01/26/update-mysql-max-connections-not-userful/" class="post-title-link" itemprop="url">解决mysql配置文件my.cnf添加max_connections不生效</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2019-01-26 19:56:35" itemprop="dateCreated datePublished" datetime="2019-01-26T19:56:35+08:00">2019-01-26</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-05-18 07:58:42" itemprop="dateModified" datetime="2020-05-18T07:58:42+08:00">2020-05-18</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%97%A5%E5%B8%B8%E9%97%AE%E9%A2%98%E5%A4%84%E7%90%86/" itemprop="url" rel="index"><span itemprop="name">日常问题处理</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h1><p>新增项目环境，通过mysql官方指定的yum源安装了mysql5.6.43，由于项目启动提示too many connections，于是修改mysql的配置文件my.cnf添加max_connections&#x3D;1000后，重启mysql后发现不生效，但是如果通过交互端的命令行可以更改生效。</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2019/01/26/update-mysql-max-connections-not-userful/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://www.ywthings.com/2019/01/24/project-deploy/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="hyman">
+      <meta itemprop="description" content="一些简单的记录">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="hyman-海曼工具">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2019/01/24/project-deploy/" class="post-title-link" itemprop="url">视频语音实时可视化部署记录</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2019-01-24 10:12:06" itemprop="dateCreated datePublished" datetime="2019-01-24T10:12:06+08:00">2019-01-24</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-05-18 07:58:42" itemprop="dateModified" datetime="2020-05-18T07:58:42+08:00">2020-05-18</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E8%BF%90%E7%BB%B4%E9%83%A8%E7%BD%B2%E8%AE%B0%E5%BD%95/" itemprop="url" rel="index"><span itemprop="name">运维部署记录</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>  公司项目所需要安装的一些软件，以作记录，方便后期新增环境操作。</p>
+<ol>
+<li><p>SRS定位是运营级的互联网直播服务器集群，追求更好的概念完整性和最简单实现的代码。<a target="_blank" rel="noopener" href="https://github.com/ossrs/srs">https://github.com/ossrs/srs</a></p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2019/01/24/project-deploy/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://www.ywthings.com/2019/01/07/kubernetes-master-install-for-kubeadm-1-13-x/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="hyman">
+      <meta itemprop="description" content="一些简单的记录">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="hyman-海曼工具">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2019/01/07/kubernetes-master-install-for-kubeadm-1-13-x/" class="post-title-link" itemprop="url">利用 kubeadm 部署 Kubernetes v1.13.x</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2019-01-07 09:26:17" itemprop="dateCreated datePublished" datetime="2019-01-07T09:26:17+08:00">2019-01-07</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-05-18 07:58:42" itemprop="dateModified" datetime="2020-05-18T07:58:42+08:00">2020-05-18</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/kubernetes/" itemprop="url" rel="index"><span itemprop="name">kubernetes</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>官方文档：<a target="_blank" rel="noopener" href="https://kubernetes.io/docs/setup/independent/high-availability/">https://kubernetes.io/docs/setup/independent/high-availability/</a></p>
+<h1 id="关闭防火墙"><a href="#关闭防火墙" class="headerlink" title="关闭防火墙"></a>关闭防火墙</h1><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">systemctl stop firewalld</span><br><span class="line">systemctl disable firewalld</span><br></pre></td></tr></table></figure>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2019/01/07/kubernetes-master-install-for-kubeadm-1-13-x/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://www.ywthings.com/2019/01/02/aliyun-no-access-lb/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="hyman">
+      <meta itemprop="description" content="一些简单的记录">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="hyman-海曼工具">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2019/01/02/aliyun-no-access-lb/" class="post-title-link" itemprop="url">新增阿里云ECS服务器作为TCP负载均衡访问失败</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2019-01-02 09:40:42" itemprop="dateCreated datePublished" datetime="2019-01-02T09:40:42+08:00">2019-01-02</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-06-01 17:03:08" itemprop="dateModified" datetime="2020-06-01T17:03:08+08:00">2020-06-01</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%97%A5%E5%B8%B8%E9%97%AE%E9%A2%98%E5%A4%84%E7%90%86/" itemprop="url" rel="index"><span itemprop="name">日常问题处理</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h1><p>由于需要扩大业务访问量，新增ECS服务器，作为TCP负载均衡，添加到阿里云负载均衡下，添加成功后，业务总是会出现发送不了消息，登陆不成功。</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2019/01/02/aliyun-no-access-lb/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://www.ywthings.com/2018/12/28/install-harbor/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="hyman">
+      <meta itemprop="description" content="一些简单的记录">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="hyman-海曼工具">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2018/12/28/install-harbor/" class="post-title-link" itemprop="url">搭建Docker私有仓库Harbor</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2018-12-28 10:46:52" itemprop="dateCreated datePublished" datetime="2018-12-28T10:46:52+08:00">2018-12-28</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-05-18 07:58:42" itemprop="dateModified" datetime="2020-05-18T07:58:42+08:00">2020-05-18</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Docker/" itemprop="url" rel="index"><span itemprop="name">Docker</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>官网：<a target="_blank" rel="noopener" href="https://goharbor.io/">https://goharbor.io/</a><br>安装介绍：<a target="_blank" rel="noopener" href="https://github.com/goharbor/harbor/blob/master/docs/installation_guide.md">https://github.com/goharbor/harbor/blob/master/docs/installation_guide.md</a></p>
+<h1 id="系统要求"><a href="#系统要求" class="headerlink" title="系统要求"></a>系统要求</h1><p>docker 17.03.0-ce +<br>docker-compose 1.10.0+</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2018/12/28/install-harbor/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://www.ywthings.com/2018/12/11/systemd-causes-high-CPU-load/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -610,429 +1019,6 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://www.ywthings.com/2018/11/13/vsftp-deployment/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="hyman">
-      <meta itemprop="description" content="一些简单的记录">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="hyman-海曼工具">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2018/11/13/vsftp-deployment/" class="post-title-link" itemprop="url">Centos 7 安装vsftpd</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2018-11-13 11:02:59" itemprop="dateCreated datePublished" datetime="2018-11-13T11:02:59+08:00">2018-11-13</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-05-18 07:58:42" itemprop="dateModified" datetime="2020-05-18T07:58:42+08:00">2020-05-18</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E8%BF%90%E7%BB%B4%E9%83%A8%E7%BD%B2%E8%AE%B0%E5%BD%95/" itemprop="url" rel="index"><span itemprop="name">运维部署记录</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="安装vsftpd"><a href="#安装vsftpd" class="headerlink" title="安装vsftpd"></a>安装vsftpd</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum -y install vsftpd</span><br></pre></td></tr></table></figure>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2018/11/13/vsftp-deployment/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://www.ywthings.com/2018/10/26/kubernetes-some-command/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="hyman">
-      <meta itemprop="description" content="一些简单的记录">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="hyman-海曼工具">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <font color="#f05050">[置顶] </font>
-            <a href="/2018/10/26/kubernetes-some-command/" class="post-title-link" itemprop="url">kubernetes 命令记录</a>
-        </h2>
-
-        <div class="post-meta">
-		  <i class="fa fa-thumbtack"></i>
-		  <font color='#f05050'>置顶</font>
-		  <span class="post-meta-divider">|</span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2018-10-26 16:41:00" itemprop="dateCreated datePublished" datetime="2018-10-26T16:41:00+08:00">2018-10-26</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2022-04-28 10:21:34" itemprop="dateModified" datetime="2022-04-28T10:21:34+08:00">2022-04-28</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/kubernetes/" itemprop="url" rel="index"><span itemprop="name">kubernetes</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="k8s操作基本命令"><a href="#k8s操作基本命令" class="headerlink" title="k8s操作基本命令"></a>k8s操作基本命令</h1><h2 id="创建"><a href="#创建" class="headerlink" title="创建"></a>创建</h2><p>通过yaml文件创建：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">kubectl create -f xxx.yaml （不建议使用，无法更新，必须先delete）</span><br><span class="line"></span><br><span class="line">kubectl apply -f xxx.yaml （创建+更新，可以重复使用）</span><br></pre></td></tr></table></figure>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2018/10/26/kubernetes-some-command/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://www.ywthings.com/2018/10/23/ffmpeg-install-static-release/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="hyman">
-      <meta itemprop="description" content="一些简单的记录">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="hyman-海曼工具">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2018/10/23/ffmpeg-install-static-release/" class="post-title-link" itemprop="url">FFmpeg静态构建</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2018-10-23 16:57:41" itemprop="dateCreated datePublished" datetime="2018-10-23T16:57:41+08:00">2018-10-23</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-05-18 07:58:42" itemprop="dateModified" datetime="2020-05-18T07:58:42+08:00">2020-05-18</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E6%97%A5%E5%B8%B8%E9%83%A8%E7%BD%B2%E8%AE%B0%E5%BD%95/" itemprop="url" rel="index"><span itemprop="name">日常部署记录</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>适用于Linux内核2.6.32及更高版本的FFmpeg的最新版本，由于通过yum安装版本过低，通过原代码编译过于繁杂，于是采用别人编译好的静态构建文件。</p>
-<p>FFmpeg静态构建：<a target="_blank" rel="noopener" href="https://www.johnvansickle.com/ffmpeg/">https://www.johnvansickle.com/ffmpeg/</a></p>
-<p>FFmpeg官网：<a target="_blank" rel="noopener" href="http://ffmpeg.org/">http://ffmpeg.org/</a></p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2018/10/23/ffmpeg-install-static-release/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://www.ywthings.com/2018/10/18/hung-task-timeout-secs/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="hyman">
-      <meta itemprop="description" content="一些简单的记录">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="hyman-海曼工具">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2018/10/18/hung-task-timeout-secs/" class="post-title-link" itemprop="url">Linux进程出现D状态</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2018-10-18 09:09:43" itemprop="dateCreated datePublished" datetime="2018-10-18T09:09:43+08:00">2018-10-18</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-05-18 07:58:42" itemprop="dateModified" datetime="2020-05-18T07:58:42+08:00">2020-05-18</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E6%97%A5%E5%B8%B8%E9%97%AE%E9%A2%98%E5%A4%84%E7%90%86/" itemprop="url" rel="index"><span itemprop="name">日常问题处理</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="问题状态"><a href="#问题状态" class="headerlink" title="问题状态"></a>问题状态</h1><p>生产环境使用了开源软件srs服务来调取实时视频，但是调取时提示出现了暂无数据，请稍后再试的错误，一直调取不到视频信息。<br><img src="/images/20181018140643.png" width="100%" height="100%"></p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2018/10/18/hung-task-timeout-secs/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://www.ywthings.com/2018/10/10/elasticsearch-cluster/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="hyman">
-      <meta itemprop="description" content="一些简单的记录">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="hyman-海曼工具">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2018/10/10/elasticsearch-cluster/" class="post-title-link" itemprop="url">部署Elasticsearch集群</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2018-10-10 18:02:14" itemprop="dateCreated datePublished" datetime="2018-10-10T18:02:14+08:00">2018-10-10</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2021-05-05 09:08:34" itemprop="dateModified" datetime="2021-05-05T09:08:34+08:00">2021-05-05</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/elasticsearch/" itemprop="url" rel="index"><span itemprop="name">elasticsearch</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="什么是Elasticsearch集群？"><a href="#什么是Elasticsearch集群？" class="headerlink" title="什么是Elasticsearch集群？"></a>什么是Elasticsearch集群？</h1><p>顾名思义，Elasticsearch集群是一组连接在一起的一个或多个Elasticsearch节点实例。Elasticsearch集群的强大之处在于跨集群中所有节点的任务分配，搜索和索引。</p>
-<p>可以为Elasticsearch集群中的节点分配不同的作业或职责：</p>
-<ul>
-<li><p>Data nodes 存储数据并执行与搜索和聚合等数据相关的操作</p>
-</li>
-<li><p>Master nodes 负责集群范围的管理和配置操作，例如添加和删除节点</p>
-</li>
-<li><p>Client nodes 将集群请求转发到主节点，并将与数据相关的请求转发给数据节点</p>
-</li>
-<li><p>Ingest nodes  用于在编制索引之前预处理文档</p>
-</li>
-</ul>
-<p>默认情况下，会为每个节点自动分配一个唯一标识符或名称，用于管理目的，在多节点或群集环境中变得更加重要。</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2018/10/10/elasticsearch-cluster/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1102,20 +1088,20 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">222</span>
+          <span class="site-state-item-count">227</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">50</span>
+        <span class="site-state-item-count">52</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">145</span>
+        <span class="site-state-item-count">150</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -1149,7 +1135,7 @@
 <div class="copyright">
   
   &copy; 2017 – 
-  <span itemprop="copyrightYear">2023</span>
+  <span itemprop="copyrightYear">2024</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>

@@ -1,3 +1,8 @@
+https://www.ywthings.com/2024/03/07/centos7-full-hd/
+https://www.ywthings.com/2024/03/06/install-npm-yarn/
+https://www.ywthings.com/2024/03/07/centos7-install-x-windows-system/
+https://www.ywthings.com/2024/02/29/docker-install/
+https://www.ywthings.com/2023/12/27/clash-for-linux/
 https://www.ywthings.com/2023/11/24/hexo-set-top/
 https://www.ywthings.com/2021/09/24/tools-install/
 https://www.ywthings.com/2018/05/18/CentOS7-install-NFS/
@@ -368,6 +373,11 @@ https://www.ywthings.com/tags/xtrabackup/
 https://www.ywthings.com/tags/vsftp/
 https://www.ywthings.com/tags/zabbix/
 https://www.ywthings.com/tags/hexo/
+https://www.ywthings.com/tags/Centos/
+https://www.ywthings.com/tags/clash/
+https://www.ywthings.com/tags/nodejs/
+https://www.ywthings.com/tags/npm/
+https://www.ywthings.com/tags/yarn/
 https://www.ywthings.com/categories/Ansible/
 https://www.ywthings.com/categories/%E6%97%A5%E5%B8%B8%E9%97%AE%E9%A2%98%E5%A4%84%E7%90%86/
 https://www.ywthings.com/categories/ansible/
@@ -418,3 +428,5 @@ https://www.ywthings.com/categories/traefik/
 https://www.ywthings.com/categories/%E5%A4%87%E4%BB%BD/
 https://www.ywthings.com/categories/linux%E6%8B%9B%E8%81%98%E9%A2%98%E7%9B%AE/
 https://www.ywthings.com/categories/hexo/
+https://www.ywthings.com/categories/%E9%97%AE%E9%A2%98%E5%A4%84%E7%90%86/
+https://www.ywthings.com/categories/%E8%BD%AF%E4%BB%B6%E5%AE%89%E8%A3%85/

@@ -192,6 +192,416 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://www.ywthings.com/2020/04/08/rate-limiting-nginx/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="hyman">
+      <meta itemprop="description" content="一些简单的记录">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="hyman-海曼工具">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/04/08/rate-limiting-nginx/" class="post-title-link" itemprop="url">nginx上的限流</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-04-08 11:34:27" itemprop="dateCreated datePublished" datetime="2020-04-08T11:34:27+08:00">2020-04-08</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-05-18 07:58:42" itemprop="dateModified" datetime="2020-05-18T07:58:42+08:00">2020-05-18</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/nginx/" itemprop="url" rel="index"><span itemprop="name">nginx</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>原文链接：<br><a target="_blank" rel="noopener" href="https://www.nginx.com/blog/rate-limiting-nginx/">https://www.nginx.com/blog/rate-limiting-nginx/</a></p>
+<p>限流（rate limiting）是NGINX众多特性中最有用的，也是经常容易被误解和错误配置的，特性之一。该特性可以限制某个用户在一个给定时间段内能够产生的HTTP请求数。请求可以简单到就是一个对于主页的GET请求或者一个登陆表格的POST请求。</p>
+<p>限流也可以用于安全目的上，比如减慢暴力密码破解攻击。通过限制进来的请求速率，并且（结合日志）标记出目标URLs来帮助防范DDoS攻击。一般地说，限流是用在保护上游应用服务器不被在同一时刻的大量用户请求湮没。</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2020/04/08/rate-limiting-nginx/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://www.ywthings.com/2020/04/08/dockerfile-best-practices/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="hyman">
+      <meta itemprop="description" content="一些简单的记录">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="hyman-海曼工具">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/04/08/dockerfile-best-practices/" class="post-title-link" itemprop="url">Dockerfile 最佳实践准则</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-04-08 09:08:18" itemprop="dateCreated datePublished" datetime="2020-04-08T09:08:18+08:00">2020-04-08</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-05-18 07:58:42" itemprop="dateModified" datetime="2020-05-18T07:58:42+08:00">2020-05-18</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/docker/" itemprop="url" rel="index"><span itemprop="name">docker</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>原文链接：<br><a target="_blank" rel="noopener" href="https://www.docker.com/blog/intro-guide-to-dockerfile-best-practices/">https://www.docker.com/blog/intro-guide-to-dockerfile-best-practices/</a></p>
+<p><strong>注意</strong></p>
+<p>本文使用一个基于 Maven 的 Java 项目作为示例，然后不断改进 Dockerfile 的写法，直到最后写出一个最优雅的 Dockerfile。中间的所有步骤都是为了说明某一方面的最佳实践。</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2020/04/08/dockerfile-best-practices/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://www.ywthings.com/2020/04/08/k8s-network-calico/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="hyman">
+      <meta itemprop="description" content="一些简单的记录">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="hyman-海曼工具">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/04/08/k8s-network-calico/" class="post-title-link" itemprop="url">Calico 网络通信原理</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-04-08 08:51:54" itemprop="dateCreated datePublished" datetime="2020-04-08T08:51:54+08:00">2020-04-08</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-05-18 07:58:42" itemprop="dateModified" datetime="2020-05-18T07:58:42+08:00">2020-05-18</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/kubernetes/" itemprop="url" rel="index"><span itemprop="name">kubernetes</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>Calico 是一个纯三层的数据中心网络方案，而且无缝集成像 OpenStack 这种 Iaas 云架构，能够提供可控的 VM、容器、裸机之间的 IP 通信。为什么说它是纯三层呢？因为所有的数据包都是通过路由的形式找到对应的主机和容器的，然后通过 BGP 协议来将所有路由同步到所有的机器或数据中心，从而完成整个网络的互联。</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2020/04/08/k8s-network-calico/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://www.ywthings.com/2020/04/07/zero-downtime-rolling-update-k8s/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="hyman">
+      <meta itemprop="description" content="一些简单的记录">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="hyman-海曼工具">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/04/07/zero-downtime-rolling-update-k8s/" class="post-title-link" itemprop="url">k8s实现优雅关闭pod，实现真正的零宕机迁移</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-04-07 16:50:05" itemprop="dateCreated datePublished" datetime="2020-04-07T16:50:05+08:00">2020-04-07</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-05-18 07:58:42" itemprop="dateModified" datetime="2020-05-18T07:58:42+08:00">2020-05-18</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/kubernetes/" itemprop="url" rel="index"><span itemprop="name">kubernetes</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>首先，要实现这个目标的先决条件是我们的容器要正确处理终止信号，在 SIGTERM 信号上实现优雅关闭。下一步需要添加 readiness 可读探针，来检查我们的应用程序是否已经准备好来处理流量了。</p>
+<p>可读探针只是我们平滑滚动更新的起点，为了解决 Pod 停止的时候不会阻塞并等到负载均衡器重新配置的问题，我们需要使用 preStop 这个生命周期的钩子，在容器终止之前调用该钩子。</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2020/04/07/zero-downtime-rolling-update-k8s/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://www.ywthings.com/2020/04/07/k8s-get-client-realip/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="hyman">
+      <meta itemprop="description" content="一些简单的记录">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="hyman-海曼工具">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/04/07/k8s-get-client-realip/" class="post-title-link" itemprop="url">k8s获取客户端访问真实 IP</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-04-07 16:05:03" itemprop="dateCreated datePublished" datetime="2020-04-07T16:05:03+08:00">2020-04-07</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-05-18 07:58:42" itemprop="dateModified" datetime="2020-05-18T07:58:42+08:00">2020-05-18</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/kubernetes/" itemprop="url" rel="index"><span itemprop="name">kubernetes</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>通常，当集群内的客户端连接到服务的时候，是支持服务的 Pod 可以获取到客户端的 IP 地址的，但是，当通过节点端口接收到连接时，由于对数据包执行了源网络地址转换（SNAT），因此数据包的源 IP 地址会发生变化，后端的 Pod 无法看到实际的客户端 IP，对于某些应用来说是个问题，比如，nginx 的请求日志就无法获取准确的客户端访问 IP 了。</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2020/04/07/k8s-get-client-realip/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://www.ywthings.com/2020/04/07/k8s-strategy/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -589,409 +999,6 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://www.ywthings.com/2020/03/25/efk-pv/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="hyman">
-      <meta itemprop="description" content="一些简单的记录">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="hyman-海曼工具">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/03/25/efk-pv/" class="post-title-link" itemprop="url">使用Ceph RBD持久化存储部署K8S EFK</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-03-25 15:59:42" itemprop="dateCreated datePublished" datetime="2020-03-25T15:59:42+08:00">2020-03-25</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-05-18 07:58:42" itemprop="dateModified" datetime="2020-05-18T07:58:42+08:00">2020-05-18</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/kubernetes/" itemprop="url" rel="index"><span itemprop="name">kubernetes</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="前期准备"><a href="#前期准备" class="headerlink" title="前期准备"></a>前期准备</h1><h2 id="环境"><a href="#环境" class="headerlink" title="环境"></a>环境</h2><ul>
-<li><p>Ceph版本：v14 (nautilus)</p>
-</li>
-<li><p>k8s:1.17.x</p>
-</li>
-<li><p>Cenos 7.6</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2020/03/25/efk-pv/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://www.ywthings.com/2020/03/25/guzhang-question/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="hyman">
-      <meta itemprop="description" content="一些简单的记录">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="hyman-海曼工具">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/03/25/guzhang-question/" class="post-title-link" itemprop="url">故障问题收集</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-03-25 13:48:19" itemprop="dateCreated datePublished" datetime="2020-03-25T13:48:19+08:00">2020-03-25</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-05-18 07:58:42" itemprop="dateModified" datetime="2020-05-18T07:58:42+08:00">2020-05-18</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E9%9D%A2%E8%AF%95%E6%94%B6%E9%9B%86/" itemprop="url" rel="index"><span itemprop="name">面试收集</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="java-lang-OutOfMemoryError"><a href="#java-lang-OutOfMemoryError" class="headerlink" title="java.lang.OutOfMemoryError"></a>java.lang.OutOfMemoryError</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">这个服务有一个线程池，在代码里面设置的最小是8，最大限制是2147483647 ，用完的线程要1分钟之后才能回收。这就存在两个问题：</span><br><span class="line">一、业务在持续不断的发送请求，这个服务就会一直创建线程，而因为给定的线程最大值过大，相当于可以无限制的创建线程了，会一直消耗资源；</span><br><span class="line">二、用完的线程1分钟之后才会回收，时间过长。</span><br><span class="line">在这两点的影响下，程序跑一段时间，就会出现创建大量的线程，过度的消耗内存资源.</span><br><span class="line"></span><br><span class="line">由于docker容器在最初的时候没有做容器的内存限制，所以默认情况下容器使用的资源是不受限制的。</span><br><span class="line">也就是可以使用主机内核调度器所允许的最大资源，因此当主机发现内存不够用的时候，也会抛出内存溢出的错误。而且会开始杀死一些进程用于释放内存空间。可怕的是任何进程都可能成为内核猎杀的对象，包括 docker daemon 和宿主机上的其它一些重要的程序。更危险的是如果某个支持系统运行的重要进程被kill掉了，整个系统也就宕掉了。</span><br><span class="line"></span><br><span class="line">1、开发优化代码，包括限制线程池的最大线程数量和线程回收的时间，重新发布代码打补丁，后面观察到目前，没有再出现类这个问题了；</span><br><span class="line">2、限制docker内存。重新优化了docker容器，限制了docker内存的使用量，减少docker容器过度占用宿主机资源的风险；</span><br><span class="line">3、加强对docker容器的监控与告警；</span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://www.ywthings.com/2020/03/25/linux-question/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="hyman">
-      <meta itemprop="description" content="一些简单的记录">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="hyman-海曼工具">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/03/25/linux-question/" class="post-title-link" itemprop="url">linux面试收集</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-03-25 08:59:35" itemprop="dateCreated datePublished" datetime="2020-03-25T08:59:35+08:00">2020-03-25</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-05-18 07:58:42" itemprop="dateModified" datetime="2020-05-18T07:58:42+08:00">2020-05-18</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E9%9D%A2%E8%AF%95%E6%94%B6%E9%9B%86/" itemprop="url" rel="index"><span itemprop="name">面试收集</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="Linux系统的开机启动顺序"><a href="#Linux系统的开机启动顺序" class="headerlink" title="Linux系统的开机启动顺序"></a>Linux系统的开机启动顺序</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">加载BIOS–&gt;读取MBR–&gt;Boot Loader–&gt;加载内核–&gt;用户层init用inittab文件来设定系统运行的等级(一般3或者5，3是多用户命令行，5是界面)–&gt;init进程执行rc.syninit–&gt;启动内核模块–&gt;执行不同级别运行的脚本程序–&gt;执行/etc/rc.d/rc.local(本地运行服务)–&gt;执行/bin/login,就可以登录了。</span><br></pre></td></tr></table></figure>
-
-<h2 id="FTP的主动模式和被动模式"><a href="#FTP的主动模式和被动模式" class="headerlink" title="FTP的主动模式和被动模式"></a>FTP的主动模式和被动模式</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">FTP协议有两种工作方式：PORT方式和PASV方式，中文意思为主动式和被动式。</span><br><span class="line"></span><br><span class="line">PORT（主动）方式的连接过程是：客户端向服务器的FTP端口（默认是21）发送连接请求，服务器接受连接，建立一条命令链路。当需要传送数据时，客户端在命令链路上用 PORT 命令告诉服务器：“我打开了XX端口，你过来连接我”。于是服务器从20端口向客户端的 XX 端口发送连接请求，建立一条数据链路来传送数据。</span><br><span class="line"></span><br><span class="line">PASV（被动）方式的连接过程是：客户端向服务器的FTP端口（默认是21）发送连接请求，服务器接受连接，建立一条命令链路。当需要传送数据时，服务器在命令链路上用PASV 命令告诉客户端：“我打开了XX端口，你过来连接我”。于是客户端向服务器的 XX 端口发送连接请求，建立一条数据链路来传送数据。</span><br><span class="line"></span><br><span class="line">从上面可以看出，两种方式的命令链路连接方法是一样的，而数据链路的建立方法就完 全不同。</span><br></pre></td></tr></table></figure>
-
-<h2 id="系统中出现大量不可中断进程和僵尸进程怎么办"><a href="#系统中出现大量不可中断进程和僵尸进程怎么办" class="headerlink" title="系统中出现大量不可中断进程和僵尸进程怎么办"></a>系统中出现大量不可中断进程和僵尸进程怎么办</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><span class="line">进程常见的五种状态：</span><br><span class="line">（1）R 是 Running 或 Runnable 的缩写，表示进程在 CPU 的就绪队列中，正在运行或者正在等待运行。</span><br><span class="line"></span><br><span class="line">（2）D 是 Disk Sleep 的缩写，也就是不可中断状态睡眠（Uninterruptible Sleep），一般表示进程正在跟硬件交互，并且交互过程不允许被其他进程或中断打断。</span><br><span class="line"></span><br><span class="line">注意：进程长时间处于不可中断状态，通常表示系统有 I/O 性能问题。</span><br><span class="line"></span><br><span class="line">（3）Z 是 Zombie 的缩写，如果你玩过“植物大战僵尸”这款游戏，应该知道它的意思。它表示僵尸进程，也就是进程实际上已经结束了，但是父进程还没有回收它的资源（比如进程的描述符、PID 等）。</span><br><span class="line"></span><br><span class="line">（4）S 是 Interruptible Sleep 的缩写，也就是可中断状态睡眠，表示进程因为等待某个事件而被系统挂起。当进程等待的事件发生时，它会被唤醒并进入 R 状态。</span><br><span class="line"></span><br><span class="line">（5）I 是 Idle 的缩写，也就是空闲状态，用在不可中断睡眠的内核线程上。前面说了，硬件交互导致的不可中断进程用 D 表示，但对某些内核线程来说，它们有可能实际上并没有任何负载，用 Idle 正是为了区分这种情况。要注意，D 状态的进程会导致平均负载升高，I 状态的进程却不会。</span><br><span class="line"></span><br><span class="line">进程不常见的两种状态:</span><br><span class="line">1）T 或者 t，也就是 Stopped 或 Traced 的缩写，表示进程处于暂停或者跟踪状态。</span><br><span class="line"></span><br><span class="line">向一个进程发送 SIGSTOP 信号，它就会因响应这个信号变成暂停状态（Stopped）；再向它发送 SIGCONT 信号，进程又会恢复运行（如果进程是终端里直接启动的，则需要你用 fg 命令，恢复到前台运行）。</span><br><span class="line"></span><br><span class="line">而当你用调试器（如 gdb）调试一个进程时，在使用断点中断进程后，进程就会变成跟踪状态，这其实也是一种特殊的暂停状态，只不过你可以用调试器来跟踪并按需要控制进程的运行。</span><br><span class="line"></span><br><span class="line">（2）X，也就是 Dead 的缩写，表示进程已经消亡，所以你不会在top 或者 ps 命令中看到它。</span><br><span class="line"></span><br><span class="line">注意：Ss+：S表示可中断睡眠状态，s表示这个进程是一个会话的领导进程，而+表示前台进程组。</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">安装dstat</span><br><span class="line">（1）CentOS：yum install -y dstat</span><br><span class="line"></span><br><span class="line">（2）Ubuntu：apt install dstat</span><br><span class="line">dstat是一个新的性能工具，它吸收了vmstat、iostat、ifstat等几种工具的优点，可以同时观察系统的CPU、磁盘I/O、网络以及内存使用情况。</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">（1）dstat 1 10 （间隔1秒输出10组数据）</span><br><span class="line"></span><br><span class="line">（2）pidstat -d -p 4344 1 3 （-d 展示 I/O 统计数据，-p 指定进程号，间隔 1 秒输出 3 组数据）</span><br><span class="line"></span><br><span class="line">（3）strace -p 6082 （-p指定进程号）Strace最常用的跟踪进程系统调用的工具。</span><br><span class="line"></span><br><span class="line">（4）perf record -g（终端运行十五分钟左右，再ctrl+c）</span><br><span class="line"></span><br><span class="line">（5）perf report</span><br><span class="line"></span><br><span class="line">僵尸进程的处理</span><br><span class="line">要解决僵尸进程，就要找到它的根儿，也就是找出父进程，然后在父进程里解决。</span><br><span class="line"></span><br><span class="line">（1）pstree -aps 3084（-a表示输出命令行选项，p表示PID，s表示指定进程的父进程）</span><br><span class="line"></span><br><span class="line">（2）接着查看 app 应用程序的代码，看看子进程结束的处理是否正确，比如有没有调用wait() 或 waitpid() ，抑或是，有没有注册 SIGCHLD 信号的处理函数。</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://www.ywthings.com/2020/03/24/network-question/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="hyman">
-      <meta itemprop="description" content="一些简单的记录">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="hyman-海曼工具">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/03/24/network-question/" class="post-title-link" itemprop="url">network面试收集</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-03-24 16:55:02" itemprop="dateCreated datePublished" datetime="2020-03-24T16:55:02+08:00">2020-03-24</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-05-18 07:58:42" itemprop="dateModified" datetime="2020-05-18T07:58:42+08:00">2020-05-18</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E9%9D%A2%E8%AF%95%E6%94%B6%E9%9B%86/" itemprop="url" rel="index"><span itemprop="name">面试收集</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="如何查看http的并发请求数与其TCP连接状态？"><a href="#如何查看http的并发请求数与其TCP连接状态？" class="headerlink" title="如何查看http的并发请求数与其TCP连接状态？"></a>如何查看http的并发请求数与其TCP连接状态？</h2>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2020/03/24/network-question/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://www.ywthings.com/2020/03/24/k8s-deployment-yaml/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="hyman">
-      <meta itemprop="description" content="一些简单的记录">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="hyman-海曼工具">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/03/24/k8s-deployment-yaml/" class="post-title-link" itemprop="url">k8s Deployment 字段解释</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-03-24 16:10:07" itemprop="dateCreated datePublished" datetime="2020-03-24T16:10:07+08:00">2020-03-24</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-05-18 07:58:42" itemprop="dateModified" datetime="2020-05-18T07:58:42+08:00">2020-05-18</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/kubernetes/" itemprop="url" rel="index"><span itemprop="name">kubernetes</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="Deployment"><a href="#Deployment" class="headerlink" title="Deployment"></a>Deployment</h1><p>apiVersion: 表示版本<br>kind: 表示资源<br>metadata: 表示元信息<br>spec: 资源规范字段</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2020/03/24/k8s-deployment-yaml/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1061,20 +1068,20 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">222</span>
+          <span class="site-state-item-count">227</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">50</span>
+        <span class="site-state-item-count">52</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">145</span>
+        <span class="site-state-item-count">150</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -1108,7 +1115,7 @@
 <div class="copyright">
   
   &copy; 2017 – 
-  <span itemprop="copyrightYear">2023</span>
+  <span itemprop="copyrightYear">2024</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>
