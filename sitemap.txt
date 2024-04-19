@@ -1,8 +1,12 @@
+https://www.ywthings.com/2024/03/28/sql-server-2008-install/
+https://www.ywthings.com/2024/03/22/opensees-install/
+https://www.ywthings.com/2024/03/20/pytorch-install/
+https://www.ywthings.com/2024/03/11/pycharm-install/
+https://www.ywthings.com/2023/12/27/clash-for-linux/
+https://www.ywthings.com/2024/02/29/docker-install/
 https://www.ywthings.com/2024/03/07/centos7-full-hd/
 https://www.ywthings.com/2024/03/06/install-npm-yarn/
 https://www.ywthings.com/2024/03/07/centos7-install-x-windows-system/
-https://www.ywthings.com/2024/02/29/docker-install/
-https://www.ywthings.com/2023/12/27/clash-for-linux/
 https://www.ywthings.com/2023/11/24/hexo-set-top/
 https://www.ywthings.com/2021/09/24/tools-install/
 https://www.ywthings.com/2018/05/18/CentOS7-install-NFS/
@@ -378,6 +382,10 @@ https://www.ywthings.com/tags/clash/
 https://www.ywthings.com/tags/nodejs/
 https://www.ywthings.com/tags/npm/
 https://www.ywthings.com/tags/yarn/
+https://www.ywthings.com/tags/pycharm/
+https://www.ywthings.com/tags/pytorch/
+https://www.ywthings.com/tags/opensees/
+https://www.ywthings.com/tags/SQL-Server/
 https://www.ywthings.com/categories/Ansible/
 https://www.ywthings.com/categories/%E6%97%A5%E5%B8%B8%E9%97%AE%E9%A2%98%E5%A4%84%E7%90%86/
 https://www.ywthings.com/categories/ansible/

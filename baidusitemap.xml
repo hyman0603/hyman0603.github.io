@@ -1,6 +1,30 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
+    <loc>https://www.ywthings.com/2024/03/28/sql-server-2008-install/</loc>
+    <lastmod>2024-03-29</lastmod>
+  </url>
+  <url>
+    <loc>https://www.ywthings.com/2024/03/22/opensees-install/</loc>
+    <lastmod>2024-03-22</lastmod>
+  </url>
+  <url>
+    <loc>https://www.ywthings.com/2024/03/20/pytorch-install/</loc>
+    <lastmod>2024-03-22</lastmod>
+  </url>
+  <url>
+    <loc>https://www.ywthings.com/2024/03/11/pycharm-install/</loc>
+    <lastmod>2024-03-11</lastmod>
+  </url>
+  <url>
+    <loc>https://www.ywthings.com/2023/12/27/clash-for-linux/</loc>
+    <lastmod>2024-03-07</lastmod>
+  </url>
+  <url>
+    <loc>https://www.ywthings.com/2024/02/29/docker-install/</loc>
+    <lastmod>2024-03-07</lastmod>
+  </url>
+  <url>
     <loc>https://www.ywthings.com/2024/03/07/centos7-full-hd/</loc>
     <lastmod>2024-03-07</lastmod>
   </url>
@@ -11,14 +35,6 @@
   <url>
     <loc>https://www.ywthings.com/2024/03/07/centos7-install-x-windows-system/</loc>
     <lastmod>2024-03-07</lastmod>
-  </url>
-  <url>
-    <loc>https://www.ywthings.com/2024/02/29/docker-install/</loc>
-    <lastmod>2024-02-29</lastmod>
-  </url>
-  <url>
-    <loc>https://www.ywthings.com/2023/12/27/clash-for-linux/</loc>
-    <lastmod>2024-02-29</lastmod>
   </url>
   <url>
     <loc>https://www.ywthings.com/2023/11/24/hexo-set-top/</loc>
