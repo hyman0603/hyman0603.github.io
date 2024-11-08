@@ -1,8 +1,32 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
+    <loc>https://www.ywthings.com/2024/05/15/sqlserver-ad-hoc-distributed-queries/</loc>
+    <lastmod>2024-11-08</lastmod>
+  </url>
+  <url>
+    <loc>https://www.ywthings.com/2024/11/08/esxi-error/</loc>
+    <lastmod>2024-11-08</lastmod>
+  </url>
+  <url>
+    <loc>https://www.ywthings.com/2024/10/09/windows-two-network/</loc>
+    <lastmod>2024-11-07</lastmod>
+  </url>
+  <url>
+    <loc>https://www.ywthings.com/2024/11/06/wireshark-tips/</loc>
+    <lastmod>2024-11-06</lastmod>
+  </url>
+  <url>
     <loc>https://www.ywthings.com/2024/03/28/sql-server-2008-install/</loc>
-    <lastmod>2024-03-29</lastmod>
+    <lastmod>2024-05-15</lastmod>
+  </url>
+  <url>
+    <loc>https://www.ywthings.com/2024/04/28/vscode-set-chinese/</loc>
+    <lastmod>2024-04-28</lastmod>
+  </url>
+  <url>
+    <loc>https://www.ywthings.com/2024/04/28/vscode-autoquit-terminal/</loc>
+    <lastmod>2024-04-28</lastmod>
   </url>
   <url>
     <loc>https://www.ywthings.com/2024/03/22/opensees-install/</loc>
@@ -229,11 +253,11 @@
     <lastmod>2021-09-10</lastmod>
   </url>
   <url>
-    <loc>https://www.ywthings.com/2021/08/10/ceph-mon-start-error/</loc>
+    <loc>https://www.ywthings.com/2021/08/17/check-disk-shell/</loc>
     <lastmod>2021-08-18</lastmod>
   </url>
   <url>
-    <loc>https://www.ywthings.com/2021/08/17/check-disk-shell/</loc>
+    <loc>https://www.ywthings.com/2021/08/10/ceph-mon-start-error/</loc>
     <lastmod>2021-08-18</lastmod>
   </url>
   <url>
@@ -461,27 +485,11 @@
     <lastmod>2020-05-26</lastmod>
   </url>
   <url>
-    <loc>https://www.ywthings.com/2019/11/08/Centos-7-remove-iptables/</loc>
-    <lastmod>2020-05-17</lastmod>
-  </url>
-  <url>
-    <loc>https://www.ywthings.com/2019/04/15/centos-7-install-fonts/</loc>
-    <lastmod>2020-05-17</lastmod>
-  </url>
-  <url>
-    <loc>https://www.ywthings.com/2018/06/14/Centos-ansible-nokey-deploy/</loc>
-    <lastmod>2020-05-17</lastmod>
-  </url>
-  <url>
-    <loc>https://www.ywthings.com/2019/09/17/centos-df-h-huang/</loc>
-    <lastmod>2020-05-17</lastmod>
-  </url>
-  <url>
-    <loc>https://www.ywthings.com/2020/04/08/centos7-create-local-yum/</loc>
-    <lastmod>2020-05-17</lastmod>
-  </url>
-  <url>
     <loc>https://www.ywthings.com/2017/05/05/CentOS7-DevStack-install-OpenStack/</loc>
+    <lastmod>2020-05-17</lastmod>
+  </url>
+  <url>
+    <loc>https://www.ywthings.com/2017/05/02/CentOS7-LDAP-deployment/</loc>
     <lastmod>2020-05-17</lastmod>
   </url>
   <url>
@@ -493,15 +501,63 @@
     <lastmod>2020-05-17</lastmod>
   </url>
   <url>
-    <loc>https://www.ywthings.com/2017/05/02/CentOS7-LDAP-deployment/</loc>
-    <lastmod>2020-05-17</lastmod>
-  </url>
-  <url>
     <loc>https://www.ywthings.com/2017/04/26/CentOS7-yum-install-MySQL/</loc>
     <lastmod>2020-05-17</lastmod>
   </url>
   <url>
-    <loc>https://www.ywthings.com/2020/03/26/ceph-14-learn/</loc>
+    <loc>https://www.ywthings.com/2019/11/08/Centos-7-remove-iptables/</loc>
+    <lastmod>2020-05-17</lastmod>
+  </url>
+  <url>
+    <loc>https://www.ywthings.com/2017/11/06/Haproxy-configuration-https/</loc>
+    <lastmod>2020-05-17</lastmod>
+  </url>
+  <url>
+    <loc>https://www.ywthings.com/2018/06/14/Centos-ansible-nokey-deploy/</loc>
+    <lastmod>2020-05-17</lastmod>
+  </url>
+  <url>
+    <loc>https://www.ywthings.com/2017/01/13/Hexo-github-next-blog/</loc>
+    <lastmod>2020-05-17</lastmod>
+  </url>
+  <url>
+    <loc>https://www.ywthings.com/2017/08/10/Linux-some-command-recommend/</loc>
+    <lastmod>2020-05-17</lastmod>
+  </url>
+  <url>
+    <loc>https://www.ywthings.com/2018/08/16/Kubernetes-application-deployment-workflow/</loc>
+    <lastmod>2020-05-17</lastmod>
+  </url>
+  <url>
+    <loc>https://www.ywthings.com/2017/10/23/MySQL-backup-explain/</loc>
+    <lastmod>2020-05-17</lastmod>
+  </url>
+  <url>
+    <loc>https://www.ywthings.com/2017/04/26/MySQL%E8%87%AA%E5%B8%A6%E5%8E%8B%E5%8A%9B%E6%B5%8B%E8%AF%95%E5%B7%A5%E5%85%B7mysqlslap%E7%9A%84%E4%BD%BF%E7%94%A8%E6%96%B9%E6%B3%95/</loc>
+    <lastmod>2020-05-17</lastmod>
+  </url>
+  <url>
+    <loc>https://www.ywthings.com/2017/08/23/Python-base-operation/</loc>
+    <lastmod>2020-05-17</lastmod>
+  </url>
+  <url>
+    <loc>https://www.ywthings.com/2017/05/09/SaltStack-stuty-record/</loc>
+    <lastmod>2020-05-17</lastmod>
+  </url>
+  <url>
+    <loc>https://www.ywthings.com/2017/04/26/Zookeeper-Dubbo-Admin-platform-deploy/</loc>
+    <lastmod>2020-05-17</lastmod>
+  </url>
+  <url>
+    <loc>https://www.ywthings.com/2019/09/17/centos-df-h-huang/</loc>
+    <lastmod>2020-05-17</lastmod>
+  </url>
+  <url>
+    <loc>https://www.ywthings.com/2019/04/15/centos-7-install-fonts/</loc>
+    <lastmod>2020-05-17</lastmod>
+  </url>
+  <url>
+    <loc>https://www.ywthings.com/2020/04/08/centos7-create-local-yum/</loc>
     <lastmod>2020-05-17</lastmod>
   </url>
   <url>
@@ -509,11 +565,15 @@
     <lastmod>2020-05-17</lastmod>
   </url>
   <url>
-    <loc>https://www.ywthings.com/2020/01/01/ceph-deploy/</loc>
+    <loc>https://www.ywthings.com/2020/03/26/ceph-14-learn/</loc>
     <lastmod>2020-05-17</lastmod>
   </url>
   <url>
     <loc>https://www.ywthings.com/2018/07/23/ceph-cluster-deploy-luminous/</loc>
+    <lastmod>2020-05-17</lastmod>
+  </url>
+  <url>
+    <loc>https://www.ywthings.com/2020/01/01/ceph-deploy/</loc>
     <lastmod>2020-05-17</lastmod>
   </url>
   <url>
@@ -525,11 +585,11 @@
     <lastmod>2020-05-17</lastmod>
   </url>
   <url>
-    <loc>https://www.ywthings.com/2019/05/31/deployment-docx-model/</loc>
+    <loc>https://www.ywthings.com/2019/08/14/deploy-project-with-windows/</loc>
     <lastmod>2020-05-17</lastmod>
   </url>
   <url>
-    <loc>https://www.ywthings.com/2019/08/14/deploy-project-with-windows/</loc>
+    <loc>https://www.ywthings.com/2019/05/31/deployment-docx-model/</loc>
     <lastmod>2020-05-17</lastmod>
   </url>
   <url>
@@ -581,19 +641,7 @@
     <lastmod>2020-05-17</lastmod>
   </url>
   <url>
-    <loc>https://www.ywthings.com/2017/11/06/Haproxy-configuration-https/</loc>
-    <lastmod>2020-05-17</lastmod>
-  </url>
-  <url>
-    <loc>https://www.ywthings.com/2017/01/13/Hexo-github-next-blog/</loc>
-    <lastmod>2020-05-17</lastmod>
-  </url>
-  <url>
     <loc>https://www.ywthings.com/2018/10/18/hung-task-timeout-secs/</loc>
-    <lastmod>2020-05-17</lastmod>
-  </url>
-  <url>
-    <loc>https://www.ywthings.com/2017/11/30/install-ELK5.x-some-problem/</loc>
     <lastmod>2020-05-17</lastmod>
   </url>
   <url>
@@ -605,11 +653,11 @@
     <lastmod>2020-05-17</lastmod>
   </url>
   <url>
-    <loc>https://www.ywthings.com/2019/04/12/install-pgadmin4-in-centos-7/</loc>
+    <loc>https://www.ywthings.com/2017/11/30/install-ELK5.x-some-problem/</loc>
     <lastmod>2020-05-17</lastmod>
   </url>
   <url>
-    <loc>https://www.ywthings.com/2020/04/14/interview-question/</loc>
+    <loc>https://www.ywthings.com/2019/04/12/install-pgadmin4-in-centos-7/</loc>
     <lastmod>2020-05-17</lastmod>
   </url>
   <url>
@@ -617,11 +665,11 @@
     <lastmod>2020-05-17</lastmod>
   </url>
   <url>
-    <loc>https://www.ywthings.com/2020/03/24/k8s-cluster-ha/</loc>
+    <loc>https://www.ywthings.com/2020/04/14/interview-question/</loc>
     <lastmod>2020-05-17</lastmod>
   </url>
   <url>
-    <loc>https://www.ywthings.com/2020/03/30/k8s-fannal-network-interface/</loc>
+    <loc>https://www.ywthings.com/2020/03/24/k8s-cluster-ha/</loc>
     <lastmod>2020-05-17</lastmod>
   </url>
   <url>
@@ -630,6 +678,10 @@
   </url>
   <url>
     <loc>https://www.ywthings.com/2020/04/07/k8s-get-client-realip/</loc>
+    <lastmod>2020-05-17</lastmod>
+  </url>
+  <url>
+    <loc>https://www.ywthings.com/2020/03/30/k8s-fannal-network-interface/</loc>
     <lastmod>2020-05-17</lastmod>
   </url>
   <url>
@@ -649,19 +701,11 @@
     <lastmod>2020-05-17</lastmod>
   </url>
   <url>
-    <loc>https://www.ywthings.com/2018/08/16/Kubernetes-application-deployment-workflow/</loc>
-    <lastmod>2020-05-17</lastmod>
-  </url>
-  <url>
     <loc>https://www.ywthings.com/2019/05/22/kubernetes-in-action/</loc>
     <lastmod>2020-05-17</lastmod>
   </url>
   <url>
     <loc>https://www.ywthings.com/2018/09/14/kubernetes-ingress-enable-free-https-with-cert-manager/</loc>
-    <lastmod>2020-05-17</lastmod>
-  </url>
-  <url>
-    <loc>https://www.ywthings.com/2018/07/24/kubernetes-master-install-for-kubeadm-1-11/</loc>
     <lastmod>2020-05-17</lastmod>
   </url>
   <url>
@@ -673,11 +717,11 @@
     <lastmod>2020-05-17</lastmod>
   </url>
   <url>
-    <loc>https://www.ywthings.com/2019/07/11/kubernetes-master-install-for-kubeadm-1-15-x/</loc>
+    <loc>https://www.ywthings.com/2018/07/24/kubernetes-master-install-for-kubeadm-1-11/</loc>
     <lastmod>2020-05-17</lastmod>
   </url>
   <url>
-    <loc>https://www.ywthings.com/2018/09/14/kubernetes-use-tls/</loc>
+    <loc>https://www.ywthings.com/2019/07/11/kubernetes-master-install-for-kubeadm-1-15-x/</loc>
     <lastmod>2020-05-17</lastmod>
   </url>
   <url>
@@ -685,11 +729,15 @@
     <lastmod>2020-05-17</lastmod>
   </url>
   <url>
+    <loc>https://www.ywthings.com/2018/05/30/linux-filesystem-tripwire/</loc>
+    <lastmod>2020-05-17</lastmod>
+  </url>
+  <url>
     <loc>https://www.ywthings.com/2019/11/15/kubernets-probe/</loc>
     <lastmod>2020-05-17</lastmod>
   </url>
   <url>
-    <loc>https://www.ywthings.com/2018/05/30/linux-filesystem-tripwire/</loc>
+    <loc>https://www.ywthings.com/2018/09/14/kubernetes-use-tls/</loc>
     <lastmod>2020-05-17</lastmod>
   </url>
   <url>
@@ -697,7 +745,7 @@
     <lastmod>2020-05-17</lastmod>
   </url>
   <url>
-    <loc>https://www.ywthings.com/2017/08/10/Linux-some-command-recommend/</loc>
+    <loc>https://www.ywthings.com/2019/04/12/load-testing-web-servers-with-siege-benchmarking-tool/</loc>
     <lastmod>2020-05-17</lastmod>
   </url>
   <url>
@@ -705,19 +753,7 @@
     <lastmod>2020-05-17</lastmod>
   </url>
   <url>
-    <loc>https://www.ywthings.com/2019/04/12/load-testing-web-servers-with-siege-benchmarking-tool/</loc>
-    <lastmod>2020-05-17</lastmod>
-  </url>
-  <url>
-    <loc>https://www.ywthings.com/2020/04/15/mongodb-drop-database/</loc>
-    <lastmod>2020-05-17</lastmod>
-  </url>
-  <url>
-    <loc>https://www.ywthings.com/2019/04/22/memcached-repcached/</loc>
-    <lastmod>2020-05-17</lastmod>
-  </url>
-  <url>
-    <loc>https://www.ywthings.com/2017/10/23/MySQL-backup-explain/</loc>
+    <loc>https://www.ywthings.com/2019/04/20/maven-local-install-jar/</loc>
     <lastmod>2020-05-17</lastmod>
   </url>
   <url>
@@ -729,15 +765,19 @@
     <lastmod>2020-05-17</lastmod>
   </url>
   <url>
-    <loc>https://www.ywthings.com/2019/04/20/maven-local-install-jar/</loc>
-    <lastmod>2020-05-17</lastmod>
-  </url>
-  <url>
-    <loc>https://www.ywthings.com/2020/03/18/mysqlquestion/</loc>
+    <loc>https://www.ywthings.com/2019/04/22/memcached-repcached/</loc>
     <lastmod>2020-05-17</lastmod>
   </url>
   <url>
     <loc>https://www.ywthings.com/2019/09/12/mysql-update-recover/</loc>
+    <lastmod>2020-05-17</lastmod>
+  </url>
+  <url>
+    <loc>https://www.ywthings.com/2020/04/15/mongodb-drop-database/</loc>
+    <lastmod>2020-05-17</lastmod>
+  </url>
+  <url>
+    <loc>https://www.ywthings.com/2020/03/18/mysqlquestion/</loc>
     <lastmod>2020-05-17</lastmod>
   </url>
   <url>
@@ -749,11 +789,11 @@
     <lastmod>2020-05-17</lastmod>
   </url>
   <url>
-    <loc>https://www.ywthings.com/2017/04/26/MySQL%E8%87%AA%E5%B8%A6%E5%8E%8B%E5%8A%9B%E6%B5%8B%E8%AF%95%E5%B7%A5%E5%85%B7mysqlslap%E7%9A%84%E4%BD%BF%E7%94%A8%E6%96%B9%E6%B3%95/</loc>
+    <loc>https://www.ywthings.com/2018/07/09/nginx-remote-addr-rewrite/</loc>
     <lastmod>2020-05-17</lastmod>
   </url>
   <url>
-    <loc>https://www.ywthings.com/2018/07/09/nginx-remote-addr-rewrite/</loc>
+    <loc>https://www.ywthings.com/2018/07/31/oracle-error-ora00980/</loc>
     <lastmod>2020-05-17</lastmod>
   </url>
   <url>
@@ -765,10 +805,6 @@
     <lastmod>2020-05-17</lastmod>
   </url>
   <url>
-    <loc>https://www.ywthings.com/2018/07/31/oracle-error-ora00980/</loc>
-    <lastmod>2020-05-17</lastmod>
-  </url>
-  <url>
     <loc>https://www.ywthings.com/2019/01/24/project-deploy/</loc>
     <lastmod>2020-05-17</lastmod>
   </url>
@@ -777,7 +813,7 @@
     <lastmod>2020-05-17</lastmod>
   </url>
   <url>
-    <loc>https://www.ywthings.com/2017/08/23/Python-base-operation/</loc>
+    <loc>https://www.ywthings.com/2020/04/08/rate-limiting-nginx/</loc>
     <lastmod>2020-05-17</lastmod>
   </url>
   <url>
@@ -793,15 +829,11 @@
     <lastmod>2020-05-17</lastmod>
   </url>
   <url>
-    <loc>https://www.ywthings.com/2020/04/08/rate-limiting-nginx/</loc>
+    <loc>https://www.ywthings.com/2020/04/13/redis-key-lru/</loc>
     <lastmod>2020-05-17</lastmod>
   </url>
   <url>
     <loc>https://www.ywthings.com/2020/04/13/redis-config/</loc>
-    <lastmod>2020-05-17</lastmod>
-  </url>
-  <url>
-    <loc>https://www.ywthings.com/2020/04/13/redis-key-lru/</loc>
     <lastmod>2020-05-17</lastmod>
   </url>
   <url>
@@ -817,15 +849,15 @@
     <lastmod>2020-05-17</lastmod>
   </url>
   <url>
-    <loc>https://www.ywthings.com/2017/08/01/redis4.0-config-file-explain/</loc>
-    <lastmod>2020-05-17</lastmod>
-  </url>
-  <url>
     <loc>https://www.ywthings.com/2018/09/30/regular-restart-tomcat/</loc>
     <lastmod>2020-05-17</lastmod>
   </url>
   <url>
-    <loc>https://www.ywthings.com/2017/05/09/SaltStack-stuty-record/</loc>
+    <loc>https://www.ywthings.com/2017/08/01/redis4.0-config-file-explain/</loc>
+    <lastmod>2020-05-17</lastmod>
+  </url>
+  <url>
+    <loc>https://www.ywthings.com/2019/12/28/shell-deployment-project2/</loc>
     <lastmod>2020-05-17</lastmod>
   </url>
   <url>
@@ -837,19 +869,19 @@
     <lastmod>2020-05-17</lastmod>
   </url>
   <url>
-    <loc>https://www.ywthings.com/2019/12/28/shell-deployment-project2/</loc>
-    <lastmod>2020-05-17</lastmod>
-  </url>
-  <url>
     <loc>https://www.ywthings.com/2018/10/10/some-command-useful/</loc>
     <lastmod>2020-05-17</lastmod>
   </url>
   <url>
-    <loc>https://www.ywthings.com/2019/05/24/systemtap-install-centos-7/</loc>
+    <loc>https://www.ywthings.com/2018/12/11/systemd-causes-high-CPU-load/</loc>
     <lastmod>2020-05-17</lastmod>
   </url>
   <url>
-    <loc>https://www.ywthings.com/2018/12/11/systemd-causes-high-CPU-load/</loc>
+    <loc>https://www.ywthings.com/2019/04/17/tencent-cloud-install-gnome-desktop-with-centos-7/</loc>
+    <lastmod>2020-05-17</lastmod>
+  </url>
+  <url>
+    <loc>https://www.ywthings.com/2019/05/24/systemtap-install-centos-7/</loc>
     <lastmod>2020-05-17</lastmod>
   </url>
   <url>
@@ -865,7 +897,7 @@
     <lastmod>2020-05-17</lastmod>
   </url>
   <url>
-    <loc>https://www.ywthings.com/2019/04/17/tencent-cloud-install-gnome-desktop-with-centos-7/</loc>
+    <loc>https://www.ywthings.com/2017/08/08/use-Xtrabackup-MySQL-backup/</loc>
     <lastmod>2020-05-17</lastmod>
   </url>
   <url>
@@ -881,23 +913,15 @@
     <lastmod>2020-05-17</lastmod>
   </url>
   <url>
-    <loc>https://www.ywthings.com/2018/09/28/use-ps-tools-count-cpu-mem-loadaverage/</loc>
-    <lastmod>2020-05-17</lastmod>
-  </url>
-  <url>
     <loc>https://www.ywthings.com/2018/07/27/vmware-os-reboot-fsckext4-no-file/</loc>
     <lastmod>2020-05-17</lastmod>
   </url>
   <url>
-    <loc>https://www.ywthings.com/2017/08/08/use-Xtrabackup-MySQL-backup/</loc>
+    <loc>https://www.ywthings.com/2018/09/28/use-ps-tools-count-cpu-mem-loadaverage/</loc>
     <lastmod>2020-05-17</lastmod>
   </url>
   <url>
     <loc>https://www.ywthings.com/2018/11/13/vsftp-deployment/</loc>
-    <lastmod>2020-05-17</lastmod>
-  </url>
-  <url>
-    <loc>https://www.ywthings.com/2018/05/25/winscp-switch-root/</loc>
     <lastmod>2020-05-17</lastmod>
   </url>
   <url>
@@ -909,11 +933,7 @@
     <lastmod>2020-05-17</lastmod>
   </url>
   <url>
-    <loc>https://www.ywthings.com/2020/04/07/zero-downtime-rolling-update-k8s/</loc>
-    <lastmod>2020-05-17</lastmod>
-  </url>
-  <url>
-    <loc>https://www.ywthings.com/2017/08/09/%E5%A4%87%E4%BB%BD%E6%95%B0%E6%8D%AE%E5%BA%93%E8%84%9A%E6%9C%AC%E5%B9%B6%E5%B0%86%E5%A4%87%E4%BB%BD%E6%95%B0%E6%8D%AE%E5%BA%93%E5%90%8C%E6%AD%A5%E5%88%B0%E5%8F%88%E6%8B%8D%E4%BA%91%E5%AD%98%E5%82%A8%E7%A9%BA%E9%97%B4/</loc>
+    <loc>https://www.ywthings.com/2018/05/25/winscp-switch-root/</loc>
     <lastmod>2020-05-17</lastmod>
   </url>
   <url>
@@ -921,7 +941,11 @@
     <lastmod>2020-05-17</lastmod>
   </url>
   <url>
-    <loc>https://www.ywthings.com/2017/04/26/Zookeeper-Dubbo-Admin-platform-deploy/</loc>
+    <loc>https://www.ywthings.com/2020/04/07/zero-downtime-rolling-update-k8s/</loc>
+    <lastmod>2020-05-17</lastmod>
+  </url>
+  <url>
+    <loc>https://www.ywthings.com/2017/08/09/%E5%A4%87%E4%BB%BD%E6%95%B0%E6%8D%AE%E5%BA%93%E8%84%9A%E6%9C%AC%E5%B9%B6%E5%B0%86%E5%A4%87%E4%BB%BD%E6%95%B0%E6%8D%AE%E5%BA%93%E5%90%8C%E6%AD%A5%E5%88%B0%E5%8F%88%E6%8B%8D%E4%BA%91%E5%AD%98%E5%82%A8%E7%A9%BA%E9%97%B4/</loc>
     <lastmod>2020-05-17</lastmod>
   </url>
 </urlset> 
